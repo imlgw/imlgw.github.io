@@ -1230,8 +1230,8 @@ canvas,
   overflow: auto;
   margin: 0 0 1rem;
   padding: 0;
-  background: #263238;
-  color: #eff;
+  background: #292d3e;
+  color: #a6accd;
   font-size: 14px;
   line-height: 20px;
 }
@@ -1280,7 +1280,7 @@ blockquote footer cite:before {
 .article-container pre code {
   padding: 0;
   background: none;
-  color: #eff;
+  color: #a6accd;
   text-shadow: none;
 }
 .article-container .highlight {
@@ -1293,11 +1293,11 @@ blockquote footer cite:before {
   border: none;
 }
 .article-container .highlight .line::selection {
-  background: rgba(128,203,196,0.125);
-  color: #eff;
+  background: rgba(113,124,180,0.314);
+  color: #a6accd;
 }
 .article-container .highlight .line.marked {
-  background-color: rgba(128,203,196,0.125);
+  background-color: rgba(113,124,180,0.314);
 }
 .article-container .highlight table {
   position: relative;
@@ -1317,7 +1317,7 @@ blockquote footer cite:before {
   padding: 0.2rem 0 0.2rem 0.7rem;
   width: 100%;
   height: 1.4em;
-  color: #eff;
+  color: #a6accd;
   font-size: 1em;
   line-height: 1em;
 }
@@ -1340,10 +1340,10 @@ blockquote footer cite:before {
 .article-container .highlight figcaption a {
   float: right;
   padding-right: 10px;
-  color: #eff;
+  color: #a6accd;
 }
 .article-container .highlight figcaption a:hover {
-  border-bottom-color: #eff;
+  border-bottom-color: #a6accd;
 }
 .article-container .highlight figcaption+table {
   margin-top: 1.1rem;
@@ -1357,15 +1357,15 @@ blockquote footer cite:before {
 .article-container .highlight .gutter pre {
   padding-right: 0.5rem;
   padding-left: 0.5rem;
-  background-color: #263238;
-  color: #37474f;
+  background-color: #292d3e;
+  color: #3a3f58;
   text-align: right;
 }
 .article-container .highlight .code pre {
   padding-right: 0.5rem;
   padding-left: 0.5rem;
   width: 100%;
-  background-color: #263238;
+  background-color: #292d3e;
 }
 .article-container .highlight .line {
   height: 1rem;
@@ -1395,11 +1395,11 @@ blockquote footer cite:before {
   color: #c792ea;
 }
 .article-container pre .comment {
-  color: #546e7a;
+  color: #676e95;
 }
 .article-container pre .comment::selection {
-  background: rgba(128,203,196,0.125);
-  color: #eff;
+  background: rgba(113,124,180,0.314);
+  color: #a6accd;
 }
 .article-container pre .variable,
 .article-container pre .attribute,
@@ -1427,15 +1427,15 @@ blockquote footer cite:before {
 .article-container pre .tag .name::selection,
 .article-container pre .css .class::selection,
 .article-container pre .css .pseudo::selection {
-  background: rgba(128,203,196,0.125);
-  color: #eff;
+  background: rgba(113,124,180,0.314);
+  color: #a6accd;
 }
 .article-container pre .tag {
   color: #89ddff;
 }
 .article-container pre .tag::selection {
-  background: rgba(128,203,196,0.125);
-  color: #eff;
+  background: rgba(113,124,180,0.314);
+  color: #a6accd;
 }
 .article-container pre .number,
 .article-container pre .preprocessor,
@@ -1451,15 +1451,15 @@ blockquote footer cite:before {
 .article-container pre .params::selection,
 .article-container pre .constant::selection,
 .article-container pre .command::selection {
-  background: rgba(128,203,196,0.125);
-  color: #eff;
+  background: rgba(113,124,180,0.314);
+  color: #a6accd;
 }
 .article-container pre .built_in {
   color: #ffcb6b;
 }
 .article-container pre .built_in::selection {
-  background: rgba(128,203,196,0.125);
-  color: #eff;
+  background: rgba(113,124,180,0.314);
+  color: #a6accd;
 }
 .article-container pre .ruby .class .title,
 .article-container pre .css .rules .attribute,
@@ -1485,8 +1485,8 @@ blockquote footer cite:before {
 .article-container pre .special::selection,
 .article-container pre .number::selection,
 .article-container pre .formula::selection {
-  background: rgba(128,203,196,0.125);
-  color: #eff;
+  background: rgba(113,124,180,0.314);
+  color: #a6accd;
 }
 .article-container pre .keyword,
 .article-container pre .title,
@@ -1496,8 +1496,8 @@ blockquote footer cite:before {
 .article-container pre .keyword::selection,
 .article-container pre .title::selection,
 .article-container pre .css .hexcolor::selection {
-  background: rgba(128,203,196,0.125);
-  color: #eff;
+  background: rgba(113,124,180,0.314);
+  color: #a6accd;
 }
 .article-container pre .function,
 .article-container pre .python .decorator,
@@ -1517,8 +1517,8 @@ blockquote footer cite:before {
 .article-container pre .perl .sub::selection,
 .article-container pre .javascript .title::selection,
 .article-container pre .coffeescript .title::selection {
-  background: rgba(128,203,196,0.125);
-  color: #eff;
+  background: rgba(113,124,180,0.314);
+  color: #a6accd;
 }
 .article-container pre .tag .attr,
 .article-container pre .javascript .function {
@@ -1526,15 +1526,15 @@ blockquote footer cite:before {
 }
 .article-container pre .tag .attr::selection,
 .article-container pre .javascript .function::selection {
-  background: rgba(128,203,196,0.125);
-  color: #eff;
+  background: rgba(113,124,180,0.314);
+  color: #a6accd;
 }
 .highlight-tools {
   position: relative;
   width: 100%;
   height: 1.4rem;
-  background: #1c2429;
-  color: #eff;
+  background: #1f222f;
+  color: #a6accd;
   font-size: 14px;
 }
 .highlight-tools + figure {
@@ -1950,13 +1950,13 @@ blockquote footer cite:before {
 }
 #vcomment .vat {
   padding: 0 0.8rem;
-  border: 1px solid #9fa4a9;
+  border: 1px solid #00c4b6;
   border-radius: 5px;
-  color: #9fa4a9;
+  color: #00c4b6;
   font-size: 0.7125rem;
 }
 #vcomment .vat:hover {
-  background-color: rgba(159,164,169,0.5);
+  background-color: rgba(0,196,182,0.5);
 }
 #vcomment code,
 #vcomment pre {
@@ -3201,7 +3201,7 @@ header {
   cursor: pointer;
 }
 #pagination .page-number.current {
-  background: #9fa4a9;
+  background: #00c4b6;
   color: #fff;
   cursor: default;
 }
@@ -3603,7 +3603,7 @@ img {
   top: 0;
   z-index: 1;
   padding: 7px 10px;
-  color: #eff;
+  color: #a6accd;
   cursor: pointer;
   -webkit-transition: all 0.3s;
   -moz-transition: all 0.3s;
@@ -3635,7 +3635,7 @@ img {
   position: absolute;
   left: 15px;
   z-index: 1;
-  color: #eff;
+  color: #a6accd;
   text-transform: capitalize;
   font-weight: bold;
   font-size: 0.8rem;
@@ -3647,7 +3647,7 @@ img {
   top: 0;
   right: 0;
   z-index: 1;
-  background: #1c2429;
+  background: #1f222f;
   color: #89ddff;
   opacity: 0;
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
@@ -4352,15 +4352,15 @@ img {
   transition: all 0.2s ease-in-out;
 }
 #sidebar .sidebar-toc .toc-link.active {
-  border-right-color: #7c838a;
-  background: #9fa4a9;
+  border-right-color: #009d92;
+  background: #00c4b6;
   color: #fff;
 }
 #sidebar .sidebar-toc__progress {
   position: relative;
   margin-top: -0.3rem;
   padding-left: 0.6rem;
-  color: #9fa4a9;
+  color: #00c4b6;
 }
 #sidebar .sidebar-toc__progress .progress-notice {
   margin-right: 0.4rem;
@@ -4372,7 +4372,7 @@ img {
 #sidebar .sidebar-toc__progress-bar {
   width: 0;
   height: 1px;
-  background: #9fa4a9;
+  background: #00c4b6;
 }
 .search-dialog {
   position: fixed;
