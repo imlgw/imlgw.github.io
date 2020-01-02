@@ -1,0 +1,546 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5"><title>并查集 | iMlGw0</title><meta name="description" content="并查集"><meta name="keywords" content="数据结构,算法"><meta name="author" content="imlgw"><meta name="copyright" content="imlgw"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/img/Cup.ico"><link rel="preconnect" href="//cdn.jsdelivr.net"><link rel="preconnect" href="https://hm.baidu.com"><link rel="preconnect" href="https://fonts.googleapis.com" crossorigin><link rel="preconnect" href="//busuanzi.ibruce.info"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="并查集"><meta name="twitter:description" content="并查集"><meta name="twitter:image" content="http://static.imlgw.top/blog/20200101/SdfeawuEf9Qz.png?imageslim"><meta property="og:type" content="article"><meta property="og:title" content="并查集"><meta property="og:url" content="http://imlgw.top/2020/01/01/bing-cha-ji/"><meta property="og:site_name" content="iMlGw0"><meta property="og:description" content="并查集"><meta property="og:image" content="http://static.imlgw.top/blog/20200101/SdfeawuEf9Qz.png?imageslim"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script src="https://cdn.jsdelivr.net/npm/js-cookie/dist/js.cookie.min.js"></script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css"><link rel="canonical" href="http://imlgw.top/2020/01/01/bing-cha-ji/"><link rel="next" title="常用的一些工具和网站" href="http://imlgw.top/2019/12/23/wo-chang-yong-de-yi-xie-gong-ju-he-wang-zhan/"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?93be601f1b40364d8cd640d751012180";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容:${query}"}},
+  translate: {"defaultEncoding":1,"translateDelay":0,"cookieDomain":"imlgw.top","msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简"},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    title: 'Snackbar.bookmark.title',
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime_unit: '天',
+  runtime: true,
+  copyright: {"languages":{"author":"作者: imlgw","link":"链接: http://imlgw.top/2020/01/01/bing-cha-ji/","source":"来源: iMlGw0","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  ClickShowText: undefined,
+  medium_zoom: true,
+  fancybox: false,
+  Snackbar: {"bookmark":{"title":"Snackbar.bookmark.title","message_prev":"按","message_next":"键将本页加入书签"},"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#2d3035","position":"bottom-left"},
+  baiduPush: false,
+  isHome: false,
+  isPost: true
+  
+}</script><meta name="generator" content="Hexo 4.2.0"><link rel="stylesheet" href="/css/prism.css" type="text/css"></head><body><header> <div id="page-header"><span class="pull_left" id="blog_name"><a class="blog_title" id="site-name" href="/">iMlGw0</a></span><span class="toggle-menu pull_right close"><a class="site-page"><i class="fa fa-bars fa-fw" aria-hidden="true"></i></a></span><span class="pull_right menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/board/"><i class="fa-fw fa fa-link"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-list" aria-hidden="true"></i><span> LeetCode</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="http://imlgw.top/2019/02/27/leetcode-lian-biao/"><i class="fa-fw fa fa-tags"></i><span> 链表</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/05/04/leetcode-shu-zu/"><i class="fa-fw fa fa-tags"></i><span> 数组</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/10/01/leetcode-zhan-dui-lie/"><i class="fa-fw fa fa-tags"></i><span> 栈&amp;队列</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/09/15/leetcode-cha-zhao/"><i class="fa-fw fa fa-tags"></i><span> 查找</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/12/06/leetcode-er-fen-cha-zhao/"><i class="fa-fw fa fa-tags"></i><span> 二分查找</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/11/06/leetcode-er-cha-shu/"><i class="fa-fw fa fa-tags"></i><span> 二叉树</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/07/20/leetcode-hua-dong-chuang-kou/"><i class="fa-fw fa fa-tags"></i><span> 滑动窗口</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/09/01/leetcode-dong-tai-gui-hua/"><i class="fa-fw fa fa-tags"></i><span> 动态规划</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/11/29/leetcode-bei-bao-wen-ti/"><i class="fa-fw fa fa-tags"></i><span> 背包问题</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/10/10/leetcode-hui-su/"><i class="fa-fw fa fa-tags"></i><span> 回溯</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link"><i class="fa-fw fa fa-address-book"></i><span> 大佬们</span></a></div></div></span><span class="pull_right" id="search_button"><a class="site-page social-icon search"><i class="fa fa-search fa-fw"></i><span> 搜索</span></a></span></div></header><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="http://static.imlgw.top/blog/20191125/NtrimWLEnNSI.png?imageslim" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">59</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">58</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">12</div></a></div></div></div><hr><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/board/"><i class="fa-fw fa fa-link"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-list" aria-hidden="true"></i><span> LeetCode</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="http://imlgw.top/2019/02/27/leetcode-lian-biao/"><i class="fa-fw fa fa-tags"></i><span> 链表</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/05/04/leetcode-shu-zu/"><i class="fa-fw fa fa-tags"></i><span> 数组</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/10/01/leetcode-zhan-dui-lie/"><i class="fa-fw fa fa-tags"></i><span> 栈&amp;队列</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/09/15/leetcode-cha-zhao/"><i class="fa-fw fa fa-tags"></i><span> 查找</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/12/06/leetcode-er-fen-cha-zhao/"><i class="fa-fw fa fa-tags"></i><span> 二分查找</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/11/06/leetcode-er-cha-shu/"><i class="fa-fw fa fa-tags"></i><span> 二叉树</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/07/20/leetcode-hua-dong-chuang-kou/"><i class="fa-fw fa fa-tags"></i><span> 滑动窗口</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/09/01/leetcode-dong-tai-gui-hua/"><i class="fa-fw fa fa-tags"></i><span> 动态规划</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/11/29/leetcode-bei-bao-wen-ti/"><i class="fa-fw fa fa-tags"></i><span> 背包问题</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/10/10/leetcode-hui-su/"><i class="fa-fw fa fa-tags"></i><span> 回溯</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link"><i class="fa-fw fa fa-address-book"></i><span> 大佬们</span></a></div></div></div><div id="mobile-sidebar-toc"><div class="toc_mobile_headline">目录</div><div class="sidebar-toc__content"><ol class="toc_mobile_items"><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#并查集"><span class="toc_mobile_items-number">1.</span> <span class="toc_mobile_items-text">并查集</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#UF接口"><span class="toc_mobile_items-number">1.1.</span> <span class="toc_mobile_items-text">UF接口</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#UnionFind1-QuickFind"><span class="toc_mobile_items-number">1.2.</span> <span class="toc_mobile_items-text">UnionFind1-QuickFind</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#UnionFind2-QuickUnion"><span class="toc_mobile_items-number">1.3.</span> <span class="toc_mobile_items-text">UnionFind2-QuickUnion</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#UnionFind3-size优化"><span class="toc_mobile_items-number">1.4.</span> <span class="toc_mobile_items-text">UnionFind3-size优化</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#UnionFind4-hight优化"><span class="toc_mobile_items-number">1.5.</span> <span class="toc_mobile_items-text">UnionFind4-hight优化</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#UnionFind5-路径压缩"><span class="toc_mobile_items-number">1.6.</span> <span class="toc_mobile_items-text">UnionFind5-路径压缩</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#时间复杂度"><span class="toc_mobile_items-number">1.7.</span> <span class="toc_mobile_items-text">时间复杂度</span></a></li></ol></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#练手例题"><span class="toc_mobile_items-number">2.</span> <span class="toc_mobile_items-text">练手例题</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#547-朋友圈"><span class="toc_mobile_items-number">2.1.</span> <span class="toc_mobile_items-text">547. 朋友圈</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#128-最长连续序列"><span class="toc_mobile_items-number">2.2.</span> <span class="toc_mobile_items-text">128. 最长连续序列</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#未完待续"><span class="toc_mobile_items-number">2.3.</span> <span class="toc_mobile_items-text">未完待续</span></a></li></ol></li></ol></div></div></div><div id="body-wrap"><div id="web_bg" data-type="color"></div><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true">     </i><div class="auto_open" id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#并查集"><span class="toc-number">1.</span> <span class="toc-text">并查集</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#UF接口"><span class="toc-number">1.1.</span> <span class="toc-text">UF接口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#UnionFind1-QuickFind"><span class="toc-number">1.2.</span> <span class="toc-text">UnionFind1-QuickFind</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#UnionFind2-QuickUnion"><span class="toc-number">1.3.</span> <span class="toc-text">UnionFind2-QuickUnion</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#UnionFind3-size优化"><span class="toc-number">1.4.</span> <span class="toc-text">UnionFind3-size优化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#UnionFind4-hight优化"><span class="toc-number">1.5.</span> <span class="toc-text">UnionFind4-hight优化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#UnionFind5-路径压缩"><span class="toc-number">1.6.</span> <span class="toc-text">UnionFind5-路径压缩</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#时间复杂度"><span class="toc-number">1.7.</span> <span class="toc-text">时间复杂度</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#练手例题"><span class="toc-number">2.</span> <span class="toc-text">练手例题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#547-朋友圈"><span class="toc-number">2.1.</span> <span class="toc-text">547. 朋友圈</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#128-最长连续序列"><span class="toc-number">2.2.</span> <span class="toc-text">128. 最长连续序列</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#未完待续"><span class="toc-number">2.3.</span> <span class="toc-text">未完待续</span></a></li></ol></li></ol></div></div></div><main id="content-outer"><div id="top-container" style="background-image: url(http://static.imlgw.top/blog/20200101/SdfeawuEf9Qz.png?imageslim)"><div id="post-info"><div id="post-title"><div class="posttitle">并查集</div></div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 发表于 2020-01-01<span class="post-meta__separator">|</span><i class="fa fa-history fa-fw" aria-hidden="true"></i> 更新于 2020-01-02</time><span class="post-meta__separator">|</span><span><i class="fa fa-inbox post-meta__icon fa-fw" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a></span><div class="post-meta-wordcount"><i class="fa fa-file-word-o post-meta__icon fa-fw" aria-hidden="true"></i><span>字数总计:</span><span class="word-count">120</span><span class="post-meta__separator">|</span><i class="fa fa-clock-o post-meta__icon fa-fw" aria-hidden="true"></i><span>阅读时长: 1 分钟</span><div class="post-meta-pv-cv"><span class="post-meta__separator">|</span><span><i class="fa fa-eye post-meta__icon fa-fw" aria-hidden="true"> </i>阅读量:</span><span id="busuanzi_value_page_pv"></span></div></div></div></div></div><div class="layout layout_post" id="content-inner">   <article id="post"><div class="article-container" id="post-content"><html><head></head><body><h2 id="并查集"><a href="#并查集" class="headerlink" title="并查集"></a>并查集</h2><p>并查集是一种奇怪的树结构，常用于处理一些集合的合并和查询问题，主要有两种操作：合并和查找</p>
+<h3 id="UF接口"><a href="#UF接口" class="headerlink" title="UF接口"></a>UF接口</h3><pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">UF</span><span class="token punctuation">{</span>
+    <span class="token keyword">int</span> <span class="token function">getSize</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//获取并查集的大小</span>
+    <span class="token keyword">boolean</span> <span class="token function">isConnected</span><span class="token punctuation">(</span><span class="token keyword">int</span> p<span class="token punctuation">,</span><span class="token keyword">int</span> q<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//是否连接</span>
+    <span class="token keyword">void</span> <span class="token function">unionElement</span><span class="token punctuation">(</span><span class="token keyword">int</span> p<span class="token punctuation">,</span><span class="token keyword">int</span> q<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//合并两个集合</span>
+<span class="token punctuation">}</span></code></pre>
+<h3 id="UnionFind1-QuickFind"><a href="#UnionFind1-QuickFind" class="headerlink" title="UnionFind1-QuickFind"></a>UnionFind1-QuickFind</h3><p>按照朴素的思路写出的并查集</p>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">UnionFind1</span> <span class="token keyword">implements</span> <span class="token class-name">UF</span><span class="token punctuation">{</span>
+
+    <span class="token keyword">private</span> <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> id<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//集合ids</span>
+
+    <span class="token keyword">public</span> <span class="token function">UnionFind1</span><span class="token punctuation">(</span><span class="token keyword">int</span> size<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        id<span class="token operator">=</span><span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span>size<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator"><</span>size<span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            id<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token operator">=</span>i<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">getSize</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">return</span> id<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">//p所属的集合ID</span>
+    <span class="token keyword">private</span> <span class="token keyword">int</span> <span class="token function">find</span><span class="token punctuation">(</span><span class="token keyword">int</span> p<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>p<span class="token operator"><</span><span class="token number">0</span> <span class="token operator">&&</span> p<span class="token operator">>=</span>id<span class="token punctuation">.</span>length<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">IllegalArgumentException</span><span class="token punctuation">(</span><span class="token string">"p is out...."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> id<span class="token punctuation">[</span>p<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">//判断集合ID是不是一样的</span>
+    <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">isConnected</span><span class="token punctuation">(</span><span class="token keyword">int</span> p<span class="token punctuation">,</span><span class="token keyword">int</span> q<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token function">find</span><span class="token punctuation">(</span>q<span class="token punctuation">)</span><span class="token operator">==</span><span class="token function">find</span><span class="token punctuation">(</span>p<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">unionElement</span><span class="token punctuation">(</span><span class="token keyword">int</span> p<span class="token punctuation">,</span><span class="token keyword">int</span> q<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">int</span> pID<span class="token operator">=</span><span class="token function">find</span><span class="token punctuation">(</span>p<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> qID<span class="token operator">=</span><span class="token function">find</span><span class="token punctuation">(</span>q<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>qID<span class="token operator">==</span>pID<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator"><</span>id<span class="token punctuation">.</span>length<span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>id<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token operator">==</span>qID<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                id<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token operator">=</span>pID<span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
+<p>初始化的时候每个元素都是不同的集合ID</p>
+<p><code>find</code>操作会返回他们所属集合ID，时间复杂度<code>O(1)</code></p>
+<p><code>isConnected</code>会判断两个元素的集合ID是不是相同的，时间复杂度也是<code>O(1)</code></p>
+<p>而<code>unionElement</code> 合并操作就是遍历整个集合，将集合ID等于其中一个的改成另一个，时间复杂度<code>O(N)</code></p>
+<blockquote>
+<p>这种方式属于快速查找，但是合并的效率太低了，我们还可以继续优化下</p>
+</blockquote>
+<h3 id="UnionFind2-QuickUnion"><a href="#UnionFind2-QuickUnion" class="headerlink" title="UnionFind2-QuickUnion"></a>UnionFind2-QuickUnion</h3><p>这一次我们不记录每个元素所属的集合ID，我们记录每个元素的父元素的ID，根节点一样的元素就是一个集合，这样就形成了一颗奇怪的树，由子节点指向父节点的树（森林）</p>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">UnionFind2</span> <span class="token keyword">implements</span> <span class="token class-name">UF</span><span class="token punctuation">{</span>
+
+    <span class="token keyword">private</span> <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> parent<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//父ID</span>
+
+    <span class="token keyword">public</span> <span class="token function">UnionFind2</span><span class="token punctuation">(</span><span class="token keyword">int</span> size<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        parent<span class="token operator">=</span><span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span>size<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator"><</span>size<span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            parent<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token operator">=</span>i<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">getSize</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">return</span> parent<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">//p所属的集合ID</span>
+    <span class="token keyword">private</span> <span class="token keyword">int</span> <span class="token function">find</span><span class="token punctuation">(</span><span class="token keyword">int</span> index<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>index<span class="token operator"><</span><span class="token number">0</span> <span class="token operator">&&</span> index<span class="token operator">>=</span>parent<span class="token punctuation">.</span>length<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">IllegalArgumentException</span><span class="token punctuation">(</span><span class="token string">"index is out...."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">while</span><span class="token punctuation">(</span>parent<span class="token punctuation">[</span>index<span class="token punctuation">]</span><span class="token operator">!=</span>index<span class="token punctuation">)</span><span class="token punctuation">{</span>
+            index<span class="token operator">=</span>parent<span class="token punctuation">[</span>index<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> index<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">//判断集合ID是不是一样的</span>
+    <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">isConnected</span><span class="token punctuation">(</span><span class="token keyword">int</span> p<span class="token punctuation">,</span><span class="token keyword">int</span> q<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token function">find</span><span class="token punctuation">(</span>q<span class="token punctuation">)</span><span class="token operator">==</span><span class="token function">find</span><span class="token punctuation">(</span>p<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">unionElement</span><span class="token punctuation">(</span><span class="token keyword">int</span> p<span class="token punctuation">,</span><span class="token keyword">int</span> q<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">int</span> pID<span class="token operator">=</span><span class="token function">find</span><span class="token punctuation">(</span>p<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> qID<span class="token operator">=</span><span class="token function">find</span><span class="token punctuation">(</span>q<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>qID<span class="token operator">==</span>pID<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        parent<span class="token punctuation">[</span>pID<span class="token punctuation">]</span><span class="token operator">=</span>qID<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
+<p>初始化的时候每个元素的父节点都指向自己</p>
+<p><code>find</code>操作的时候就不停的向上爬，找到每个元素的根节点，就是它的集合ID，时间复杂度就是<code>O(h)</code> h是树的高度，注意这里并不是<code>logN</code>，因为这课树并一定是一棵二叉树</p>
+<p><code>isConnected</code> 和上面一样，判断两个元素的根节点时候一样就ok</p>
+<p><code>unionElement</code> 合并两个元素的集合，我们只需要将其中一个<code>parentID</code>变为另一个的<code>parentID</code>就Ok了，时间复杂度<code>O(hq)+O(hp)</code> (hp，hq代表p和q形成的树的高度)</p>
+<blockquote>
+<p>相比上面的UnionFInd1我们牺牲了一点查找的效率获得了更高的合并效率，但是仍然还有可以优化的点，我们这里在合并两个集合的时候，并没有考虑两颗树的形状，直接将一颗树加在了另一颗的后面，而这样很有可能会增加合并后的树的高度，甚至可能会形成一个链表的结构，这将极大的影响我们的时间复杂度，所以我们可以考虑更好的合并方式</p>
+</blockquote>
+<p><img alt="mark" data-src="http://static.imlgw.top/blog/20200101/ifSkJmMWNB2U.png?imageslim" src="/img/loading.gif" class="lazyload"></p>
+<h3 id="UnionFind3-size优化"><a href="#UnionFind3-size优化" class="headerlink" title="UnionFind3-size优化"></a>UnionFind3-size优化</h3><p>这里我们添加一个sz数组用来记录每个集合的元素个数</p>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">UnionFind3</span> <span class="token keyword">implements</span> <span class="token class-name">UF</span><span class="token punctuation">{</span>
+
+    <span class="token keyword">private</span> <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> parent<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//父ID</span>
+
+    <span class="token keyword">private</span> <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> sz<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//记录每颗树的节点数量</span>
+
+    <span class="token keyword">public</span> <span class="token function">UnionFind3</span><span class="token punctuation">(</span><span class="token keyword">int</span> size<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        parent<span class="token operator">=</span><span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span>size<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        sz<span class="token operator">=</span><span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span>size<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator"><</span>size<span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            parent<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token operator">=</span>i<span class="token punctuation">;</span>
+            sz<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">getSize</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">return</span> parent<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">//p所属的集合ID</span>
+    <span class="token keyword">private</span> <span class="token keyword">int</span> <span class="token function">find</span><span class="token punctuation">(</span><span class="token keyword">int</span> index<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>index<span class="token operator"><</span><span class="token number">0</span> <span class="token operator">&&</span> index<span class="token operator">>=</span>parent<span class="token punctuation">.</span>length<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">IllegalArgumentException</span><span class="token punctuation">(</span><span class="token string">"index is out...."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">while</span><span class="token punctuation">(</span>parent<span class="token punctuation">[</span>index<span class="token punctuation">]</span><span class="token operator">!=</span>index<span class="token punctuation">)</span><span class="token punctuation">{</span>
+            index<span class="token operator">=</span>parent<span class="token punctuation">[</span>index<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> index<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">//判断集合ID是不是一样的</span>
+    <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">isConnected</span><span class="token punctuation">(</span><span class="token keyword">int</span> p<span class="token punctuation">,</span><span class="token keyword">int</span> q<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token function">find</span><span class="token punctuation">(</span>q<span class="token punctuation">)</span><span class="token operator">==</span><span class="token function">find</span><span class="token punctuation">(</span>p<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">unionElement</span><span class="token punctuation">(</span><span class="token keyword">int</span> p<span class="token punctuation">,</span><span class="token keyword">int</span> q<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">int</span> pID<span class="token operator">=</span><span class="token function">find</span><span class="token punctuation">(</span>p<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> qID<span class="token operator">=</span><span class="token function">find</span><span class="token punctuation">(</span>q<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>qID<span class="token operator">==</span>pID<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>sz<span class="token punctuation">[</span>pID<span class="token punctuation">]</span><span class="token operator">></span>sz<span class="token punctuation">[</span>qID<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            parent<span class="token punctuation">[</span>qID<span class="token punctuation">]</span><span class="token operator">=</span>pID<span class="token punctuation">;</span>
+            sz<span class="token punctuation">[</span>pID<span class="token punctuation">]</span><span class="token operator">+=</span>sz<span class="token punctuation">[</span>qID<span class="token punctuation">]</span><span class="token punctuation">;</span>    
+        <span class="token punctuation">}</span><span class="token keyword">else</span><span class="token punctuation">{</span>
+            parent<span class="token punctuation">[</span>pID<span class="token punctuation">]</span><span class="token operator">=</span>qID<span class="token punctuation">;</span>
+            sz<span class="token punctuation">[</span>qID<span class="token punctuation">]</span><span class="token operator">+=</span>sz<span class="token punctuation">[</span>pID<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
+<p>初始化的时候额外的将每个元素的sz置为1</p>
+<p><code>find</code>操作和<code>isConnected</code>没有变化</p>
+<p><code>unionElement</code> 的时候我们不在是盲目的随意合并，而是将size小的集合加在size大的集合下</p>
+<p><img alt="mark" data-src="http://static.imlgw.top/blog/20200101/ifSkJmMWNB2U.png?imageslim" src="/img/loading.gif" class="lazyload"></p>
+<p>类似这样的情况下就不会将1接在5下面，而是将5接在1下面，这样合并后的集合的高度就不会增大</p>
+<blockquote>
+<p>但是根据size判断一定能准确判断么？很显然是不行的</p>
+</blockquote>
+<p><img alt="mark" data-src="http://static.imlgw.top/blog/20200101/SdfeawuEf9Qz.png?imageslim" src="/img/loading.gif" class="lazyload"></p>
+<p>类似这样的，如果按照之前的按照size合并的方案可能反而会导致树的高度增加，所以更加合理的方案应该是根据树的高度来合并</p>
+<h3 id="UnionFind4-hight优化"><a href="#UnionFind4-hight优化" class="headerlink" title="UnionFind4-hight优化"></a>UnionFind4-hight优化</h3><pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">UnionFind4</span> <span class="token keyword">implements</span> <span class="token class-name">UF</span><span class="token punctuation">{</span>
+
+    <span class="token keyword">private</span> <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> parent<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//父ID</span>
+
+    <span class="token keyword">private</span> <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> hight<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//每个集合形成的树的高度</span>
+
+    <span class="token keyword">public</span> <span class="token function">UnionFind4</span><span class="token punctuation">(</span><span class="token keyword">int</span> size<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        parent<span class="token operator">=</span><span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span>size<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        hight<span class="token operator">=</span><span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span>size<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator"><</span>size<span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            parent<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token operator">=</span>i<span class="token punctuation">;</span>
+            hight<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">getSize</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">return</span> parent<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">//p所属的集合ID</span>
+    <span class="token keyword">private</span> <span class="token keyword">int</span> <span class="token function">find</span><span class="token punctuation">(</span><span class="token keyword">int</span> index<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>index<span class="token operator"><</span><span class="token number">0</span> <span class="token operator">&&</span> index<span class="token operator">>=</span>parent<span class="token punctuation">.</span>length<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">IllegalArgumentException</span><span class="token punctuation">(</span><span class="token string">"index is out...."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">while</span><span class="token punctuation">(</span>parent<span class="token punctuation">[</span>index<span class="token punctuation">]</span><span class="token operator">!=</span>index<span class="token punctuation">)</span><span class="token punctuation">{</span>
+            index<span class="token operator">=</span>parent<span class="token punctuation">[</span>index<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> index<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">//判断集合ID是不是一样的</span>
+    <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">isConnected</span><span class="token punctuation">(</span><span class="token keyword">int</span> p<span class="token punctuation">,</span><span class="token keyword">int</span> q<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token function">find</span><span class="token punctuation">(</span>q<span class="token punctuation">)</span><span class="token operator">==</span><span class="token function">find</span><span class="token punctuation">(</span>p<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">unionElement</span><span class="token punctuation">(</span><span class="token keyword">int</span> p<span class="token punctuation">,</span><span class="token keyword">int</span> q<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">int</span> pID<span class="token operator">=</span><span class="token function">find</span><span class="token punctuation">(</span>p<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> qID<span class="token operator">=</span><span class="token function">find</span><span class="token punctuation">(</span>q<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>qID<span class="token operator">==</span>pID<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>hight<span class="token punctuation">[</span>pID<span class="token punctuation">]</span><span class="token operator">></span>hight<span class="token punctuation">[</span>qID<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            parent<span class="token punctuation">[</span>qID<span class="token punctuation">]</span><span class="token operator">=</span>pID<span class="token punctuation">;</span>    
+        <span class="token punctuation">}</span><span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span>hight<span class="token punctuation">[</span>pID<span class="token punctuation">]</span><span class="token operator"><</span>hight<span class="token punctuation">[</span>qID<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+            parent<span class="token punctuation">[</span>pID<span class="token punctuation">]</span><span class="token operator">=</span>qID<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token keyword">else</span><span class="token punctuation">{</span> <span class="token comment" spellcheck="true">//高度相等情况,才会增大树的高度</span>
+            parent<span class="token punctuation">[</span>pID<span class="token punctuation">]</span><span class="token operator">=</span>qID<span class="token punctuation">;</span> 
+            hight<span class="token punctuation">[</span>qID<span class="token punctuation">]</span><span class="token operator">++</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
+<p>初始化的时候仍然将每个元素的高度设置为1</p>
+<p>合并的时候我们根据树的高度来合并，将高度小的集合添加到高度大的集合上，这样整体的高度并不会变化，仍然是高度较大的集合的高度，只有在两颗树的高度相同的时候才会使集合高度增加，这个时候就无所谓谁添加到谁上了</p>
+<blockquote>
+<p>回头想一想，其实我们查找或者合并的时候并不会去关系每个元素的父节点又或者爷节点是啥，我们只关心的是这个元素的祖宗节点是啥，也就是根节点是啥，也就是我们希望每个集合的高度越小越好</p>
+</blockquote>
+<p><img alt="mark" data-src="http://static.imlgw.top/blog/20200101/D84lWwYGlVag.png?imageslim" src="/img/loading.gif" class="lazyload"></p>
+<h3 id="UnionFind5-路径压缩"><a href="#UnionFind5-路径压缩" class="headerlink" title="UnionFind5-路径压缩"></a>UnionFind5-路径压缩</h3><p>在find过程中增加了路径压缩的功能</p>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">UnionFind5</span> <span class="token keyword">implements</span> <span class="token class-name">UF</span><span class="token punctuation">{</span>
+
+    <span class="token keyword">private</span> <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> parent<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//父ID</span>
+
+    <span class="token keyword">private</span> <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> rank<span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> <span class="token function">UnionFind5</span><span class="token punctuation">(</span><span class="token keyword">int</span> size<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        parent<span class="token operator">=</span><span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span>size<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        rank<span class="token operator">=</span><span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span>size<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator"><</span>size<span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            parent<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token operator">=</span>i<span class="token punctuation">;</span>
+            rank<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">getSize</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">return</span> parent<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">//p所属的集合ID</span>
+    <span class="token keyword">private</span> <span class="token keyword">int</span> <span class="token function">find</span><span class="token punctuation">(</span><span class="token keyword">int</span> index<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>index<span class="token operator"><</span><span class="token number">0</span> <span class="token operator">&&</span> index<span class="token operator">>=</span>parent<span class="token punctuation">.</span>length<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">IllegalArgumentException</span><span class="token punctuation">(</span><span class="token string">"index is out...."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">while</span><span class="token punctuation">(</span>parent<span class="token punctuation">[</span>index<span class="token punctuation">]</span><span class="token operator">!=</span>index<span class="token punctuation">)</span><span class="token punctuation">{</span>
+            parent<span class="token punctuation">[</span>index<span class="token punctuation">]</span><span class="token operator">=</span>parent<span class="token punctuation">[</span>parent<span class="token punctuation">[</span>index<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//路径压缩</span>
+            index<span class="token operator">=</span>parent<span class="token punctuation">[</span>index<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> index<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">//递归的方式进行路径压缩，可以压得更低</span>
+    <span class="token keyword">private</span> <span class="token keyword">int</span> <span class="token function">find2</span><span class="token punctuation">(</span><span class="token keyword">int</span> index<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>index<span class="token operator"><</span><span class="token number">0</span> <span class="token operator">&&</span> index<span class="token operator">>=</span>parent<span class="token punctuation">.</span>length<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">IllegalArgumentException</span><span class="token punctuation">(</span><span class="token string">"index is out...."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span>parent<span class="token punctuation">[</span>index<span class="token punctuation">]</span><span class="token operator">!=</span>index<span class="token punctuation">)</span><span class="token punctuation">{</span>
+            parent<span class="token punctuation">[</span>index<span class="token punctuation">]</span><span class="token operator">=</span><span class="token function">find2</span><span class="token punctuation">(</span>parent<span class="token punctuation">[</span>index<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> parent<span class="token punctuation">[</span>index<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">//判断集合ID是不是一样的</span>
+    <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">isConnected</span><span class="token punctuation">(</span><span class="token keyword">int</span> p<span class="token punctuation">,</span><span class="token keyword">int</span> q<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token function">find</span><span class="token punctuation">(</span>q<span class="token punctuation">)</span><span class="token operator">==</span><span class="token function">find</span><span class="token punctuation">(</span>p<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">unionElement</span><span class="token punctuation">(</span><span class="token keyword">int</span> p<span class="token punctuation">,</span><span class="token keyword">int</span> q<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">int</span> pID<span class="token operator">=</span><span class="token function">find</span><span class="token punctuation">(</span>p<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> qID<span class="token operator">=</span><span class="token function">find</span><span class="token punctuation">(</span>q<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>qID<span class="token operator">==</span>pID<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>rank<span class="token punctuation">[</span>pID<span class="token punctuation">]</span><span class="token operator">></span>rank<span class="token punctuation">[</span>qID<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            parent<span class="token punctuation">[</span>qID<span class="token punctuation">]</span><span class="token operator">=</span>pID<span class="token punctuation">;</span>    
+        <span class="token punctuation">}</span><span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span>rank<span class="token punctuation">[</span>pID<span class="token punctuation">]</span><span class="token operator"><</span>rank<span class="token punctuation">[</span>qID<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+            parent<span class="token punctuation">[</span>pID<span class="token punctuation">]</span><span class="token operator">=</span>qID<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token keyword">else</span><span class="token punctuation">{</span> <span class="token comment" spellcheck="true">//高度相等情况,才会增大树的Rank</span>
+            parent<span class="token punctuation">[</span>pID<span class="token punctuation">]</span><span class="token operator">=</span>qID<span class="token punctuation">;</span> 
+            rank<span class="token punctuation">[</span>qID<span class="token punctuation">]</span><span class="token operator">++</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
+<p>find操作本身就是一个向上遍历的过程，所以我们可以直接再find得过程中去进行路径的压缩</p>
+<p>核心的语句就是 <code>parent[index]=parent[parent[index]];</code></p>
+<p>如果父节点不是要找的根节点就将父节点设置为父节点的父节点</p>
+<p>当然这里还有一种压缩的方式，可以将树压缩的更短，也就是上面的<code>find2</code>，核心语句就是</p>
+<p> <code>parent[index]=find2(parent[index])</code> </p>
+<p><img alt="mark" data-src="http://static.imlgw.top/blog/20200101/D84lWwYGlVag.png?imageslim" src="/img/loading.gif" class="lazyload"></p>
+<p>如果是这样的树执行 <code>find2(5)</code> 可以直接将树压缩成左边的样子，而<code>find1(5)</code> 并不能一次就压缩成这样，两者各有优缺点，这里不过多阐述</p>
+<blockquote>
+<p>细心的朋友肯定发现了，我这里将<code>hight</code>改成了<code>rank</code>，为什么要改成rank?</p>
+<p>其实原因很简单，在加入了路径压缩后，这里的hight不再能表示高度的含义，所以我们改成了Rank</p>
+<p>那我们为什么不继续维护这个高度了？这样不是就无法准确的判断如何合并了嘛？</p>
+<p>其实这里如果想要继续维护这个树的高度是一种不太明智的选择，成本太大了，难以维护，并不是简单的<code>--</code> 就可以完成的，会有很多的情况，所以我们索性直接将其改成Rank作为一个参考量，表示这个集合的排名，其实仔细想一想，我们进行路径压缩带来的优化明显会大于维护hight带来的优化</p>
+</blockquote>
+<h3 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h3><p>这里经过科学家们的计算证明得到最终的时间复杂度是 <code>O(log*N)</code>我也是第一次听说这个复杂度，</p>
+<p><img alt="mark" data-src="http://static.imlgw.top/blog/20200101/iXPijTwciz0b.png?imageslim" src="/img/loading.gif" class="lazyload"></p>
+<p><strong>迭代对数</strong></p>
+<table>
+<thead>
+<tr>
+<th>n</th>
+<th>lg* n</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>(−∞, 1]</td>
+<td>0</td>
+</tr>
+<tr>
+<td>(1, 2]</td>
+<td>1</td>
+</tr>
+<tr>
+<td>(2, 4]</td>
+<td>2</td>
+</tr>
+<tr>
+<td>(4, 16]</td>
+<td>3</td>
+</tr>
+<tr>
+<td>(16, 65536]</td>
+<td>4</td>
+</tr>
+<tr>
+<td>(65536, 2^65536]</td>
+<td>5</td>
+</tr>
+</tbody></table>
+<p>可以看到，时间复杂度是相当低，可以近似的认为就是一个<code>O(1)</code> 常数的复杂度</p>
+<h2 id="练手例题"><a href="#练手例题" class="headerlink" title="练手例题"></a>练手例题</h2><h3 id="547-朋友圈"><a href="#547-朋友圈" class="headerlink" title="547. 朋友圈"></a><a href="https://leetcode-cn.com/problems/friend-circles/" target="_blank" rel="noopener">547. 朋友圈</a></h3><p>班上有 N 名学生。其中有些人是朋友，有些则不是。他们的友谊具有是传递性。如果已知 A 是 B 的朋友，B 是 C 的朋友，那么我们可以认为 A 也是 C 的朋友。所谓的朋友圈，是指所有朋友的集合。</p>
+<p>给定一个 N * N 的矩阵 M，表示班级中学生之间的朋友关系。如果<code>M[i][j] = 1</code>，表示已知第 i 个和 j 个学生互为朋友关系，否则为不知道。你必须输出所有学生中的已知的朋友圈总数。</p>
+<p><strong>示例 1:</strong></p>
+<pre class=" language-java"><code class="language-java">输入<span class="token operator">:</span> 
+<span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+ <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+ <span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">]</span>
+输出<span class="token operator">:</span> <span class="token number">2</span> 
+说明：已知学生<span class="token number">0</span>和学生<span class="token number">1</span>互为朋友，他们在一个朋友圈。
+第<span class="token number">2</span>个学生自己在一个朋友圈。所以返回<span class="token number">2</span>。</code></pre>
+<p><strong>示例 2:</strong></p>
+<pre class=" language-java"><code class="language-java">输入<span class="token operator">:</span> 
+<span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+ <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+ <span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">]</span>
+输出<span class="token operator">:</span> <span class="token number">1</span>
+说明：已知学生<span class="token number">0</span>和学生<span class="token number">1</span>互为朋友，学生<span class="token number">1</span>和学生<span class="token number">2</span>互为朋友，所以学生<span class="token number">0</span>和学生<span class="token number">2</span>也是朋友，所以他们三个在一个朋友圈，返回<span class="token number">1</span>。</code></pre>
+<p><strong>注意：</strong></p>
+<ol>
+<li>N 在<code>[1,200]</code>的范围内。</li>
+<li>对于所有学生，有<code>M[i][i] = 1</code>。</li>
+<li>如果有<code>M[i][j] = 1</code>，则有<code>M[j][i] = 1</code>。</li>
+</ol>
+<p><strong>解法二</strong></p>
+<p>这题很久之前做过 <a href="http://imlgw.top/2019/10/10/leetcode-hui-su/#547-%E6%9C%8B%E5%8F%8B%E5%9C%88">LeetCode回溯&递归</a> 当时DFS做的，其实这题应该属于最经典的并查集的题目了</p>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">private</span> <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> parent<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//父ID</span>
+
+<span class="token keyword">private</span> <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> rank<span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">//p所属的集合ID</span>
+<span class="token keyword">private</span> <span class="token keyword">int</span> <span class="token function">find</span><span class="token punctuation">(</span><span class="token keyword">int</span> index<span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>index<span class="token operator"><</span><span class="token number">0</span> <span class="token operator">&&</span> index<span class="token operator">>=</span>parent<span class="token punctuation">.</span>length<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">IllegalArgumentException</span><span class="token punctuation">(</span><span class="token string">"index is out...."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">while</span><span class="token punctuation">(</span>parent<span class="token punctuation">[</span>index<span class="token punctuation">]</span><span class="token operator">!=</span>index<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        parent<span class="token punctuation">[</span>index<span class="token punctuation">]</span><span class="token operator">=</span>parent<span class="token punctuation">[</span>parent<span class="token punctuation">[</span>index<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+        index<span class="token operator">=</span>parent<span class="token punctuation">[</span>index<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> index<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">unionElement</span><span class="token punctuation">(</span><span class="token keyword">int</span> p<span class="token punctuation">,</span><span class="token keyword">int</span> q<span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword">int</span> pID<span class="token operator">=</span><span class="token function">find</span><span class="token punctuation">(</span>p<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span> qID<span class="token operator">=</span><span class="token function">find</span><span class="token punctuation">(</span>q<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>qID<span class="token operator">==</span>pID<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>rank<span class="token punctuation">[</span>pID<span class="token punctuation">]</span><span class="token operator">></span>rank<span class="token punctuation">[</span>qID<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        parent<span class="token punctuation">[</span>qID<span class="token punctuation">]</span><span class="token operator">=</span>pID<span class="token punctuation">;</span>    
+    <span class="token punctuation">}</span><span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span>rank<span class="token punctuation">[</span>pID<span class="token punctuation">]</span><span class="token operator"><</span>rank<span class="token punctuation">[</span>qID<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        parent<span class="token punctuation">[</span>pID<span class="token punctuation">]</span><span class="token operator">=</span>qID<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token keyword">else</span><span class="token punctuation">{</span> <span class="token comment" spellcheck="true">//高度相等情况,才会增大树的高度</span>
+        parent<span class="token punctuation">[</span>pID<span class="token punctuation">]</span><span class="token operator">=</span>qID<span class="token punctuation">;</span> 
+        rank<span class="token punctuation">[</span>qID<span class="token punctuation">]</span><span class="token operator">++</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">findCircleNum</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span> M<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    parent<span class="token operator">=</span><span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span>M<span class="token punctuation">.</span>length<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    rank<span class="token operator">=</span><span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span>M<span class="token punctuation">.</span>length<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">//初始化</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator"><</span>M<span class="token punctuation">.</span>length<span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        parent<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token operator">=</span>i<span class="token punctuation">;</span>
+        rank<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token comment" spellcheck="true">//union</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator"><</span>M<span class="token punctuation">.</span>length<span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> j<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>j<span class="token operator"><</span>M<span class="token punctuation">.</span>length<span class="token punctuation">;</span>j<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>M<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token operator">==</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token function">unionElement</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span>j<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">int</span> res<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator"><</span>parent<span class="token punctuation">.</span>length<span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>parent<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token operator">==</span>i<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            res<span class="token operator">++</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> res<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+<p>代码还是很简单的，合并之后统计一下数量就ok了</p>
+<h3 id="128-最长连续序列"><a href="#128-最长连续序列" class="headerlink" title="128. 最长连续序列"></a><a href="https://leetcode-cn.com/problems/longest-consecutive-sequence/" target="_blank" rel="noopener">128. 最长连续序列</a></h3><p>给定一个未排序的整数数组，找出最长连续序列的长度。</p>
+<p>要求算法的时间复杂度为 <code>O(n)</code>。</p>
+<p><strong>示例:</strong></p>
+<pre class=" language-java"><code class="language-java">输入<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token number">100</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">200</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">]</span>
+输出<span class="token operator">:</span> <span class="token number">4</span>
+解释<span class="token operator">:</span> 最长连续序列是 <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">]</span>。它的长度为 <span class="token number">4</span>。</code></pre>
+<p><strong>并查集解法</strong></p>
+<pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">//并查集</span>
+HashMap<span class="token operator"><</span>Integer<span class="token punctuation">,</span>Integer<span class="token operator">></span> parent<span class="token punctuation">;</span>
+
+HashMap<span class="token operator"><</span>Integer<span class="token punctuation">,</span>Integer<span class="token operator">></span> size<span class="token punctuation">;</span>
+
+<span class="token keyword">int</span> max<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span>
+
+<span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">find</span><span class="token punctuation">(</span><span class="token keyword">int</span> index<span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword">while</span><span class="token punctuation">(</span>parent<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>index<span class="token punctuation">)</span><span class="token operator">!=</span>index<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">//parent[index]=parent[parent[index]];</span>
+        parent<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span>index<span class="token punctuation">,</span>parent<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>index<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        index<span class="token operator">=</span>parent<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>index<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> index<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">union</span><span class="token punctuation">(</span><span class="token keyword">int</span> p<span class="token punctuation">,</span><span class="token keyword">int</span> q<span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword">int</span> pID<span class="token operator">=</span><span class="token function">find</span><span class="token punctuation">(</span>p<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span> qID<span class="token operator">=</span><span class="token function">find</span><span class="token punctuation">(</span>q<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>pID<span class="token operator">==</span>qID<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">int</span> pSize<span class="token operator">=</span>size<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>pID<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span> qSize<span class="token operator">=</span>size<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>qID<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>pSize <span class="token operator">></span> qSize<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">//parent[qID]=pID;</span>
+        parent<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span>qID<span class="token punctuation">,</span>pID<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">//size[pID]+=size[qID];</span>
+        size<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span>pID<span class="token punctuation">,</span>pSize<span class="token operator">+</span>qSize<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token keyword">else</span><span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">//parent[pID]=qID;</span>
+        parent<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span>pID<span class="token punctuation">,</span>qID<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">//size[qID]+=size[pID];</span>
+        size<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span>qID<span class="token punctuation">,</span>pSize<span class="token operator">+</span>qSize<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    max<span class="token operator">=</span>Math<span class="token punctuation">.</span><span class="token function">max</span><span class="token punctuation">(</span>max<span class="token punctuation">,</span>pSize<span class="token operator">+</span>qSize<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//统计最大值</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">initUnionFind</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span>nums<span class="token punctuation">)</span><span class="token punctuation">{</span>
+    parent<span class="token operator">=</span><span class="token keyword">new</span> <span class="token class-name">HashMap</span><span class="token operator"><</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    size<span class="token operator">=</span><span class="token keyword">new</span> <span class="token class-name">HashMap</span><span class="token operator"><</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator"><</span>nums<span class="token punctuation">.</span>length<span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        parent<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span>nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">,</span>nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        size<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span>nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">longestConsecutive</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>nums <span class="token operator">==</span>null <span class="token operator">||</span> nums<span class="token punctuation">.</span>length<span class="token operator"><=</span><span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    HashSet<span class="token operator"><</span>Integer<span class="token operator">></span> set<span class="token operator">=</span><span class="token keyword">new</span> <span class="token class-name">HashSet</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator"><</span>nums<span class="token punctuation">.</span>length<span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        set<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token function">initUnionFind</span><span class="token punctuation">(</span>nums<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator"><</span>nums<span class="token punctuation">.</span>length<span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>set<span class="token punctuation">.</span><span class="token function">contains</span><span class="token punctuation">(</span>nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token comment" spellcheck="true">//判断-1或者+1都可以</span>
+            <span class="token function">union</span><span class="token punctuation">(</span>nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">,</span>nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> max<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+<p>这里用并查集其实并不是最优解，直接循环用HashSet感觉会更好更简洁  <a href="http://imlgw.top/2019/09/15/leetcode-cha-zhao/">详见 LeetCode查找</a> 不过熟悉一下并查集还是不错的，这里因为是根据num的数值判断的，所以用数组索引合并是行不通的，需要改成Hash表</p>
+<h3 id="未完待续"><a href="#未完待续" class="headerlink" title="未完待续"></a>未完待续</h3></body></html></div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">imlgw</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://imlgw.top/2020/01/01/bing-cha-ji/">http://imlgw.top/2020/01/01/bing-cha-ji/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://imlgw.top">iMlGw0</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构    </a><a class="post-meta__tags" href="/tags/%E7%AE%97%E6%B3%95/">算法    </a></div><div class="post_share"><div class="social-share" data-image="http://static.imlgw.top/blog/20200101/SdfeawuEf9Qz.png?imageslim" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js"></script></div></div><div class="post-reward"><a class="reward-button button--primary button--animated"> <i class="fa fa-qrcode"></i> 打赏<div class="reward-main"><ul class="reward-all"><li class="reward-item"><img class="lazyload post-qr-code__img" src="/img/wechat.png" alt="微信"><div class="post-qr-code__desc">微信</div></li><li class="reward-item"><img class="lazyload post-qr-code__img" src="/img/alipay.png" alt="支付寶"><div class="post-qr-code__desc">支付寶</div></li></ul></div></a></div><nav class="pagination_post" id="pagination"><div class="next-post pull-full"><a href="/2019/12/23/wo-chang-yong-de-yi-xie-gong-ju-he-wang-zhan/"><img class="next_cover lazyload" data-src="http://static.imlgw.top///20190407/UH6EHRQK6IsM.jpg?imageslim" onerror="onerror=null;src='/img/404.jpg'"><div class="label">下一篇</div><div class="next_info"><span>常用的一些工具和网站</span></div></a></div></nav><div class="relatedPosts"><div class="relatedPosts_headline"><i class="fa fa-fw fa-thumbs-up" aria-hidden="true"></i><span> 相关推荐</span></div><div class="relatedPosts_list"><div class="relatedPosts_item"><a href="/2018/10/31/yi-dao-leetcode-yin-fa-de-can-an/" title="一道LeetCode引发的惨案"><img class="relatedPosts_cover lazyload"data-src="http://static.imlgw.top/image/featureimages/1.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2020-01-02</div><div class="relatedPosts_title">一道LeetCode引发的惨案</div></div></a></div><div class="relatedPosts_item"><a href="/2018/09/27/ke-yi-huo-qu-zui-xiao-zhi-de-zhan/" title="可以获取最小值的栈"><img class="relatedPosts_cover lazyload"data-src="http://static.imlgw.top/image/featureimages/12.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2020-01-02</div><div class="relatedPosts_title">可以获取最小值的栈</div></div></a></div><div class="relatedPosts_item"><a href="/2018/09/06/kmp-suan-fa-ji-you-hua/" title="KMP算法及优化"><img class="relatedPosts_cover lazyload"data-src="http://static.imlgw.top/image/featureimages/2.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2020-01-02</div><div class="relatedPosts_title">KMP算法及优化</div></div></a></div></div><div class="clear_both"></div></div><hr><div id="post-comment"><div class="comment_headling"><i class="fa fa-comments fa-fw" aria-hidden="true"></i><span> 评论</span></div><div class="vcomment" id="vcomment"></div><script src="https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script><script>var notify = false == true ? true : false;
+var verify = true == true ? true : false;
+var GUEST_INFO = ['nick','mail','link'];
+var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+  return GUEST_INFO.indexOf(item) > -1
+});
+guest_info = guest_info.length == 0 ? GUEST_INFO :guest_info;
+
+window.valine = new Valine({
+  el:'#vcomment',
+  notify:notify,
+  verify:verify,
+  appId:'MkcXmeDvktRNBDBrVqb9KYPH-MdYXbMMI',
+  appKey:'swDnb5a9u9Ksp2Rwkdm7Qulh',
+  placeholder:'留下邮箱才能收到及时收到回复~~',
+  avatar:'monsterid',
+  guest_info:guest_info,
+  pageSize:'10',
+  lang:'zh-cn',
+  recordIP: true
+});</script></div></div></main><footer id="footer" style="background-image: url(http://static.imlgw.top/blog/20200101/SdfeawuEf9Qz.png?imageslim)" data-type="photo"><div id="footer-wrap"><div class="copyright">&copy;2018 - 2020 By imlgw</div><div class="framework-info"><span>驱动 </span><a href="http://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener"><span>Butterfly</span></a></div><div class="icp"><a href="http://beian.miit.gov.cn/publish/query/indexFirst.action" target="_blank" rel="noopener"><span>鄂ICP备18011208号</span></a></div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><i class="fa fa-book" id="readmode" title="阅读模式"></i><i class="fa fa-plus" id="font_plus" title="放大字体"></i><i class="fa fa-minus" id="font_minus" title="缩小字体"></i><a class="translate_chn_to_cht" id="translateLink" href="javascript:translatePage();" title="简繁转换" target="_self">簡</a></div><div id="rightside-config-show"><div id="rightside_config" title="设置"><i class="fa fa-cog" aria-hidden="true"></i></div><a id="to_comment" href="#post-comment" title="直达评论"><i class="scroll_to_comment fa fa-comments">  </i></a><i class="fa fa-list-ul close" id="mobile-toc-button" title="目录" aria-hidden="true"></i><i class="fa fa-arrow-up" id="go-up" title="回到顶部" aria-hidden="true"></i></div></section><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/medium-zoom/dist/medium-zoom.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script id="ribbon_piao" mobile="undefined" src="https://cdn.jsdelivr.net/gh/jerryc127/butterfly_cdn@2.1.0/js/piao.js"></script><script src="https://cdn.jsdelivr.net/npm/activate-power-mode/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false; 
+document.body.addEventListener('input', POWERMODE);
+</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@latest/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@latest/lazysizes.min.js" async=""></script><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章"></div></div></div><hr><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a href="https://github.com/wzpan/hexo-generator-search" target="_blank" rel="noopener" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fa fa-times"></i></span></div><div class="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/live2d-widget@3.x/lib/L2Dwidget.min.js"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"https://cdn.jsdelivr.net/npm/live2d-widget-model-hijiki@1.0.5/assets/hijiki.model.json"},"display":{"superSample":2,"width":160,"height":320,"position":"right","hOffset":0,"vOffset":-70},"mobile":{"show":false,"scale":0.2},"log":false});</script></body></html>
