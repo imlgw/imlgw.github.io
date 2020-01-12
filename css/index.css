@@ -167,6 +167,7 @@ table td {
   padding: 0.3rem 0.6rem;
   border: 1px solid #d6d6d6;
   vertical-align: top;
+  word-break: break-word;
 }
 *::selection {
   background: #69c46d;
