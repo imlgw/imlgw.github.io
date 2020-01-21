@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>LeetCode贪心</title>
+      <link href="/2020/01/21/leetcode-tan-xin/"/>
+      <url>/2020/01/21/leetcode-tan-xin/</url>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> LeetCode </tag>
+            
+            <tag> 贪心 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>并查集</title>
       <link href="/2020/01/01/bing-cha-ji/"/>
       <url>/2020/01/01/bing-cha-ji/</url>
@@ -317,31 +342,6 @@
             <tag> LeetCode </tag>
             
             <tag> 二叉树 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>LeetCode贪心</title>
-      <link href="/2019/10/23/leetcode-tan-xin/"/>
-      <url>/2019/10/23/leetcode-tan-xin/</url>
-      
-      
-      <categories>
-          
-          <category> 算法 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> LeetCode </tag>
-            
-            <tag> 贪心 </tag>
             
         </tags>
       
