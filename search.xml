@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>并查集</title>
+      <link href="/2020/02/02/bing-cha-ji/"/>
+      <url>/2020/02/02/bing-cha-ji/</url>
+      
+      
+      <categories>
+          
+          <category> 数据结构 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 数据结构 </tag>
+            
+            <tag> 算法 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>LeetCode贪心</title>
       <link href="/2020/01/21/leetcode-tan-xin/"/>
       <url>/2020/01/21/leetcode-tan-xin/</url>
@@ -21,31 +46,6 @@
             <tag> LeetCode </tag>
             
             <tag> 贪心 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>并查集</title>
-      <link href="/2020/01/01/bing-cha-ji/"/>
-      <url>/2020/01/01/bing-cha-ji/</url>
-      
-      
-      <categories>
-          
-          <category> 数据结构 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> 数据结构 </tag>
-            
-            <tag> 算法 </tag>
             
         </tags>
       
