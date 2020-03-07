@@ -398,7 +398,7 @@
     
     
     <entry>
-      <title>深入AQS源码解析（一）</title>
+      <title>AQS源码解析（上）</title>
       <link href="/2019/09/24/abstractqueuedsynchronizer/"/>
       <url>/2019/09/24/abstractqueuedsynchronizer/</url>
       
@@ -596,9 +596,9 @@
     
     
     <entry>
-      <title>深入ThreadPoolExecutor源码</title>
-      <link href="/2019/07/30/shen-ru-threadpoolexecutor-yuan-ma/"/>
-      <url>/2019/07/30/shen-ru-threadpoolexecutor-yuan-ma/</url>
+      <title>ThreadPoolExecutor源码解析</title>
+      <link href="/2019/07/30/threadpoolexecutor-yuan-ma-jie-xi/"/>
+      <url>/2019/07/30/threadpoolexecutor-yuan-ma-jie-xi/</url>
       
       
       <categories>
