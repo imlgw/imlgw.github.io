@@ -1,47 +1,149 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5"><title>CAS单点登陆系统Demo | iMlGw0</title><meta name="description" content="CAS单点登陆系统Demo"><meta name="keywords" content="CAS,SSO"><meta name="author" content="imlgw"><meta name="copyright" content="imlgw"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/img/Cup.ico"><link rel="preconnect" href="//cdn.jsdelivr.net"><link rel="preconnect" href="https://hm.baidu.com"><link rel="preconnect" href="https://fonts.googleapis.com" crossorigin><link rel="preconnect" href="//busuanzi.ibruce.info"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="CAS单点登陆系统Demo"><meta name="twitter:description" content="CAS单点登陆系统Demo"><meta name="twitter:image" content="http://static.imlgw.top/image/featureimages/16.jpg"><meta property="og:type" content="article"><meta property="og:title" content="CAS单点登陆系统Demo"><meta property="og:url" content="http://imlgw.top/2018/11/17/cas-dan-dian-deng-lu-xi-tong-ru-men/"><meta property="og:site_name" content="iMlGw0"><meta property="og:description" content="CAS单点登陆系统Demo"><meta property="og:image" content="http://static.imlgw.top/image/featureimages/16.jpg"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script src="https://cdn.jsdelivr.net/npm/js-cookie/dist/js.cookie.min.js"></script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css"><link rel="canonical" href="http://imlgw.top/2018/11/17/cas-dan-dian-deng-lu-xi-tong-ru-men/"><link rel="prev" title="Spring-Security遇到的小问题" href="http://imlgw.top/2018/11/26/springsecurity-pei-zhi-de-ji-ge-xiao-wen-ti/"><link rel="next" title="一道LeetCode引发的惨案" href="http://imlgw.top/2018/10/31/yi-dao-leetcode-yin-fa-de-can-an/"><script>var _hmt = _hmt || [];
-(function() {
-  var hm = document.createElement("script");
-  hm.src = "https://hm.baidu.com/hm.js?93be601f1b40364d8cd640d751012180";
-  var s = document.getElementsByTagName("script")[0]; 
-  s.parentNode.insertBefore(hm, s);
-})();
-</script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><script>var GLOBAL_CONFIG = { 
-  root: '/',
-  algolia: undefined,
-  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容:${query}"}},
-  translate: {"defaultEncoding":1,"translateDelay":0,"cookieDomain":"imlgw.top","msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简"},
-  copy: {
-    success: '复制成功',
-    error: '复制错误',
-    noSupport: '浏览器不支持'
-  },
-  bookmark: {
-    title: 'Snackbar.bookmark.title',
-    message_prev: '按',
-    message_next: '键将本页加入书签'
-  },
-  runtime_unit: '天',
-  runtime: true,
-  copyright: {"languages":{"author":"作者: imlgw","link":"链接: http://imlgw.top/2018/11/17/cas-dan-dian-deng-lu-xi-tong-ru-men/","source":"来源: iMlGw0","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
-  ClickShowText: undefined,
-  medium_zoom: true,
-  fancybox: false,
-  Snackbar: {"bookmark":{"title":"Snackbar.bookmark.title","message_prev":"按","message_next":"键将本页加入书签"},"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#2d3035","position":"bottom-left"},
-  baiduPush: false,
-  isHome: false,
-  isPost: true
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#202020"/>
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
   
-}</script><meta name="generator" content="Hexo 4.2.0"><link rel="stylesheet" href="/css/prism.css" type="text/css"></head><body><header> <div id="page-header"><span class="pull_left" id="blog_name"><a class="blog_title" id="site-name" href="/">iMlGw0</a></span><span class="toggle-menu pull_right close"><a class="site-page"><i class="fa fa-bars fa-fw" aria-hidden="true"></i></a></span><span class="pull_right menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/board/"><i class="fa-fw fa fa-link"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-list" aria-hidden="true"></i><span> LeetCode</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="http://imlgw.top/2019/02/27/leetcode-lian-biao/"><i class="fa-fw fa fa-tags"></i><span> 链表</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/05/04/leetcode-shu-zu/"><i class="fa-fw fa fa-tags"></i><span> 数组</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/10/01/leetcode-zhan-dui-lie/"><i class="fa-fw fa fa-tags"></i><span> 栈&amp;队列</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/09/15/leetcode-cha-zhao/"><i class="fa-fw fa fa-tags"></i><span> 查找</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/12/06/leetcode-er-fen-cha-zhao/"><i class="fa-fw fa fa-tags"></i><span> 二分查找</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/11/06/leetcode-er-cha-shu/"><i class="fa-fw fa fa-tags"></i><span> 二叉树</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/07/20/leetcode-hua-dong-chuang-kou/"><i class="fa-fw fa fa-tags"></i><span> 滑动窗口</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/09/01/leetcode-dong-tai-gui-hua/"><i class="fa-fw fa fa-tags"></i><span> 动态规划</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/11/29/leetcode-bei-bao-wen-ti/"><i class="fa-fw fa fa-tags"></i><span> 背包问题</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/10/10/leetcode-hui-su/"><i class="fa-fw fa fa-tags"></i><span> 回溯</span></a></li><li><a class="site-page" href="http://imlgw.top/2020/01/21/leetcode-tan-xin/"><i class="fa-fw fa fa-tags"></i><span> 贪心</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link"><i class="fa-fw fa fa-address-book"></i><span> 大佬们</span></a></div></div></span><span class="pull_right" id="search_button"><a class="site-page social-icon search"><i class="fa fa-search fa-fw"></i><span> 搜索</span></a></span></div></header><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="http://static.imlgw.top/maofu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">59</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">58</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">12</div></a></div></div></div><hr><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/board/"><i class="fa-fw fa fa-link"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-list" aria-hidden="true"></i><span> LeetCode</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="http://imlgw.top/2019/02/27/leetcode-lian-biao/"><i class="fa-fw fa fa-tags"></i><span> 链表</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/05/04/leetcode-shu-zu/"><i class="fa-fw fa fa-tags"></i><span> 数组</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/10/01/leetcode-zhan-dui-lie/"><i class="fa-fw fa fa-tags"></i><span> 栈&amp;队列</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/09/15/leetcode-cha-zhao/"><i class="fa-fw fa fa-tags"></i><span> 查找</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/12/06/leetcode-er-fen-cha-zhao/"><i class="fa-fw fa fa-tags"></i><span> 二分查找</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/11/06/leetcode-er-cha-shu/"><i class="fa-fw fa fa-tags"></i><span> 二叉树</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/07/20/leetcode-hua-dong-chuang-kou/"><i class="fa-fw fa fa-tags"></i><span> 滑动窗口</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/09/01/leetcode-dong-tai-gui-hua/"><i class="fa-fw fa fa-tags"></i><span> 动态规划</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/11/29/leetcode-bei-bao-wen-ti/"><i class="fa-fw fa fa-tags"></i><span> 背包问题</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/10/10/leetcode-hui-su/"><i class="fa-fw fa fa-tags"></i><span> 回溯</span></a></li><li><a class="site-page" href="http://imlgw.top/2020/01/21/leetcode-tan-xin/"><i class="fa-fw fa fa-tags"></i><span> 贪心</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link"><i class="fa-fw fa fa-address-book"></i><span> 大佬们</span></a></div></div></div><div id="mobile-sidebar-toc"><div class="toc_mobile_headline">目录</div><div class="sidebar-toc__content"><ol class="toc_mobile_items"><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#单点登陆系统-–CAS"><span class="toc_mobile_items-number">1.</span> <span class="toc_mobile_items-text">单点登陆系统 –CAS</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#1-配置CAS服务端"><span class="toc_mobile_items-number">1.1.</span> <span class="toc_mobile_items-text">1. 配置CAS服务端</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#2-普通的web项目集成CAS"><span class="toc_mobile_items-number">1.2.</span> <span class="toc_mobile_items-text">2. 普通的web项目集成CAS</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#3-Spring项目集成CAS和Spring-security"><span class="toc_mobile_items-number">1.3.</span> <span class="toc_mobile_items-text">3. Spring项目集成CAS和Spring-security</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#4-测试"><span class="toc_mobile_items-number">1.4.</span> <span class="toc_mobile_items-text">4. 测试</span></a></li></ol></li></ol></div></div></div><div id="body-wrap"><div id="web_bg" data-type="color"></div><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true">     </i><div class="auto_open" id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#单点登陆系统-–CAS"><span class="toc-number">1.</span> <span class="toc-text">单点登陆系统 –CAS</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-配置CAS服务端"><span class="toc-number">1.1.</span> <span class="toc-text">1. 配置CAS服务端</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-普通的web项目集成CAS"><span class="toc-number">1.2.</span> <span class="toc-text">2. 普通的web项目集成CAS</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-Spring项目集成CAS和Spring-security"><span class="toc-number">1.3.</span> <span class="toc-text">3. Spring项目集成CAS和Spring-security</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-测试"><span class="toc-number">1.4.</span> <span class="toc-text">4. 测试</span></a></li></ol></li></ol></div></div></div><main id="content-outer"><div id="top-container" style="background-image: url(http://static.imlgw.top/image/featureimages/16.jpg)"><div id="post-info"><div id="post-title"><div class="posttitle">CAS单点登陆系统Demo</div></div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 发表于 2018-11-17<span class="post-meta__separator">|</span><i class="fa fa-history fa-fw" aria-hidden="true"></i> 更新于 2019-12-23</time><span class="post-meta__separator">|</span><span><i class="fa fa-inbox post-meta__icon fa-fw" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/Web/">Web</a></span><div class="post-meta-wordcount"><i class="fa fa-file-word-o post-meta__icon fa-fw" aria-hidden="true"></i><span>字数总计:</span><span class="word-count">2k</span><span class="post-meta__separator">|</span><i class="fa fa-clock-o post-meta__icon fa-fw" aria-hidden="true"></i><span>阅读时长: 7 分钟</span><div class="post-meta-pv-cv"><span class="post-meta__separator">|</span><span><i class="fa fa-eye post-meta__icon fa-fw" aria-hidden="true"> </i>阅读量:</span><span id="busuanzi_value_page_pv"></span></div></div></div></div></div><div class="layout layout_post" id="content-inner">   <article id="post"><div class="article-container" id="post-content"><html><head></head><body><h2 id="单点登陆系统-–CAS"><a href="#单点登陆系统-–CAS" class="headerlink" title="单点登陆系统 –CAS"></a>单点登陆系统 –CAS</h2><ul>
+  
+    <meta name="keywords" content="CAS,SSO," />
+  
+
+  
+    <meta name="description" content="大悲无泪，大悟无言，大笑无声。" />
+  
+  
+  
+  <link rel="icon" type="image/x-icon" href="/img/cat.ico">
+  
+  <title>CAS单点登陆系统Demo [ iMlGw0 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="//cdn.bootcss.com/pure/1.0.0/pure-min.css">
+    
+      <link rel="stylesheet" href="/css/xoxo.css">
+    
+  
+<meta name="generator" content="Hexo 4.2.0"><link rel="stylesheet" href="/css/prism.css" type="text/css"></head>
+
+
+<body>
+  <div class="nav-container">
+    <nav class="home-menu pure-menu pure-menu-horizontal">
+  <a class="pure-menu-heading" href="/">
+    
+      <img class="avatar" src="http://static.imlgw.top/maofu.png">
+    
+    <span class="title" style="text-transform:none">iMlGw0</span>
+  </a>
+
+  <ul class="pure-menu-list clearfix">
+      
+          
+            
+              <li class="pure-menu-item"><a href="/" class="pure-menu-link">首页</a></li>
+            
+          
+      
+          
+            
+              <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
+            
+              <a href="#" id="post" class="pure-menu-link">文章</a>
+              <ul class="pure-menu-children">
+              
+                  
+                    <li class="pure-menu-item"><a href="/categories" style="color:#202020;" class="pure-menu-link">分类</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="/archives" style="color:#202020;" class="pure-menu-link">归档</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="/tags" style="color:#202020;" class="pure-menu-link">标签</a></li>
+                  
+              
+              </ul>
+            </li>
+          
+      
+          
+            
+              <li class="pure-menu-item"><a href="/project" class="pure-menu-link">项目</a></li>
+            
+          
+      
+          
+            
+              <li class="pure-menu-item"><a href="/search" class="pure-menu-link">搜索</a></li>
+            
+          
+      
+          
+            
+              <li class="pure-menu-item"><a href="/about" class="pure-menu-link">关于</a></li>
+            
+          
+      
+  </ul>
+   
+</nav>
+
+  </div>
+
+  <div class="container" id="content-outer">
+    <div class="inner" id="content-inner">
+      <div class="post-container">
+  <article class="post" id="post">
+    <header class="post-header text-center">
+      <h1 class="title">
+        CAS单点登陆系统Demo
+      </h1>
+      <span>
+        
+        <time class="time" datetime="2018-11-16T16:00:00.000Z">
+        2018-11-17
+      </time>
+        
+      </span>
+      <span class="slash">/</span>
+      <span class="post-meta">
+      <span class="post-tags">
+        <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CAS/" rel="tag">CAS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SSO/" rel="tag">SSO</a></li></ul>
+      </span>
+    </span>
+      <span class="slash">/</span>
+      <span class="read">
+      <span id="busuanzi_value_page_pv"></span> 点击
+    </span>
+      <span class="slash">/</span>
+      <span class="read">阅读耗时 25 分钟</span>
+    </header>
+
+    <div class="post-content">
+      <h2 id="单点登陆系统-–CAS"><a href="#单点登陆系统-–CAS" class="headerlink" title="单点登陆系统 –CAS"></a>单点登陆系统 –CAS</h2><ul>
 <li>关于CAS的介绍网上都有。这里主要记录如何使用，如何配置和集成一些框架。</li>
-<li>CAS架构图<br><img alt="OSS" data-src="https://imlgwpicture.oss-cn-qingdao.aliyuncs.com/blogImage/CAS.PNG" src="/img/loading.gif" class="lazyload"><br>CAS 的 SSO 实现方式可简化理解为： 1 个 Cookie 和 N 个 Session 。 CAS Server 创建 cookie，在所有应用认证时使用，各应用通过创建各自的 Session 来标识用户是否已登录。<br>用 户在一个应用验证通过后，以后用户在同一浏览器里访问此应用时，客户端应用中的过滤器会在 session 里读取到用户信息，所以就不会去 CAS Server 认证。如果在此浏览器里访问别的 web 应用时，客户端应用中的过滤器在 session 里读取不到用户信息，就会去 CAS Server 的 login 接口认证，但这时CAS Server 会读取到浏览器传来的 cookie （ TGC ），所以 CAS Server 不会要求用户去登录页面登录，只是会根据 service 参数生成一个 Ticket ，然后再和 web 应用做一个验 证 ticket 的交互而已。</li>
+<li>CAS架构图<br><img src="https://imlgwpicture.oss-cn-qingdao.aliyuncs.com/blogImage/CAS.PNG" alt="OSS"><br>CAS 的 SSO 实现方式可简化理解为： 1 个 Cookie 和 N 个 Session 。 CAS Server 创建 cookie，在所有应用认证时使用，各应用通过创建各自的 Session 来标识用户是否已登录。<br>用 户在一个应用验证通过后，以后用户在同一浏览器里访问此应用时，客户端应用中的过滤器会在 session 里读取到用户信息，所以就不会去 CAS Server 认证。如果在此浏览器里访问别的 web 应用时，客户端应用中的过滤器在 session 里读取不到用户信息，就会去 CAS Server 的 login 接口认证，但这时CAS Server 会读取到浏览器传来的 cookie （ TGC ），所以 CAS Server 不会要求用户去登录页面登录，只是会根据 service 参数生成一个 Ticket ，然后再和 web 应用做一个验 证 ticket 的交互而已。</li>
 </ul>
 <h3 id="1-配置CAS服务端"><a href="#1-配置CAS服务端" class="headerlink" title="1. 配置CAS服务端"></a>1. 配置CAS服务端</h3><p>从上面的架构图也可以大概知道CAS运作的方式,首先配置好CAS的Server端，直接将CAS的war包拷到tomcat的webapp目录下然后启动tomcat自动解压就可以了，这里我设置的tomcat的端口是8888，地址栏输入localhost:8888/cas能看到CAS的登陆界面说明部署成功</p>
 <ul>
 <li><p>去除https<br> CAS默认使用的是HTTPS协议，如果使用HTTPS协议需要SSL安全证书（需向特定的机构申请和购买） 。如果对安全要求不高或是在开发测试阶段，可使用HTTP协议。我们这里讲解通过修改配置，让CAS使用HTTP协议。</p>
 <ul>
-<li><p>修改cas的WEB-INF/deployerConfigContext.xml找到下面的配置<br><bean class="org.jasig.cas.authentication.handler.support.HttpBasedServiceCredentialsAuthenticationHandler" p:httpclient-ref="httpClient"><br>这里需要增加参数p:requireSecure=”false”，requireSecure属性意思为是否需要安全验证，即HTTPS，false为不采用</bean></p>
+<li><p>修改cas的WEB-INF/deployerConfigContext.xml找到下面的配置<br><bean class="org.jasig.cas.authentication.handler.support.HttpBasedServiceCredentialsAuthenticationHandler"
+p:httpClient-ref="httpClient"/><br>这里需要增加参数p:requireSecure=”false”，requireSecure属性意思为是否需要安全验证，即HTTPS，false为不采用</p>
 <ul>
-<li><p>修改cas的/WEB-INF/spring-configuration/ticketGrantingTicketCookieGenerator.xml<br>找到下面配置<br><bean id="ticketGrantingTicketCookieGenerator" class="org.jasig.cas.web.support.CookieRetrievingCookieGenerator" p:cookiesecure="true" p:cookiemaxage="-1" p:cookiename="CASTGC" p:cookiepath="/cas"></bean></p>
+<li><p>修改cas的/WEB-INF/spring-configuration/ticketGrantingTicketCookieGenerator.xml<br>找到下面配置<br><bean id="ticketGrantingTicketCookieGenerator" class="org.jasig.cas.web.support.CookieRetrievingCookieGenerator"
+p:cookieSecure="true"
+p:cookieMaxAge="-1"
+p:cookieName="CASTGC"
+p:cookiePath="/cas" /></p>
 </li>
 <li><p>参数p:cookieSecure=”true”，同理为HTTPS验证相关，TRUE为采用HTTPS验证，FALSE为不采用https验证。<br>参数p:cookieMaxAge=”-1”，是COOKIE的最大生命周期，-1为无生命周期，即只在当前打开的窗口有效，关闭或重新打开其它窗口，仍会要求验证。可以根据需要修改为大于0的数字，比如3600等，意思是在3600秒内，打开任意窗口，都不需要验证。</p>
 <p>我们这里将cookieSecure改为false , cookieMaxAge 改为3600</p>
@@ -50,7 +152,11 @@
 </li>
 </ul>
 <ul>
-<li>修改cas的WEB-INF/spring-configuration/warnCookieGenerator.xml<br>   <bean id="warnCookieGenerator" class="org.jasig.cas.web.support.CookieRetrievingCookieGenerator" p:cookiesecure="true" p:cookiemaxage="-1" p:cookiename="CASPRIVACY" p:cookiepath="/cas"><br>我们这里将cookieSecure改为false , cookieMaxAge 改为3600</bean></li>
+<li>修改cas的WEB-INF/spring-configuration/warnCookieGenerator.xml<br>   <bean id="warnCookieGenerator" class="org.jasig.cas.web.support.CookieRetrievingCookieGenerator"
+   p:cookieSecure="true"
+   p:cookieMaxAge="-1"
+   p:cookieName="CASPRIVACY"
+   p:cookiePath="/cas" /><br>我们这里将cookieSecure改为false , cookieMaxAge 改为3600</li>
 </ul>
 </li>
 </ul>
@@ -60,36 +166,13 @@
 <li><p>cas有默认的密码但是实际中肯定是要从数据库中查的，所以我们需要配置下数据源</p>
 </li>
 <li><p>修改cas服务端中web-inf下deployerConfigContext.xml ，添加如下配置</p>
-<pre class=" language-java"><code class="language-java">   <span class="token operator"><</span>bean id<span class="token operator">=</span><span class="token string">"dataSource"</span> <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"com.mchange.v2.c3p0.ComboPooledDataSource"</span> 
-    p<span class="token operator">:</span>driverClass<span class="token operator">=</span><span class="token string">"com.mysql.jdbc.Driver"</span>
-    p<span class="token operator">:</span>jdbcUrl<span class="token operator">=</span><span class="token string">"jdbc:mysql://127.0.0.1:3306/pinyougoudb?characterEncoding=utf8"</span>
-    p<span class="token operator">:</span>user<span class="token operator">=</span><span class="token string">"root"</span>
-    p<span class="token operator">:</span>password<span class="token operator">=</span><span class="token string">"123456"</span> <span class="token operator">/</span><span class="token operator">></span>
-   <span class="token operator"><</span>bean id<span class="token operator">=</span><span class="token string">"passwordEncoder"</span>
-   <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"org.jasig.cas.authentication.handler.DefaultPasswordEncoder"</span> 
-    c<span class="token operator">:</span>encodingAlgorithm<span class="token operator">=</span><span class="token string">"MD5"</span>
-    p<span class="token operator">:</span>characterEncoding<span class="token operator">=</span><span class="token string">"UTF-8"</span> <span class="token operator">/</span><span class="token operator">></span>
-   <span class="token operator"><</span>bean id<span class="token operator">=</span><span class="token string">"dbAuthHandler"</span> 
-    <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"org.jasig.cas.adaptors.jdbc.QueryDatabaseAuthenticationHandler"</span>
-    p<span class="token operator">:</span>dataSource<span class="token operator">-</span>ref<span class="token operator">=</span><span class="token string">"dataSource"</span>
-    p<span class="token operator">:</span>sql<span class="token operator">=</span><span class="token string">"select password from tb_user where username = ?"</span>
-    p<span class="token operator">:</span>passwordEncoder<span class="token operator">-</span>ref<span class="token operator">=</span><span class="token string">"passwordEncoder"</span><span class="token operator">/</span><span class="token operator">></span></code></pre>
+   <figure class="highlight java"><table><tr><td class="code"><pre><span class="line">&lt;bean id=<span class="string">"dataSource"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"com.mchange.v2.c3p0.ComboPooledDataSource"</span> </span><br><span class="line"> p:driverClass=<span class="string">"com.mysql.jdbc.Driver"</span></span><br><span class="line"> p:jdbcUrl=<span class="string">"jdbc:mysql://127.0.0.1:3306/pinyougoudb?characterEncoding=utf8"</span></span><br><span class="line"> p:user=<span class="string">"root"</span></span><br><span class="line"> p:password=<span class="string">"123456"</span> /&gt;</span><br><span class="line">&lt;bean id=<span class="string">"passwordEncoder"</span></span><br><span class="line"><span class="class"><span class="keyword">class</span></span>=<span class="string">"org.jasig.cas.authentication.handler.DefaultPasswordEncoder"</span> </span><br><span class="line"> c:encodingAlgorithm=<span class="string">"MD5"</span></span><br><span class="line"> p:characterEncoding=<span class="string">"UTF-8"</span> /&gt;</span><br><span class="line">&lt;bean id=<span class="string">"dbAuthHandler"</span> </span><br><span class="line"> <span class="class"><span class="keyword">class</span></span>=<span class="string">"org.jasig.cas.adaptors.jdbc.QueryDatabaseAuthenticationHandler"</span></span><br><span class="line"> p:dataSource-ref=<span class="string">"dataSource"</span></span><br><span class="line"> p:sql=<span class="string">"select password from tb_user where username = ?"</span></span><br><span class="line"> p:passwordEncoder-ref=<span class="string">"passwordEncoder"</span>/&gt;</span><br></pre></td></tr></table></figure>
 <ul>
 <li>然后在配置文件开始部分找到如下配置</li>
 </ul>
-<pre class=" language-java"><code class="language-java"><span class="token operator"><</span>bean id<span class="token operator">=</span><span class="token string">"authenticationManager"</span> <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"org.jasig.cas.authentication.PolicyBasedAuthenticationManager"</span><span class="token operator">></span>
-       <span class="token operator"><</span>constructor<span class="token operator">-</span>arg<span class="token operator">></span>
-           <span class="token operator"><</span>map<span class="token operator">></span>               
-               <span class="token operator"><</span>entry key<span class="token operator">-</span>ref<span class="token operator">=</span><span class="token string">"proxyAuthenticationHandler"</span> value<span class="token operator">-</span>ref<span class="token operator">=</span><span class="token string">"proxyPrincipalResolver"</span> <span class="token operator">/</span><span class="token operator">></span>
-               <span class="token operator"><</span>entry key<span class="token operator">-</span>ref<span class="token operator">=</span><span class="token string">"primaryAuthenticationHandler"</span> value<span class="token operator">-</span>ref<span class="token operator">=</span><span class="token string">"primaryPrincipalResolver"</span> <span class="token operator">/</span><span class="token operator">></span>
-           <span class="token operator"><</span><span class="token operator">/</span>map<span class="token operator">></span>
-       <span class="token operator"><</span><span class="token operator">/</span>constructor<span class="token operator">-</span>arg<span class="token operator">></span>      
-       <span class="token operator"><</span>property name<span class="token operator">=</span><span class="token string">"authenticationPolicy"</span><span class="token operator">></span>
-           <span class="token operator"><</span>bean <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"org.jasig.cas.authentication.AnyAuthenticationPolicy"</span> <span class="token operator">/</span><span class="token operator">></span>
-       <span class="token operator"><</span><span class="token operator">/</span>property<span class="token operator">></span>
-<span class="token operator"><</span><span class="token operator">/</span>bean<span class="token operator">></span></code></pre>
-<p>其中 <entry key-ref="primaryAuthenticationHandler" value-ref="primaryPrincipalResolver">一句是使用固定的用户名和密码，我们在下面可以看到这两个bean ,如果我们使用数据库认证用户名和密码，需要将这句注释掉。<br>添加下面这一句配置</entry></p>
-<entry key-ref="dbAuthHandler" value-ref="primaryPrincipalResolver">
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line"> &lt;bean id=<span class="string">"authenticationManager"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"org.jasig.cas.authentication.PolicyBasedAuthenticationManager"</span>&gt;</span><br><span class="line">        &lt;constructor-arg&gt;</span><br><span class="line">            &lt;map&gt;               </span><br><span class="line">                &lt;entry key-ref=<span class="string">"proxyAuthenticationHandler"</span> value-ref=<span class="string">"proxyPrincipalResolver"</span> /&gt;</span><br><span class="line">                &lt;entry key-ref=<span class="string">"primaryAuthenticationHandler"</span> value-ref=<span class="string">"primaryPrincipalResolver"</span> /&gt;</span><br><span class="line">            &lt;/map&gt;</span><br><span class="line">        &lt;/constructor-arg&gt;      </span><br><span class="line">        &lt;property name=<span class="string">"authenticationPolicy"</span>&gt;</span><br><span class="line">            &lt;bean <span class="class"><span class="keyword">class</span></span>=<span class="string">"org.jasig.cas.authentication.AnyAuthenticationPolicy"</span> /&gt;</span><br><span class="line">        &lt;/property&gt;</span><br><span class="line">&lt;/bean&gt;</span><br></pre></td></tr></table></figure>
+<p>其中 <entry key-ref="primaryAuthenticationHandler" value-ref="primaryPrincipalResolver" />一句是使用固定的用户名和密码，我们在下面可以看到这两个bean ,如果我们使用数据库认证用户名和密码，需要将这句注释掉。<br>添加下面这一句配置</p>
+<entry key-ref="dbAuthHandler" value-ref="primaryPrincipalResolver"/>
 - 将三个jar包加入到cas的lib目录下
 ![oss](https://imlgwpicture.oss-cn-qingdao.aliyuncs.com/blogImage/casjar.PNG)
 第一个和第三个大家应该很熟悉了，中间的那个是cas对jdbc的支持包
@@ -97,7 +180,7 @@
 
 
 
-</entry></li>
+</li>
 </ul>
 </li>
 </ul>
@@ -106,96 +189,12 @@
 <ul>
 <li>2.1 为了方便我这里采用maven配置，先添加相应的依赖</li>
 </ul>
-<pre class=" language-java"><code class="language-java">        <span class="token operator"><</span><span class="token operator">!</span><span class="token operator">--</span> cas <span class="token operator">--</span><span class="token operator">></span>
-        <span class="token operator"><</span>dependency<span class="token operator">></span>
-            <span class="token operator"><</span>groupId<span class="token operator">></span>org<span class="token punctuation">.</span>jasig<span class="token punctuation">.</span>cas<span class="token punctuation">.</span>client<span class="token operator"><</span><span class="token operator">/</span>groupId<span class="token operator">></span>
-            <span class="token operator"><</span>artifactId<span class="token operator">></span>cas<span class="token operator">-</span>client<span class="token operator">-</span>core<span class="token operator"><</span><span class="token operator">/</span>artifactId<span class="token operator">></span>
-            <span class="token operator"><</span>version<span class="token operator">></span><span class="token number">3.3</span><span class="token punctuation">.</span><span class="token number">3</span><span class="token operator"><</span><span class="token operator">/</span>version<span class="token operator">></span>
-        <span class="token operator"><</span><span class="token operator">/</span>dependency<span class="token operator">></span>
-        <span class="token operator"><</span>dependency<span class="token operator">></span>
-            <span class="token operator"><</span>groupId<span class="token operator">></span>javax<span class="token punctuation">.</span>servlet<span class="token operator"><</span><span class="token operator">/</span>groupId<span class="token operator">></span>
-            <span class="token operator"><</span>artifactId<span class="token operator">></span>servlet<span class="token operator">-</span>api<span class="token operator"><</span><span class="token operator">/</span>artifactId<span class="token operator">></span>
-            <span class="token operator"><</span>version<span class="token operator">></span><span class="token number">2.5</span><span class="token operator"><</span><span class="token operator">/</span>version<span class="token operator">></span>
-            <span class="token operator"><</span>scope<span class="token operator">></span>provided<span class="token operator"><</span><span class="token operator">/</span>scope<span class="token operator">></span>
-        <span class="token operator"><</span><span class="token operator">/</span>dependency<span class="token operator">></span></code></pre>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">&lt;!-- cas --&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.jasig.cas.client&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;cas-client-core&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;3.3.3&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;javax.servlet&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;servlet-api&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;2.5&lt;/version&gt;</span><br><span class="line">    &lt;scope&gt;provided&lt;/scope&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
 <p>一个是cas客户端的核心包，一个是servlet的包，因为后面会写一些jsp<br>然后添加tomcat插件我设置的端口为9002</p>
 <ul>
 <li><p>2.2 因为是普通的web项目所以配置的方式主要是通过web.xml来配置，直接上配置</p>
-<pre class=" language-java"><code class="language-java">  <span class="token operator"><</span><span class="token operator">?</span>xml version<span class="token operator">=</span><span class="token string">"1.0"</span> encoding<span class="token operator">=</span><span class="token string">"UTF-8"</span><span class="token operator">?</span><span class="token operator">></span>
-  <span class="token operator"><</span>web<span class="token operator">-</span>app xmlns<span class="token operator">:</span>xsi<span class="token operator">=</span><span class="token string">"http://www.w3.org/2001/XMLSchema-instance"</span>
-           xmlns<span class="token operator">=</span><span class="token string">"http://java.sun.com/xml/ns/javaee"</span>
-           xsi<span class="token operator">:</span>schemaLocation<span class="token operator">=</span><span class="token string">"http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"</span>
-           version<span class="token operator">=</span><span class="token string">"2.5"</span><span class="token operator">></span>
-      <span class="token operator"><</span><span class="token operator">!</span><span class="token operator">--</span> 用于单点退出，该过滤器用于实现单点登出功能，可选配置 <span class="token operator">--</span><span class="token operator">></span>
-      <span class="token operator"><</span>listener<span class="token operator">></span>
-          <span class="token operator"><</span>listener<span class="token operator">-</span><span class="token keyword">class</span><span class="token operator">></span>org<span class="token punctuation">.</span>jasig<span class="token punctuation">.</span>cas<span class="token punctuation">.</span>client<span class="token punctuation">.</span>session<span class="token punctuation">.</span>SingleSignOutHttpSessionListener<span class="token operator"><</span><span class="token operator">/</span>listener<span class="token operator">-</span><span class="token keyword">class</span><span class="token operator">></span>
-      <span class="token operator"><</span><span class="token operator">/</span>listener<span class="token operator">></span>
-      <span class="token operator"><</span><span class="token operator">!</span><span class="token operator">--</span> 该过滤器用于实现单点登出功能，可选配置。 <span class="token operator">--</span><span class="token operator">></span>
-      <span class="token operator"><</span>filter<span class="token operator">></span>
-          <span class="token operator"><</span>filter<span class="token operator">-</span>name<span class="token operator">></span>CAS Single Sign Out Filter<span class="token operator"><</span><span class="token operator">/</span>filter<span class="token operator">-</span>name<span class="token operator">></span>
-          <span class="token operator"><</span>filter<span class="token operator">-</span><span class="token keyword">class</span><span class="token operator">></span>org<span class="token punctuation">.</span>jasig<span class="token punctuation">.</span>cas<span class="token punctuation">.</span>client<span class="token punctuation">.</span>session<span class="token punctuation">.</span>SingleSignOutFilter<span class="token operator"><</span><span class="token operator">/</span>filter<span class="token operator">-</span><span class="token keyword">class</span><span class="token operator">></span>
-      <span class="token operator"><</span><span class="token operator">/</span>filter<span class="token operator">></span>
-      <span class="token operator"><</span>filter<span class="token operator">-</span>mapping<span class="token operator">></span>
-          <span class="token operator"><</span>filter<span class="token operator">-</span>name<span class="token operator">></span>CAS Single Sign Out Filter<span class="token operator"><</span><span class="token operator">/</span>filter<span class="token operator">-</span>name<span class="token operator">></span>
-          <span class="token operator"><</span>url<span class="token operator">-</span>pattern<span class="token operator">></span><span class="token operator">/</span><span class="token operator">*</span> <span class="token operator"><</span><span class="token operator">/</span>url<span class="token operator">-</span>pattern<span class="token operator">></span>
-      <span class="token operator"><</span><span class="token operator">/</span>filter<span class="token operator">-</span>mapping<span class="token operator">></span>
-      <span class="token operator"><</span><span class="token operator">!</span><span class="token operator">--</span> 该过滤器负责用户的认证工作，必须启用它 <span class="token operator">--</span><span class="token operator">></span>
-      <span class="token operator"><</span>filter<span class="token operator">></span>
-          <span class="token operator"><</span>filter<span class="token operator">-</span>name<span class="token operator">></span>CASFilter<span class="token operator"><</span><span class="token operator">/</span>filter<span class="token operator">-</span>name<span class="token operator">></span>
-          <span class="token operator"><</span>filter<span class="token operator">-</span><span class="token keyword">class</span><span class="token operator">></span>org<span class="token punctuation">.</span>jasig<span class="token punctuation">.</span>cas<span class="token punctuation">.</span>client<span class="token punctuation">.</span>authentication<span class="token punctuation">.</span>AuthenticationFilter<span class="token operator"><</span><span class="token operator">/</span>filter<span class="token operator">-</span><span class="token keyword">class</span><span class="token operator">></span>
-          <span class="token operator"><</span>init<span class="token operator">-</span>param<span class="token operator">></span>
-              <span class="token operator"><</span>param<span class="token operator">-</span>name<span class="token operator">></span>casServerLoginUrl<span class="token operator"><</span><span class="token operator">/</span>param<span class="token operator">-</span>name<span class="token operator">></span>
-              <span class="token operator"><</span>param<span class="token operator">-</span>value<span class="token operator">></span>http<span class="token operator">:</span><span class="token operator">/</span><span class="token operator">/</span>localhost<span class="token operator">:</span><span class="token number">8888</span><span class="token operator">/</span>cas<span class="token operator">/</span>login<span class="token operator"><</span><span class="token operator">/</span>param<span class="token operator">-</span>value<span class="token operator">></span>
-              <span class="token operator"><</span><span class="token operator">!</span><span class="token operator">--</span>这里的server是服务端的IP <span class="token operator">--</span><span class="token operator">></span>
-          <span class="token operator"><</span><span class="token operator">/</span>init<span class="token operator">-</span>param<span class="token operator">></span>
-          <span class="token operator"><</span>init<span class="token operator">-</span>param<span class="token operator">></span>
-              <span class="token operator"><</span>param<span class="token operator">-</span>name<span class="token operator">></span>serverName<span class="token operator"><</span><span class="token operator">/</span>param<span class="token operator">-</span>name<span class="token operator">></span>
-              <span class="token operator"><</span>param<span class="token operator">-</span>value<span class="token operator">></span>http<span class="token operator">:</span><span class="token operator">/</span><span class="token operator">/</span>localhost<span class="token operator">:</span><span class="token number">9002</span><span class="token operator"><</span><span class="token operator">/</span>param<span class="token operator">-</span>value<span class="token operator">></span>
-          <span class="token operator"><</span><span class="token operator">/</span>init<span class="token operator">-</span>param<span class="token operator">></span>
-      <span class="token operator"><</span><span class="token operator">/</span>filter<span class="token operator">></span>
-      <span class="token operator"><</span>filter<span class="token operator">-</span>mapping<span class="token operator">></span>
-          <span class="token operator"><</span>filter<span class="token operator">-</span>name<span class="token operator">></span>CASFilter<span class="token operator"><</span><span class="token operator">/</span>filter<span class="token operator">-</span>name<span class="token operator">></span>
-          <span class="token operator"><</span>url<span class="token operator">-</span>pattern<span class="token operator">></span><span class="token operator">/</span><span class="token operator">*</span><span class="token operator"><</span><span class="token operator">/</span>url<span class="token operator">-</span>pattern<span class="token operator">></span>
-      <span class="token operator"><</span><span class="token operator">/</span>filter<span class="token operator">-</span>mapping<span class="token operator">></span>
-      <span class="token operator"><</span><span class="token operator">!</span><span class="token operator">--</span> 该过滤器负责对Ticket的校验工作，必须启用它 <span class="token operator">--</span><span class="token operator">></span>
-      <span class="token operator"><</span>filter<span class="token operator">></span>
-          <span class="token operator"><</span>filter<span class="token operator">-</span>name<span class="token operator">></span>CAS Validation Filter<span class="token operator"><</span><span class="token operator">/</span>filter<span class="token operator">-</span>name<span class="token operator">></span>
-          <span class="token operator"><</span>filter<span class="token operator">-</span><span class="token keyword">class</span><span class="token operator">></span>org<span class="token punctuation">.</span>jasig<span class="token punctuation">.</span>cas<span class="token punctuation">.</span>client<span class="token punctuation">.</span>validation<span class="token punctuation">.</span>Cas20ProxyReceivingTicketValidationFilter<span class="token operator"><</span><span class="token operator">/</span>filter<span class="token operator">-</span><span class="token keyword">class</span><span class="token operator">></span>
-          <span class="token operator"><</span>init<span class="token operator">-</span>param<span class="token operator">></span>
-              <span class="token operator"><</span>param<span class="token operator">-</span>name<span class="token operator">></span>casServerUrlPrefix<span class="token operator"><</span><span class="token operator">/</span>param<span class="token operator">-</span>name<span class="token operator">></span>
-              <span class="token operator"><</span>param<span class="token operator">-</span>value<span class="token operator">></span>http<span class="token operator">:</span><span class="token operator">/</span><span class="token operator">/</span>localhost<span class="token operator">:</span><span class="token number">8888</span><span class="token operator">/</span>cas<span class="token operator"><</span><span class="token operator">/</span>param<span class="token operator">-</span>value<span class="token operator">></span>
-          <span class="token operator"><</span><span class="token operator">/</span>init<span class="token operator">-</span>param<span class="token operator">></span>
-          <span class="token operator"><</span>init<span class="token operator">-</span>param<span class="token operator">></span>
-              <span class="token operator"><</span>param<span class="token operator">-</span>name<span class="token operator">></span>serverName<span class="token operator"><</span><span class="token operator">/</span>param<span class="token operator">-</span>name<span class="token operator">></span>
-              <span class="token operator"><</span>param<span class="token operator">-</span>value<span class="token operator">></span>http<span class="token operator">:</span><span class="token operator">/</span><span class="token operator">/</span>localhost<span class="token operator">:</span><span class="token number">9002</span><span class="token operator"><</span><span class="token operator">/</span>param<span class="token operator">-</span>value<span class="token operator">></span>
-          <span class="token operator"><</span><span class="token operator">/</span>init<span class="token operator">-</span>param<span class="token operator">></span>
-      <span class="token operator"><</span><span class="token operator">/</span>filter<span class="token operator">></span>
-      <span class="token operator"><</span>filter<span class="token operator">-</span>mapping<span class="token operator">></span>
-          <span class="token operator"><</span>filter<span class="token operator">-</span>name<span class="token operator">></span>CAS Validation Filter<span class="token operator"><</span><span class="token operator">/</span>filter<span class="token operator">-</span>name<span class="token operator">></span>
-          <span class="token operator"><</span>url<span class="token operator">-</span>pattern<span class="token operator">></span><span class="token operator">/</span><span class="token operator">*</span><span class="token operator"><</span><span class="token operator">/</span>url<span class="token operator">-</span>pattern<span class="token operator">></span>
-      <span class="token operator"><</span><span class="token operator">/</span>filter<span class="token operator">-</span>mapping<span class="token operator">></span>
-      <span class="token operator"><</span><span class="token operator">!</span><span class="token operator">--</span> 该过滤器负责实现HttpServletRequest请求的包裹， 比如允许开发者通过HttpServletRequest的<span class="token function">getRemoteUser</span><span class="token punctuation">(</span><span class="token punctuation">)</span>方法获得SSO登录用户的登录名，可选配置。 <span class="token operator">--</span><span class="token operator">></span>
-      <span class="token operator"><</span>filter<span class="token operator">></span>
-          <span class="token operator"><</span>filter<span class="token operator">-</span>name<span class="token operator">></span>CAS HttpServletRequest Wrapper Filter<span class="token operator"><</span><span class="token operator">/</span>filter<span class="token operator">-</span>name<span class="token operator">></span>
-          <span class="token operator"><</span>filter<span class="token operator">-</span><span class="token keyword">class</span><span class="token operator">></span>
-              org<span class="token punctuation">.</span>jasig<span class="token punctuation">.</span>cas<span class="token punctuation">.</span>client<span class="token punctuation">.</span>util<span class="token punctuation">.</span>*
-          <span class="token operator"><</span><span class="token operator">/</span>filter<span class="token operator">-</span><span class="token keyword">class</span><span class="token operator">></span>
-      <span class="token operator"><</span><span class="token operator">/</span>filter<span class="token operator">></span>
-      <span class="token operator"><</span>filter<span class="token operator">-</span>mapping<span class="token operator">></span>
-          <span class="token operator"><</span>filter<span class="token operator">-</span>name<span class="token operator">></span>CAS HttpServletRequest Wrapper Filter<span class="token operator"><</span><span class="token operator">/</span>filter<span class="token operator">-</span>name<span class="token operator">></span>
-          <span class="token operator"><</span>url<span class="token operator">-</span>pattern<span class="token operator">></span><span class="token operator">/</span><span class="token operator">*</span><span class="token operator"><</span><span class="token operator">/</span>url<span class="token operator">-</span>pattern<span class="token operator">></span>
-      <span class="token operator"><</span><span class="token operator">/</span>filter<span class="token operator">-</span>mapping<span class="token operator">></span>
-      <span class="token operator"><</span><span class="token operator">!</span><span class="token operator">--</span> 该过滤器使得开发者可以通过org<span class="token punctuation">.</span>jasig<span class="token punctuation">.</span>cas<span class="token punctuation">.</span>client<span class="token punctuation">.</span>util<span class="token punctuation">.</span>AssertionHolder来获取用户的登录名。 比如AssertionHolder<span class="token punctuation">.</span><span class="token function">getAssertion</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getPrincipal</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span>。 <span class="token operator">--</span><span class="token operator">></span>
-      <span class="token operator"><</span>filter<span class="token operator">></span>
-          <span class="token operator"><</span>filter<span class="token operator">-</span>name<span class="token operator">></span>CAS Assertion Thread Local Filter<span class="token operator"><</span><span class="token operator">/</span>filter<span class="token operator">-</span>name<span class="token operator">></span>
-          <span class="token operator"><</span>filter<span class="token operator">-</span><span class="token keyword">class</span><span class="token operator">></span>org<span class="token punctuation">.</span>jasig<span class="token punctuation">.</span>cas<span class="token punctuation">.</span>client<span class="token punctuation">.</span>util<span class="token punctuation">.</span>AssertionThreadLocalFilter<span class="token operator"><</span><span class="token operator">/</span>filter<span class="token operator">-</span><span class="token keyword">class</span><span class="token operator">></span>
-      <span class="token operator"><</span><span class="token operator">/</span>filter<span class="token operator">></span>
-      <span class="token operator"><</span>filter<span class="token operator">-</span>mapping<span class="token operator">></span>
-          <span class="token operator"><</span>filter<span class="token operator">-</span>name<span class="token operator">></span>CAS Assertion Thread Local Filter<span class="token operator"><</span><span class="token operator">/</span>filter<span class="token operator">-</span>name<span class="token operator">></span>
-          <span class="token operator"><</span>url<span class="token operator">-</span>pattern<span class="token operator">></span><span class="token operator">/</span><span class="token operator">*</span><span class="token operator"><</span><span class="token operator">/</span>url<span class="token operator">-</span>pattern<span class="token operator">></span>
-      <span class="token operator"><</span><span class="token operator">/</span>filter<span class="token operator">-</span>mapping<span class="token operator">></span>
-  <span class="token operator"><</span><span class="token operator">/</span>web<span class="token operator">-</span>app<span class="token operator">></span>
-</code></pre>
+  <figure class="highlight java"><table><tr><td class="code"><pre><span class="line">&lt;?xml version=<span class="string">"1.0"</span> encoding=<span class="string">"UTF-8"</span>?&gt;</span><br><span class="line">&lt;web-app xmlns:xsi=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span><br><span class="line">         xmlns=<span class="string">"http://java.sun.com/xml/ns/javaee"</span></span><br><span class="line">         xsi:schemaLocation=<span class="string">"http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"</span></span><br><span class="line">         version=<span class="string">"2.5"</span>&gt;</span><br><span class="line">    &lt;!-- 用于单点退出，该过滤器用于实现单点登出功能，可选配置 --&gt;</span><br><span class="line">    &lt;listener&gt;</span><br><span class="line">        &lt;listener-<span class="class"><span class="keyword">class</span>&gt;<span class="title">org</span>.<span class="title">jasig</span>.<span class="title">cas</span>.<span class="title">client</span>.<span class="title">session</span>.<span class="title">SingleSignOutHttpSessionListener</span>&lt;/<span class="title">listener</span>-<span class="title">class</span>&gt;</span></span><br><span class="line"><span class="class">    &lt;/<span class="title">listener</span>&gt;</span></span><br><span class="line"><span class="class">    &lt;!-- 该过滤器用于实现单点登出功能，可选配置。 --&gt;</span></span><br><span class="line"><span class="class">    &lt;<span class="title">filter</span>&gt;</span></span><br><span class="line"><span class="class">        &lt;<span class="title">filter</span>-<span class="title">name</span>&gt;<span class="title">CAS</span> <span class="title">Single</span> <span class="title">Sign</span> <span class="title">Out</span> <span class="title">Filter</span>&lt;/<span class="title">filter</span>-<span class="title">name</span>&gt;</span></span><br><span class="line"><span class="class">        &lt;<span class="title">filter</span>-<span class="title">class</span>&gt;<span class="title">org</span>.<span class="title">jasig</span>.<span class="title">cas</span>.<span class="title">client</span>.<span class="title">session</span>.<span class="title">SingleSignOutFilter</span>&lt;/<span class="title">filter</span>-<span class="title">class</span>&gt;</span></span><br><span class="line"><span class="class">    &lt;/<span class="title">filter</span>&gt;</span></span><br><span class="line"><span class="class">    &lt;<span class="title">filter</span>-<span class="title">mapping</span>&gt;</span></span><br><span class="line"><span class="class">        &lt;<span class="title">filter</span>-<span class="title">name</span>&gt;<span class="title">CAS</span> <span class="title">Single</span> <span class="title">Sign</span> <span class="title">Out</span> <span class="title">Filter</span>&lt;/<span class="title">filter</span>-<span class="title">name</span>&gt;</span></span><br><span class="line"><span class="class">        &lt;<span class="title">url</span>-<span class="title">pattern</span>&gt;/* &lt;/<span class="title">url</span>-<span class="title">pattern</span>&gt;</span></span><br><span class="line"><span class="class">    &lt;/<span class="title">filter</span>-<span class="title">mapping</span>&gt;</span></span><br><span class="line"><span class="class">    &lt;!-- 该过滤器负责用户的认证工作，必须启用它 --&gt;</span></span><br><span class="line"><span class="class">    &lt;<span class="title">filter</span>&gt;</span></span><br><span class="line"><span class="class">        &lt;<span class="title">filter</span>-<span class="title">name</span>&gt;<span class="title">CASFilter</span>&lt;/<span class="title">filter</span>-<span class="title">name</span>&gt;</span></span><br><span class="line"><span class="class">        &lt;<span class="title">filter</span>-<span class="title">class</span>&gt;<span class="title">org</span>.<span class="title">jasig</span>.<span class="title">cas</span>.<span class="title">client</span>.<span class="title">authentication</span>.<span class="title">AuthenticationFilter</span>&lt;/<span class="title">filter</span>-<span class="title">class</span>&gt;</span></span><br><span class="line"><span class="class">        &lt;<span class="title">init</span>-<span class="title">param</span>&gt;</span></span><br><span class="line"><span class="class">            &lt;<span class="title">param</span>-<span class="title">name</span>&gt;<span class="title">casServerLoginUrl</span>&lt;/<span class="title">param</span>-<span class="title">name</span>&gt;</span></span><br><span class="line">            &lt;param-value&gt;http://localhost:8888/cas/login&lt;/param-value&gt;</span><br><span class="line">            &lt;!--这里的server是服务端的IP --&gt;</span><br><span class="line">        &lt;/init-param&gt;</span><br><span class="line">        &lt;init-param&gt;</span><br><span class="line">            &lt;param-name&gt;serverName&lt;/param-name&gt;</span><br><span class="line">            &lt;param-value&gt;http:<span class="comment">//localhost:9002&lt;/param-value&gt;</span></span><br><span class="line">        &lt;/init-param&gt;</span><br><span class="line">    &lt;/filter&gt;</span><br><span class="line">    &lt;filter-mapping&gt;</span><br><span class="line">        &lt;filter-name&gt;CASFilter&lt;/filter-name&gt;</span><br><span class="line">        &lt;url-pattern&gt;<span class="comment">/*&lt;/url-pattern&gt;</span></span><br><span class="line"><span class="comment">    &lt;/filter-mapping&gt;</span></span><br><span class="line"><span class="comment">    &lt;!-- 该过滤器负责对Ticket的校验工作，必须启用它 --&gt;</span></span><br><span class="line"><span class="comment">    &lt;filter&gt;</span></span><br><span class="line"><span class="comment">        &lt;filter-name&gt;CAS Validation Filter&lt;/filter-name&gt;</span></span><br><span class="line"><span class="comment">        &lt;filter-class&gt;org.jasig.cas.client.validation.Cas20ProxyReceivingTicketValidationFilter&lt;/filter-class&gt;</span></span><br><span class="line"><span class="comment">        &lt;init-param&gt;</span></span><br><span class="line"><span class="comment">            &lt;param-name&gt;casServerUrlPrefix&lt;/param-name&gt;</span></span><br><span class="line"><span class="comment">            &lt;param-value&gt;http://localhost:8888/cas&lt;/param-value&gt;</span></span><br><span class="line"><span class="comment">        &lt;/init-param&gt;</span></span><br><span class="line"><span class="comment">        &lt;init-param&gt;</span></span><br><span class="line"><span class="comment">            &lt;param-name&gt;serverName&lt;/param-name&gt;</span></span><br><span class="line"><span class="comment">            &lt;param-value&gt;http://localhost:9002&lt;/param-value&gt;</span></span><br><span class="line"><span class="comment">        &lt;/init-param&gt;</span></span><br><span class="line"><span class="comment">    &lt;/filter&gt;</span></span><br><span class="line"><span class="comment">    &lt;filter-mapping&gt;</span></span><br><span class="line"><span class="comment">        &lt;filter-name&gt;CAS Validation Filter&lt;/filter-name&gt;</span></span><br><span class="line"><span class="comment">        &lt;url-pattern&gt;/*&lt;/url-pattern&gt;</span></span><br><span class="line"><span class="comment">    &lt;/filter-mapping&gt;</span></span><br><span class="line"><span class="comment">    &lt;!-- 该过滤器负责实现HttpServletRequest请求的包裹， 比如允许开发者通过HttpServletRequest的getRemoteUser()方法获得SSO登录用户的登录名，可选配置。 --&gt;</span></span><br><span class="line"><span class="comment">    &lt;filter&gt;</span></span><br><span class="line"><span class="comment">        &lt;filter-name&gt;CAS HttpServletRequest Wrapper Filter&lt;/filter-name&gt;</span></span><br><span class="line"><span class="comment">        &lt;filter-class&gt;</span></span><br><span class="line"><span class="comment">            org.jasig.cas.client.util.*</span></span><br><span class="line"><span class="comment">        &lt;/filter-class&gt;</span></span><br><span class="line"><span class="comment">    &lt;/filter&gt;</span></span><br><span class="line"><span class="comment">    &lt;filter-mapping&gt;</span></span><br><span class="line"><span class="comment">        &lt;filter-name&gt;CAS HttpServletRequest Wrapper Filter&lt;/filter-name&gt;</span></span><br><span class="line"><span class="comment">        &lt;url-pattern&gt;/*&lt;/url-pattern&gt;</span></span><br><span class="line"><span class="comment">    &lt;/filter-mapping&gt;</span></span><br><span class="line"><span class="comment">    &lt;!-- 该过滤器使得开发者可以通过org.jasig.cas.client.util.AssertionHolder来获取用户的登录名。 比如AssertionHolder.getAssertion().getPrincipal().getName()。 --&gt;</span></span><br><span class="line"><span class="comment">    &lt;filter&gt;</span></span><br><span class="line"><span class="comment">        &lt;filter-name&gt;CAS Assertion Thread Local Filter&lt;/filter-name&gt;</span></span><br><span class="line"><span class="comment">        &lt;filter-class&gt;org.jasig.cas.client.util.AssertionThreadLocalFilter&lt;/filter-class&gt;</span></span><br><span class="line"><span class="comment">    &lt;/filter&gt;</span></span><br><span class="line"><span class="comment">    &lt;filter-mapping&gt;</span></span><br><span class="line"><span class="comment">        &lt;filter-name&gt;CAS Assertion Thread Local Filter&lt;/filter-name&gt;</span></span><br><span class="line"><span class="comment">        &lt;url-pattern&gt;/*&lt;/url-pattern&gt;</span></span><br><span class="line"><span class="comment">    &lt;/filter-mapping&gt;</span></span><br><span class="line"><span class="comment">&lt;/web-app&gt;</span></span><br></pre></td></tr></table></figure>
+
 <ul>
 <li>用户认证过滤器(必选)<strong>AuthenticationFilter</strong>在上面的配置中需要两个参数一个是casServerLoginUrl顾名思义就是CASserver登陆的地址，比如我的是<a href="http://localhost:8888/cas/login" target="_blank" rel="noopener">http://localhost:8888/cas/login</a> ，第二个参数是<strong>serverName</strong> ,因为登陆成功后还是要返回你当前的应用所以需要将你当前的应用的地址传递给CASserver比如我的当前应用 <a href="http://localhost:9002/" target="_blank" rel="noopener">http://localhost:9002/</a></li>
 <li>Ticket的校验过滤器(必选)<strong>Cas20ProxyReceivingTicketValidationFilter</strong> 与上面的过滤器类似也需要那两个参数，                              配置了这两个过滤器CAS就能正常运行了</li>
@@ -204,343 +203,255 @@
 </ul>
 </li>
 <li><p>2.3 编写index.jsp(tomcat默认打开的页面)</p>
-<pre class=" language-java"><code class="language-java">  <span class="token operator"><</span><span class="token operator">%</span>@ page language<span class="token operator">=</span><span class="token string">"java"</span> contentType<span class="token operator">=</span><span class="token string">"text/html; charset=utf-8"</span>
-           pageEncoding<span class="token operator">=</span><span class="token string">"utf-8"</span><span class="token operator">%</span><span class="token operator">></span>
-  <span class="token operator"><</span><span class="token operator">!</span>DOCTYPE html PUBLIC <span class="token string">"-//W3C//DTD HTML 4.01 Transitional//EN"</span> <span class="token string">"http://www.w3.org/TR/html4/loose.dtd"</span><span class="token operator">></span>
-  <span class="token operator"><</span>html<span class="token operator">></span>
-  <span class="token operator"><</span>head<span class="token operator">></span>
-      <span class="token operator"><</span>meta http<span class="token operator">-</span>equiv<span class="token operator">=</span><span class="token string">"Content-Type"</span> content<span class="token operator">=</span><span class="token string">"text/html; charset=utf-8"</span><span class="token operator">></span>
-      <span class="token operator"><</span>title<span class="token operator">></span>一品优购<span class="token operator"><</span><span class="token operator">/</span>title<span class="token operator">></span>
-  <span class="token operator"><</span><span class="token operator">/</span>head<span class="token operator">></span>
-  <span class="token operator"><</span>body<span class="token operator">></span>
-   采用web<span class="token punctuation">.</span>xml配置的普通的web模块
-  <span class="token operator"><</span><span class="token operator">%=</span>request<span class="token punctuation">.</span><span class="token function">getRemoteUser</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">%</span><span class="token operator">></span>
-   <span class="token operator"><</span>a href<span class="token operator">=</span><span class="token string">"http://localhost:8888/cas/logout?service=http://www.imlgw.top"</span><span class="token operator">></span>退出登录<span class="token operator"><</span><span class="token operator">/</span>a<span class="token operator">>></span>
-  <span class="token operator"><</span><span class="token operator">/</span>body<span class="token operator">></span>
-  <span class="token operator"><</span><span class="token operator">/</span>html<span class="token operator">></span>
-</code></pre>
-<p>   如果想让cas退出后跳转到指定的页面而不是CAS默认的页面也需要修改配置<br>   修改cas系统的配置文件cas-servlet.xml<br>   <bean id="logoutAction" class="org.jasig.cas.web.flow.LogoutAction" p:servicesmanager-ref="servicesManager" p:followserviceredirects="${cas.logout.followServiceRedirects:true}"><br>  将cas.logout.followServiceRedirects改为true后，可以在退出时跳转页面到目标页面<br> 然后就可以启动cas和你的应用来测试了。</bean></p>
+  <figure class="highlight"><table><tr><td class="code"><pre><span class="line">&lt;%@ page language=<span class="string">"java"</span> contentType=<span class="string">"text/html; charset=utf-8"</span></span><br><span class="line">         pageEncoding=<span class="string">"utf-8"</span>%&gt;</span><br><span class="line">&lt;!DOCTYPE html PUBLIC <span class="string">"-//W3C//DTD HTML 4.01 Transitional//EN"</span> <span class="string">"http://www.w3.org/TR/html4/loose.dtd"</span>&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta http-equiv=<span class="string">"Content-Type"</span> content=<span class="string">"text/html; charset=utf-8"</span>&gt;</span><br><span class="line">    &lt;title&gt;一品优购&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line"> 采用web.xml配置的普通的web模块</span><br><span class="line">&lt;%=request.getRemoteUser()%&gt;</span><br><span class="line"> &lt;a href="http://localhost:8888/cas/logout?service=http://www.imlgw.top"&gt;退出登录&lt;/a&gt;&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<p>   如果想让cas退出后跳转到指定的页面而不是CAS默认的页面也需要修改配置<br>   修改cas系统的配置文件cas-servlet.xml<br>   <bean id="logoutAction" class="org.jasig.cas.web.flow.LogoutAction"
+   p:servicesManager-ref="servicesManager"
+   p:followServiceRedirects="${cas.logout.followServiceRedirects:true}"/><br>  将cas.logout.followServiceRedirects改为true后，可以在退出时跳转页面到目标页面<br> 然后就可以启动cas和你的应用来测试了。</p>
 </li>
 <li><p>2.4 服务端界面改造<br> 上面测试成功，但是真实的情况肯定不会用cas默认的那个页面做登陆需要改成你自己的登陆界面，然后你当前应用的登陆页面就没用了。</p>
-<pre class=" language-java"><code class="language-java">  <span class="token operator"><</span><span class="token operator">!</span>DOCTYPE <span class="token operator">></span>
-  <span class="token operator"><</span><span class="token operator">%</span>@ page pageEncoding<span class="token operator">=</span><span class="token string">"UTF-8"</span> <span class="token operator">%</span><span class="token operator">></span>
-  <span class="token operator"><</span><span class="token operator">%</span>@ page contentType<span class="token operator">=</span><span class="token string">"text/html; charset=UTF-8"</span> <span class="token operator">%</span><span class="token operator">></span>
-  <span class="token operator"><</span><span class="token operator">%</span>@ taglib prefix<span class="token operator">=</span><span class="token string">"c"</span> uri<span class="token operator">=</span><span class="token string">"http://java.sun.com/jsp/jstl/core"</span> <span class="token operator">%</span><span class="token operator">></span>
-  <span class="token operator"><</span><span class="token operator">%</span>@ taglib prefix<span class="token operator">=</span><span class="token string">"spring"</span> uri<span class="token operator">=</span><span class="token string">"http://www.springframework.org/tags"</span> <span class="token operator">%</span><span class="token operator">></span>
-  <span class="token operator"><</span><span class="token operator">%</span>@ taglib prefix<span class="token operator">=</span><span class="token string">"form"</span> uri<span class="token operator">=</span><span class="token string">"http://www.springframework.org/tags/form"</span> <span class="token operator">%</span><span class="token operator">></span>
-  <span class="token operator"><</span><span class="token operator">%</span>@ taglib prefix<span class="token operator">=</span><span class="token string">"fn"</span> uri<span class="token operator">=</span><span class="token string">"http://java.sun.com/jsp/jstl/functions"</span> <span class="token operator">%</span><span class="token operator">></span>
-  <span class="token operator"><</span>html<span class="token operator">></span>
-      <span class="token operator"><</span>head<span class="token operator">></span>
-          <span class="token operator"><</span>meta charset<span class="token operator">=</span><span class="token string">"UTF-8"</span> <span class="token operator">/</span><span class="token operator">></span>
-          <span class="token operator"><</span>title<span class="token operator">></span>Login<span class="token operator"><</span><span class="token operator">/</span>title<span class="token operator">></span>
-          <span class="token operator"><</span>link rel<span class="token operator">=</span><span class="token string">"stylesheet"</span> type<span class="token operator">=</span><span class="token string">"text/css"</span> href<span class="token operator">=</span><span class="token string">'bs/css/bootstrap.min.css'</span> <span class="token operator">/</span><span class="token operator">></span>
-          <span class="token operator"><</span>script type<span class="token operator">=</span><span class="token string">"text/javascript"</span> src<span class="token operator">=</span><span class="token string">"js/jquery.min.js"</span><span class="token operator">></span><span class="token operator"><</span><span class="token operator">/</span>script<span class="token operator">></span>
-          <span class="token operator"><</span>script type<span class="token operator">=</span><span class="token string">"text/javascript"</span> src<span class="token operator">=</span><span class="token string">"bs/js/bootstrap.min.js"</span><span class="token operator">></span><span class="token operator"><</span><span class="token operator">/</span>script<span class="token operator">></span>
-          <span class="token operator"><</span>style<span class="token operator">></span>
-              img <span class="token punctuation">{</span>
-                  height<span class="token operator">:</span> 200px<span class="token punctuation">;</span>
-                  border<span class="token operator">-</span>radius<span class="token operator">:</span> 200px<span class="token punctuation">;</span>
-              <span class="token punctuation">}</span>
-              <span class="token punctuation">.</span>panel<span class="token operator">-</span>title<span class="token punctuation">{</span>
-                  text<span class="token operator">-</span>align<span class="token operator">:</span> center<span class="token punctuation">;</span>
-              <span class="token punctuation">}</span>
-              <span class="token punctuation">.</span>login <span class="token punctuation">{</span>
-                  width<span class="token operator">:</span> 500px<span class="token punctuation">;</span>
-                  height<span class="token operator">:</span> 400px<span class="token punctuation">;</span>
-                  position<span class="token operator">:</span> absolute<span class="token punctuation">;</span>
-                  top<span class="token operator">:</span> <span class="token number">20</span><span class="token operator">%</span><span class="token punctuation">;</span>
-                  left<span class="token operator">:</span> <span class="token number">50</span><span class="token operator">%</span><span class="token punctuation">;</span>
-                  margin<span class="token operator">-</span>left<span class="token operator">:</span> <span class="token operator">-</span>250px<span class="token punctuation">;</span>
-              <span class="token punctuation">}</span>
-              <span class="token punctuation">.</span>sub<span class="token punctuation">{</span>
-                  text<span class="token operator">-</span>align<span class="token operator">:</span> center<span class="token punctuation">;</span>
-              <span class="token punctuation">}</span>
-
-          <span class="token operator"><</span><span class="token operator">/</span>style<span class="token operator">></span>
-      <span class="token operator"><</span><span class="token operator">/</span>head<span class="token operator">></span>
-
-      <span class="token operator"><</span>body<span class="token operator">></span>
-          <span class="token operator"><</span>div <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"panel panel-primary login"</span><span class="token operator">></span>
-              <span class="token operator"><</span>div <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"panel-heading"</span><span class="token operator">></span>
-                  <span class="token operator"><</span>div <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"panel-title"</span><span class="token operator">></span>
-                      <span class="token operator"><</span>img src<span class="token operator">=</span><span class="token string">"images/login.jpg"</span> <span class="token operator">/</span><span class="token operator">></span>
-                  <span class="token operator"><</span><span class="token operator">/</span>div<span class="token operator">></span>
-              <span class="token operator"><</span><span class="token operator">/</span>div<span class="token operator">></span>
-              <span class="token operator"><</span>div <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"panel-body"</span><span class="token operator">></span>
-                  <span class="token operator"><</span><span class="token operator">!</span><span class="token operator">--</span>自定义的登陆界面修改 <span class="token number">1</span> <span class="token operator">--</span><span class="token operator">></span>
-                  <span class="token operator"><</span>form<span class="token operator">:</span>form method<span class="token operator">=</span><span class="token string">"post"</span> id<span class="token operator">=</span><span class="token string">"fm1"</span> commandName<span class="token operator">=</span><span class="token string">"${commandName}"</span> htmlEscape<span class="token operator">=</span><span class="token string">"true"</span> <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"sui-form"</span><span class="token operator">></span>
-
-                      <span class="token operator"><</span>div <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"form-group"</span><span class="token operator">></span>
-                          <span class="token operator"><</span>div <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"input-group"</span><span class="token operator">></span>
-                              <span class="token operator"><</span>span <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"input-group-addon"</span> id<span class="token operator">=</span><span class="token string">"basic-addon1"</span><span class="token operator">></span><span class="token operator"><</span>span <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"glyphicon glyphicon-user"</span><span class="token operator">></span><span class="token operator"><</span><span class="token operator">/</span>span<span class="token operator">></span><span class="token operator"><</span><span class="token operator">/</span>span<span class="token operator">></span>
-                              <span class="token operator"><</span><span class="token operator">!</span><span class="token operator">--</span>自定义的登陆界面修改 <span class="token number">2</span> <span class="token operator">--</span><span class="token operator">></span>
-                              <span class="token operator"><</span>form<span class="token operator">:</span>input  <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"form-control"</span> aria<span class="token operator">-</span>describedby<span class="token operator">=</span><span class="token string">"basic-addon1"</span> placeholder<span class="token operator">=</span><span class="token string">"Username"</span>  id<span class="token operator">=</span><span class="token string">"username"</span> size<span class="token operator">=</span><span class="token string">"25"</span> tabindex<span class="token operator">=</span><span class="token string">"1"</span> accesskey<span class="token operator">=</span><span class="token string">"${userNameAccessKey}"</span> path<span class="token operator">=</span><span class="token string">"username"</span> autocomplete<span class="token operator">=</span><span class="token string">"off"</span> htmlEscape<span class="token operator">=</span><span class="token string">"true"</span> <span class="token operator">/</span><span class="token operator">></span>
-                          <span class="token operator"><</span><span class="token operator">/</span>div<span class="token operator">></span>
-                      <span class="token operator"><</span><span class="token operator">/</span>div<span class="token operator">></span>
-                      <span class="token operator"><</span>div <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"form-group"</span><span class="token operator">></span>
-                          <span class="token operator"><</span>div <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"input-group"</span><span class="token operator">></span>
-                              <span class="token operator"><</span>span <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"input-group-addon"</span> id<span class="token operator">=</span><span class="token string">"basic-addon1"</span><span class="token operator">></span><span class="token operator"><</span>span <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"glyphicon glyphicon-lock"</span><span class="token operator">></span><span class="token operator"><</span><span class="token operator">/</span>span<span class="token operator">></span><span class="token operator"><</span><span class="token operator">/</span>span<span class="token operator">></span>
-                              <span class="token operator"><</span><span class="token operator">!</span><span class="token operator">--</span>自定义的登陆界面修改 <span class="token number">3</span> <span class="token operator">--</span><span class="token operator">></span>
-                              <span class="token operator"><</span>form<span class="token operator">:</span>password <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"form-control"</span> placeholder<span class="token operator">=</span><span class="token string">"password"</span> aria<span class="token operator">-</span>describedby<span class="token operator">=</span><span class="token string">"basic-addon1"</span> id<span class="token operator">=</span><span class="token string">"password"</span> size<span class="token operator">=</span><span class="token string">"25"</span> tabindex<span class="token operator">=</span><span class="token string">"2"</span> path<span class="token operator">=</span><span class="token string">"password"</span>  accesskey<span class="token operator">=</span><span class="token string">"${passwordAccessKey}"</span> htmlEscape<span class="token operator">=</span><span class="token string">"true"</span> autocomplete<span class="token operator">=</span><span class="token string">"off"</span> <span class="token operator">/</span><span class="token operator">></span>
-                          <span class="token operator"><</span><span class="token operator">/</span>div<span class="token operator">></span>
-                      <span class="token operator"><</span><span class="token operator">/</span>div<span class="token operator">></span>
-                      <span class="token operator"><</span>div <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"form-group sub"</span><span class="token operator">></span>
-                          <span class="token operator"><</span><span class="token operator">!</span><span class="token operator">--</span>自定义的登陆界面修改 <span class="token number">4</span> 登陆框 <span class="token operator">--</span><span class="token operator">></span>
-                          <span class="token operator"><</span>input type<span class="token operator">=</span><span class="token string">"hidden"</span> name<span class="token operator">=</span><span class="token string">"lt"</span> value<span class="token operator">=</span><span class="token string">"${loginTicket}"</span> <span class="token operator">/</span><span class="token operator">></span>
-                            <span class="token operator"><</span>input type<span class="token operator">=</span><span class="token string">"hidden"</span> name<span class="token operator">=</span><span class="token string">"execution"</span> value<span class="token operator">=</span><span class="token string">"${flowExecutionKey}"</span> <span class="token operator">/</span><span class="token operator">></span>
-                            <span class="token operator"><</span>input type<span class="token operator">=</span><span class="token string">"hidden"</span> name<span class="token operator">=</span><span class="token string">"_eventId"</span> value<span class="token operator">=</span><span class="token string">"submit"</span> <span class="token operator">/</span><span class="token operator">></span>
-                            <span class="token operator"><</span>input <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"btn btn-primary btn-lg"</span> name<span class="token operator">=</span><span class="token string">"submit"</span> accesskey<span class="token operator">=</span><span class="token string">"l"</span> value<span class="token operator">=</span><span class="token string">"登陆"</span> type<span class="token operator">=</span><span class="token string">"submit"</span> <span class="token operator">/</span><span class="token operator">></span>
-                            <span class="token operator"><</span><span class="token operator">!</span><span class="token operator">--</span>自定义的登陆界面修改 <span class="token number">4</span> 错误提示框 <span class="token operator">--</span><span class="token operator">></span>
-                            <span class="token operator"><</span>form<span class="token operator">:</span>errors path<span class="token operator">=</span><span class="token string">"*"</span> id<span class="token operator">=</span><span class="token string">"msg"</span> cssClass<span class="token operator">=</span><span class="token string">"errors"</span> element<span class="token operator">=</span><span class="token string">"div"</span> htmlEscape<span class="token operator">=</span><span class="token string">"false"</span> <span class="token operator">/</span><span class="token operator">></span>
-                      <span class="token operator"><</span><span class="token operator">/</span>div<span class="token operator">></span>
-                  <span class="token operator"><</span><span class="token operator">/</span>form<span class="token operator">:</span>form<span class="token operator">></span>
-              <span class="token operator"><</span><span class="token operator">/</span>div<span class="token operator">></span>
-          <span class="token operator"><</span><span class="token operator">/</span>div<span class="token operator">></span>
-
-      <span class="token operator"><</span><span class="token operator">/</span>body<span class="token operator">></span>
-
-  <span class="token operator"><</span><span class="token operator">/</span>html<span class="token operator">></span></code></pre>
+  <figure class="highlight"><table><tr><td class="code"><pre><span class="line">&lt;!DOCTYPE &gt;</span><br><span class="line">&lt;%@ page pageEncoding=<span class="string">"UTF-8"</span> %&gt;</span><br><span class="line">&lt;%@ page contentType=<span class="string">"text/html; charset=UTF-8"</span> %&gt;</span><br><span class="line">&lt;%@ taglib prefix=<span class="string">"c"</span> uri=<span class="string">"http://java.sun.com/jsp/jstl/core"</span> %&gt;</span><br><span class="line">&lt;%@ taglib prefix=<span class="string">"spring"</span> uri=<span class="string">"http://www.springframework.org/tags"</span> %&gt;</span><br><span class="line">&lt;%@ taglib prefix=<span class="string">"form"</span> uri=<span class="string">"http://www.springframework.org/tags/form"</span> %&gt;</span><br><span class="line">&lt;%@ taglib prefix=<span class="string">"fn"</span> uri=<span class="string">"http://java.sun.com/jsp/jstl/functions"</span> %&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">	&lt;head&gt;</span><br><span class="line">		&lt;meta charset=<span class="string">"UTF-8"</span> /&gt;</span><br><span class="line">		&lt;title&gt;Login&lt;/title&gt;</span><br><span class="line">		&lt;link rel=<span class="string">"stylesheet"</span> type=<span class="string">"text/css"</span> href=<span class="string">'bs/css/bootstrap.min.css'</span> /&gt;</span><br><span class="line">		&lt;script type="text/javascript" src="js/jquery.min.js"&gt;&lt;/script&gt;</span><br><span class="line">		&lt;script type="text/javascript" src="bs/js/bootstrap.min.js"&gt;&lt;/script&gt;</span><br><span class="line">		&lt;style&gt;</span><br><span class="line">			img &#123;</span><br><span class="line">				height: <span class="number">200</span>px;</span><br><span class="line">				border-radius: <span class="number">200</span>px;</span><br><span class="line">			&#125;</span><br><span class="line">			.panel-title&#123;</span><br><span class="line">				text-align: center;</span><br><span class="line">			&#125;</span><br><span class="line">			.login &#123;</span><br><span class="line">				width: <span class="number">500</span>px;</span><br><span class="line">				height: <span class="number">400</span>px;</span><br><span class="line">				position: absolute;</span><br><span class="line">				top: <span class="number">20</span>%;</span><br><span class="line">				left: <span class="number">50</span>%;</span><br><span class="line">				margin-left: -<span class="number">250</span>px;</span><br><span class="line">			&#125;</span><br><span class="line">			.sub&#123;</span><br><span class="line">				text-align: center;</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">		&lt;/style&gt;</span><br><span class="line">	&lt;/head&gt;</span><br><span class="line"></span><br><span class="line">	&lt;body&gt;</span><br><span class="line">		&lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"panel panel-primary login"</span>&gt;</span><br><span class="line">			&lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"panel-heading"</span>&gt;</span><br><span class="line">				&lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"panel-title"</span>&gt;</span><br><span class="line">					&lt;img src=<span class="string">"images/login.jpg"</span> /&gt;</span><br><span class="line">				&lt;/div&gt;</span><br><span class="line">			&lt;/div&gt;</span><br><span class="line">			&lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"panel-body"</span>&gt;</span><br><span class="line">				&lt;!--自定义的登陆界面修改 <span class="number">1</span> --&gt;</span><br><span class="line">				&lt;form:form method=<span class="string">"post"</span> id=<span class="string">"fm1"</span> commandName=<span class="string">"$&#123;commandName&#125;"</span> htmlEscape=<span class="string">"true"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"sui-form"</span>&gt;</span><br><span class="line">				</span><br><span class="line">					&lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"form-group"</span>&gt;</span><br><span class="line">						&lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"input-group"</span>&gt;</span><br><span class="line">							&lt;span class="input-group-addon" id="basic-addon1"&gt;&lt;span class="glyphicon glyphicon-user"&gt;&lt;/span&gt;&lt;/span&gt;</span><br><span class="line">							&lt;!--自定义的登陆界面修改 <span class="number">2</span> --&gt;</span><br><span class="line">							&lt;form:input  <span class="class"><span class="keyword">class</span></span>=<span class="string">"form-control"</span> aria-describedby=<span class="string">"basic-addon1"</span> placeholder=<span class="string">"Username"</span>  id=<span class="string">"username"</span> size=<span class="string">"25"</span> tabindex=<span class="string">"1"</span> accesskey=<span class="string">"$&#123;userNameAccessKey&#125;"</span> path=<span class="string">"username"</span> autocomplete=<span class="string">"off"</span> htmlEscape=<span class="string">"true"</span> /&gt;</span><br><span class="line">						&lt;/div&gt;</span><br><span class="line">					&lt;/div&gt;</span><br><span class="line">					&lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"form-group"</span>&gt;</span><br><span class="line">						&lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"input-group"</span>&gt;</span><br><span class="line">							&lt;span class="input-group-addon" id="basic-addon1"&gt;&lt;span class="glyphicon glyphicon-lock"&gt;&lt;/span&gt;&lt;/span&gt;</span><br><span class="line">							&lt;!--自定义的登陆界面修改 <span class="number">3</span> --&gt;</span><br><span class="line">							&lt;form:password <span class="class"><span class="keyword">class</span></span>=<span class="string">"form-control"</span> placeholder=<span class="string">"password"</span> aria-describedby=<span class="string">"basic-addon1"</span> id=<span class="string">"password"</span> size=<span class="string">"25"</span> tabindex=<span class="string">"2"</span> path=<span class="string">"password"</span>  accesskey=<span class="string">"$&#123;passwordAccessKey&#125;"</span> htmlEscape=<span class="string">"true"</span> autocomplete=<span class="string">"off"</span> /&gt;</span><br><span class="line">						&lt;/div&gt;</span><br><span class="line">					&lt;/div&gt;</span><br><span class="line">					&lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"form-group sub"</span>&gt;</span><br><span class="line">						&lt;!--自定义的登陆界面修改 <span class="number">4</span> 登陆框 --&gt;</span><br><span class="line">						&lt;input type=<span class="string">"hidden"</span> name=<span class="string">"lt"</span> value=<span class="string">"$&#123;loginTicket&#125;"</span> /&gt;</span><br><span class="line">     	 				&lt;input type=<span class="string">"hidden"</span> name=<span class="string">"execution"</span> value=<span class="string">"$&#123;flowExecutionKey&#125;"</span> /&gt;</span><br><span class="line">      					&lt;input type=<span class="string">"hidden"</span> name=<span class="string">"_eventId"</span> value=<span class="string">"submit"</span> /&gt;</span><br><span class="line">      					&lt;input <span class="class"><span class="keyword">class</span></span>=<span class="string">"btn btn-primary btn-lg"</span> name=<span class="string">"submit"</span> accesskey=<span class="string">"l"</span> value=<span class="string">"登陆"</span> type=<span class="string">"submit"</span> /&gt;</span><br><span class="line">      					&lt;!--自定义的登陆界面修改 <span class="number">4</span> 错误提示框 --&gt;</span><br><span class="line">      					&lt;form:errors path=<span class="string">"*"</span> id=<span class="string">"msg"</span> cssClass=<span class="string">"errors"</span> element=<span class="string">"div"</span> htmlEscape=<span class="string">"false"</span> /&gt;</span><br><span class="line">					&lt;/div&gt;</span><br><span class="line">				&lt;/form:form&gt;</span><br><span class="line">			&lt;/div&gt;</span><br><span class="line">		&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">	&lt;/body&gt;</span><br><span class="line"></span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
 <p>  可以直接将登陆的页面拷过来然后加上指令再根据cas的登陆页面稍加修改就可以了</p>
 </li>
 </ul>
 <hr>
 <h3 id="3-Spring项目集成CAS和Spring-security"><a href="#3-Spring项目集成CAS和Spring-security" class="headerlink" title="3. Spring项目集成CAS和Spring-security"></a>3. Spring项目集成CAS和Spring-security</h3><ul>
 <li><p>pom依赖</p>
-<pre class=" language-java"><code class="language-java">  <span class="token operator"><</span>properties<span class="token operator">></span>
-          <span class="token operator"><</span>spring<span class="token punctuation">.</span>version<span class="token operator">></span><span class="token number">4.2</span><span class="token punctuation">.</span><span class="token number">0</span><span class="token punctuation">.</span>RELEASE<span class="token operator"><</span><span class="token operator">/</span>spring<span class="token punctuation">.</span>version<span class="token operator">></span>
-      <span class="token operator"><</span><span class="token operator">/</span>properties<span class="token operator">></span>
-      <span class="token operator"><</span>dependencies<span class="token operator">></span>
-          <span class="token operator"><</span><span class="token operator">!</span><span class="token operator">--</span> Spring <span class="token operator">--</span><span class="token operator">></span>
-          <span class="token operator"><</span>dependency<span class="token operator">></span>
-              <span class="token operator"><</span>groupId<span class="token operator">></span>org<span class="token punctuation">.</span>springframework<span class="token operator"><</span><span class="token operator">/</span>groupId<span class="token operator">></span>
-              <span class="token operator"><</span>artifactId<span class="token operator">></span>spring<span class="token operator">-</span>context<span class="token operator"><</span><span class="token operator">/</span>artifactId<span class="token operator">></span>
-              <span class="token operator"><</span>version<span class="token operator">></span>$<span class="token punctuation">{</span>spring<span class="token punctuation">.</span>version<span class="token punctuation">}</span><span class="token operator"><</span><span class="token operator">/</span>version<span class="token operator">></span>
-          <span class="token operator"><</span><span class="token operator">/</span>dependency<span class="token operator">></span>
-          <span class="token operator"><</span>dependency<span class="token operator">></span>
-              <span class="token operator"><</span>groupId<span class="token operator">></span>org<span class="token punctuation">.</span>springframework<span class="token operator"><</span><span class="token operator">/</span>groupId<span class="token operator">></span>
-              <span class="token operator"><</span>artifactId<span class="token operator">></span>spring<span class="token operator">-</span>beans<span class="token operator"><</span><span class="token operator">/</span>artifactId<span class="token operator">></span>
-              <span class="token operator"><</span>version<span class="token operator">></span>$<span class="token punctuation">{</span>spring<span class="token punctuation">.</span>version<span class="token punctuation">}</span><span class="token operator"><</span><span class="token operator">/</span>version<span class="token operator">></span>
-          <span class="token operator"><</span><span class="token operator">/</span>dependency<span class="token operator">></span>
-          <span class="token operator"><</span>dependency<span class="token operator">></span>
-              <span class="token operator"><</span>groupId<span class="token operator">></span>org<span class="token punctuation">.</span>springframework<span class="token operator"><</span><span class="token operator">/</span>groupId<span class="token operator">></span>
-              <span class="token operator"><</span>artifactId<span class="token operator">></span>spring<span class="token operator">-</span>webmvc<span class="token operator"><</span><span class="token operator">/</span>artifactId<span class="token operator">></span>
-              <span class="token operator"><</span>version<span class="token operator">></span>$<span class="token punctuation">{</span>spring<span class="token punctuation">.</span>version<span class="token punctuation">}</span><span class="token operator"><</span><span class="token operator">/</span>version<span class="token operator">></span>
-          <span class="token operator"><</span><span class="token operator">/</span>dependency<span class="token operator">></span>
-          <span class="token operator"><</span>dependency<span class="token operator">></span>
-              <span class="token operator"><</span>groupId<span class="token operator">></span>org<span class="token punctuation">.</span>springframework<span class="token operator"><</span><span class="token operator">/</span>groupId<span class="token operator">></span>
-              <span class="token operator"><</span>artifactId<span class="token operator">></span>spring<span class="token operator">-</span>jdbc<span class="token operator"><</span><span class="token operator">/</span>artifactId<span class="token operator">></span>
-              <span class="token operator"><</span>version<span class="token operator">></span>$<span class="token punctuation">{</span>spring<span class="token punctuation">.</span>version<span class="token punctuation">}</span><span class="token operator"><</span><span class="token operator">/</span>version<span class="token operator">></span>
-          <span class="token operator"><</span><span class="token operator">/</span>dependency<span class="token operator">></span>
-          <span class="token operator"><</span>dependency<span class="token operator">></span>
-              <span class="token operator"><</span>groupId<span class="token operator">></span>org<span class="token punctuation">.</span>springframework<span class="token operator"><</span><span class="token operator">/</span>groupId<span class="token operator">></span>
-              <span class="token operator"><</span>artifactId<span class="token operator">></span>spring<span class="token operator">-</span>aspects<span class="token operator"><</span><span class="token operator">/</span>artifactId<span class="token operator">></span>
-              <span class="token operator"><</span>version<span class="token operator">></span>$<span class="token punctuation">{</span>spring<span class="token punctuation">.</span>version<span class="token punctuation">}</span><span class="token operator"><</span><span class="token operator">/</span>version<span class="token operator">></span>
-          <span class="token operator"><</span><span class="token operator">/</span>dependency<span class="token operator">></span>
-          <span class="token operator"><</span>dependency<span class="token operator">></span>
-              <span class="token operator"><</span>groupId<span class="token operator">></span>org<span class="token punctuation">.</span>springframework<span class="token operator"><</span><span class="token operator">/</span>groupId<span class="token operator">></span>
-              <span class="token operator"><</span>artifactId<span class="token operator">></span>spring<span class="token operator">-</span>jms<span class="token operator"><</span><span class="token operator">/</span>artifactId<span class="token operator">></span>
-              <span class="token operator"><</span>version<span class="token operator">></span>$<span class="token punctuation">{</span>spring<span class="token punctuation">.</span>version<span class="token punctuation">}</span><span class="token operator"><</span><span class="token operator">/</span>version<span class="token operator">></span>
-          <span class="token operator"><</span><span class="token operator">/</span>dependency<span class="token operator">></span>
-          <span class="token operator"><</span>dependency<span class="token operator">></span>
-              <span class="token operator"><</span>groupId<span class="token operator">></span>org<span class="token punctuation">.</span>springframework<span class="token operator"><</span><span class="token operator">/</span>groupId<span class="token operator">></span>
-              <span class="token operator"><</span>artifactId<span class="token operator">></span>spring<span class="token operator">-</span>context<span class="token operator">-</span>support<span class="token operator"><</span><span class="token operator">/</span>artifactId<span class="token operator">></span>
-              <span class="token operator"><</span>version<span class="token operator">></span>$<span class="token punctuation">{</span>spring<span class="token punctuation">.</span>version<span class="token punctuation">}</span><span class="token operator"><</span><span class="token operator">/</span>version<span class="token operator">></span>
-          <span class="token operator"><</span><span class="token operator">/</span>dependency<span class="token operator">></span>
-          <span class="token operator"><</span><span class="token operator">!</span><span class="token operator">--</span>spring<span class="token operator">-</span>security<span class="token operator">--</span><span class="token operator">></span>
-          <span class="token operator"><</span>dependency<span class="token operator">></span>
-              <span class="token operator"><</span>groupId<span class="token operator">></span>org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>security<span class="token operator"><</span><span class="token operator">/</span>groupId<span class="token operator">></span>
-              <span class="token operator"><</span>artifactId<span class="token operator">></span>spring<span class="token operator">-</span>security<span class="token operator">-</span>web<span class="token operator"><</span><span class="token operator">/</span>artifactId<span class="token operator">></span>
-              <span class="token operator"><</span>version<span class="token operator">></span>$<span class="token punctuation">{</span>spring<span class="token punctuation">.</span>version<span class="token punctuation">}</span><span class="token operator"><</span><span class="token operator">/</span>version<span class="token operator">></span>
-          <span class="token operator"><</span><span class="token operator">/</span>dependency<span class="token operator">></span>
-          <span class="token operator"><</span>dependency<span class="token operator">></span>
-              <span class="token operator"><</span>groupId<span class="token operator">></span>org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>security<span class="token operator"><</span><span class="token operator">/</span>groupId<span class="token operator">></span>
-              <span class="token operator"><</span>artifactId<span class="token operator">></span>spring<span class="token operator">-</span>security<span class="token operator">-</span>config<span class="token operator"><</span><span class="token operator">/</span>artifactId<span class="token operator">></span>
-              <span class="token operator"><</span>version<span class="token operator">></span>$<span class="token punctuation">{</span>spring<span class="token punctuation">.</span>version<span class="token punctuation">}</span><span class="token operator"><</span><span class="token operator">/</span>version<span class="token operator">></span>
-          <span class="token operator"><</span><span class="token operator">/</span>dependency<span class="token operator">></span>
-          <span class="token operator"><</span>dependency<span class="token operator">></span>
-              <span class="token operator"><</span>groupId<span class="token operator">></span>javax<span class="token punctuation">.</span>servlet<span class="token operator"><</span><span class="token operator">/</span>groupId<span class="token operator">></span>
-              <span class="token operator"><</span>artifactId<span class="token operator">></span>javax<span class="token punctuation">.</span>servlet<span class="token operator">-</span>api<span class="token operator"><</span><span class="token operator">/</span>artifactId<span class="token operator">></span>
-              <span class="token operator"><</span>version<span class="token operator">></span><span class="token number">3.1</span><span class="token punctuation">.</span><span class="token number">0</span><span class="token operator"><</span><span class="token operator">/</span>version<span class="token operator">></span>
-              <span class="token operator"><</span>scope<span class="token operator">></span>provided<span class="token operator"><</span><span class="token operator">/</span>scope<span class="token operator">></span>
-          <span class="token operator"><</span><span class="token operator">/</span>dependency<span class="token operator">></span>
-          <span class="token operator"><</span><span class="token operator">!</span><span class="token operator">--</span>集成包<span class="token operator">--</span><span class="token operator">></span>
-          <span class="token operator"><</span>dependency<span class="token operator">></span>
-              <span class="token operator"><</span>groupId<span class="token operator">></span>org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>security<span class="token operator"><</span><span class="token operator">/</span>groupId<span class="token operator">></span>
-              <span class="token operator"><</span>artifactId<span class="token operator">></span>spring<span class="token operator">-</span>security<span class="token operator">-</span>cas<span class="token operator"><</span><span class="token operator">/</span>artifactId<span class="token operator">></span>
-              <span class="token operator"><</span>version<span class="token operator">></span>$<span class="token punctuation">{</span>spring<span class="token punctuation">.</span>version<span class="token punctuation">}</span><span class="token operator"><</span><span class="token operator">/</span>version<span class="token operator">></span>
-          <span class="token operator"><</span><span class="token operator">/</span>dependency<span class="token operator">></span>
-          <span class="token operator"><</span><span class="token operator">!</span><span class="token operator">--</span>cas<span class="token operator">--</span><span class="token operator">></span>
-          <span class="token operator"><</span>dependency<span class="token operator">></span>
-              <span class="token operator"><</span>groupId<span class="token operator">></span>org<span class="token punctuation">.</span>jasig<span class="token punctuation">.</span>cas<span class="token punctuation">.</span>client<span class="token operator"><</span><span class="token operator">/</span>groupId<span class="token operator">></span>
-              <span class="token operator"><</span>artifactId<span class="token operator">></span>cas<span class="token operator">-</span>client<span class="token operator">-</span>core<span class="token operator"><</span><span class="token operator">/</span>artifactId<span class="token operator">></span>
-              <span class="token operator"><</span>version<span class="token operator">></span><span class="token number">3.3</span><span class="token punctuation">.</span><span class="token number">3</span><span class="token operator"><</span><span class="token operator">/</span>version<span class="token operator">></span>
-              <span class="token operator"><</span>exclusions<span class="token operator">></span>
-                  <span class="token operator"><</span>exclusion<span class="token operator">></span>
-                      <span class="token operator"><</span>groupId<span class="token operator">></span>org<span class="token punctuation">.</span>slf4j<span class="token operator"><</span><span class="token operator">/</span>groupId<span class="token operator">></span>
-                      <span class="token operator"><</span>artifactId<span class="token operator">></span>log4j<span class="token operator">-</span>over<span class="token operator">-</span>slf4j<span class="token operator"><</span><span class="token operator">/</span>artifactId<span class="token operator">></span>
-                  <span class="token operator"><</span><span class="token operator">/</span>exclusion<span class="token operator">></span>
-              <span class="token operator"><</span><span class="token operator">/</span>exclusions<span class="token operator">></span>
-          <span class="token operator"><</span><span class="token operator">/</span>dependency<span class="token operator">></span>
-      <span class="token operator"><</span><span class="token operator">/</span>dependencies<span class="token operator">></span></code></pre>
+  <figure class="highlight"><table><tr><td class="code"><pre><span class="line">&lt;properties&gt;</span><br><span class="line">        &lt;spring.version&gt;4.2.0.RELEASE&lt;/spring.version&gt;</span><br><span class="line">    &lt;/properties&gt;</span><br><span class="line">    &lt;dependencies&gt;</span><br><span class="line">        &lt;!-- Spring --&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.springframework&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;spring-context&lt;/artifactId&gt;</span><br><span class="line">            &lt;version&gt;$&#123;spring.version&#125;&lt;/version&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.springframework&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;spring-beans&lt;/artifactId&gt;</span><br><span class="line">            &lt;version&gt;$&#123;spring.version&#125;&lt;/version&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.springframework&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;spring-webmvc&lt;/artifactId&gt;</span><br><span class="line">            &lt;version&gt;$&#123;spring.version&#125;&lt;/version&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.springframework&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;spring-jdbc&lt;/artifactId&gt;</span><br><span class="line">            &lt;version&gt;$&#123;spring.version&#125;&lt;/version&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.springframework&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;spring-aspects&lt;/artifactId&gt;</span><br><span class="line">            &lt;version&gt;$&#123;spring.version&#125;&lt;/version&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.springframework&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;spring-jms&lt;/artifactId&gt;</span><br><span class="line">            &lt;version&gt;$&#123;spring.version&#125;&lt;/version&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.springframework&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;spring-context-support&lt;/artifactId&gt;</span><br><span class="line">            &lt;version&gt;$&#123;spring.version&#125;&lt;/version&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br><span class="line">        &lt;!--spring-security--&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.springframework.security&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;spring-security-web&lt;/artifactId&gt;</span><br><span class="line">            &lt;version&gt;$&#123;spring.version&#125;&lt;/version&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.springframework.security&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;spring-security-config&lt;/artifactId&gt;</span><br><span class="line">            &lt;version&gt;$&#123;spring.version&#125;&lt;/version&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;javax.servlet&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;javax.servlet-api&lt;/artifactId&gt;</span><br><span class="line">            &lt;version&gt;3.1.0&lt;/version&gt;</span><br><span class="line">            &lt;scope&gt;provided&lt;/scope&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br><span class="line">        &lt;!--集成包--&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.springframework.security&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;spring-security-cas&lt;/artifactId&gt;</span><br><span class="line">            &lt;version&gt;$&#123;spring.version&#125;&lt;/version&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br><span class="line">        &lt;!--cas--&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.jasig.cas.client&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;cas-client-core&lt;/artifactId&gt;</span><br><span class="line">            &lt;version&gt;3.3.3&lt;/version&gt;</span><br><span class="line">            &lt;exclusions&gt;</span><br><span class="line">                &lt;exclusion&gt;</span><br><span class="line">                    &lt;groupId&gt;org.slf4j&lt;/groupId&gt;</span><br><span class="line">                    &lt;artifactId&gt;log4j-over-slf4j&lt;/artifactId&gt;</span><br><span class="line">                &lt;/exclusion&gt;</span><br><span class="line">            &lt;/exclusions&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br><span class="line">    &lt;/dependencies&gt;</span><br></pre></td></tr></table></figure>
 <p>  添加tomcat插件指定端口为9001</p>
 </li>
 <li><p>web.xml配置</p>
-<pre class=" language-java"><code class="language-java">  <span class="token operator"><</span><span class="token operator">?</span>xml version<span class="token operator">=</span><span class="token string">"1.0"</span> encoding<span class="token operator">=</span><span class="token string">"UTF-8"</span><span class="token operator">?</span><span class="token operator">></span>
-  <span class="token operator"><</span>web<span class="token operator">-</span>app xmlns<span class="token operator">:</span>xsi<span class="token operator">=</span><span class="token string">"http://www.w3.org/2001/XMLSchema-instance"</span>
-           xmlns<span class="token operator">=</span><span class="token string">"http://java.sun.com/xml/ns/javaee"</span>
-           xsi<span class="token operator">:</span>schemaLocation<span class="token operator">=</span><span class="token string">"http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"</span>
-           version<span class="token operator">=</span><span class="token string">"2.5"</span><span class="token operator">></span>
-
-      <span class="token operator"><</span>context<span class="token operator">-</span>param<span class="token operator">></span>
-          <span class="token operator"><</span>param<span class="token operator">-</span>name<span class="token operator">></span>contextConfigLocation<span class="token operator"><</span><span class="token operator">/</span>param<span class="token operator">-</span>name<span class="token operator">></span>
-          <span class="token operator"><</span>param<span class="token operator">-</span>value<span class="token operator">></span>classpath<span class="token operator">:</span>spring<span class="token operator">/</span>spring<span class="token operator">-</span><span class="token operator">*</span><span class="token punctuation">.</span>xml<span class="token operator"><</span><span class="token operator">/</span>param<span class="token operator">-</span>value<span class="token operator">></span>
-      <span class="token operator"><</span><span class="token operator">/</span>context<span class="token operator">-</span>param<span class="token operator">></span>
-      <span class="token operator"><</span>listener<span class="token operator">></span>
-          <span class="token operator"><</span>listener<span class="token operator">-</span><span class="token keyword">class</span><span class="token operator">></span>
-              org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>web<span class="token punctuation">.</span>context<span class="token punctuation">.</span>ContextLoaderListener
-          <span class="token operator"><</span><span class="token operator">/</span>listener<span class="token operator">-</span><span class="token keyword">class</span><span class="token operator">></span>
-      <span class="token operator"><</span><span class="token operator">/</span>listener<span class="token operator">></span>
-
-      <span class="token operator"><</span>filter<span class="token operator">></span>
-          <span class="token operator"><</span>filter<span class="token operator">-</span>name<span class="token operator">></span>springSecurityFilterChain<span class="token operator"><</span><span class="token operator">/</span>filter<span class="token operator">-</span>name<span class="token operator">></span>
-          <span class="token operator"><</span>filter<span class="token operator">-</span><span class="token keyword">class</span><span class="token operator">></span>org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>web<span class="token punctuation">.</span>filter<span class="token punctuation">.</span>DelegatingFilterProxy<span class="token operator"><</span><span class="token operator">/</span>filter<span class="token operator">-</span><span class="token keyword">class</span><span class="token operator">></span>
-      <span class="token operator"><</span><span class="token operator">/</span>filter<span class="token operator">></span>
-      <span class="token operator"><</span>filter<span class="token operator">-</span>mapping<span class="token operator">></span>
-          <span class="token operator"><</span>filter<span class="token operator">-</span>name<span class="token operator">></span>springSecurityFilterChain<span class="token operator"><</span><span class="token operator">/</span>filter<span class="token operator">-</span>name<span class="token operator">></span>
-          <span class="token operator"><</span>url<span class="token operator">-</span>pattern<span class="token operator">></span><span class="token operator">/</span><span class="token operator">*</span><span class="token operator"><</span><span class="token operator">/</span>url<span class="token operator">-</span>pattern<span class="token operator">></span>
-      <span class="token operator"><</span><span class="token operator">/</span>filter<span class="token operator">-</span>mapping<span class="token operator">></span>
-
-  <span class="token operator"><</span><span class="token operator">/</span>web<span class="token operator">-</span>app<span class="token operator">></span></code></pre>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">&lt;?xml version=<span class="string">"1.0"</span> encoding=<span class="string">"UTF-8"</span>?&gt;</span><br><span class="line">&lt;web-app xmlns:xsi=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span><br><span class="line">         xmlns=<span class="string">"http://java.sun.com/xml/ns/javaee"</span></span><br><span class="line">         xsi:schemaLocation=<span class="string">"http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"</span></span><br><span class="line">         version=<span class="string">"2.5"</span>&gt;</span><br><span class="line"></span><br><span class="line">    &lt;context-param&gt;</span><br><span class="line">        &lt;param-name&gt;contextConfigLocation&lt;/param-name&gt;</span><br><span class="line">        &lt;param-value&gt;classpath:spring/spring-*.xml&lt;/param-value&gt;</span><br><span class="line">    &lt;/context-param&gt;</span><br><span class="line">    &lt;listener&gt;</span><br><span class="line">        &lt;listener-<span class="class"><span class="keyword">class</span>&gt;</span></span><br><span class="line"><span class="class">            <span class="title">org</span>.<span class="title">springframework</span>.<span class="title">web</span>.<span class="title">context</span>.<span class="title">ContextLoaderListener</span></span></span><br><span class="line"><span class="class">        &lt;/<span class="title">listener</span>-<span class="title">class</span>&gt;</span></span><br><span class="line"><span class="class">    &lt;/<span class="title">listener</span>&gt;</span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class">    &lt;<span class="title">filter</span>&gt;</span></span><br><span class="line"><span class="class">        &lt;<span class="title">filter</span>-<span class="title">name</span>&gt;<span class="title">springSecurityFilterChain</span>&lt;/<span class="title">filter</span>-<span class="title">name</span>&gt;</span></span><br><span class="line"><span class="class">        &lt;<span class="title">filter</span>-<span class="title">class</span>&gt;<span class="title">org</span>.<span class="title">springframework</span>.<span class="title">web</span>.<span class="title">filter</span>.<span class="title">DelegatingFilterProxy</span>&lt;/<span class="title">filter</span>-<span class="title">class</span>&gt;</span></span><br><span class="line"><span class="class">    &lt;/<span class="title">filter</span>&gt;</span></span><br><span class="line"><span class="class">    &lt;<span class="title">filter</span>-<span class="title">mapping</span>&gt;</span></span><br><span class="line"><span class="class">        &lt;<span class="title">filter</span>-<span class="title">name</span>&gt;<span class="title">springSecurityFilterChain</span>&lt;/<span class="title">filter</span>-<span class="title">name</span>&gt;</span></span><br><span class="line"><span class="class">        &lt;<span class="title">url</span>-<span class="title">pattern</span>&gt;/*&lt;/<span class="title">url</span>-<span class="title">pattern</span>&gt;</span></span><br><span class="line"><span class="class">    &lt;/<span class="title">filter</span>-<span class="title">mapping</span>&gt;</span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class">&lt;/<span class="title">web</span>-<span class="title">app</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>主要配置Spring容器和Spring-security的过滤器</p>
 </li>
 </ul>
 <ul>
 <li>spring-security.xml配置<br>其实就是把之前配置在web.xml里面的过滤器采用Spring的方式配置出来</li>
 </ul>
-<pre class=" language-java"><code class="language-java">    <span class="token operator"><</span><span class="token operator">?</span>xml version<span class="token operator">=</span><span class="token string">"1.0"</span> encoding<span class="token operator">=</span><span class="token string">"UTF-8"</span><span class="token operator">?</span><span class="token operator">></span>
-    <span class="token operator"><</span>beans<span class="token operator">:</span>beans xmlns<span class="token operator">=</span><span class="token string">"http://www.springframework.org/schema/security"</span>
-                 xmlns<span class="token operator">:</span>beans<span class="token operator">=</span><span class="token string">"http://www.springframework.org/schema/beans"</span> xmlns<span class="token operator">:</span>xsi<span class="token operator">=</span><span class="token string">"http://www.w3.org/2001/XMLSchema-instance"</span>
-                 xsi<span class="token operator">:</span>schemaLocation<span class="token operator">=</span>"http<span class="token operator">:</span><span class="token operator">/</span><span class="token operator">/</span>www<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>org<span class="token operator">/</span>schema<span class="token operator">/</span>beans http<span class="token operator">:</span><span class="token operator">/</span><span class="token operator">/</span>www<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>org<span class="token operator">/</span>schema<span class="token operator">/</span>beans<span class="token operator">/</span>spring<span class="token operator">-</span>beans<span class="token punctuation">.</span>xsd
-                            http<span class="token operator">:</span><span class="token operator">/</span><span class="token operator">/</span>www<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>org<span class="token operator">/</span>schema<span class="token operator">/</span>security http<span class="token operator">:</span><span class="token operator">/</span><span class="token operator">/</span>www<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>org<span class="token operator">/</span>schema<span class="token operator">/</span>security<span class="token operator">/</span>spring<span class="token operator">-</span>security<span class="token punctuation">.</span>xsd"<span class="token operator">></span>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">&lt;?xml version=<span class="string">"1.0"</span> encoding=<span class="string">"UTF-8"</span>?&gt;</span><br><span class="line">&lt;beans:beans xmlns=<span class="string">"http://www.springframework.org/schema/security"</span></span><br><span class="line">             xmlns:beans=<span class="string">"http://www.springframework.org/schema/beans"</span> xmlns:xsi=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span><br><span class="line">             xsi:schemaLocation=<span class="string">"http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd</span></span><br><span class="line"><span class="string">						http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd"</span>&gt;</span><br><span class="line"></span><br><span class="line">    &lt;http pattern="/out.html" security="none"&gt;&lt;/http&gt;</span><br><span class="line">    &lt;!--   entry-point-ref  入口点引用 因为登陆交给cas或者其他的登陆系统,就不会在本系统做登陆需要指定登陆点--&gt;</span><br><span class="line">    &lt;http use-expressions=<span class="string">"false"</span> entry-point-ref=<span class="string">"casProcessingFilterEntryPoint"</span>&gt;</span><br><span class="line">        &lt;intercept-url pattern=<span class="string">"/**"</span> access=<span class="string">"ROLE_USER"</span>/&gt;</span><br><span class="line">        &lt;csrf disabled=<span class="string">"true"</span>/&gt;</span><br><span class="line">        &lt;!-- custom-filter为过滤器， position 表示将过滤器放在指定的位置上，before表示放在指定位置之前  ，after表示放在指定的位置之后  --&gt;</span><br><span class="line">        &lt;custom-filter ref=<span class="string">"casAuthenticationFilter"</span>  position=<span class="string">"CAS_FILTER"</span> /&gt;</span><br><span class="line">        &lt;custom-filter ref=<span class="string">"requestSingleLogoutFilter"</span> before=<span class="string">"LOGOUT_FILTER"</span>/&gt;</span><br><span class="line">        &lt;custom-filter ref=<span class="string">"singleLogoutFilter"</span> before=<span class="string">"CAS_FILTER"</span>/&gt;</span><br><span class="line">    &lt;/http&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- CAS入口点 开始 --&gt;</span><br><span class="line">    &lt;beans:bean id=<span class="string">"casProcessingFilterEntryPoint"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"org.springframework.security.cas.web.CasAuthenticationEntryPoint"</span>&gt;</span><br><span class="line">        &lt;!-- 单点登录服务器登录URL --&gt;</span><br><span class="line">        &lt;beans:property name=<span class="string">"loginUrl"</span> value=<span class="string">"http://localhost:8888/cas/login"</span>/&gt;</span><br><span class="line">        &lt;beans:property name=<span class="string">"serviceProperties"</span> ref=<span class="string">"serviceProperties"</span>/&gt;</span><br><span class="line">    &lt;/beans:bean&gt;</span><br><span class="line"></span><br><span class="line">    &lt;beans:bean id=<span class="string">"serviceProperties"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"org.springframework.security.cas.ServiceProperties"</span>&gt;</span><br><span class="line">        &lt;!--service 配置自身工程的根地址+/login/cas   --&gt;</span><br><span class="line">        &lt;beans:property name=<span class="string">"service"</span> value=<span class="string">"http://localhost:9001/login/cas"</span>/&gt;</span><br><span class="line">    &lt;/beans:bean&gt;</span><br><span class="line">    &lt;!-- CAS入口点 结束 --&gt;</span><br><span class="line">    &lt;!-- 认证过滤器 开始 --&gt;</span><br><span class="line">    &lt;beans:bean id=<span class="string">"casAuthenticationFilter"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"org.springframework.security.cas.web.CasAuthenticationFilter"</span>&gt;</span><br><span class="line">        &lt;beans:property name=<span class="string">"authenticationManager"</span> ref=<span class="string">"authenticationManager"</span>/&gt;</span><br><span class="line">    &lt;/beans:bean&gt;</span><br><span class="line">    &lt;!-- 认证管理器 --&gt;</span><br><span class="line">    &lt;authentication-manager alias=<span class="string">"authenticationManager"</span>&gt;</span><br><span class="line">        &lt;authentication-provider  ref=<span class="string">"casAuthenticationProvider"</span>&gt;</span><br><span class="line">        &lt;/authentication-provider&gt;</span><br><span class="line">    &lt;/authentication-manager&gt;</span><br><span class="line">    &lt;!-- 认证提供者 --&gt;</span><br><span class="line">    &lt;beans:bean id=<span class="string">"casAuthenticationProvider"</span>     <span class="class"><span class="keyword">class</span></span>=<span class="string">"org.springframework.security.cas.authentication.CasAuthenticationProvider"</span>&gt;</span><br><span class="line">        &lt;beans:property name=<span class="string">"authenticationUserDetailsService"</span>&gt;</span><br><span class="line">            &lt;beans:bean <span class="class"><span class="keyword">class</span></span>=<span class="string">"org.springframework.security.core.userdetails.UserDetailsByNameServiceWrapper"</span>&gt;</span><br><span class="line">                &lt;beans:constructor-arg ref=<span class="string">"userDetailsService"</span> /&gt;</span><br><span class="line">            &lt;/beans:bean&gt;</span><br><span class="line">        &lt;/beans:property&gt;</span><br><span class="line">        &lt;beans:property name=<span class="string">"serviceProperties"</span> ref=<span class="string">"serviceProperties"</span>/&gt;</span><br><span class="line">        &lt;!-- ticketValidator 为票据验证器 --&gt;</span><br><span class="line">        &lt;beans:property name=<span class="string">"ticketValidator"</span>&gt;</span><br><span class="line">            &lt;beans:bean <span class="class"><span class="keyword">class</span></span>=<span class="string">"org.jasig.cas.client.validation.Cas20ServiceTicketValidator"</span>&gt;</span><br><span class="line">                &lt;beans:constructor-arg index=<span class="string">"0"</span> value=<span class="string">"http://localhost:8888/cas"</span>/&gt;</span><br><span class="line">            &lt;/beans:bean&gt;</span><br><span class="line">        &lt;/beans:property&gt;</span><br><span class="line">        &lt;beans:property name=<span class="string">"key"</span> value=<span class="string">"an_id_for_this_auth_provider_only"</span>/&gt;</span><br><span class="line">    &lt;/beans:bean&gt;</span><br><span class="line">    &lt;!-- 认证类 --&gt;</span><br><span class="line">    &lt;beans:bean id=<span class="string">"userDetailsService"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"top.imlgw.demo.UserDetailServiceImpl"</span>/&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- 认证过滤器 结束 --&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &lt;!-- 单点登出  开始  --&gt;</span><br><span class="line">    &lt;beans:bean id=<span class="string">"singleLogoutFilter"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"org.jasig.cas.client.session.SingleSignOutFilter"</span>/&gt;</span><br><span class="line">    &lt;!--关联两个地址，相当于封装了前面的地址--&gt;</span><br><span class="line">    &lt;beans:bean id=<span class="string">"requestSingleLogoutFilter"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"org.springframework.security.web.authentication.logout.LogoutFilter"</span>&gt;</span><br><span class="line">        &lt;beans:constructor-arg value=<span class="string">"http://localhost:8888/cas/logout?service=http://localhost:9001/out.html"</span>/&gt;</span><br><span class="line">        &lt;beans:constructor-arg&gt;</span><br><span class="line">            &lt;beans:bean <span class="class"><span class="keyword">class</span></span>=<span class="string">"org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler"</span>/&gt;</span><br><span class="line">        &lt;/beans:constructor-arg&gt;</span><br><span class="line">        &lt;beans:property name=<span class="string">"filterProcessesUrl"</span> value=<span class="string">"/logout/cas"</span>/&gt;</span><br><span class="line">    &lt;/beans:bean&gt;</span><br><span class="line">    &lt;!-- 单点登出  结束 --&gt;</span><br><span class="line"></span><br><span class="line">&lt;/beans:beans&gt;</span><br></pre></td></tr></table></figure>
 
-        <span class="token operator"><</span>http pattern<span class="token operator">=</span><span class="token string">"/out.html"</span> security<span class="token operator">=</span><span class="token string">"none"</span><span class="token operator">></span><span class="token operator"><</span><span class="token operator">/</span>http<span class="token operator">></span>
-        <span class="token operator"><</span><span class="token operator">!</span><span class="token operator">--</span>   entry<span class="token operator">-</span>point<span class="token operator">-</span>ref  入口点引用 因为登陆交给cas或者其他的登陆系统<span class="token punctuation">,</span>就不会在本系统做登陆需要指定登陆点<span class="token operator">--</span><span class="token operator">></span>
-        <span class="token operator"><</span>http use<span class="token operator">-</span>expressions<span class="token operator">=</span><span class="token string">"false"</span> entry<span class="token operator">-</span>point<span class="token operator">-</span>ref<span class="token operator">=</span><span class="token string">"casProcessingFilterEntryPoint"</span><span class="token operator">></span>
-            <span class="token operator"><</span>intercept<span class="token operator">-</span>url pattern<span class="token operator">=</span><span class="token string">"/**"</span> access<span class="token operator">=</span><span class="token string">"ROLE_USER"</span><span class="token operator">/</span><span class="token operator">></span>
-            <span class="token operator"><</span>csrf disabled<span class="token operator">=</span><span class="token string">"true"</span><span class="token operator">/</span><span class="token operator">></span>
-            <span class="token operator"><</span><span class="token operator">!</span><span class="token operator">--</span> custom<span class="token operator">-</span>filter为过滤器， position 表示将过滤器放在指定的位置上，before表示放在指定位置之前  ，after表示放在指定的位置之后  <span class="token operator">--</span><span class="token operator">></span>
-            <span class="token operator"><</span>custom<span class="token operator">-</span>filter ref<span class="token operator">=</span><span class="token string">"casAuthenticationFilter"</span>  position<span class="token operator">=</span><span class="token string">"CAS_FILTER"</span> <span class="token operator">/</span><span class="token operator">></span>
-            <span class="token operator"><</span>custom<span class="token operator">-</span>filter ref<span class="token operator">=</span><span class="token string">"requestSingleLogoutFilter"</span> before<span class="token operator">=</span><span class="token string">"LOGOUT_FILTER"</span><span class="token operator">/</span><span class="token operator">></span>
-            <span class="token operator"><</span>custom<span class="token operator">-</span>filter ref<span class="token operator">=</span><span class="token string">"singleLogoutFilter"</span> before<span class="token operator">=</span><span class="token string">"CAS_FILTER"</span><span class="token operator">/</span><span class="token operator">></span>
-        <span class="token operator"><</span><span class="token operator">/</span>http<span class="token operator">></span>
-
-        <span class="token operator"><</span><span class="token operator">!</span><span class="token operator">--</span> CAS入口点 开始 <span class="token operator">--</span><span class="token operator">></span>
-        <span class="token operator"><</span>beans<span class="token operator">:</span>bean id<span class="token operator">=</span><span class="token string">"casProcessingFilterEntryPoint"</span> <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"org.springframework.security.cas.web.CasAuthenticationEntryPoint"</span><span class="token operator">></span>
-            <span class="token operator"><</span><span class="token operator">!</span><span class="token operator">--</span> 单点登录服务器登录URL <span class="token operator">--</span><span class="token operator">></span>
-            <span class="token operator"><</span>beans<span class="token operator">:</span>property name<span class="token operator">=</span><span class="token string">"loginUrl"</span> value<span class="token operator">=</span><span class="token string">"http://localhost:8888/cas/login"</span><span class="token operator">/</span><span class="token operator">></span>
-            <span class="token operator"><</span>beans<span class="token operator">:</span>property name<span class="token operator">=</span><span class="token string">"serviceProperties"</span> ref<span class="token operator">=</span><span class="token string">"serviceProperties"</span><span class="token operator">/</span><span class="token operator">></span>
-        <span class="token operator"><</span><span class="token operator">/</span>beans<span class="token operator">:</span>bean<span class="token operator">></span>
-
-        <span class="token operator"><</span>beans<span class="token operator">:</span>bean id<span class="token operator">=</span><span class="token string">"serviceProperties"</span> <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"org.springframework.security.cas.ServiceProperties"</span><span class="token operator">></span>
-            <span class="token operator"><</span><span class="token operator">!</span><span class="token operator">--</span>service 配置自身工程的根地址<span class="token operator">+</span><span class="token operator">/</span>login<span class="token operator">/</span>cas   <span class="token operator">--</span><span class="token operator">></span>
-            <span class="token operator"><</span>beans<span class="token operator">:</span>property name<span class="token operator">=</span><span class="token string">"service"</span> value<span class="token operator">=</span><span class="token string">"http://localhost:9001/login/cas"</span><span class="token operator">/</span><span class="token operator">></span>
-        <span class="token operator"><</span><span class="token operator">/</span>beans<span class="token operator">:</span>bean<span class="token operator">></span>
-        <span class="token operator"><</span><span class="token operator">!</span><span class="token operator">--</span> CAS入口点 结束 <span class="token operator">--</span><span class="token operator">></span>
-        <span class="token operator"><</span><span class="token operator">!</span><span class="token operator">--</span> 认证过滤器 开始 <span class="token operator">--</span><span class="token operator">></span>
-        <span class="token operator"><</span>beans<span class="token operator">:</span>bean id<span class="token operator">=</span><span class="token string">"casAuthenticationFilter"</span> <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"org.springframework.security.cas.web.CasAuthenticationFilter"</span><span class="token operator">></span>
-            <span class="token operator"><</span>beans<span class="token operator">:</span>property name<span class="token operator">=</span><span class="token string">"authenticationManager"</span> ref<span class="token operator">=</span><span class="token string">"authenticationManager"</span><span class="token operator">/</span><span class="token operator">></span>
-        <span class="token operator"><</span><span class="token operator">/</span>beans<span class="token operator">:</span>bean<span class="token operator">></span>
-        <span class="token operator"><</span><span class="token operator">!</span><span class="token operator">--</span> 认证管理器 <span class="token operator">--</span><span class="token operator">></span>
-        <span class="token operator"><</span>authentication<span class="token operator">-</span>manager alias<span class="token operator">=</span><span class="token string">"authenticationManager"</span><span class="token operator">></span>
-            <span class="token operator"><</span>authentication<span class="token operator">-</span>provider  ref<span class="token operator">=</span><span class="token string">"casAuthenticationProvider"</span><span class="token operator">></span>
-            <span class="token operator"><</span><span class="token operator">/</span>authentication<span class="token operator">-</span>provider<span class="token operator">></span>
-        <span class="token operator"><</span><span class="token operator">/</span>authentication<span class="token operator">-</span>manager<span class="token operator">></span>
-        <span class="token operator"><</span><span class="token operator">!</span><span class="token operator">--</span> 认证提供者 <span class="token operator">--</span><span class="token operator">></span>
-        <span class="token operator"><</span>beans<span class="token operator">:</span>bean id<span class="token operator">=</span><span class="token string">"casAuthenticationProvider"</span>     <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"org.springframework.security.cas.authentication.CasAuthenticationProvider"</span><span class="token operator">></span>
-            <span class="token operator"><</span>beans<span class="token operator">:</span>property name<span class="token operator">=</span><span class="token string">"authenticationUserDetailsService"</span><span class="token operator">></span>
-                <span class="token operator"><</span>beans<span class="token operator">:</span>bean <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"org.springframework.security.core.userdetails.UserDetailsByNameServiceWrapper"</span><span class="token operator">></span>
-                    <span class="token operator"><</span>beans<span class="token operator">:</span>constructor<span class="token operator">-</span>arg ref<span class="token operator">=</span><span class="token string">"userDetailsService"</span> <span class="token operator">/</span><span class="token operator">></span>
-                <span class="token operator"><</span><span class="token operator">/</span>beans<span class="token operator">:</span>bean<span class="token operator">></span>
-            <span class="token operator"><</span><span class="token operator">/</span>beans<span class="token operator">:</span>property<span class="token operator">></span>
-            <span class="token operator"><</span>beans<span class="token operator">:</span>property name<span class="token operator">=</span><span class="token string">"serviceProperties"</span> ref<span class="token operator">=</span><span class="token string">"serviceProperties"</span><span class="token operator">/</span><span class="token operator">></span>
-            <span class="token operator"><</span><span class="token operator">!</span><span class="token operator">--</span> ticketValidator 为票据验证器 <span class="token operator">--</span><span class="token operator">></span>
-            <span class="token operator"><</span>beans<span class="token operator">:</span>property name<span class="token operator">=</span><span class="token string">"ticketValidator"</span><span class="token operator">></span>
-                <span class="token operator"><</span>beans<span class="token operator">:</span>bean <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"org.jasig.cas.client.validation.Cas20ServiceTicketValidator"</span><span class="token operator">></span>
-                    <span class="token operator"><</span>beans<span class="token operator">:</span>constructor<span class="token operator">-</span>arg index<span class="token operator">=</span><span class="token string">"0"</span> value<span class="token operator">=</span><span class="token string">"http://localhost:8888/cas"</span><span class="token operator">/</span><span class="token operator">></span>
-                <span class="token operator"><</span><span class="token operator">/</span>beans<span class="token operator">:</span>bean<span class="token operator">></span>
-            <span class="token operator"><</span><span class="token operator">/</span>beans<span class="token operator">:</span>property<span class="token operator">></span>
-            <span class="token operator"><</span>beans<span class="token operator">:</span>property name<span class="token operator">=</span><span class="token string">"key"</span> value<span class="token operator">=</span><span class="token string">"an_id_for_this_auth_provider_only"</span><span class="token operator">/</span><span class="token operator">></span>
-        <span class="token operator"><</span><span class="token operator">/</span>beans<span class="token operator">:</span>bean<span class="token operator">></span>
-        <span class="token operator"><</span><span class="token operator">!</span><span class="token operator">--</span> 认证类 <span class="token operator">--</span><span class="token operator">></span>
-        <span class="token operator"><</span>beans<span class="token operator">:</span>bean id<span class="token operator">=</span><span class="token string">"userDetailsService"</span> <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"top.imlgw.demo.UserDetailServiceImpl"</span><span class="token operator">/</span><span class="token operator">></span>
-
-        <span class="token operator"><</span><span class="token operator">!</span><span class="token operator">--</span> 认证过滤器 结束 <span class="token operator">--</span><span class="token operator">></span>
-
-
-        <span class="token operator"><</span><span class="token operator">!</span><span class="token operator">--</span> 单点登出  开始  <span class="token operator">--</span><span class="token operator">></span>
-        <span class="token operator"><</span>beans<span class="token operator">:</span>bean id<span class="token operator">=</span><span class="token string">"singleLogoutFilter"</span> <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"org.jasig.cas.client.session.SingleSignOutFilter"</span><span class="token operator">/</span><span class="token operator">></span>
-        <span class="token operator"><</span><span class="token operator">!</span><span class="token operator">--</span>关联两个地址，相当于封装了前面的地址<span class="token operator">--</span><span class="token operator">></span>
-        <span class="token operator"><</span>beans<span class="token operator">:</span>bean id<span class="token operator">=</span><span class="token string">"requestSingleLogoutFilter"</span> <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"org.springframework.security.web.authentication.logout.LogoutFilter"</span><span class="token operator">></span>
-            <span class="token operator"><</span>beans<span class="token operator">:</span>constructor<span class="token operator">-</span>arg value<span class="token operator">=</span><span class="token string">"http://localhost:8888/cas/logout?service=http://localhost:9001/out.html"</span><span class="token operator">/</span><span class="token operator">></span>
-            <span class="token operator"><</span>beans<span class="token operator">:</span>constructor<span class="token operator">-</span>arg<span class="token operator">></span>
-                <span class="token operator"><</span>beans<span class="token operator">:</span>bean <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler"</span><span class="token operator">/</span><span class="token operator">></span>
-            <span class="token operator"><</span><span class="token operator">/</span>beans<span class="token operator">:</span>constructor<span class="token operator">-</span>arg<span class="token operator">></span>
-            <span class="token operator"><</span>beans<span class="token operator">:</span>property name<span class="token operator">=</span><span class="token string">"filterProcessesUrl"</span> value<span class="token operator">=</span><span class="token string">"/logout/cas"</span><span class="token operator">/</span><span class="token operator">></span>
-        <span class="token operator"><</span><span class="token operator">/</span>beans<span class="token operator">:</span>bean<span class="token operator">></span>
-        <span class="token operator"><</span><span class="token operator">!</span><span class="token operator">--</span> 单点登出  结束 <span class="token operator">--</span><span class="token operator">></span>
-
-    <span class="token operator"><</span><span class="token operator">/</span>beans<span class="token operator">:</span>beans<span class="token operator">></span></code></pre>
 <ul>
 <li><p>userDetailsService编写<br>这是一个认证类是属于Spring-security的，如果不使用CAS那么这个类就是用来验证密码是否正确是否放行的。但是整合了CAS后就不用在里面做认证了，只是为了返回后面的角色集合。</p>
-<pre class=" language-java"><code class="language-java">  <span class="token keyword">package</span> top<span class="token punctuation">.</span>imlgw<span class="token punctuation">.</span>demo<span class="token punctuation">;</span>
-  <span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>security<span class="token punctuation">.</span>core<span class="token punctuation">.</span>GrantedAuthority<span class="token punctuation">;</span>
-  <span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>security<span class="token punctuation">.</span>core<span class="token punctuation">.</span>authority<span class="token punctuation">.</span>SimpleGrantedAuthority<span class="token punctuation">;</span>
-  <span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>security<span class="token punctuation">.</span>core<span class="token punctuation">.</span>userdetails<span class="token punctuation">.</span>User<span class="token punctuation">;</span>
-  <span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>security<span class="token punctuation">.</span>core<span class="token punctuation">.</span>userdetails<span class="token punctuation">.</span>UserDetails<span class="token punctuation">;</span>
-  <span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>security<span class="token punctuation">.</span>core<span class="token punctuation">.</span>userdetails<span class="token punctuation">.</span>UserDetailsService<span class="token punctuation">;</span>
-  <span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>security<span class="token punctuation">.</span>core<span class="token punctuation">.</span>userdetails<span class="token punctuation">.</span>UsernameNotFoundException<span class="token punctuation">;</span>
-  <span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>ArrayList<span class="token punctuation">;</span>
-  <span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>List<span class="token punctuation">;</span>
+  <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> top.imlgw.demo;</span><br><span class="line"><span class="keyword">import</span> org.springframework.security.core.GrantedAuthority;</span><br><span class="line"><span class="keyword">import</span> org.springframework.security.core.authority.SimpleGrantedAuthority;</span><br><span class="line"><span class="keyword">import</span> org.springframework.security.core.userdetails.User;</span><br><span class="line"><span class="keyword">import</span> org.springframework.security.core.userdetails.UserDetails;</span><br><span class="line"><span class="keyword">import</span> org.springframework.security.core.userdetails.UserDetailsService;</span><br><span class="line"><span class="keyword">import</span> org.springframework.security.core.userdetails.UsernameNotFoundException;</span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserDetailServiceImpl</span> <span class="keyword">implements</span> <span class="title">UserDetailsService</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> UserDetails <span class="title">loadUserByUsername</span><span class="params">(String username)</span> <span class="keyword">throws</span> UsernameNotFoundException </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"经过认证类"</span>);</span><br><span class="line">        List&lt;GrantedAuthority&gt; authorities=<span class="keyword">new</span> ArrayList();</span><br><span class="line">        <span class="comment">//最开始把这里的role写错了，然后cas登陆成功后也一直被403 forbid，因为SpringSecurity认证没通过，一直没放行</span></span><br><span class="line">        authorities.add(<span class="keyword">new</span> SimpleGrantedAuthority(<span class="string">"ROLE_USER"</span>));</span><br><span class="line">        <span class="comment">//不通过本项目做登陆 所以密码无所谓，在执行这个方法的时候就已经登陆成功了</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> User(username,<span class="string">""</span>,authorities);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-  <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">UserDetailServiceImpl</span> <span class="token keyword">implements</span> <span class="token class-name">UserDetailsService</span> <span class="token punctuation">{</span>
-      <span class="token keyword">public</span> UserDetails <span class="token function">loadUserByUsername</span><span class="token punctuation">(</span>String username<span class="token punctuation">)</span> <span class="token keyword">throws</span> UsernameNotFoundException <span class="token punctuation">{</span>
-          System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"经过认证类"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-          List<span class="token operator"><</span>GrantedAuthority<span class="token operator">></span> authorities<span class="token operator">=</span><span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-          <span class="token comment" spellcheck="true">//最开始把这里的role写错了，然后cas登陆成功后也一直被403 forbid，因为SpringSecurity认证没通过，一直没放行</span>
-          authorities<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">SimpleGrantedAuthority</span><span class="token punctuation">(</span><span class="token string">"ROLE_USER"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-          <span class="token comment" spellcheck="true">//不通过本项目做登陆 所以密码无所谓，在执行这个方法的时候就已经登陆成功了</span>
-          <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">User</span><span class="token punctuation">(</span>username<span class="token punctuation">,</span><span class="token string">""</span><span class="token punctuation">,</span>authorities<span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token punctuation">}</span>
-  <span class="token punctuation">}</span>
-</code></pre>
 </li>
 </ul>
 <hr>
 <h3 id="4-测试"><a href="#4-测试" class="headerlink" title="4. 测试"></a>4. 测试</h3><p>启动搭建好的两个服务器，和casServer，然后测试在一个应用登陆后另一个能否进入index页面 …..</p>
 <hr>
 <p>SpringBoot集成CAS和Spring-security的后面再补充，因为SpringBoot还不太熟悉。</p>
-</body></html></div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">imlgw</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://imlgw.top/2018/11/17/cas-dan-dian-deng-lu-xi-tong-ru-men/">http://imlgw.top/2018/11/17/cas-dan-dian-deng-lu-xi-tong-ru-men/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://imlgw.top">iMlGw0</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/CAS/">CAS    </a><a class="post-meta__tags" href="/tags/SSO/">SSO    </a></div><div class="post_share"><div class="social-share" data-image="http://static.imlgw.top/image/featureimages/16.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js"></script></div></div><div class="post-reward"><a class="reward-button button--primary button--animated"> <i class="fa fa-qrcode"></i> 打赏<div class="reward-main"><ul class="reward-all"><li class="reward-item"><img class="lazyload post-qr-code__img" src="/img/wechat.png" alt="微信"><div class="post-qr-code__desc">微信</div></li><li class="reward-item"><img class="lazyload post-qr-code__img" src="/img/alipay.png" alt="支付寶"><div class="post-qr-code__desc">支付寶</div></li></ul></div></a></div><nav class="pagination_post" id="pagination"><div class="prev-post pull_left"><a href="/2018/11/26/springsecurity-pei-zhi-de-ji-ge-xiao-wen-ti/"><img class="prev_cover lazyload" data-src="http://static.imlgw.top/image/featureimages/7.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="label">上一篇</div><div class="prev_info"><span>Spring-Security遇到的小问题</span></div></a></div><div class="next-post pull_right"><a href="/2018/10/31/yi-dao-leetcode-yin-fa-de-can-an/"><img class="next_cover lazyload" data-src="http://static.imlgw.top/image/featureimages/21.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="label">下一篇</div><div class="next_info"><span>一道LeetCode引发的惨案</span></div></a></div></nav><hr><div id="post-comment"><div class="comment_headling"><i class="fa fa-comments fa-fw" aria-hidden="true"></i><span> 评论</span></div><div class="vcomment" id="vcomment"></div><script src="https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script><script>var notify = false == true ? true : false;
-var verify = true == true ? true : false;
-var GUEST_INFO = ['nick','mail','link'];
-var guest_info = 'nick,mail,link'.split(',').filter(function(item){
-  return GUEST_INFO.indexOf(item) > -1
-});
-guest_info = guest_info.length == 0 ? GUEST_INFO :guest_info;
 
-window.valine = new Valine({
-  el:'#vcomment',
-  notify:notify,
-  verify:verify,
-  appId:'MkcXmeDvktRNBDBrVqb9KYPH-MdYXbMMI',
-  appKey:'swDnb5a9u9Ksp2Rwkdm7Qulh',
-  placeholder:'留下邮箱才能收到及时收到回复~~',
-  avatar:'monsterid',
-  guest_info:guest_info,
-  pageSize:'10',
-  lang:'zh-cn',
-  recordIP: true
-});</script></div></div></main><footer id="footer" style="background-image: url(http://static.imlgw.top/image/featureimages/16.jpg)" data-type="photo"><div id="footer-wrap"><div class="copyright">&copy;2018 - 2020 By imlgw</div><div class="framework-info"><span>驱动 </span><a href="http://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener"><span>Butterfly</span></a></div><div class="icp"><a href="http://beian.miit.gov.cn/publish/query/indexFirst.action" target="_blank" rel="noopener"><span>鄂ICP备18011208号</span></a></div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><i class="fa fa-book" id="readmode" title="阅读模式"></i><i class="fa fa-plus" id="font_plus" title="放大字体"></i><i class="fa fa-minus" id="font_minus" title="缩小字体"></i><a class="translate_chn_to_cht" id="translateLink" href="javascript:translatePage();" title="简繁转换" target="_self">簡</a></div><div id="rightside-config-show"><div id="rightside_config" title="设置"><i class="fa fa-cog" aria-hidden="true"></i></div><a id="to_comment" href="#post-comment" title="直达评论"><i class="scroll_to_comment fa fa-comments">  </i></a><i class="fa fa-list-ul close" id="mobile-toc-button" title="目录" aria-hidden="true"></i><i class="fa fa-arrow-up" id="go-up" title="回到顶部" aria-hidden="true"></i></div></section><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/medium-zoom/dist/medium-zoom.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script id="ribbon_piao" mobile="undefined" src="https://cdn.jsdelivr.net/gh/jerryc127/butterfly_cdn@2.1.0/js/piao.js"></script><script src="https://cdn.jsdelivr.net/npm/activate-power-mode/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
-POWERMODE.shake = false; 
-document.body.addEventListener('input', POWERMODE);
-</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@latest/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@latest/lazysizes.min.js" async=""></script><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章"></div></div></div><hr><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a href="https://github.com/wzpan/hexo-generator-search" target="_blank" rel="noopener" style="color:#49B1F5;">hexo-generator-search</a>
- <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fa fa-times"></i></span></div><div class="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/live2d-widget@3.x/lib/L2Dwidget.min.js"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"https://cdn.jsdelivr.net/npm/live2d-widget-model-hijiki@1.0.5/assets/hijiki.model.json"},"display":{"superSample":2,"width":160,"height":320,"position":"right","hOffset":0,"vOffset":-70},"mobile":{"show":false,"scale":0.2},"log":false});</script></body></html>
+    </div>
+
+  </article>
+  <div class="toc-container">
+    
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#单点登陆系统-–CAS"><span class="toc-text">单点登陆系统 –CAS</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-配置CAS服务端"><span class="toc-text">1. 配置CAS服务端</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-普通的web项目集成CAS"><span class="toc-text">2. 普通的web项目集成CAS</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-Spring项目集成CAS和Spring-security"><span class="toc-text">3. Spring项目集成CAS和Spring-security</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-测试"><span class="toc-text">4. 测试</span></a></li></ol></li></ol>
+  </div>
+
+
+  </div>
+</div>
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'true' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "MkcXmeDvktRNBDBrVqb9KYPH-MdYXbMMI",
+            app_key: "swDnb5a9u9Ksp2Rwkdm7Qulh",
+            placeholder: "留下邮箱才能收到收到回复喔 ~",
+            avatar:"monsterid"
+        });
+    }
+</script>
+    </section>
+  
+<div class="copyright">
+    <span>本作品采用</span>
+    <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">知识共享署名 4.0 国际许可协议</a>
+    <span>进行许可。 转载时请注明原文链接。</span>
+</div>
+
+
+  
+    <div class="post-nav">
+      <div class="post-nav-item post-nav-next">
+        
+          <span>〈 </span>
+          <a href="/2018/10/31/yi-dao-leetcode-yin-fa-de-can-an/" rel="next" title="一道LeetCode引发的惨案">
+          一道LeetCode引发的惨案
+          </a>
+        
+      </div>
+  
+      <div class="post-nav-item post-nav-prev">
+          
+          <a href="/2018/11/26/springsecurity-pei-zhi-de-ji-ge-xiao-wen-ti/" rel="prev" title="Spring-Security遇到的小问题">
+            Spring-Security遇到的小问题
+          </a>
+          <span>〉</span>
+        
+      </div>
+    </div>
+  
+
+    </div>
+
+    
+
+  </div>
+  <footer class="footer text-center">
+    <div id="bottom-inner">
+        <a class="bottom-item" href="https://github.com/imlgw" target="_blank">GitHub</a> |
+        <a class="bottom-item" href="/links">友情链接</a> |
+        <a class="bottom-item" href="https://hexo.io" target="_blank">Powered by hexo</a> |
+        <a class="bottom-item" href="https://github.com/fooying/hexo-theme-xoxo-plus" target="_blank">Theme xoxo-plus</a> |
+        <a class="bottom-item" href="/atom.xml">RSS</a>
+    </div>
+</footer>
+
+  
+
+<script>
+  (function(window, document, undefined) {
+
+    var timer = null;
+
+    function returnTop() {
+      cancelAnimationFrame(timer);
+      timer = requestAnimationFrame(function fn() {
+        var oTop = document.body.scrollTop || document.documentElement.scrollTop;
+        if (oTop > 0) {
+          document.body.scrollTop = document.documentElement.scrollTop = oTop - 50;
+          timer = requestAnimationFrame(fn);
+        } else {
+          cancelAnimationFrame(timer);
+        }
+      });
+    }
+
+    var hearts = [];
+    window.requestAnimationFrame = (function() {
+      return window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.oRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        function(callback) {
+          setTimeout(callback, 1000 / 60);
+        }
+    })();
+    init();
+
+    function init() {
+      css(".heart{z-index:9999;width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);}.heart:after,.heart:before{content: '';width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: absolute;}.heart:after{top: -5px;}.heart:before{left: -5px;}");
+      attachEvent();
+      gameloop();
+      addMenuEvent();
+    }
+
+    function gameloop() {
+      for (var i = 0; i < hearts.length; i++) {
+        if (hearts[i].alpha <= 0) {
+          document.body.removeChild(hearts[i].el);
+          hearts.splice(i, 1);
+          continue;
+        }
+        hearts[i].y--;
+        hearts[i].scale += 0.004;
+        hearts[i].alpha -= 0.013;
+        hearts[i].el.style.cssText = "left:" + hearts[i].x + "px;top:" + hearts[i].y + "px;opacity:" + hearts[i].alpha + ";transform:scale(" + hearts[i].scale + "," + hearts[i].scale + ") rotate(45deg);background:" + hearts[i].color;
+      }
+      requestAnimationFrame(gameloop);
+    }
+
+    /**
+     * 给logo设置点击事件
+     * 
+     * - 回到顶部
+     * - 出现爱心
+     */
+    function attachEvent() {
+      var old = typeof window.onclick === "function" && window.onclick;
+      var logo = document.getElementById("logo");
+      if (logo) {
+        logo.onclick = function(event) {
+          returnTop();
+          old && old();
+          createHeart(event);
+        }
+      }
+      
+    }
+
+    function createHeart(event) {
+      var d = document.createElement("div");
+      d.className = "heart";
+      hearts.push({
+        el: d,
+        x: event.clientX - 5,
+        y: event.clientY - 5,
+        scale: 1,
+        alpha: 1,
+        color: randomColor()
+      });
+      document.body.appendChild(d);
+    }
+
+    function css(css) {
+      var style = document.createElement("style");
+      style.type = "text/css";
+      try {
+        style.appendChild(document.createTextNode(css));
+      } catch (ex) {
+        style.styleSheet.cssText = css;
+      }
+      document.getElementsByTagName('head')[0].appendChild(style);
+    }
+
+    function randomColor() {
+      // return "rgb(" + (~~(Math.random() * 255)) + "," + (~~(Math.random() * 255)) + "," + (~~(Math.random() * 255)) + ")";
+      return "#F44336";
+    }
+
+    function addMenuEvent() {
+      var menu = document.getElementById('menu-main-post');
+      if (menu) {
+        var toc = document.getElementById('toc');
+        if (toc) {
+          menu.onclick = function() {
+            if (toc) {
+              if (toc.style.display == 'block') {
+                toc.style.display = 'none';
+              } else {
+                toc.style.display = 'block';
+              }
+            }
+          };
+        } else {
+          menu.style.display = 'none';
+        }
+      }
+    }
+
+  })(window, document);
+</script>
+
+  
+
+
+
+  
+
+<script src="https://cdn.jsdelivr.net/npm/live2d-widget@3.x/lib/L2Dwidget.min.js"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"https://cdn.jsdelivr.net/npm/live2d-widget-model-hijiki@1.0.5/assets/hijiki.model.json"},"display":{"superSample":2,"width":160,"height":320,"position":"right","hOffset":0,"vOffset":-70},"mobile":{"show":false,"scale":0.2},"log":false});</script></body>
+</html>

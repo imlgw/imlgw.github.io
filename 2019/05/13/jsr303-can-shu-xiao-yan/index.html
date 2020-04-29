@@ -1,258 +1,165 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5"><title>JSR303-参数检验 | iMlGw0</title><meta name="description" content="JSR303-参数检验"><meta name="keywords" content="参数校验,JSR"><meta name="author" content="imlgw"><meta name="copyright" content="imlgw"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/img/Cup.ico"><link rel="preconnect" href="//cdn.jsdelivr.net"><link rel="preconnect" href="https://hm.baidu.com"><link rel="preconnect" href="https://fonts.googleapis.com" crossorigin><link rel="preconnect" href="//busuanzi.ibruce.info"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="JSR303-参数检验"><meta name="twitter:description" content="JSR303-参数检验"><meta name="twitter:image" content="http://static.imlgw.top/image/featureimages/21.jpg"><meta property="og:type" content="article"><meta property="og:title" content="JSR303-参数检验"><meta property="og:url" content="http://imlgw.top/2019/05/13/jsr303-can-shu-xiao-yan/"><meta property="og:site_name" content="iMlGw0"><meta property="og:description" content="JSR303-参数检验"><meta property="og:image" content="http://static.imlgw.top/image/featureimages/21.jpg"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script src="https://cdn.jsdelivr.net/npm/js-cookie/dist/js.cookie.min.js"></script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css"><link rel="canonical" href="http://imlgw.top/2019/05/13/jsr303-can-shu-xiao-yan/"><link rel="prev" title="WebMvcConfigurer小结" href="http://imlgw.top/2019/05/20/webmvcconfigurer/"><link rel="next" title="LeetCode数组" href="http://imlgw.top/2019/05/04/leetcode-shu-zu/"><script>var _hmt = _hmt || [];
-(function() {
-  var hm = document.createElement("script");
-  hm.src = "https://hm.baidu.com/hm.js?93be601f1b40364d8cd640d751012180";
-  var s = document.getElementsByTagName("script")[0]; 
-  s.parentNode.insertBefore(hm, s);
-})();
-</script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><script>var GLOBAL_CONFIG = { 
-  root: '/',
-  algolia: undefined,
-  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容:${query}"}},
-  translate: {"defaultEncoding":1,"translateDelay":0,"cookieDomain":"imlgw.top","msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简"},
-  copy: {
-    success: '复制成功',
-    error: '复制错误',
-    noSupport: '浏览器不支持'
-  },
-  bookmark: {
-    title: 'Snackbar.bookmark.title',
-    message_prev: '按',
-    message_next: '键将本页加入书签'
-  },
-  runtime_unit: '天',
-  runtime: true,
-  copyright: {"languages":{"author":"作者: imlgw","link":"链接: http://imlgw.top/2019/05/13/jsr303-can-shu-xiao-yan/","source":"来源: iMlGw0","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
-  ClickShowText: undefined,
-  medium_zoom: true,
-  fancybox: false,
-  Snackbar: {"bookmark":{"title":"Snackbar.bookmark.title","message_prev":"按","message_next":"键将本页加入书签"},"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#2d3035","position":"bottom-left"},
-  baiduPush: false,
-  isHome: false,
-  isPost: true
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#202020"/>
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
   
-}</script><meta name="generator" content="Hexo 4.2.0"><link rel="stylesheet" href="/css/prism.css" type="text/css"></head><body><header> <div id="page-header"><span class="pull_left" id="blog_name"><a class="blog_title" id="site-name" href="/">iMlGw0</a></span><span class="toggle-menu pull_right close"><a class="site-page"><i class="fa fa-bars fa-fw" aria-hidden="true"></i></a></span><span class="pull_right menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/board/"><i class="fa-fw fa fa-link"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-list" aria-hidden="true"></i><span> LeetCode</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="http://imlgw.top/2019/02/27/leetcode-lian-biao/"><i class="fa-fw fa fa-tags"></i><span> 链表</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/05/04/leetcode-shu-zu/"><i class="fa-fw fa fa-tags"></i><span> 数组</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/10/01/leetcode-zhan-dui-lie/"><i class="fa-fw fa fa-tags"></i><span> 栈&amp;队列</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/09/15/leetcode-cha-zhao/"><i class="fa-fw fa fa-tags"></i><span> 查找</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/12/06/leetcode-er-fen-cha-zhao/"><i class="fa-fw fa fa-tags"></i><span> 二分查找</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/11/06/leetcode-er-cha-shu/"><i class="fa-fw fa fa-tags"></i><span> 二叉树</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/07/20/leetcode-hua-dong-chuang-kou/"><i class="fa-fw fa fa-tags"></i><span> 滑动窗口</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/09/01/leetcode-dong-tai-gui-hua/"><i class="fa-fw fa fa-tags"></i><span> 动态规划</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/11/29/leetcode-bei-bao-wen-ti/"><i class="fa-fw fa fa-tags"></i><span> 背包问题</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/10/10/leetcode-hui-su/"><i class="fa-fw fa fa-tags"></i><span> 回溯</span></a></li><li><a class="site-page" href="http://imlgw.top/2020/01/21/leetcode-tan-xin/"><i class="fa-fw fa fa-tags"></i><span> 贪心</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link"><i class="fa-fw fa fa-address-book"></i><span> 大佬们</span></a></div></div></span><span class="pull_right" id="search_button"><a class="site-page social-icon search"><i class="fa fa-search fa-fw"></i><span> 搜索</span></a></span></div></header><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="http://static.imlgw.top/maofu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">59</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">58</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">12</div></a></div></div></div><hr><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/board/"><i class="fa-fw fa fa-link"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-list" aria-hidden="true"></i><span> LeetCode</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="http://imlgw.top/2019/02/27/leetcode-lian-biao/"><i class="fa-fw fa fa-tags"></i><span> 链表</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/05/04/leetcode-shu-zu/"><i class="fa-fw fa fa-tags"></i><span> 数组</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/10/01/leetcode-zhan-dui-lie/"><i class="fa-fw fa fa-tags"></i><span> 栈&amp;队列</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/09/15/leetcode-cha-zhao/"><i class="fa-fw fa fa-tags"></i><span> 查找</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/12/06/leetcode-er-fen-cha-zhao/"><i class="fa-fw fa fa-tags"></i><span> 二分查找</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/11/06/leetcode-er-cha-shu/"><i class="fa-fw fa fa-tags"></i><span> 二叉树</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/07/20/leetcode-hua-dong-chuang-kou/"><i class="fa-fw fa fa-tags"></i><span> 滑动窗口</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/09/01/leetcode-dong-tai-gui-hua/"><i class="fa-fw fa fa-tags"></i><span> 动态规划</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/11/29/leetcode-bei-bao-wen-ti/"><i class="fa-fw fa fa-tags"></i><span> 背包问题</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/10/10/leetcode-hui-su/"><i class="fa-fw fa fa-tags"></i><span> 回溯</span></a></li><li><a class="site-page" href="http://imlgw.top/2020/01/21/leetcode-tan-xin/"><i class="fa-fw fa fa-tags"></i><span> 贪心</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link"><i class="fa-fw fa fa-address-book"></i><span> 大佬们</span></a></div></div></div><div id="mobile-sidebar-toc"><div class="toc_mobile_headline">目录</div><div class="sidebar-toc__content"><ol class="toc_mobile_items"><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#JSR303"><span class="toc_mobile_items-number">1.</span> <span class="toc_mobile_items-text">JSR303</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#上手"><span class="toc_mobile_items-number">2.</span> <span class="toc_mobile_items-text">上手</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#引入依赖"><span class="toc_mobile_items-number">2.1.</span> <span class="toc_mobile_items-text">引入依赖</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#JSR提供的注解"><span class="toc_mobile_items-number">2.2.</span> <span class="toc_mobile_items-text">JSR提供的注解</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#Hibernate提供的"><span class="toc_mobile_items-number">2.3.</span> <span class="toc_mobile_items-text">Hibernate提供的</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#自定义校验注解"><span class="toc_mobile_items-number">2.4.</span> <span class="toc_mobile_items-text">自定义校验注解</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#字段上加注解"><span class="toc_mobile_items-number">2.5.</span> <span class="toc_mobile_items-text">字段上加注解</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#自定义异常"><span class="toc_mobile_items-number">2.6.</span> <span class="toc_mobile_items-text">自定义异常</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#全局异常处理器"><span class="toc_mobile_items-number">2.7.</span> <span class="toc_mobile_items-text">全局异常处理器</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#分组校验"><span class="toc_mobile_items-number">2.8.</span> <span class="toc_mobile_items-text">分组校验</span></a></li></ol></li></ol></div></div></div><div id="body-wrap"><div id="web_bg" data-type="color"></div><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true">     </i><div class="auto_open" id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#JSR303"><span class="toc-number">1.</span> <span class="toc-text">JSR303</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#上手"><span class="toc-number">2.</span> <span class="toc-text">上手</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#引入依赖"><span class="toc-number">2.1.</span> <span class="toc-text">引入依赖</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JSR提供的注解"><span class="toc-number">2.2.</span> <span class="toc-text">JSR提供的注解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Hibernate提供的"><span class="toc-number">2.3.</span> <span class="toc-text">Hibernate提供的</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#自定义校验注解"><span class="toc-number">2.4.</span> <span class="toc-text">自定义校验注解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#字段上加注解"><span class="toc-number">2.5.</span> <span class="toc-text">字段上加注解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#自定义异常"><span class="toc-number">2.6.</span> <span class="toc-text">自定义异常</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#全局异常处理器"><span class="toc-number">2.7.</span> <span class="toc-text">全局异常处理器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#分组校验"><span class="toc-number">2.8.</span> <span class="toc-text">分组校验</span></a></li></ol></li></ol></div></div></div><main id="content-outer"><div id="top-container" style="background-image: url(http://static.imlgw.top/image/featureimages/21.jpg)"><div id="post-info"><div id="post-title"><div class="posttitle">JSR303-参数检验</div></div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 发表于 2019-05-13<span class="post-meta__separator">|</span><i class="fa fa-history fa-fw" aria-hidden="true"></i> 更新于 2019-12-23</time><span class="post-meta__separator">|</span><span><i class="fa fa-inbox post-meta__icon fa-fw" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/Web/">Web</a></span><div class="post-meta-wordcount"><i class="fa fa-file-word-o post-meta__icon fa-fw" aria-hidden="true"></i><span>字数总计:</span><span class="word-count">1.6k</span><span class="post-meta__separator">|</span><i class="fa fa-clock-o post-meta__icon fa-fw" aria-hidden="true"></i><span>阅读时长: 6 分钟</span><div class="post-meta-pv-cv"><span class="post-meta__separator">|</span><span><i class="fa fa-eye post-meta__icon fa-fw" aria-hidden="true"> </i>阅读量:</span><span id="busuanzi_value_page_pv"></span></div></div></div></div></div><div class="layout layout_post" id="content-inner">   <article id="post"><div class="article-container" id="post-content"><html><head></head><body><h2 id="JSR303"><a href="#JSR303" class="headerlink" title="JSR303"></a>JSR303</h2><p>目前最新的规范已经是JSR380了，也就是Bean Validation 2.0.</p>
-<p><img alt="mark" data-src="http://static.imlgw.top///20190513/qa5DNu5Nsq26.png?imageslim" src="/img/loading.gif" class="lazyload"></p>
+  
+    <meta name="keywords" content="参数校验,JSR," />
+  
+
+  
+    <meta name="description" content="大悲无泪，大悟无言，大笑无声。" />
+  
+  
+  
+  <link rel="icon" type="image/x-icon" href="/img/cat.ico">
+  
+  <title>JSR303-参数检验 [ iMlGw0 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="//cdn.bootcss.com/pure/1.0.0/pure-min.css">
+    
+      <link rel="stylesheet" href="/css/xoxo.css">
+    
+  
+<meta name="generator" content="Hexo 4.2.0"><link rel="stylesheet" href="/css/prism.css" type="text/css"></head>
+
+
+<body>
+  <div class="nav-container">
+    <nav class="home-menu pure-menu pure-menu-horizontal">
+  <a class="pure-menu-heading" href="/">
+    
+      <img class="avatar" src="http://static.imlgw.top/maofu.png">
+    
+    <span class="title" style="text-transform:none">iMlGw0</span>
+  </a>
+
+  <ul class="pure-menu-list clearfix">
+      
+          
+            
+              <li class="pure-menu-item"><a href="/" class="pure-menu-link">首页</a></li>
+            
+          
+      
+          
+            
+              <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
+            
+              <a href="#" id="post" class="pure-menu-link">文章</a>
+              <ul class="pure-menu-children">
+              
+                  
+                    <li class="pure-menu-item"><a href="/categories" style="color:#202020;" class="pure-menu-link">分类</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="/archives" style="color:#202020;" class="pure-menu-link">归档</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="/tags" style="color:#202020;" class="pure-menu-link">标签</a></li>
+                  
+              
+              </ul>
+            </li>
+          
+      
+          
+            
+              <li class="pure-menu-item"><a href="/project" class="pure-menu-link">项目</a></li>
+            
+          
+      
+          
+            
+              <li class="pure-menu-item"><a href="/search" class="pure-menu-link">搜索</a></li>
+            
+          
+      
+          
+            
+              <li class="pure-menu-item"><a href="/about" class="pure-menu-link">关于</a></li>
+            
+          
+      
+  </ul>
+   
+</nav>
+
+  </div>
+
+  <div class="container" id="content-outer">
+    <div class="inner" id="content-inner">
+      <div class="post-container">
+  <article class="post" id="post">
+    <header class="post-header text-center">
+      <h1 class="title">
+        JSR303-参数检验
+      </h1>
+      <span>
+        
+        <time class="time" datetime="2019-05-12T16:00:00.000Z">
+        2019-05-13
+      </time>
+        
+      </span>
+      <span class="slash">/</span>
+      <span class="post-meta">
+      <span class="post-tags">
+        <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JSR/" rel="tag">JSR</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%8F%82%E6%95%B0%E6%A0%A1%E9%AA%8C/" rel="tag">参数校验</a></li></ul>
+      </span>
+    </span>
+      <span class="slash">/</span>
+      <span class="read">
+      <span id="busuanzi_value_page_pv"></span> 点击
+    </span>
+      <span class="slash">/</span>
+      <span class="read">阅读耗时 11 分钟</span>
+    </header>
+
+    <div class="post-content">
+      <h2 id="JSR303"><a href="#JSR303" class="headerlink" title="JSR303"></a>JSR303</h2><p>目前最新的规范已经是JSR380了，也就是Bean Validation 2.0.</p>
+<p><img src="http://static.imlgw.top///20190513/qa5DNu5Nsq26.png?imageslim" alt="mark"></p>
 <p>参数校验是一个成熟的网站必须的功能，然而有的时候为了校验参数也要费好大的劲，免不了写很多if-else，一点也不优雅。</p>
-<h2 id="上手"><a href="#上手" class="headerlink" title="上手"></a>上手</h2><h3 id="引入依赖"><a href="#引入依赖" class="headerlink" title="引入依赖"></a>引入依赖</h3><pre class=" language-java"><code class="language-java"> <span class="token operator"><</span><span class="token operator">!</span><span class="token operator">--</span>SpringBootWeb 这个包里面自带了hibernate的校验包<span class="token operator">--</span><span class="token operator">></span>
-<span class="token operator"><</span>dependency<span class="token operator">></span>
-    <span class="token operator"><</span>groupId<span class="token operator">></span>org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>boot<span class="token operator"><</span><span class="token operator">/</span>groupId<span class="token operator">></span>
-    <span class="token operator"><</span>artifactId<span class="token operator">></span>spring<span class="token operator">-</span>boot<span class="token operator">-</span>starter<span class="token operator">-</span>web<span class="token operator"><</span><span class="token operator">/</span>artifactId<span class="token operator">></span>
-<span class="token operator"><</span><span class="token operator">/</span>dependency<span class="token operator">></span></code></pre>
-<h3 id="JSR提供的注解"><a href="#JSR提供的注解" class="headerlink" title="JSR提供的注解"></a>JSR提供的注解</h3><pre class=" language-java"><code class="language-java"><span class="token annotation punctuation">@Null</span>   被注释的元素必须为 null    
-<span class="token annotation punctuation">@NotNull</span>    被注释的元素必须不为 null    
-<span class="token annotation punctuation">@AssertTrue</span>     被注释的元素必须为 <span class="token boolean">true</span>    
-<span class="token annotation punctuation">@AssertFalse</span>    被注释的元素必须为 <span class="token boolean">false</span>    
-<span class="token annotation punctuation">@Min</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span>     被注释的元素必须是一个数字，其值必须大于等于指定的最小值    
-<span class="token annotation punctuation">@Max</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span>     被注释的元素必须是一个数字，其值必须小于等于指定的最大值    
-<span class="token annotation punctuation">@DecimalMin</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span>  被注释的元素必须是一个数字，其值必须大于等于指定的最小值    
-<span class="token annotation punctuation">@DecimalMax</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span>  被注释的元素必须是一个数字，其值必须小于等于指定的最大值    
-<span class="token annotation punctuation">@Size</span><span class="token punctuation">(</span>max<span class="token operator">=</span><span class="token punctuation">,</span> min<span class="token operator">=</span><span class="token punctuation">)</span>   被注释的元素的大小必须在指定的范围内    
-<span class="token annotation punctuation">@Digits</span> <span class="token punctuation">(</span>integer<span class="token punctuation">,</span> fraction<span class="token punctuation">)</span>     被注释的元素必须是一个数字，其值必须在可接受的范围内    
-<span class="token annotation punctuation">@Past</span>   被注释的元素必须是一个过去的日期    
-<span class="token annotation punctuation">@Future</span>     被注释的元素必须是一个将来的日期    
-<span class="token annotation punctuation">@Pattern</span><span class="token punctuation">(</span>regex<span class="token operator">=</span><span class="token punctuation">,</span>flag<span class="token operator">=</span><span class="token punctuation">)</span>  被注释的元素必须符合指定的正则表达式</code></pre>
-<h3 id="Hibernate提供的"><a href="#Hibernate提供的" class="headerlink" title="Hibernate提供的"></a>Hibernate提供的</h3><pre><code>@NotBlank(message =)   验证字符串非null，且长度必须大于0    
-@Email  被注释的元素必须是电子邮箱地址    
-@Length(min=,max=)  被注释的字符串的大小必须在指定的范围内    
-@NotEmpty   被注释的字符串的必须非空    
-@Range(min=,max=,message=)  被注释的元素必须在合适的范围内</code></pre><h3 id="自定义校验注解"><a href="#自定义校验注解" class="headerlink" title="自定义校验注解"></a>自定义校验注解</h3><p><strong>@IsMobile注解</strong></p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">package</span> top<span class="token punctuation">.</span>imlgw<span class="token punctuation">.</span>spike<span class="token punctuation">.</span>validator<span class="token punctuation">;</span>
-<span class="token keyword">import</span> javax<span class="token punctuation">.</span>validation<span class="token punctuation">.</span>Constraint<span class="token punctuation">;</span>
-<span class="token keyword">import</span> javax<span class="token punctuation">.</span>validation<span class="token punctuation">.</span>Payload<span class="token punctuation">;</span>
-<span class="token keyword">import</span> java<span class="token punctuation">.</span>lang<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span>*<span class="token punctuation">;</span>
-<span class="token comment" spellcheck="true">/**
- * @author imlgw.top
- * @date 2019/5/13 17:50
- */</span>
-<span class="token annotation punctuation">@Target</span><span class="token punctuation">(</span><span class="token punctuation">{</span>ElementType<span class="token punctuation">.</span>METHOD<span class="token punctuation">,</span> ElementType<span class="token punctuation">.</span>FIELD<span class="token punctuation">,</span> ElementType<span class="token punctuation">.</span>ANNOTATION_TYPE<span class="token punctuation">,</span> ElementType<span class="token punctuation">.</span>CONSTRUCTOR<span class="token punctuation">,</span> ElementType<span class="token punctuation">.</span>PARAMETER<span class="token punctuation">,</span> ElementType<span class="token punctuation">.</span>TYPE_USE<span class="token punctuation">}</span><span class="token punctuation">)</span>
-<span class="token annotation punctuation">@Retention</span><span class="token punctuation">(</span>RetentionPolicy<span class="token punctuation">.</span>RUNTIME<span class="token punctuation">)</span>
-<span class="token annotation punctuation">@Documented</span>
-<span class="token annotation punctuation">@Constraint</span><span class="token punctuation">(</span>
-        validatedBy <span class="token operator">=</span> <span class="token punctuation">{</span>IsMobileValidator<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">}</span> <span class="token comment" spellcheck="true">//指定真正校验的类</span>
-<span class="token punctuation">)</span>
-<span class="token keyword">public</span> @<span class="token keyword">interface</span> <span class="token class-name">IsMobile</span> <span class="token punctuation">{</span>
-    <span class="token keyword">boolean</span> <span class="token function">required</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">default</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+<h2 id="上手"><a href="#上手" class="headerlink" title="上手"></a>上手</h2><h3 id="引入依赖"><a href="#引入依赖" class="headerlink" title="引入依赖"></a>引入依赖</h3><figure class="highlight"><table><tr><td class="code"><pre><span class="line"> &lt;!--SpringBootWeb 这个包里面自带了hibernate的校验包--&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">	&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
 
-    String <span class="token function">message</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">default</span> <span class="token string">"号码格式错误"</span><span class="token punctuation">;</span>
+<h3 id="JSR提供的注解"><a href="#JSR提供的注解" class="headerlink" title="JSR提供的注解"></a>JSR提供的注解</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Null</span>   被注释的元素必须为 <span class="keyword">null</span>    </span><br><span class="line"><span class="meta">@NotNull</span>    被注释的元素必须不为 <span class="keyword">null</span>    </span><br><span class="line"><span class="meta">@AssertTrue</span>     被注释的元素必须为 <span class="keyword">true</span>    </span><br><span class="line"><span class="meta">@AssertFalse</span>    被注释的元素必须为 <span class="keyword">false</span>    </span><br><span class="line"><span class="meta">@Min</span>(value)     被注释的元素必须是一个数字，其值必须大于等于指定的最小值    </span><br><span class="line"><span class="meta">@Max</span>(value)     被注释的元素必须是一个数字，其值必须小于等于指定的最大值    </span><br><span class="line"><span class="meta">@DecimalMin</span>(value)  被注释的元素必须是一个数字，其值必须大于等于指定的最小值    </span><br><span class="line"><span class="meta">@DecimalMax</span>(value)  被注释的元素必须是一个数字，其值必须小于等于指定的最大值    </span><br><span class="line"><span class="meta">@Size</span>(max=, min=)   被注释的元素的大小必须在指定的范围内    </span><br><span class="line"><span class="meta">@Digits</span> (integer, fraction)     被注释的元素必须是一个数字，其值必须在可接受的范围内    </span><br><span class="line"><span class="meta">@Past</span>   被注释的元素必须是一个过去的日期    </span><br><span class="line"><span class="meta">@Future</span>     被注释的元素必须是一个将来的日期    </span><br><span class="line"><span class="meta">@Pattern</span>(regex=,flag=)  被注释的元素必须符合指定的正则表达式</span><br></pre></td></tr></table></figure>
 
-    Class<span class="token operator"><</span><span class="token operator">?</span><span class="token operator">></span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">groups</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">default</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+<h3 id="Hibernate提供的"><a href="#Hibernate提供的" class="headerlink" title="Hibernate提供的"></a>Hibernate提供的</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@NotBlank(message &#x3D;)   验证字符串非null，且长度必须大于0    </span><br><span class="line">@Email  被注释的元素必须是电子邮箱地址    </span><br><span class="line">@Length(min&#x3D;,max&#x3D;)  被注释的字符串的大小必须在指定的范围内    </span><br><span class="line">@NotEmpty   被注释的字符串的必须非空    </span><br><span class="line">@Range(min&#x3D;,max&#x3D;,message&#x3D;)  被注释的元素必须在合适的范围内</span><br></pre></td></tr></table></figure>
 
-    Class<span class="token operator"><</span><span class="token operator">?</span> <span class="token keyword">extends</span> <span class="token class-name">Payload</span><span class="token operator">></span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">payload</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">default</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+<h3 id="自定义校验注解"><a href="#自定义校验注解" class="headerlink" title="自定义校验注解"></a>自定义校验注解</h3><p><strong>@IsMobile注解</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> top.imlgw.spike.validator;</span><br><span class="line"><span class="keyword">import</span> javax.validation.Constraint;</span><br><span class="line"><span class="keyword">import</span> javax.validation.Payload;</span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.*;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> imlgw.top</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2019/5/13 17:50</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Target</span>(&#123;ElementType.METHOD, ElementType.FIELD, ElementType.ANNOTATION_TYPE, ElementType.CONSTRUCTOR, ElementType.PARAMETER, ElementType.TYPE_USE&#125;)</span><br><span class="line"><span class="meta">@Retention</span>(RetentionPolicy.RUNTIME)</span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Constraint</span>(</span><br><span class="line">        validatedBy = &#123;IsMobileValidator<span class="class">.<span class="keyword">class</span>&#125; //指定真正校验的类</span></span><br><span class="line"><span class="class">)</span></span><br><span class="line"><span class="class"><span class="title">public</span> @<span class="title">interface</span> <span class="title">IsMobile</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">required</span><span class="params">()</span> <span class="keyword">default</span> <span class="keyword">true</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function">String <span class="title">message</span><span class="params">()</span> <span class="keyword">default</span> "号码格式错误"</span>;</span><br><span class="line"></span><br><span class="line">    Class&lt;?&gt;[] groups() <span class="keyword">default</span> &#123;&#125;;</span><br><span class="line"></span><br><span class="line">    Class&lt;? extends Payload&gt;[] payload() <span class="keyword">default</span> &#123;&#125;;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<span class="token punctuation">}</span></code></pre>
 <p><strong>IsMobileValidator类</strong></p>
 <blockquote>
 <p>自定义的校验器要实现 ConstraintValidator接口</p>
 </blockquote>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">package</span> top<span class="token punctuation">.</span>imlgw<span class="token punctuation">.</span>spike<span class="token punctuation">.</span>validator<span class="token punctuation">;</span>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> top.imlgw.spike.validator;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.commons.lang3.StringUtils;</span><br><span class="line"><span class="keyword">import</span> top.imlgw.spike.utils.ValidatorUtil;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.validation.ConstraintValidator;</span><br><span class="line"><span class="keyword">import</span> javax.validation.ConstraintValidatorContext;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> imlgw.top</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2019/5/13 18:12</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">IsMobileValidator</span> <span class="keyword">implements</span> <span class="title">ConstraintValidator</span>&lt;<span class="title">IsMobile</span>, <span class="title">String</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">boolean</span> required=<span class="keyword">false</span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">initialize</span><span class="params">(IsMobile constraintAnnotation)</span> </span>&#123;</span><br><span class="line">        required=constraintAnnotation.required();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isValid</span><span class="params">(String s, ConstraintValidatorContext constraintValidatorContext)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(required)&#123;</span><br><span class="line">            <span class="keyword">return</span>  ValidatorUtil.isMobile(s);</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">if</span>(StringUtils.isEmpty(s))&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">return</span>  ValidatorUtil.isMobile(s);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<span class="token keyword">import</span> org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>commons<span class="token punctuation">.</span>lang3<span class="token punctuation">.</span>StringUtils<span class="token punctuation">;</span>
-<span class="token keyword">import</span> top<span class="token punctuation">.</span>imlgw<span class="token punctuation">.</span>spike<span class="token punctuation">.</span>utils<span class="token punctuation">.</span>ValidatorUtil<span class="token punctuation">;</span>
+<h3 id="字段上加注解"><a href="#字段上加注解" class="headerlink" title="字段上加注解"></a>字段上加注解</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> top.imlgw.spike.entity;</span><br><span class="line"><span class="keyword">import</span> org.hibernate.validator.constraints.Length;</span><br><span class="line"><span class="keyword">import</span> javax.validation.constraints.NotNull;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> imlgw.top</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2019/5/11 15:56</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>&#123;</span><br><span class="line">    <span class="meta">@NotNull</span>(message = <span class="string">"id不能为空"</span>)</span><br><span class="line">    <span class="keyword">private</span> Integer id;</span><br><span class="line">    <span class="meta">@NotNull</span>(message = <span class="string">"名字不能为空"</span>)</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> Integer age;</span><br><span class="line">    <span class="meta">@Length</span>(min = <span class="number">6</span>,message = <span class="string">"密码长度至少6位"</span>)</span><br><span class="line">    <span class="keyword">private</span> String password;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"User&#123;"</span> +</span><br><span class="line">                <span class="string">"id="</span> + id +</span><br><span class="line">                <span class="string">", name='"</span> + name + <span class="string">'\''</span> +</span><br><span class="line">                <span class="string">", age="</span> + age +</span><br><span class="line">                <span class="string">", password='"</span> + password + <span class="string">'\''</span> +</span><br><span class="line">                <span class="string">'&#125;'</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">User</span><span class="params">(Integer id, String name, Integer age, String password)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">        <span class="keyword">this</span>.age = age;</span><br><span class="line">        <span class="keyword">this</span>.password = password;</span><br><span class="line">        <span class="keyword">this</span>.id=id;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getPassword</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> password;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setPassword</span><span class="params">(String password)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.password = password;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Integer <span class="title">getAge</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> age;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAge</span><span class="params">(Integer age)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.age = age;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">long</span> <span class="title">getId</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> id;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setId</span><span class="params">(Integer id)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.id = id;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<span class="token keyword">import</span> javax<span class="token punctuation">.</span>validation<span class="token punctuation">.</span>ConstraintValidator<span class="token punctuation">;</span>
-<span class="token keyword">import</span> javax<span class="token punctuation">.</span>validation<span class="token punctuation">.</span>ConstraintValidatorContext<span class="token punctuation">;</span>
-
-<span class="token comment" spellcheck="true">/**
- * @author imlgw.top
- * @date 2019/5/13 18:12
- */</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">IsMobileValidator</span> <span class="token keyword">implements</span> <span class="token class-name">ConstraintValidator</span><span class="token operator"><</span>IsMobile<span class="token punctuation">,</span> String<span class="token operator">></span> <span class="token punctuation">{</span>
-
-    <span class="token keyword">private</span> <span class="token keyword">boolean</span> required<span class="token operator">=</span><span class="token boolean">false</span><span class="token punctuation">;</span>
-
-    <span class="token annotation punctuation">@Override</span>
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">initialize</span><span class="token punctuation">(</span>IsMobile constraintAnnotation<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        required<span class="token operator">=</span>constraintAnnotation<span class="token punctuation">.</span><span class="token function">required</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token annotation punctuation">@Override</span>
-    <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">isValid</span><span class="token punctuation">(</span>String s<span class="token punctuation">,</span> ConstraintValidatorContext constraintValidatorContext<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">if</span><span class="token punctuation">(</span>required<span class="token punctuation">)</span><span class="token punctuation">{</span>
-            <span class="token keyword">return</span>  ValidatorUtil<span class="token punctuation">.</span><span class="token function">isMobile</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span><span class="token keyword">else</span> <span class="token punctuation">{</span>
-            <span class="token keyword">if</span><span class="token punctuation">(</span>StringUtils<span class="token punctuation">.</span><span class="token function">isEmpty</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-                <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span><span class="token keyword">else</span> <span class="token punctuation">{</span>
-                <span class="token keyword">return</span>  ValidatorUtil<span class="token punctuation">.</span><span class="token function">isMobile</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span>
-        <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span></code></pre>
-<h3 id="字段上加注解"><a href="#字段上加注解" class="headerlink" title="字段上加注解"></a>字段上加注解</h3><pre class=" language-java"><code class="language-java"><span class="token keyword">package</span> top<span class="token punctuation">.</span>imlgw<span class="token punctuation">.</span>spike<span class="token punctuation">.</span>entity<span class="token punctuation">;</span>
-<span class="token keyword">import</span> org<span class="token punctuation">.</span>hibernate<span class="token punctuation">.</span>validator<span class="token punctuation">.</span>constraints<span class="token punctuation">.</span>Length<span class="token punctuation">;</span>
-<span class="token keyword">import</span> javax<span class="token punctuation">.</span>validation<span class="token punctuation">.</span>constraints<span class="token punctuation">.</span>NotNull<span class="token punctuation">;</span>
-<span class="token comment" spellcheck="true">/**
- * @author imlgw.top
- * @date 2019/5/11 15:56
- */</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">User</span> <span class="token punctuation">{</span>
-    <span class="token annotation punctuation">@NotNull</span><span class="token punctuation">(</span>message <span class="token operator">=</span> <span class="token string">"id不能为空"</span><span class="token punctuation">)</span>
-    <span class="token keyword">private</span> Integer id<span class="token punctuation">;</span>
-    <span class="token annotation punctuation">@NotNull</span><span class="token punctuation">(</span>message <span class="token operator">=</span> <span class="token string">"名字不能为空"</span><span class="token punctuation">)</span>
-    <span class="token keyword">private</span> String name<span class="token punctuation">;</span>
-    <span class="token keyword">private</span> Integer age<span class="token punctuation">;</span>
-    <span class="token annotation punctuation">@Length</span><span class="token punctuation">(</span>min <span class="token operator">=</span> <span class="token number">6</span><span class="token punctuation">,</span>message <span class="token operator">=</span> <span class="token string">"密码长度至少6位"</span><span class="token punctuation">)</span>
-    <span class="token keyword">private</span> String password<span class="token punctuation">;</span>
-
-    <span class="token annotation punctuation">@Override</span>
-    <span class="token keyword">public</span> String <span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> <span class="token string">"User{"</span> <span class="token operator">+</span>
-                <span class="token string">"id="</span> <span class="token operator">+</span> id <span class="token operator">+</span>
-                <span class="token string">", name='"</span> <span class="token operator">+</span> name <span class="token operator">+</span> <span class="token string">'\''</span> <span class="token operator">+</span>
-                <span class="token string">", age="</span> <span class="token operator">+</span> age <span class="token operator">+</span>
-                <span class="token string">", password='"</span> <span class="token operator">+</span> password <span class="token operator">+</span> <span class="token string">'\''</span> <span class="token operator">+</span>
-                <span class="token string">'}'</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token keyword">public</span> <span class="token function">User</span><span class="token punctuation">(</span>Integer id<span class="token punctuation">,</span> String name<span class="token punctuation">,</span> Integer age<span class="token punctuation">,</span> String password<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">this</span><span class="token punctuation">.</span>name <span class="token operator">=</span> name<span class="token punctuation">;</span>
-        <span class="token keyword">this</span><span class="token punctuation">.</span>age <span class="token operator">=</span> age<span class="token punctuation">;</span>
-        <span class="token keyword">this</span><span class="token punctuation">.</span>password <span class="token operator">=</span> password<span class="token punctuation">;</span>
-        <span class="token keyword">this</span><span class="token punctuation">.</span>id<span class="token operator">=</span>id<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token keyword">public</span> String <span class="token function">getPassword</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> password<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setPassword</span><span class="token punctuation">(</span>String password<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">this</span><span class="token punctuation">.</span>password <span class="token operator">=</span> password<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token keyword">public</span> String <span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> name<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setName</span><span class="token punctuation">(</span>String name<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">this</span><span class="token punctuation">.</span>name <span class="token operator">=</span> name<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token keyword">public</span> Integer <span class="token function">getAge</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> age<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setAge</span><span class="token punctuation">(</span>Integer age<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">this</span><span class="token punctuation">.</span>age <span class="token operator">=</span> age<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token keyword">public</span> <span class="token keyword">long</span> <span class="token function">getId</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> id<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setId</span><span class="token punctuation">(</span>Integer id<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">this</span><span class="token punctuation">.</span>id <span class="token operator">=</span> id<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span></code></pre>
 <p><strong>@Valid 加BindingResult</strong></p>
-<p><img alt="mark" data-src="http://static.imlgw.top///20190513/ILDAz6Bdj3cz.png?imageslim" src="/img/loading.gif" class="lazyload"></p>
+<p><img src="http://static.imlgw.top///20190513/ILDAz6Bdj3cz.png?imageslim" alt="mark"></p>
 <p>在Controlle层待校验的的参数上加上<code>@Valid</code>注解，然后在后面紧跟一个 <code>BindingResult</code>，校验的结果会封装在这个对象里面，BindingResult 的作用是当参数不合法时能够捕捉到错误，不会直接抛异常，感觉还是有点麻烦。</p>
 <p><strong>@Valid加全局异常捕获</strong></p>
 <p>上面的方法如果不加后面的BindingResult在校验失败后就会抛一个BindException</p>
-<pre class=" language-java"><code class="language-java">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>validation<span class="token punctuation">.</span>BindException<span class="token operator">:</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>validation<span class="token punctuation">.</span>BeanPropertyBindingResult<span class="token operator">:</span> <span class="token number">1</span> errors
-Field error in object <span class="token string">'user'</span> on field <span class="token string">'id'</span><span class="token operator">:</span> rejected value <span class="token punctuation">[</span>null<span class="token punctuation">]</span><span class="token punctuation">;</span> codes <span class="token punctuation">[</span>NotNull<span class="token punctuation">.</span>user<span class="token punctuation">.</span>id<span class="token punctuation">,</span>NotNull<span class="token punctuation">.</span>id<span class="token punctuation">,</span>NotNull<span class="token punctuation">.</span><span class="token keyword">long</span><span class="token punctuation">,</span>NotNull<span class="token punctuation">]</span><span class="token punctuation">;</span> arguments <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span></code></pre>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">org.springframework.validation.BindException: org.springframework.validation.BeanPropertyBindingResult: <span class="number">1</span> errors</span><br><span class="line">Field error in object <span class="string">'user'</span> on field <span class="string">'id'</span>: rejected value [<span class="keyword">null</span>]; codes [NotNull.user.id,NotNull.id,NotNull.<span class="keyword">long</span>,NotNull]; arguments .......</span><br></pre></td></tr></table></figure>
+
 <p>那我们就可以利用<code>@ControllerAdvice+@ExceptionHandler</code>来定义一个全局的异常处理器来处理这个异常，<code>@ExceptionHandle</code>，针对的仅仅是单个controller，加上<code>@ControllerAdvice</code>就可以对所有的Controller层异常进行捕获，这里的全局仅仅指的是controller层。</p>
-<h3 id="自定义异常"><a href="#自定义异常" class="headerlink" title="自定义异常"></a>自定义异常</h3><pre class=" language-java"><code class="language-java"><span class="token keyword">package</span> top<span class="token punctuation">.</span>imlgw<span class="token punctuation">.</span>spike<span class="token punctuation">.</span>exception<span class="token punctuation">;</span>
-<span class="token keyword">import</span> top<span class="token punctuation">.</span>imlgw<span class="token punctuation">.</span>spike<span class="token punctuation">.</span>result<span class="token punctuation">.</span>CodeMsg<span class="token punctuation">;</span>
+<h3 id="自定义异常"><a href="#自定义异常" class="headerlink" title="自定义异常"></a>自定义异常</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> top.imlgw.spike.exception;</span><br><span class="line"><span class="keyword">import</span> top.imlgw.spike.result.CodeMsg;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 全局通用异常</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> imlgw.top</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2019/5/14 20:51</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GlobalException</span> <span class="keyword">extends</span> <span class="title">RuntimeException</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = <span class="number">1L</span>;</span><br><span class="line">    <span class="keyword">private</span> CodeMsg cm;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">GlobalException</span><span class="params">(CodeMsg cm)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(cm.toString());</span><br><span class="line">        <span class="keyword">this</span>.cm = cm;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> CodeMsg <span class="title">getCm</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> cm;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<span class="token comment" spellcheck="true">/**
- * 全局通用异常
- * @author imlgw.top
- * @date 2019/5/14 20:51
- */</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">GlobalException</span> <span class="token keyword">extends</span> <span class="token class-name">RuntimeException</span> <span class="token punctuation">{</span>
-    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">long</span> serialVersionUID <span class="token operator">=</span> 1L<span class="token punctuation">;</span>
-    <span class="token keyword">private</span> CodeMsg cm<span class="token punctuation">;</span>
+<h3 id="全局异常处理器"><a href="#全局异常处理器" class="headerlink" title="全局异常处理器"></a>全局异常处理器</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Controller层异常处理器</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> imlgw.top</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2019/5/13 18:21</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@ControllerAdvice</span></span><br><span class="line"><span class="meta">@ResponseBody</span> <span class="comment">//直接返回给客户端，需要json的转换</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GlobalExceptionHandler</span> </span>&#123;</span><br><span class="line">    <span class="meta">@ExceptionHandler</span>(value = Exception<span class="class">.<span class="keyword">class</span>) //处理<span class="title">controller</span>层所有异常</span></span><br><span class="line"><span class="class">    <span class="title">public</span> <span class="title">Result</span>&lt;<span class="title">String</span>&gt; <span class="title">exceptionHandle</span>(<span class="title">HttpServletRequest</span> <span class="title">request</span>, <span class="title">Exception</span> <span class="title">e</span>) </span>&#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">        <span class="keyword">if</span> (e <span class="keyword">instanceof</span> GlobalException) &#123;</span><br><span class="line">            <span class="comment">//全局异常</span></span><br><span class="line">            GlobalException ex = (GlobalException) e;</span><br><span class="line">            <span class="keyword">return</span> Result.error(ex.getCm());</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (e <span class="keyword">instanceof</span> BindException) &#123;</span><br><span class="line">            <span class="comment">//@Validated 检验器的异常</span></span><br><span class="line">            BindException ex = (BindException) e;</span><br><span class="line">            List&lt;ObjectError&gt; errors = ex.getAllErrors();</span><br><span class="line">            ObjectError error = errors.get(<span class="number">0</span>);</span><br><span class="line">            String msg = error.getDefaultMessage();</span><br><span class="line">            <span class="keyword">return</span> Result.error(CodeMsg.BIND_ERROR.fillArgs(msg));</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> Result.error(CodeMsg.SERVER_ERROR);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//测试Demo 看先处理那个</span></span><br><span class="line">    <span class="meta">@ExceptionHandler</span>(value = GlobalException<span class="class">.<span class="keyword">class</span>) //处理<span class="title">controller</span>层所有异常</span></span><br><span class="line"><span class="class">    <span class="title">public</span> <span class="title">Result</span>&lt;<span class="title">String</span>&gt; <span class="title">GLe</span>(<span class="title">HttpServletRequest</span> <span class="title">request</span>, <span class="title">Exception</span> <span class="title">e</span>) </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"优先处理了这个GlobalException"</span>);</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">        <span class="comment">//全局异常</span></span><br><span class="line">        GlobalException ex = (GlobalException) e;</span><br><span class="line">        <span class="keyword">return</span> Result.error(ex.getCm());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-    <span class="token keyword">public</span> <span class="token function">GlobalException</span><span class="token punctuation">(</span>CodeMsg cm<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">super</span><span class="token punctuation">(</span>cm<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">this</span><span class="token punctuation">.</span>cm <span class="token operator">=</span> cm<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token keyword">public</span> CodeMsg <span class="token function">getCm</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> cm<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-<span class="token punctuation">}</span>
-</code></pre>
-<h3 id="全局异常处理器"><a href="#全局异常处理器" class="headerlink" title="全局异常处理器"></a>全局异常处理器</h3><pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">/**
- * Controller层异常处理器
- *
- * @author imlgw.top
- * @date 2019/5/13 18:21
- */</span>
-<span class="token annotation punctuation">@ControllerAdvice</span>
-<span class="token annotation punctuation">@ResponseBody</span> <span class="token comment" spellcheck="true">//直接返回给客户端，需要json的转换</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">GlobalExceptionHandler</span> <span class="token punctuation">{</span>
-    <span class="token annotation punctuation">@ExceptionHandler</span><span class="token punctuation">(</span>value <span class="token operator">=</span> Exception<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">//处理controller层所有异常</span>
-    <span class="token keyword">public</span> Result<span class="token operator"><</span>String<span class="token operator">></span> <span class="token function">exceptionHandle</span><span class="token punctuation">(</span>HttpServletRequest request<span class="token punctuation">,</span> Exception e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>e <span class="token keyword">instanceof</span> <span class="token class-name">GlobalException</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token comment" spellcheck="true">//全局异常</span>
-            GlobalException ex <span class="token operator">=</span> <span class="token punctuation">(</span>GlobalException<span class="token punctuation">)</span> e<span class="token punctuation">;</span>
-            <span class="token keyword">return</span> Result<span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span>ex<span class="token punctuation">.</span><span class="token function">getCm</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>e <span class="token keyword">instanceof</span> <span class="token class-name">BindException</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token comment" spellcheck="true">//@Validated 检验器的异常</span>
-            BindException ex <span class="token operator">=</span> <span class="token punctuation">(</span>BindException<span class="token punctuation">)</span> e<span class="token punctuation">;</span>
-            List<span class="token operator"><</span>ObjectError<span class="token operator">></span> errors <span class="token operator">=</span> ex<span class="token punctuation">.</span><span class="token function">getAllErrors</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-            ObjectError error <span class="token operator">=</span> errors<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-            String msg <span class="token operator">=</span> error<span class="token punctuation">.</span><span class="token function">getDefaultMessage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token keyword">return</span> Result<span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span>CodeMsg<span class="token punctuation">.</span>BIND_ERROR<span class="token punctuation">.</span><span class="token function">fillArgs</span><span class="token punctuation">(</span>msg<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
-            <span class="token keyword">return</span> Result<span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span>CodeMsg<span class="token punctuation">.</span>SERVER_ERROR<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token comment" spellcheck="true">//测试Demo 看先处理那个</span>
-    <span class="token annotation punctuation">@ExceptionHandler</span><span class="token punctuation">(</span>value <span class="token operator">=</span> GlobalException<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">//处理controller层所有异常</span>
-    <span class="token keyword">public</span> Result<span class="token operator"><</span>String<span class="token operator">></span> <span class="token function">GLe</span><span class="token punctuation">(</span>HttpServletRequest request<span class="token punctuation">,</span> Exception e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"优先处理了这个GlobalException"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token comment" spellcheck="true">//全局异常</span>
-        GlobalException ex <span class="token operator">=</span> <span class="token punctuation">(</span>GlobalException<span class="token punctuation">)</span> e<span class="token punctuation">;</span>
-        <span class="token keyword">return</span> Result<span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span>ex<span class="token punctuation">.</span><span class="token function">getCm</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span></code></pre>
 <p>这里也做了个小测试，可以看到我定义了两个@ExceptionHandle，一个是另一个的子类，看会先处理那个，测试后发现会先处理小异常，那个最大的异常其实相当于’’兜底’’的。其实后面我为了跟精细的处理，将绑定异常和自定义的异常分开处理了。</p>
 <blockquote>
 <p>@ControllerAdvice :</p>
@@ -263,68 +170,228 @@ Field error in object <span class="token string">'user'</span> on field <span cl
 <p>@since 3.2</p>
 </blockquote>
 <h3 id="分组校验"><a href="#分组校验" class="headerlink" title="分组校验"></a>分组校验</h3><p>只需要在vo里加上对应分组的接口然后在注解上加上就可以了</p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">LoginVo</span> <span class="token punctuation">{</span>
-    <span class="token annotation punctuation">@NotNull</span><span class="token punctuation">(</span>message <span class="token operator">=</span> <span class="token string">"手机号不能为空"</span><span class="token punctuation">)</span>
-    <span class="token annotation punctuation">@IsMobile</span><span class="token punctuation">(</span>groups <span class="token operator">=</span> Test1<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">//只有在Test1分组下才生效</span>
-    <span class="token keyword">private</span> String mobile<span class="token punctuation">;</span>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LoginVo</span> </span>&#123;</span><br><span class="line">    <span class="meta">@NotNull</span>(message = <span class="string">"手机号不能为空"</span>)</span><br><span class="line">    <span class="meta">@IsMobile</span>(groups = Test1<span class="class">.<span class="keyword">class</span>) //只有在<span class="title">Test1</span>分组下才生效</span></span><br><span class="line"><span class="class">    <span class="title">private</span> <span class="title">String</span> <span class="title">mobile</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@NotNull</span>(message = <span class="string">"密码不能为空"</span>)</span><br><span class="line">    <span class="meta">@Length</span>(min=<span class="number">6</span> ,groups = Test2<span class="class">.<span class="keyword">class</span>,<span class="title">message</span> </span>= <span class="string">"密码长度过短"</span>) <span class="comment">//只有在Test2分组下才生效</span></span><br><span class="line">    <span class="keyword">private</span> String password;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getMobile</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> mobile;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setMobile</span><span class="params">(String mobile)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.mobile = mobile;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getPassword</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> password;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setPassword</span><span class="params">(String password)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.password = password;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"LoginVo [mobile="</span> + mobile + <span class="string">", password="</span> + password + <span class="string">"]"</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Test1</span></span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Test2</span></span>&#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-    <span class="token annotation punctuation">@NotNull</span><span class="token punctuation">(</span>message <span class="token operator">=</span> <span class="token string">"密码不能为空"</span><span class="token punctuation">)</span>
-    <span class="token annotation punctuation">@Length</span><span class="token punctuation">(</span>min<span class="token operator">=</span><span class="token number">6</span> <span class="token punctuation">,</span>groups <span class="token operator">=</span> Test2<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span>message <span class="token operator">=</span> <span class="token string">"密码长度过短"</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">//只有在Test2分组下才生效</span>
-    <span class="token keyword">private</span> String password<span class="token punctuation">;</span>
-
-    <span class="token keyword">public</span> String <span class="token function">getMobile</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> mobile<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setMobile</span><span class="token punctuation">(</span>String mobile<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">this</span><span class="token punctuation">.</span>mobile <span class="token operator">=</span> mobile<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-    <span class="token keyword">public</span> String <span class="token function">getPassword</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> password<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setPassword</span><span class="token punctuation">(</span>String password<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">this</span><span class="token punctuation">.</span>password <span class="token operator">=</span> password<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-    <span class="token annotation punctuation">@Override</span>
-    <span class="token keyword">public</span> String <span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> <span class="token string">"LoginVo [mobile="</span> <span class="token operator">+</span> mobile <span class="token operator">+</span> <span class="token string">", password="</span> <span class="token operator">+</span> password <span class="token operator">+</span> <span class="token string">"]"</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">Test1</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
-
-    <span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">Test2</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
-<span class="token punctuation">}</span></code></pre>
 <p>使用时注意用<code>@Validated</code>，这个其实是Spring对Hibernate的二次封装，增加了一些功能。</p>
-<pre class=" language-java"><code class="language-java"><span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span><span class="token string">"/jsr303-2"</span><span class="token punctuation">)</span>
-<span class="token annotation punctuation">@ResponseBody</span>
-<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">testJSR</span><span class="token punctuation">(</span><span class="token annotation punctuation">@Validated</span><span class="token punctuation">(</span><span class="token punctuation">{</span>LoginVo<span class="token punctuation">.</span>Test2<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">}</span><span class="token punctuation">)</span> LoginVo vo<span class="token punctuation">)</span><span class="token punctuation">{</span>
-      <span class="token comment" spellcheck="true">//........    </span>
-<span class="token punctuation">}</span></code></pre>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/jsr303-2"</span>)</span><br><span class="line"><span class="meta">@ResponseBody</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testJSR</span><span class="params">(@Validated(&#123;LoginVo.Test2.class&#125;)</span> LoginVo vo)</span>&#123;</span><br><span class="line">	  <span class="comment">//........	</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>这样在这个Controller里post密码就没有长度的限制了。</p>
 <blockquote>
 <p>其实还有一些校验的方法，基于方法校验，基于少量参数的校验，以后用到再来记录</p>
 </blockquote>
-</body></html></div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">imlgw</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://imlgw.top/2019/05/13/jsr303-can-shu-xiao-yan/">http://imlgw.top/2019/05/13/jsr303-can-shu-xiao-yan/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://imlgw.top">iMlGw0</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%8F%82%E6%95%B0%E6%A0%A1%E9%AA%8C/">参数校验    </a><a class="post-meta__tags" href="/tags/JSR/">JSR    </a></div><div class="post_share"><div class="social-share" data-image="http://static.imlgw.top/image/featureimages/21.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js"></script></div></div><div class="post-reward"><a class="reward-button button--primary button--animated"> <i class="fa fa-qrcode"></i> 打赏<div class="reward-main"><ul class="reward-all"><li class="reward-item"><img class="lazyload post-qr-code__img" src="/img/wechat.png" alt="微信"><div class="post-qr-code__desc">微信</div></li><li class="reward-item"><img class="lazyload post-qr-code__img" src="/img/alipay.png" alt="支付寶"><div class="post-qr-code__desc">支付寶</div></li></ul></div></a></div><nav class="pagination_post" id="pagination"><div class="prev-post pull_left"><a href="/2019/05/20/webmvcconfigurer/"><img class="prev_cover lazyload" data-src="http://static.imlgw.top/image/20190713/8b2b25e9-a8de-b3f4-a810-7814a40a193c.png" onerror="onerror=null;src='/img/404.jpg'"><div class="label">上一篇</div><div class="prev_info"><span>WebMvcConfigurer小结</span></div></a></div><div class="next-post pull_right"><a href="/2019/05/04/leetcode-shu-zu/"><img class="next_cover lazyload" data-src="http://static.imlgw.top/image/featureimages/12.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="label">下一篇</div><div class="next_info"><span>LeetCode数组</span></div></a></div></nav><hr><div id="post-comment"><div class="comment_headling"><i class="fa fa-comments fa-fw" aria-hidden="true"></i><span> 评论</span></div><div class="vcomment" id="vcomment"></div><script src="https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script><script>var notify = false == true ? true : false;
-var verify = true == true ? true : false;
-var GUEST_INFO = ['nick','mail','link'];
-var guest_info = 'nick,mail,link'.split(',').filter(function(item){
-  return GUEST_INFO.indexOf(item) > -1
-});
-guest_info = guest_info.length == 0 ? GUEST_INFO :guest_info;
 
-window.valine = new Valine({
-  el:'#vcomment',
-  notify:notify,
-  verify:verify,
-  appId:'MkcXmeDvktRNBDBrVqb9KYPH-MdYXbMMI',
-  appKey:'swDnb5a9u9Ksp2Rwkdm7Qulh',
-  placeholder:'留下邮箱才能收到及时收到回复~~',
-  avatar:'monsterid',
-  guest_info:guest_info,
-  pageSize:'10',
-  lang:'zh-cn',
-  recordIP: true
-});</script></div></div></main><footer id="footer" style="background-image: url(http://static.imlgw.top/image/featureimages/21.jpg)" data-type="photo"><div id="footer-wrap"><div class="copyright">&copy;2018 - 2020 By imlgw</div><div class="framework-info"><span>驱动 </span><a href="http://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener"><span>Butterfly</span></a></div><div class="icp"><a href="http://beian.miit.gov.cn/publish/query/indexFirst.action" target="_blank" rel="noopener"><span>鄂ICP备18011208号</span></a></div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><i class="fa fa-book" id="readmode" title="阅读模式"></i><i class="fa fa-plus" id="font_plus" title="放大字体"></i><i class="fa fa-minus" id="font_minus" title="缩小字体"></i><a class="translate_chn_to_cht" id="translateLink" href="javascript:translatePage();" title="简繁转换" target="_self">簡</a></div><div id="rightside-config-show"><div id="rightside_config" title="设置"><i class="fa fa-cog" aria-hidden="true"></i></div><a id="to_comment" href="#post-comment" title="直达评论"><i class="scroll_to_comment fa fa-comments">  </i></a><i class="fa fa-list-ul close" id="mobile-toc-button" title="目录" aria-hidden="true"></i><i class="fa fa-arrow-up" id="go-up" title="回到顶部" aria-hidden="true"></i></div></section><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/medium-zoom/dist/medium-zoom.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script id="ribbon_piao" mobile="undefined" src="https://cdn.jsdelivr.net/gh/jerryc127/butterfly_cdn@2.1.0/js/piao.js"></script><script src="https://cdn.jsdelivr.net/npm/activate-power-mode/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
-POWERMODE.shake = false; 
-document.body.addEventListener('input', POWERMODE);
-</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@latest/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@latest/lazysizes.min.js" async=""></script><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章"></div></div></div><hr><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a href="https://github.com/wzpan/hexo-generator-search" target="_blank" rel="noopener" style="color:#49B1F5;">hexo-generator-search</a>
- <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fa fa-times"></i></span></div><div class="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/live2d-widget@3.x/lib/L2Dwidget.min.js"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"https://cdn.jsdelivr.net/npm/live2d-widget-model-hijiki@1.0.5/assets/hijiki.model.json"},"display":{"superSample":2,"width":160,"height":320,"position":"right","hOffset":0,"vOffset":-70},"mobile":{"show":false,"scale":0.2},"log":false});</script></body></html>
+    </div>
+
+  </article>
+  <div class="toc-container">
+    
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#JSR303"><span class="toc-text">JSR303</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#上手"><span class="toc-text">上手</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#引入依赖"><span class="toc-text">引入依赖</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JSR提供的注解"><span class="toc-text">JSR提供的注解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Hibernate提供的"><span class="toc-text">Hibernate提供的</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#自定义校验注解"><span class="toc-text">自定义校验注解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#字段上加注解"><span class="toc-text">字段上加注解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#自定义异常"><span class="toc-text">自定义异常</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#全局异常处理器"><span class="toc-text">全局异常处理器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#分组校验"><span class="toc-text">分组校验</span></a></li></ol></li></ol>
+  </div>
+
+
+  </div>
+</div>
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'true' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "MkcXmeDvktRNBDBrVqb9KYPH-MdYXbMMI",
+            app_key: "swDnb5a9u9Ksp2Rwkdm7Qulh",
+            placeholder: "留下邮箱才能收到收到回复喔 ~",
+            avatar:"monsterid"
+        });
+    }
+</script>
+    </section>
+  
+<div class="copyright">
+    <span>本作品采用</span>
+    <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">知识共享署名 4.0 国际许可协议</a>
+    <span>进行许可。 转载时请注明原文链接。</span>
+</div>
+
+
+  
+    <div class="post-nav">
+      <div class="post-nav-item post-nav-next">
+        
+          <span>〈 </span>
+          <a href="/2019/05/04/leetcode-shu-zu/" rel="next" title="LeetCode数组">
+          LeetCode数组
+          </a>
+        
+      </div>
+  
+      <div class="post-nav-item post-nav-prev">
+          
+          <a href="/2019/05/20/webmvcconfigurer/" rel="prev" title="WebMvcConfigurer小结">
+            WebMvcConfigurer小结
+          </a>
+          <span>〉</span>
+        
+      </div>
+    </div>
+  
+
+    </div>
+
+    
+
+  </div>
+  <footer class="footer text-center">
+    <div id="bottom-inner">
+        <a class="bottom-item" href="https://github.com/imlgw" target="_blank">GitHub</a> |
+        <a class="bottom-item" href="/links">友情链接</a> |
+        <a class="bottom-item" href="https://hexo.io" target="_blank">Powered by hexo</a> |
+        <a class="bottom-item" href="https://github.com/fooying/hexo-theme-xoxo-plus" target="_blank">Theme xoxo-plus</a> |
+        <a class="bottom-item" href="/atom.xml">RSS</a>
+    </div>
+</footer>
+
+  
+
+<script>
+  (function(window, document, undefined) {
+
+    var timer = null;
+
+    function returnTop() {
+      cancelAnimationFrame(timer);
+      timer = requestAnimationFrame(function fn() {
+        var oTop = document.body.scrollTop || document.documentElement.scrollTop;
+        if (oTop > 0) {
+          document.body.scrollTop = document.documentElement.scrollTop = oTop - 50;
+          timer = requestAnimationFrame(fn);
+        } else {
+          cancelAnimationFrame(timer);
+        }
+      });
+    }
+
+    var hearts = [];
+    window.requestAnimationFrame = (function() {
+      return window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.oRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        function(callback) {
+          setTimeout(callback, 1000 / 60);
+        }
+    })();
+    init();
+
+    function init() {
+      css(".heart{z-index:9999;width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);}.heart:after,.heart:before{content: '';width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: absolute;}.heart:after{top: -5px;}.heart:before{left: -5px;}");
+      attachEvent();
+      gameloop();
+      addMenuEvent();
+    }
+
+    function gameloop() {
+      for (var i = 0; i < hearts.length; i++) {
+        if (hearts[i].alpha <= 0) {
+          document.body.removeChild(hearts[i].el);
+          hearts.splice(i, 1);
+          continue;
+        }
+        hearts[i].y--;
+        hearts[i].scale += 0.004;
+        hearts[i].alpha -= 0.013;
+        hearts[i].el.style.cssText = "left:" + hearts[i].x + "px;top:" + hearts[i].y + "px;opacity:" + hearts[i].alpha + ";transform:scale(" + hearts[i].scale + "," + hearts[i].scale + ") rotate(45deg);background:" + hearts[i].color;
+      }
+      requestAnimationFrame(gameloop);
+    }
+
+    /**
+     * 给logo设置点击事件
+     * 
+     * - 回到顶部
+     * - 出现爱心
+     */
+    function attachEvent() {
+      var old = typeof window.onclick === "function" && window.onclick;
+      var logo = document.getElementById("logo");
+      if (logo) {
+        logo.onclick = function(event) {
+          returnTop();
+          old && old();
+          createHeart(event);
+        }
+      }
+      
+    }
+
+    function createHeart(event) {
+      var d = document.createElement("div");
+      d.className = "heart";
+      hearts.push({
+        el: d,
+        x: event.clientX - 5,
+        y: event.clientY - 5,
+        scale: 1,
+        alpha: 1,
+        color: randomColor()
+      });
+      document.body.appendChild(d);
+    }
+
+    function css(css) {
+      var style = document.createElement("style");
+      style.type = "text/css";
+      try {
+        style.appendChild(document.createTextNode(css));
+      } catch (ex) {
+        style.styleSheet.cssText = css;
+      }
+      document.getElementsByTagName('head')[0].appendChild(style);
+    }
+
+    function randomColor() {
+      // return "rgb(" + (~~(Math.random() * 255)) + "," + (~~(Math.random() * 255)) + "," + (~~(Math.random() * 255)) + ")";
+      return "#F44336";
+    }
+
+    function addMenuEvent() {
+      var menu = document.getElementById('menu-main-post');
+      if (menu) {
+        var toc = document.getElementById('toc');
+        if (toc) {
+          menu.onclick = function() {
+            if (toc) {
+              if (toc.style.display == 'block') {
+                toc.style.display = 'none';
+              } else {
+                toc.style.display = 'block';
+              }
+            }
+          };
+        } else {
+          menu.style.display = 'none';
+        }
+      }
+    }
+
+  })(window, document);
+</script>
+
+  
+
+
+
+  
+
+<script src="https://cdn.jsdelivr.net/npm/live2d-widget@3.x/lib/L2Dwidget.min.js"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"https://cdn.jsdelivr.net/npm/live2d-widget-model-hijiki@1.0.5/assets/hijiki.model.json"},"display":{"superSample":2,"width":160,"height":320,"position":"right","hOffset":0,"vOffset":-70},"mobile":{"show":false,"scale":0.2},"log":false});</script></body>
+</html>

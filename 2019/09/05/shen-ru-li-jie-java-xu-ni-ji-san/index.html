@@ -1,37 +1,134 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5"><title>深入理解Java虚拟机(三) | iMlGw0</title><meta name="description" content="深入理解Java虚拟机(三)"><meta name="keywords" content="Class结构,JVM"><meta name="author" content="imlgw"><meta name="copyright" content="imlgw"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/img/Cup.ico"><link rel="preconnect" href="//cdn.jsdelivr.net"><link rel="preconnect" href="https://hm.baidu.com"><link rel="preconnect" href="https://fonts.googleapis.com" crossorigin><link rel="preconnect" href="//busuanzi.ibruce.info"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="深入理解Java虚拟机(三)"><meta name="twitter:description" content="深入理解Java虚拟机(三)"><meta name="twitter:image" content="http://static.imlgw.top/blog/20190905/bvODiOGH0IfM.jpg?imageslim"><meta property="og:type" content="article"><meta property="og:title" content="深入理解Java虚拟机(三)"><meta property="og:url" content="http://imlgw.top/2019/09/05/shen-ru-li-jie-java-xu-ni-ji-san/"><meta property="og:site_name" content="iMlGw0"><meta property="og:description" content="深入理解Java虚拟机(三)"><meta property="og:image" content="http://static.imlgw.top/blog/20190905/bvODiOGH0IfM.jpg?imageslim"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script src="https://cdn.jsdelivr.net/npm/js-cookie/dist/js.cookie.min.js"></script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css"><link rel="canonical" href="http://imlgw.top/2019/09/05/shen-ru-li-jie-java-xu-ni-ji-san/"><link rel="prev" title="LeetCode查找" href="http://imlgw.top/2019/09/15/leetcode-cha-zhao/"><link rel="next" title="LeetCode动态规划" href="http://imlgw.top/2019/09/01/leetcode-dong-tai-gui-hua/"><script>var _hmt = _hmt || [];
-(function() {
-  var hm = document.createElement("script");
-  hm.src = "https://hm.baidu.com/hm.js?93be601f1b40364d8cd640d751012180";
-  var s = document.getElementsByTagName("script")[0]; 
-  s.parentNode.insertBefore(hm, s);
-})();
-</script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><script>var GLOBAL_CONFIG = { 
-  root: '/',
-  algolia: undefined,
-  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容:${query}"}},
-  translate: {"defaultEncoding":1,"translateDelay":0,"cookieDomain":"imlgw.top","msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简"},
-  copy: {
-    success: '复制成功',
-    error: '复制错误',
-    noSupport: '浏览器不支持'
-  },
-  bookmark: {
-    title: 'Snackbar.bookmark.title',
-    message_prev: '按',
-    message_next: '键将本页加入书签'
-  },
-  runtime_unit: '天',
-  runtime: true,
-  copyright: {"languages":{"author":"作者: imlgw","link":"链接: http://imlgw.top/2019/09/05/shen-ru-li-jie-java-xu-ni-ji-san/","source":"来源: iMlGw0","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
-  ClickShowText: undefined,
-  medium_zoom: true,
-  fancybox: false,
-  Snackbar: {"bookmark":{"title":"Snackbar.bookmark.title","message_prev":"按","message_next":"键将本页加入书签"},"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#2d3035","position":"bottom-left"},
-  baiduPush: false,
-  isHome: false,
-  isPost: true
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#202020"/>
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
   
-}</script><meta name="generator" content="Hexo 4.2.0"><link rel="stylesheet" href="/css/prism.css" type="text/css"></head><body><header> <div id="page-header"><span class="pull_left" id="blog_name"><a class="blog_title" id="site-name" href="/">iMlGw0</a></span><span class="toggle-menu pull_right close"><a class="site-page"><i class="fa fa-bars fa-fw" aria-hidden="true"></i></a></span><span class="pull_right menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/board/"><i class="fa-fw fa fa-link"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-list" aria-hidden="true"></i><span> LeetCode</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="http://imlgw.top/2019/02/27/leetcode-lian-biao/"><i class="fa-fw fa fa-tags"></i><span> 链表</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/05/04/leetcode-shu-zu/"><i class="fa-fw fa fa-tags"></i><span> 数组</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/10/01/leetcode-zhan-dui-lie/"><i class="fa-fw fa fa-tags"></i><span> 栈&amp;队列</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/09/15/leetcode-cha-zhao/"><i class="fa-fw fa fa-tags"></i><span> 查找</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/12/06/leetcode-er-fen-cha-zhao/"><i class="fa-fw fa fa-tags"></i><span> 二分查找</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/11/06/leetcode-er-cha-shu/"><i class="fa-fw fa fa-tags"></i><span> 二叉树</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/07/20/leetcode-hua-dong-chuang-kou/"><i class="fa-fw fa fa-tags"></i><span> 滑动窗口</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/09/01/leetcode-dong-tai-gui-hua/"><i class="fa-fw fa fa-tags"></i><span> 动态规划</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/11/29/leetcode-bei-bao-wen-ti/"><i class="fa-fw fa fa-tags"></i><span> 背包问题</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/10/10/leetcode-hui-su/"><i class="fa-fw fa fa-tags"></i><span> 回溯</span></a></li><li><a class="site-page" href="http://imlgw.top/2020/01/21/leetcode-tan-xin/"><i class="fa-fw fa fa-tags"></i><span> 贪心</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link"><i class="fa-fw fa fa-address-book"></i><span> 大佬们</span></a></div></div></span><span class="pull_right" id="search_button"><a class="site-page social-icon search"><i class="fa fa-search fa-fw"></i><span> 搜索</span></a></span></div></header><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="http://static.imlgw.top/maofu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">59</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">58</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">12</div></a></div></div></div><hr><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/board/"><i class="fa-fw fa fa-link"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-list" aria-hidden="true"></i><span> LeetCode</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="http://imlgw.top/2019/02/27/leetcode-lian-biao/"><i class="fa-fw fa fa-tags"></i><span> 链表</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/05/04/leetcode-shu-zu/"><i class="fa-fw fa fa-tags"></i><span> 数组</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/10/01/leetcode-zhan-dui-lie/"><i class="fa-fw fa fa-tags"></i><span> 栈&amp;队列</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/09/15/leetcode-cha-zhao/"><i class="fa-fw fa fa-tags"></i><span> 查找</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/12/06/leetcode-er-fen-cha-zhao/"><i class="fa-fw fa fa-tags"></i><span> 二分查找</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/11/06/leetcode-er-cha-shu/"><i class="fa-fw fa fa-tags"></i><span> 二叉树</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/07/20/leetcode-hua-dong-chuang-kou/"><i class="fa-fw fa fa-tags"></i><span> 滑动窗口</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/09/01/leetcode-dong-tai-gui-hua/"><i class="fa-fw fa fa-tags"></i><span> 动态规划</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/11/29/leetcode-bei-bao-wen-ti/"><i class="fa-fw fa fa-tags"></i><span> 背包问题</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/10/10/leetcode-hui-su/"><i class="fa-fw fa fa-tags"></i><span> 回溯</span></a></li><li><a class="site-page" href="http://imlgw.top/2020/01/21/leetcode-tan-xin/"><i class="fa-fw fa fa-tags"></i><span> 贪心</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link"><i class="fa-fw fa fa-address-book"></i><span> 大佬们</span></a></div></div></div><div id="mobile-sidebar-toc"><div class="toc_mobile_headline">目录</div><div class="sidebar-toc__content"><ol class="toc_mobile_items"><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#Class类文件的结构"><span class="toc_mobile_items-number">1.</span> <span class="toc_mobile_items-text">Class类文件的结构</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#Class文件整体结构"><span class="toc_mobile_items-number">1.1.</span> <span class="toc_mobile_items-text">Class文件整体结构</span></a></li></ol></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#常量池"><span class="toc_mobile_items-number">2.</span> <span class="toc_mobile_items-text">常量池</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#常量池项目类型"><span class="toc_mobile_items-number">2.1.</span> <span class="toc_mobile_items-text">常量池项目类型</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#cp-info"><span class="toc_mobile_items-number">2.2.</span> <span class="toc_mobile_items-text">cp_info</span></a></li></ol></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#访问标志"><span class="toc_mobile_items-number">3.</span> <span class="toc_mobile_items-text">访问标志</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#类索引，父类索引接口索引集合"><span class="toc_mobile_items-number">4.</span> <span class="toc_mobile_items-text">类索引，父类索引接口索引集合</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#字段表集合"><span class="toc_mobile_items-number">5.</span> <span class="toc_mobile_items-text">字段表集合</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#field-info"><span class="toc_mobile_items-number">5.1.</span> <span class="toc_mobile_items-text">field_info</span></a></li></ol></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#方法表集合"><span class="toc_mobile_items-number">6.</span> <span class="toc_mobile_items-text">方法表集合</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#method-info"><span class="toc_mobile_items-number">6.1.</span> <span class="toc_mobile_items-text">method_info</span></a></li></ol></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#属性表集合"><span class="toc_mobile_items-number">7.</span> <span class="toc_mobile_items-text">属性表集合</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#Code属性"><span class="toc_mobile_items-number">7.1.</span> <span class="toc_mobile_items-text">Code属性</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#LineNumberTable属性"><span class="toc_mobile_items-number">7.2.</span> <span class="toc_mobile_items-text">LineNumberTable属性</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#LocalVariableTable属性"><span class="toc_mobile_items-number">7.3.</span> <span class="toc_mobile_items-text">LocalVariableTable属性</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#Exceptions属性"><span class="toc_mobile_items-number">7.4.</span> <span class="toc_mobile_items-text">Exceptions属性</span></a></li></ol></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#SourceFile属性"><span class="toc_mobile_items-number">8.</span> <span class="toc_mobile_items-text">SourceFile属性</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#ConstantValue属性"><span class="toc_mobile_items-number">9.</span> <span class="toc_mobile_items-text">ConstantValue属性</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#Synchnorized字节码分析"><span class="toc_mobile_items-number">10.</span> <span class="toc_mobile_items-text">Synchnorized字节码分析</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#总结-amp-参考"><span class="toc_mobile_items-number">11.</span> <span class="toc_mobile_items-text">总结 &amp; 参考</span></a></li></ol></div></div></div><div id="body-wrap"><div id="web_bg" data-type="color"></div><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true">     </i><div class="auto_open" id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Class类文件的结构"><span class="toc-number">1.</span> <span class="toc-text">Class类文件的结构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Class文件整体结构"><span class="toc-number">1.1.</span> <span class="toc-text">Class文件整体结构</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#常量池"><span class="toc-number">2.</span> <span class="toc-text">常量池</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#常量池项目类型"><span class="toc-number">2.1.</span> <span class="toc-text">常量池项目类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#cp-info"><span class="toc-number">2.2.</span> <span class="toc-text">cp_info</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#访问标志"><span class="toc-number">3.</span> <span class="toc-text">访问标志</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#类索引，父类索引接口索引集合"><span class="toc-number">4.</span> <span class="toc-text">类索引，父类索引接口索引集合</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#字段表集合"><span class="toc-number">5.</span> <span class="toc-text">字段表集合</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#field-info"><span class="toc-number">5.1.</span> <span class="toc-text">field_info</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#方法表集合"><span class="toc-number">6.</span> <span class="toc-text">方法表集合</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#method-info"><span class="toc-number">6.1.</span> <span class="toc-text">method_info</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#属性表集合"><span class="toc-number">7.</span> <span class="toc-text">属性表集合</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Code属性"><span class="toc-number">7.1.</span> <span class="toc-text">Code属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LineNumberTable属性"><span class="toc-number">7.2.</span> <span class="toc-text">LineNumberTable属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LocalVariableTable属性"><span class="toc-number">7.3.</span> <span class="toc-text">LocalVariableTable属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Exceptions属性"><span class="toc-number">7.4.</span> <span class="toc-text">Exceptions属性</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SourceFile属性"><span class="toc-number">8.</span> <span class="toc-text">SourceFile属性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ConstantValue属性"><span class="toc-number">9.</span> <span class="toc-text">ConstantValue属性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Synchnorized字节码分析"><span class="toc-number">10.</span> <span class="toc-text">Synchnorized字节码分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结-amp-参考"><span class="toc-number">11.</span> <span class="toc-text">总结 &amp; 参考</span></a></li></ol></div></div></div><main id="content-outer"><div id="top-container" style="background-image: url(http://static.imlgw.top/blog/20190905/bvODiOGH0IfM.jpg?imageslim)"><div id="post-info"><div id="post-title"><div class="posttitle">深入理解Java虚拟机(三)</div></div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 发表于 2019-09-05<span class="post-meta__separator">|</span><i class="fa fa-history fa-fw" aria-hidden="true"></i> 更新于 2020-03-08</time><span class="post-meta__separator">|</span><span><i class="fa fa-inbox post-meta__icon fa-fw" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/JVM/">JVM</a></span><div class="post-meta-wordcount"><i class="fa fa-file-word-o post-meta__icon fa-fw" aria-hidden="true"></i><span>字数总计:</span><span class="word-count">8k</span><span class="post-meta__separator">|</span><i class="fa fa-clock-o post-meta__icon fa-fw" aria-hidden="true"></i><span>阅读时长: 26 分钟</span><div class="post-meta-pv-cv"><span class="post-meta__separator">|</span><span><i class="fa fa-eye post-meta__icon fa-fw" aria-hidden="true"> </i>阅读量:</span><span id="busuanzi_value_page_pv"></span></div></div></div></div></div><div class="layout layout_post" id="content-inner">   <article id="post"><div class="article-container" id="post-content"><html><head></head><body><blockquote>
+  
+    <meta name="keywords" content="Class结构,JVM," />
+  
+
+  
+    <meta name="description" content="大悲无泪，大悟无言，大笑无声。" />
+  
+  
+  
+  <link rel="icon" type="image/x-icon" href="/img/cat.ico">
+  
+  <title>深入理解Java虚拟机(三) [ iMlGw0 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="//cdn.bootcss.com/pure/1.0.0/pure-min.css">
+    
+      <link rel="stylesheet" href="/css/xoxo.css">
+    
+  
+<meta name="generator" content="Hexo 4.2.0"><link rel="stylesheet" href="/css/prism.css" type="text/css"></head>
+
+
+<body>
+  <div class="nav-container">
+    <nav class="home-menu pure-menu pure-menu-horizontal">
+  <a class="pure-menu-heading" href="/">
+    
+      <img class="avatar" src="http://static.imlgw.top/maofu.png">
+    
+    <span class="title" style="text-transform:none">iMlGw0</span>
+  </a>
+
+  <ul class="pure-menu-list clearfix">
+      
+          
+            
+              <li class="pure-menu-item"><a href="/" class="pure-menu-link">首页</a></li>
+            
+          
+      
+          
+            
+              <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
+            
+              <a href="#" id="post" class="pure-menu-link">文章</a>
+              <ul class="pure-menu-children">
+              
+                  
+                    <li class="pure-menu-item"><a href="/categories" style="color:#202020;" class="pure-menu-link">分类</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="/archives" style="color:#202020;" class="pure-menu-link">归档</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="/tags" style="color:#202020;" class="pure-menu-link">标签</a></li>
+                  
+              
+              </ul>
+            </li>
+          
+      
+          
+            
+              <li class="pure-menu-item"><a href="/project" class="pure-menu-link">项目</a></li>
+            
+          
+      
+          
+            
+              <li class="pure-menu-item"><a href="/search" class="pure-menu-link">搜索</a></li>
+            
+          
+      
+          
+            
+              <li class="pure-menu-item"><a href="/about" class="pure-menu-link">关于</a></li>
+            
+          
+      
+  </ul>
+   
+</nav>
+
+  </div>
+
+  <div class="container" id="content-outer">
+    <div class="inner" id="content-inner">
+      <div class="post-container">
+  <article class="post" id="post">
+    <header class="post-header text-center">
+      <h1 class="title">
+        深入理解Java虚拟机(三)
+      </h1>
+      <span>
+        
+        <time class="time" datetime="2019-09-04T16:00:00.000Z">
+        2019-09-05
+      </time>
+        
+      </span>
+      <span class="slash">/</span>
+      <span class="post-meta">
+      <span class="post-tags">
+        <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Class%E7%BB%93%E6%9E%84/" rel="tag">Class结构</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JVM/" rel="tag">JVM</a></li></ul>
+      </span>
+    </span>
+      <span class="slash">/</span>
+      <span class="read">
+      <span id="busuanzi_value_page_pv"></span> 点击
+    </span>
+      <span class="slash">/</span>
+      <span class="read">阅读耗时 53 分钟</span>
+    </header>
+
+    <div class="post-content">
+      <blockquote>
 <p>这一篇主要记录JVM相关的Class文件结构</p>
 </blockquote>
 <h2 id="Class类文件的结构"><a href="#Class类文件的结构" class="headerlink" title="Class类文件的结构"></a>Class类文件的结构</h2><p> Class文件是一组以<strong>8个字节</strong>为基础单位的二进制流，根据Java虚拟机规范，Class文件格式采用一种类似于C语言结构体的伪结构来存储数据，这种伪结构中只有两种数据类型：<strong>无符号数和表</strong> </p>
@@ -39,26 +136,10 @@
 <p>无符号数属于基本的数据类型，以u1，u2，u4，u8来分别表示1，2，4，8个字节大小的无符号数，无符号数用来描述数字，索引引用，数量值，或者按照UTF-8编码构成字符串值</p>
 <p><strong>表（数组）</strong></p>
 <p>表是由多个无符号数或者其他表作为数据项构成的符合数据类型，所有表都习惯性的以<code>_info</code> 结尾，表用于描述有程池关系的复合结构的数据，整个Class文件本质上就是一张表</p>
-<h3 id="Class文件整体结构"><a href="#Class文件整体结构" class="headerlink" title="Class文件整体结构"></a>Class文件整体结构</h3><pre class=" language-java"><code class="language-java">ClassFile<span class="token punctuation">{</span>
-    u4                  <span class="token function">magic</span><span class="token punctuation">(</span>魔数<span class="token number">0xCAFFBABE</span><span class="token punctuation">)</span>
-    u2                  <span class="token function">minor_version</span><span class="token punctuation">(</span>次版本号<span class="token punctuation">)</span>
-    u2                  <span class="token function">major_version</span><span class="token punctuation">(</span>主版本号<span class="token punctuation">)</span>
-    u2                  <span class="token function">constant_pool_count</span><span class="token punctuation">(</span>常量池个数<span class="token punctuation">)</span>
-    cp_info             <span class="token function">constant_pool</span><span class="token punctuation">(</span>常量池表<span class="token punctuation">)</span>
-    u2                  <span class="token function">access_flags</span><span class="token punctuation">(</span>类或接口的访问权限<span class="token punctuation">)</span>
-    u2                  <span class="token function">this_class</span><span class="token punctuation">(</span>类名<span class="token punctuation">)</span>
-    u2                  <span class="token function">super_class</span><span class="token punctuation">(</span>父类名<span class="token punctuation">)</span>
-    u2                  <span class="token function">interfaces_count</span><span class="token punctuation">(</span>接口个数<span class="token punctuation">)</span>
-    u2                  <span class="token function">interfaces</span><span class="token punctuation">(</span>接口名<span class="token punctuation">)</span>
-    u2                  <span class="token function">fields_count</span><span class="token punctuation">(</span>字段个数<span class="token punctuation">)</span>
-    field_info          <span class="token function">fields</span><span class="token punctuation">(</span>字段表<span class="token punctuation">)</span>
-    u2                  <span class="token function">methods_count</span><span class="token punctuation">(</span>方法数<span class="token punctuation">)</span>
-    method_info         <span class="token function">methods</span><span class="token punctuation">(</span>方法表<span class="token punctuation">)</span>
-    u2                  <span class="token function">attributes_count</span><span class="token punctuation">(</span>附加属性个数<span class="token punctuation">)</span>
-    attribute_info      <span class="token function">attributes</span><span class="token punctuation">(</span>附加属性表<span class="token punctuation">)</span>
-<span class="token punctuation">}</span></code></pre>
+<h3 id="Class文件整体结构"><a href="#Class文件整体结构" class="headerlink" title="Class文件整体结构"></a>Class文件整体结构</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">ClassFile&#123;</span><br><span class="line">    <span class="function">u4                  <span class="title">magic</span><span class="params">(魔数<span class="number">0xCAFFBABE</span>)</span></span></span><br><span class="line"><span class="function">    u2                  <span class="title">minor_version</span><span class="params">(次版本号)</span></span></span><br><span class="line"><span class="function">    u2                  <span class="title">major_version</span><span class="params">(主版本号)</span></span></span><br><span class="line"><span class="function">    u2                  <span class="title">constant_pool_count</span><span class="params">(常量池个数)</span></span></span><br><span class="line"><span class="function">    cp_info             <span class="title">constant_pool</span><span class="params">(常量池表)</span></span></span><br><span class="line"><span class="function">    u2                  <span class="title">access_flags</span><span class="params">(类或接口的访问权限)</span></span></span><br><span class="line"><span class="function">    u2                  <span class="title">this_class</span><span class="params">(类名)</span></span></span><br><span class="line"><span class="function">    u2                  <span class="title">super_class</span><span class="params">(父类名)</span></span></span><br><span class="line"><span class="function">    u2                  <span class="title">interfaces_count</span><span class="params">(接口个数)</span></span></span><br><span class="line"><span class="function">    u2                  <span class="title">interfaces</span><span class="params">(接口名)</span></span></span><br><span class="line"><span class="function">    u2                  <span class="title">fields_count</span><span class="params">(字段个数)</span></span></span><br><span class="line"><span class="function">    field_info          <span class="title">fields</span><span class="params">(字段表)</span></span></span><br><span class="line"><span class="function">    u2                  <span class="title">methods_count</span><span class="params">(方法数)</span></span></span><br><span class="line"><span class="function">    method_info         <span class="title">methods</span><span class="params">(方法表)</span></span></span><br><span class="line"><span class="function">    u2                  <span class="title">attributes_count</span><span class="params">(附加属性个数)</span></span></span><br><span class="line"><span class="function">    attribute_info      <span class="title">attributes</span><span class="params">(附加属性表)</span></span></span><br><span class="line"><span class="function">&#125;</span></span><br></pre></td></tr></table></figure>
+
 <blockquote>
-<p>在网上看了<a href="https://www.infoq.cn/article/Secrets-of-the-Bytecode-Ninjas" target="_blank" rel="noopener">国外的大佬</a>的一张图，挺有意思的<img alt="mark" data-src="http://static.imlgw.top/blog/20190902/4JDgENgQ9eIo.png?imageslim" src="/img/loading.gif" class="lazyload"></p>
+<p>在网上看了<a href="https://www.infoq.cn/article/Secrets-of-the-Bytecode-Ninjas" target="_blank" rel="noopener">国外的大佬</a>的一张图，挺有意思的<img src="http://static.imlgw.top/blog/20190902/4JDgENgQ9eIo.png?imageslim" alt="mark"></p>
 </blockquote>
 <p><strong>魔数和Class文件的版本</strong></p>
 <p>每个Class文件的<strong>头4个字节</strong>称为魔数，他唯一的作用是确定这个文件是否为一个能被虚拟机接收的Class文件，这个值为<code>0xCAFFBABE</code> ，紧跟着魔数的<strong>4个字节</strong>存储的是Class文件的版本号，高版本的JDK能兼容低版本的字节码，而低版本JVM的无法兼容高版本的Class文件</p>
@@ -71,107 +152,17 @@
 <p>关于符号引用，其实在之前的文章中有介绍过，Java代码在编译的时候并不像C++/C一样有连接的步骤，而是在虚拟机加载Class文件的时候进行<strong>动态链接</strong>，也就是说，在Class文件中不会保存各个方法，字段的最终内存布局信息，因此这些字段，方法的符号引用无法直接被虚拟机使用，当虚拟机运行的时候，需要从常量池中获得对应得符号引用，在类创建或运行得时候解析，翻译到具体的内存地址中。</p>
 </blockquote>
 <h3 id="常量池项目类型"><a href="#常量池项目类型" class="headerlink" title="常量池项目类型"></a>常量池项目类型</h3><p>常量池的每一项都是一个表，JDK1.7之前一共有11种<strong>结构不同</strong>的表结构，也就是下面的11种，JDK1.7之后为了更好的支持动态语言的调用，又额外的增加了3种（CONSTANT_MethodHandle_info，CONSTANT_MethodType_info，CONSTANT_InvokeDynamic_info）这些表结构都有一个共同的特点，<strong>表开始的第一位都是一个<code>u1</code>类型的标志位<code>tag</code>，目的就是区分这个常量属于那种类型的常量</strong>，后面的内容都各有各的结构，<code>index</code>代表的是常量池中的对应的常量索引，<code>bytes</code>代表的就是字节数据</p>
-<h3 id="cp-info"><a href="#cp-info" class="headerlink" title="cp_info"></a>cp_info</h3><p><img alt="常量池表结构" data-src="http://static.imlgw.top/blog/20190829/vjjWxwvrt0qg.png" src="/img/loading.gif" class="lazyload"></p>
+<h3 id="cp-info"><a href="#cp-info" class="headerlink" title="cp_info"></a>cp_info</h3><p><img src="http://static.imlgw.top/blog/20190829/vjjWxwvrt0qg.png" alt="常量池表结构"></p>
 <p>这张表上的数据不用记住，用的时候知道去哪里查就行了（虽然用的机会很少😂），下面我们编译一段代码，看一下字节码长啥样</p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Test1</span> <span class="token punctuation">{</span>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test1</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> a=<span class="number">1</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getA</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setA</span><span class="params">(<span class="keyword">int</span> a)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.a=a;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-    <span class="token keyword">private</span> <span class="token keyword">int</span> a<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span>
-
-    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">getA</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-        <span class="token keyword">return</span> a<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setA</span><span class="token punctuation">(</span><span class="token keyword">int</span> a<span class="token punctuation">)</span><span class="token punctuation">{</span>
-        <span class="token keyword">this</span><span class="token punctuation">.</span>a<span class="token operator">=</span>a<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span></code></pre>
 <p>🎯<strong>编译完成后用16进制的编译器(winHex)打开Class文件</strong></p>
-<p><img alt="mark" data-src="http://static.imlgw.top/blog/20190901/EOnrpm9sx8wE.png?imageslim" src="/img/loading.gif" class="lazyload"></p>
+<p><img src="http://static.imlgw.top/blog/20190901/EOnrpm9sx8wE.png?imageslim" alt="mark"></p>
 <p>⚡ 这里前面的4个字节<code>0xCAFEBABE</code> 代表的就是魔数，后面的4个字节<code>0x00000034</code>代表的就是版本号，再往后2个字节<code>0x0018</code>就是常量池的入口，对应的就是常量池的大小（constant_pool_count），转换为10进制就是24，但是实际上并不是24个，常量池计数是从1而不是0开始的，设计者将0位置的项空出来目的是为了表示后面某些指向常量池的索引值的数据在特定情况下表示<strong>不引用任何一个常量池项目</strong>（大师就是大师，各种细节都能考虑到）</p>
 <p>⚡ 再往后看，<code>0x0A</code>，这个就是我们前面说的<code>tag</code>标志位，转换为10进制就是<code>10</code> ，查一下表对应的常量类型是<code>CONSTANT_Methodref_info</code>，紧跟着的两个字节<code>0x0004</code>是一个<code>index</code>类型的数据，指向声明方法描述符<code>CONSTANT_Class_info</code> 的索引项，也就是常量池的第4项，再往后两个字节<code>0x0014</code>代表的就是指向类型描述符<code>CONSTANT_NameAndType</code>的索引项，也就是常量池的第20项</p>
 <p>这里我们就不一一的去分析了，我们借助<code>javap</code> 来看看反编译的结果和我们分析的是不是一致的</p>
-<pre class=" language-java"><code class="language-java">Last modified <span class="token number">2019</span><span class="token operator">-</span><span class="token number">9</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span> size <span class="token number">485</span> bytes
-  MD5 checksum e8148a01ff25087c42827d62a9b827b0
-  Compiled from <span class="token string">"Test1.java"</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">jvmstudy<span class="token punctuation">.</span>classfile_stu<span class="token punctuation">.</span>Test1</span>
-  minor version<span class="token operator">:</span> <span class="token number">0</span>
-  major version<span class="token operator">:</span> <span class="token number">52</span>
-  flags<span class="token operator">:</span> ACC_PUBLIC<span class="token punctuation">,</span> ACC_SUPER
-Constant pool<span class="token operator">:</span>
-   #<span class="token number">1</span> <span class="token operator">=</span> Methodref          #<span class="token number">4</span><span class="token punctuation">.</span>#<span class="token number">20</span>         <span class="token comment" spellcheck="true">// java/lang/Object."<init>":()V</init></span>
-   #<span class="token number">2</span> <span class="token operator">=</span> Fieldref           #<span class="token number">3</span><span class="token punctuation">.</span>#<span class="token number">21</span>         <span class="token comment" spellcheck="true">// jvmstudy/classfile_stu/Test1.a:I</span>
-   #<span class="token number">3</span> <span class="token operator">=</span> Class              #<span class="token number">22</span>            <span class="token comment" spellcheck="true">// jvmstudy/classfile_stu/Test1</span>
-   #<span class="token number">4</span> <span class="token operator">=</span> Class              #<span class="token number">23</span>            <span class="token comment" spellcheck="true">// java/lang/Object</span>
-   #<span class="token number">5</span> <span class="token operator">=</span> Utf8               a
-   #<span class="token number">6</span> <span class="token operator">=</span> Utf8               I
-   #<span class="token number">7</span> <span class="token operator">=</span> Utf8               <span class="token operator"><</span>init<span class="token operator">></span>
-   #<span class="token number">8</span> <span class="token operator">=</span> <span class="token function">Utf8</span>               <span class="token punctuation">(</span><span class="token punctuation">)</span>V
-   #<span class="token number">9</span> <span class="token operator">=</span> Utf8               Code
-  #<span class="token number">10</span> <span class="token operator">=</span> Utf8               LineNumberTable
-  #<span class="token number">11</span> <span class="token operator">=</span> Utf8               LocalVariableTable
-  #<span class="token number">12</span> <span class="token operator">=</span> Utf8               <span class="token keyword">this</span>
-  #<span class="token number">13</span> <span class="token operator">=</span> Utf8               Ljvmstudy<span class="token operator">/</span>classfile_stu<span class="token operator">/</span>Test1<span class="token punctuation">;</span>
-  #<span class="token number">14</span> <span class="token operator">=</span> Utf8               getA
-  #<span class="token number">15</span> <span class="token operator">=</span> <span class="token function">Utf8</span>               <span class="token punctuation">(</span><span class="token punctuation">)</span>I
-  #<span class="token number">16</span> <span class="token operator">=</span> Utf8               setA
-  #<span class="token number">17</span> <span class="token operator">=</span> <span class="token function">Utf8</span>               <span class="token punctuation">(</span>I<span class="token punctuation">)</span>V
-  #<span class="token number">18</span> <span class="token operator">=</span> Utf8               SourceFile
-  #<span class="token number">19</span> <span class="token operator">=</span> Utf8               Test1<span class="token punctuation">.</span>java
-  #<span class="token number">20</span> <span class="token operator">=</span> NameAndType        #<span class="token number">7</span><span class="token operator">:</span>#<span class="token number">8</span>          <span class="token comment" spellcheck="true">// "<init>":()V</init></span>
-  #<span class="token number">21</span> <span class="token operator">=</span> NameAndType        #<span class="token number">5</span><span class="token operator">:</span>#<span class="token number">6</span>          <span class="token comment" spellcheck="true">// a:I</span>
-  #<span class="token number">22</span> <span class="token operator">=</span> Utf8               jvmstudy<span class="token operator">/</span>classfile_stu<span class="token operator">/</span>Test1
-  #<span class="token number">23</span> <span class="token operator">=</span> Utf8               java<span class="token operator">/</span>lang<span class="token operator">/</span>Object
-<span class="token punctuation">{</span>
-  <span class="token keyword">public</span> jvmstudy<span class="token punctuation">.</span>classfile_stu<span class="token punctuation">.</span><span class="token function">Test1</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    descriptor<span class="token operator">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span>V
-    flags<span class="token operator">:</span> ACC_PUBLIC
-    Code<span class="token operator">:</span>
-      stack<span class="token operator">=</span><span class="token number">2</span><span class="token punctuation">,</span> locals<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">,</span> args_size<span class="token operator">=</span><span class="token number">1</span>
-         <span class="token number">0</span><span class="token operator">:</span> aload_0
-         <span class="token number">1</span><span class="token operator">:</span> invokespecial #<span class="token number">1</span>                  <span class="token comment" spellcheck="true">// Method java/lang/Object."<init>":()V</init></span>
-         <span class="token number">4</span><span class="token operator">:</span> aload_0
-         <span class="token number">5</span><span class="token operator">:</span> iconst_1
-         <span class="token number">6</span><span class="token operator">:</span> putfield      #<span class="token number">2</span>                  <span class="token comment" spellcheck="true">// Field a:I</span>
-         <span class="token number">9</span><span class="token operator">:</span> <span class="token keyword">return</span>
-      LineNumberTable<span class="token operator">:</span>
-        line <span class="token number">7</span><span class="token operator">:</span> <span class="token number">0</span>
-        line <span class="token number">9</span><span class="token operator">:</span> <span class="token number">4</span>
-      LocalVariableTable<span class="token operator">:</span>
-        Start  Length  Slot  Name   Signature
-            <span class="token number">0</span>      <span class="token number">10</span>     <span class="token number">0</span>  <span class="token keyword">this</span>   Ljvmstudy<span class="token operator">/</span>classfile_stu<span class="token operator">/</span>Test1<span class="token punctuation">;</span>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Last modified <span class="number">2019</span>-<span class="number">9</span>-<span class="number">1</span>; size <span class="number">485</span> bytes</span><br><span class="line">  MD5 checksum e8148a01ff25087c42827d62a9b827b0</span><br><span class="line">  Compiled from <span class="string">"Test1.java"</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">jvmstudy</span>.<span class="title">classfile_stu</span>.<span class="title">Test1</span></span></span><br><span class="line">  minor version: 0</span><br><span class="line">  major version: <span class="number">52</span></span><br><span class="line">  flags: ACC_PUBLIC, ACC_SUPER</span><br><span class="line">Constant pool:</span><br><span class="line">   #1 = Methodref          #4.#20         // java/lang/Object."&lt;init&gt;":()V</span><br><span class="line">   #2 = Fieldref           #3.#21         // jvmstudy/classfile_stu/Test1.a:I</span><br><span class="line">   #3 = Class              #22            // jvmstudy/classfile_stu/Test1</span><br><span class="line">   #4 = Class              #23            // java/lang/Object</span><br><span class="line">   #5 = Utf8               a</span><br><span class="line">   #6 = Utf8               I</span><br><span class="line">   #7 = Utf8               &lt;init&gt;</span><br><span class="line">   #8 = Utf8               ()V</span><br><span class="line">   #9 = Utf8               Code</span><br><span class="line">  #10 = Utf8               LineNumberTable</span><br><span class="line">  #11 = Utf8               LocalVariableTable</span><br><span class="line">  #12 = Utf8               this</span><br><span class="line">  #13 = Utf8               Ljvmstudy/classfile_stu/Test1;</span><br><span class="line">  #14 = Utf8               getA</span><br><span class="line">  #15 = Utf8               ()I</span><br><span class="line">  #16 = Utf8               setA</span><br><span class="line">  #17 = Utf8               (I)V</span><br><span class="line">  #18 = Utf8               SourceFile</span><br><span class="line">  #19 = Utf8               Test1.java</span><br><span class="line">  #20 = NameAndType        #7:#8          // "&lt;init&gt;":()V</span><br><span class="line">  #21 = NameAndType        #5:#6          // a:I</span><br><span class="line">  #22 = Utf8               jvmstudy/classfile_stu/Test1</span><br><span class="line">  #23 = Utf8               java/lang/Object</span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">public</span> jvmstudy.classfile_stu.Test1();</span><br><span class="line">    descriptor: ()V</span><br><span class="line">    flags: ACC_PUBLIC</span><br><span class="line">    Code:</span><br><span class="line">      stack=<span class="number">2</span>, locals=<span class="number">1</span>, args_size=<span class="number">1</span></span><br><span class="line">         <span class="number">0</span>: aload_0</span><br><span class="line">         1: invokespecial #1                  // Method java/lang/Object."&lt;init&gt;":()V</span><br><span class="line">         <span class="number">4</span>: aload_0</span><br><span class="line">         <span class="number">5</span>: iconst_1</span><br><span class="line">         6: putfield      #2                  // Field a:I</span><br><span class="line">         <span class="number">9</span>: <span class="keyword">return</span></span><br><span class="line">      LineNumberTable:</span><br><span class="line">        line <span class="number">7</span>: <span class="number">0</span></span><br><span class="line">        line <span class="number">9</span>: <span class="number">4</span></span><br><span class="line">      LocalVariableTable:</span><br><span class="line">        Start  Length  Slot  Name   Signature</span><br><span class="line">            <span class="number">0</span>      <span class="number">10</span>     <span class="number">0</span>  <span class="keyword">this</span>   Ljvmstudy/classfile_stu/Test1;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getA</span><span class="params">()</span></span>;</span><br><span class="line">    descriptor: ()I</span><br><span class="line">    flags: ACC_PUBLIC</span><br><span class="line">    Code:</span><br><span class="line">      stack=<span class="number">1</span>, locals=<span class="number">1</span>, args_size=<span class="number">1</span></span><br><span class="line">         <span class="number">0</span>: aload_0</span><br><span class="line">         1: getfield      #2                  // Field a:I</span><br><span class="line">         <span class="number">4</span>: ireturn</span><br><span class="line">      LineNumberTable:</span><br><span class="line">        line <span class="number">12</span>: <span class="number">0</span></span><br><span class="line">      LocalVariableTable:</span><br><span class="line">        Start  Length  Slot  Name   Signature</span><br><span class="line">            <span class="number">0</span>       <span class="number">5</span>     <span class="number">0</span>  <span class="keyword">this</span>   Ljvmstudy/classfile_stu/Test1;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setA</span><span class="params">(<span class="keyword">int</span>)</span></span>;</span><br><span class="line">    descriptor: (I)V</span><br><span class="line">    flags: ACC_PUBLIC</span><br><span class="line">    Code:</span><br><span class="line">      stack=<span class="number">2</span>, locals=<span class="number">2</span>, args_size=<span class="number">2</span></span><br><span class="line">         <span class="number">0</span>: aload_0</span><br><span class="line">         <span class="number">1</span>: iload_1</span><br><span class="line">         2: putfield      #2                  // Field a:I</span><br><span class="line">         <span class="number">5</span>: <span class="keyword">return</span></span><br><span class="line">      LineNumberTable:</span><br><span class="line">        line <span class="number">16</span>: <span class="number">0</span></span><br><span class="line">        line <span class="number">17</span>: <span class="number">5</span></span><br><span class="line">      LocalVariableTable:</span><br><span class="line">        Start  Length  Slot  Name   Signature</span><br><span class="line">            <span class="number">0</span>       <span class="number">6</span>     <span class="number">0</span>  <span class="keyword">this</span>   Ljvmstudy/classfile_stu/Test1;</span><br><span class="line">            <span class="number">0</span>       <span class="number">6</span>     <span class="number">1</span>     a   I</span><br><span class="line">&#125;</span><br><span class="line">SourceFile: <span class="string">"Test1.java"</span></span><br></pre></td></tr></table></figure>
 
-  <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">getA</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    descriptor<span class="token operator">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span>I
-    flags<span class="token operator">:</span> ACC_PUBLIC
-    Code<span class="token operator">:</span>
-      stack<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">,</span> locals<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">,</span> args_size<span class="token operator">=</span><span class="token number">1</span>
-         <span class="token number">0</span><span class="token operator">:</span> aload_0
-         <span class="token number">1</span><span class="token operator">:</span> getfield      #<span class="token number">2</span>                  <span class="token comment" spellcheck="true">// Field a:I</span>
-         <span class="token number">4</span><span class="token operator">:</span> ireturn
-      LineNumberTable<span class="token operator">:</span>
-        line <span class="token number">12</span><span class="token operator">:</span> <span class="token number">0</span>
-      LocalVariableTable<span class="token operator">:</span>
-        Start  Length  Slot  Name   Signature
-            <span class="token number">0</span>       <span class="token number">5</span>     <span class="token number">0</span>  <span class="token keyword">this</span>   Ljvmstudy<span class="token operator">/</span>classfile_stu<span class="token operator">/</span>Test1<span class="token punctuation">;</span>
-
-  <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setA</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    descriptor<span class="token operator">:</span> <span class="token punctuation">(</span>I<span class="token punctuation">)</span>V
-    flags<span class="token operator">:</span> ACC_PUBLIC
-    Code<span class="token operator">:</span>
-      stack<span class="token operator">=</span><span class="token number">2</span><span class="token punctuation">,</span> locals<span class="token operator">=</span><span class="token number">2</span><span class="token punctuation">,</span> args_size<span class="token operator">=</span><span class="token number">2</span>
-         <span class="token number">0</span><span class="token operator">:</span> aload_0
-         <span class="token number">1</span><span class="token operator">:</span> iload_1
-         <span class="token number">2</span><span class="token operator">:</span> putfield      #<span class="token number">2</span>                  <span class="token comment" spellcheck="true">// Field a:I</span>
-         <span class="token number">5</span><span class="token operator">:</span> <span class="token keyword">return</span>
-      LineNumberTable<span class="token operator">:</span>
-        line <span class="token number">16</span><span class="token operator">:</span> <span class="token number">0</span>
-        line <span class="token number">17</span><span class="token operator">:</span> <span class="token number">5</span>
-      LocalVariableTable<span class="token operator">:</span>
-        Start  Length  Slot  Name   Signature
-            <span class="token number">0</span>       <span class="token number">6</span>     <span class="token number">0</span>  <span class="token keyword">this</span>   Ljvmstudy<span class="token operator">/</span>classfile_stu<span class="token operator">/</span>Test1<span class="token punctuation">;</span>
-            <span class="token number">0</span>       <span class="token number">6</span>     <span class="token number">1</span>     a   I
-<span class="token punctuation">}</span>
-SourceFile<span class="token operator">:</span> <span class="token string">"Test1.java"</span>
-</code></pre>
 <p>可以看到和我们分析结果是一致的，那这个<code>Methodref</code>是表示的那个方法呢？其实根据反编译的结果也可以看出来，这个方法是我们默认的无参构造方法</p>
 <h2 id="访问标志"><a href="#访问标志" class="headerlink" title="访问标志"></a>访问标志</h2><table>
 <thead>
@@ -228,30 +219,8 @@ SourceFile<span class="token operator">:</span> <span class="token string">"Test
 <p>类索引用于确定这个类的全限定名，父类索引用于确定这个类的父类的全限定名，由于Java语言不允许多重继承，所以父类索引只有一个，除了java.lang.Object之外，所有的Java类都有父类，因此除了java.lang.Object外，所有Java类的父类索引都不为0。接口索引集合就用来描述这个类实现了哪些接口，这些被实现的接口将按implements语句（如果这个类本身是一个接口，则应当是extends语句）后的接口顺序从左到右排列在接口索引集合中。</p>
 <p>类索引、父类索引和接日索引集合都按顺序排列在访问标志之后，类索引和父类索引用两个u2类型的索引值表示，它们各自指向一个类型为<code>CONSTANT_Class_info</code>的类描述符常量，通过<code>CONSTANT_Class_info</code>类型的常量中的索引值以找到定义在<code>CONSTANT_Utf8_info</code>类型的常量中的全限定名字符串</p>
 <p>我们接着上面的字节码文件分析，紧接着访问标志符后面的u2是<code>0x0003</code> 也就是<code>this_class</code>在常量池中的索引，再往后的<code>0x0004</code>对应的就是<code>super_class</code>在常量池的索引<code>0x0000</code> 说明没有父接口，后面的集合也就没有了</p>
-<pre class=" language-java"><code class="language-java">Constant pool<span class="token operator">:</span>
-   #<span class="token number">1</span> <span class="token operator">=</span> Methodref          #<span class="token number">4</span><span class="token punctuation">.</span>#<span class="token number">20</span>         <span class="token comment" spellcheck="true">// java/lang/Object."<init>":()V</init></span>
-   #<span class="token number">2</span> <span class="token operator">=</span> Fieldref           #<span class="token number">3</span><span class="token punctuation">.</span>#<span class="token number">21</span>         <span class="token comment" spellcheck="true">// jvmstudy/classfile_stu/Test1.a:I</span>
-   #<span class="token number">3</span> <span class="token operator">=</span> Class              #<span class="token number">22</span>            <span class="token comment" spellcheck="true">// jvmstudy/classfile_stu/Test1</span>
-   #<span class="token number">4</span> <span class="token operator">=</span> Class              #<span class="token number">23</span>            <span class="token comment" spellcheck="true">// java/lang/Object</span>
-   #<span class="token number">5</span> <span class="token operator">=</span> Utf8               a
-   #<span class="token number">6</span> <span class="token operator">=</span> Utf8               I
-   #<span class="token number">7</span> <span class="token operator">=</span> Utf8               <span class="token operator"><</span>init<span class="token operator">></span>
-   #<span class="token number">8</span> <span class="token operator">=</span> <span class="token function">Utf8</span>               <span class="token punctuation">(</span><span class="token punctuation">)</span>V
-   #<span class="token number">9</span> <span class="token operator">=</span> Utf8               Code
-  #<span class="token number">10</span> <span class="token operator">=</span> Utf8               LineNumberTable
-  #<span class="token number">11</span> <span class="token operator">=</span> Utf8               LocalVariableTable
-  #<span class="token number">12</span> <span class="token operator">=</span> Utf8               <span class="token keyword">this</span>
-  #<span class="token number">13</span> <span class="token operator">=</span> Utf8               Ljvmstudy<span class="token operator">/</span>classfile_stu<span class="token operator">/</span>Test1<span class="token punctuation">;</span>
-  #<span class="token number">14</span> <span class="token operator">=</span> Utf8               getA
-  #<span class="token number">15</span> <span class="token operator">=</span> <span class="token function">Utf8</span>               <span class="token punctuation">(</span><span class="token punctuation">)</span>I
-  #<span class="token number">16</span> <span class="token operator">=</span> Utf8               setA
-  #<span class="token number">17</span> <span class="token operator">=</span> <span class="token function">Utf8</span>               <span class="token punctuation">(</span>I<span class="token punctuation">)</span>V
-  #<span class="token number">18</span> <span class="token operator">=</span> Utf8               SourceFile
-  #<span class="token number">19</span> <span class="token operator">=</span> Utf8               Test1<span class="token punctuation">.</span>java
-  #<span class="token number">20</span> <span class="token operator">=</span> NameAndType        #<span class="token number">7</span><span class="token operator">:</span>#<span class="token number">8</span>          <span class="token comment" spellcheck="true">// "<init>":()V</init></span>
-  #<span class="token number">21</span> <span class="token operator">=</span> NameAndType        #<span class="token number">5</span><span class="token operator">:</span>#<span class="token number">6</span>          <span class="token comment" spellcheck="true">// a:I</span>
-  #<span class="token number">22</span> <span class="token operator">=</span> Utf8               jvmstudy<span class="token operator">/</span>classfile_stu<span class="token operator">/</span>Test1
-  #<span class="token number">23</span> <span class="token operator">=</span> Utf8               java<span class="token operator">/</span>lang<span class="token operator">/</span>Object</code></pre>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">Constant pool:</span><br><span class="line">   #1 = Methodref          #4.#20         // java/lang/Object."&lt;init&gt;":()V</span><br><span class="line">   #2 = Fieldref           #3.#21         // jvmstudy/classfile_stu/Test1.a:I</span><br><span class="line">   #3 = Class              #22            // jvmstudy/classfile_stu/Test1</span><br><span class="line">   #4 = Class              #23            // java/lang/Object</span><br><span class="line">   #5 = Utf8               a</span><br><span class="line">   #6 = Utf8               I</span><br><span class="line">   #7 = Utf8               &lt;init&gt;</span><br><span class="line">   #8 = Utf8               ()V</span><br><span class="line">   #9 = Utf8               Code</span><br><span class="line">  #10 = Utf8               LineNumberTable</span><br><span class="line">  #11 = Utf8               LocalVariableTable</span><br><span class="line">  #12 = Utf8               this</span><br><span class="line">  #13 = Utf8               Ljvmstudy/classfile_stu/Test1;</span><br><span class="line">  #14 = Utf8               getA</span><br><span class="line">  #15 = Utf8               ()I</span><br><span class="line">  #16 = Utf8               setA</span><br><span class="line">  #17 = Utf8               (I)V</span><br><span class="line">  #18 = Utf8               SourceFile</span><br><span class="line">  #19 = Utf8               Test1.java</span><br><span class="line">  #20 = NameAndType        #7:#8          // "&lt;init&gt;":()V</span><br><span class="line">  #21 = NameAndType        #5:#6          // a:I</span><br><span class="line">  #22 = Utf8               jvmstudy/classfile_stu/Test1</span><br><span class="line">  #23 = Utf8               java/lang/Object</span><br></pre></td></tr></table></figure>
+
 <p>结合反编译的结果，常量池第三项和第四项都对应了一个<code>CONSTANT_Class_info</code>的索引常量，其最终指向了一个<code>CONSTANT_Utf8_info</code> 的常量，这个常量的值就是我们的<code>this_class</code>和<code>super_class</code> 的全限定名</p>
 <h2 id="字段表集合"><a href="#字段表集合" class="headerlink" title="字段表集合"></a>字段表集合</h2><p>紧跟着上面类索引等信息后面的<code>u2</code>类型的数据<code>0x0001</code>就是代表的<code>fields_count</code>，这里只有一个字段a所以这里是<code>1</code></p>
 <h3 id="field-info"><a href="#field-info" class="headerlink" title="field_info"></a>field_info</h3><p>字段表（<code>field_info</code>）用于描述接口或者类中声明的变量。字段（<code>field</code>）包括类级变量以及实例级变量，但不包括在方法内部声明的局部变量</p>
@@ -347,7 +316,7 @@ SourceFile<span class="token operator">:</span> <span class="token string">"Test
 </tr>
 </tbody></table>
 <p>🎯<strong>继续接着上面的类索引分析</strong></p>
-<p><img alt="mark" data-src="http://static.imlgw.top/blog/20190902/s5dWhYXNIuxq.png?imageslim" src="/img/loading.gif" class="lazyload"></p>
+<p><img src="http://static.imlgw.top/blog/20190902/s5dWhYXNIuxq.png?imageslim" alt="mark"></p>
 <p>⚡<code>0x0001</code> 对应<code>fields_count</code>，值为1字段的数量为 1，后面的<code>field_info</code>数量为1</p>
 <p>⚡<code>0x0002</code> 对应字段的<code>access_flags</code>，为<code>ACC_PRIVATE</code></p>
 <p>⚡<code>0x0005</code> 对应字段的名字的索引，在常量池中的第5项，结合上面反编译的结果第5项为  <code>#5 = Utf8    a</code></p>
@@ -465,17 +434,17 @@ SourceFile<span class="token operator">:</span> <span class="token string">"Test
 </tr>
 </tbody></table>
 <p>🎯<strong>我们继续接着上面的字段表后面分析</strong></p>
-<p><img alt="mark" data-src="http://static.imlgw.top/blog/20190902/BuNVfOyD3mJy.png?imageslim" src="/img/loading.gif" class="lazyload"></p>
-<p>⚡<code>0x0003</code> 方法表的入口，代表<code>methods_count</code> 方法的数量，值为3，有三个方法（包括了编译器自动生成的<code><init></init></code>方法）</p>
+<p><img src="http://static.imlgw.top/blog/20190902/BuNVfOyD3mJy.png?imageslim" alt="mark"></p>
+<p>⚡<code>0x0003</code> 方法表的入口，代表<code>methods_count</code> 方法的数量，值为3，有三个方法（包括了编译器自动生成的<code>&lt;init&gt;</code>方法）</p>
 <p>⚡ <code>0x0001</code> 第一个方法的访问标志值，代表<code>ACC_PUBLIC</code></p>
 <p>⚡ <code>0x0007</code> 方法名的<code>name_index</code>，值为7代表常量池中第7项常量，结合反编译的结果其值为</p>
-<p><code>#7 = Utf8  <init></init></code>  也就是我们的实例构造方法（编译器自动帮我们生成的）</p>
+<p><code>#7 = Utf8  &lt;init&gt;</code>  也就是我们的实例构造方法（编译器自动帮我们生成的）</p>
 <p>⚡ <code>0x0008</code> 方法描述符的<code>descriptor_index</code> ，值为8代表常量池中第8项常量，其值为</p>
 <p><code>#8 = Utf8  ()V</code>  自动生成的无参构造器的描述</p>
 <p>⚡ <code>0x0001</code> 方法属性表(<code>attribute_info</code>)的入口，代表<code>attributes_count</code> ，值为1代表有一个属性表</p>
 <p>⚡ <code>0x0009</code> 属性名称的索引，常量池中为 <code>#9 = Utf8   Code</code>说明此属性是方法的字节码描述，也就是方法中的代码</p>
 <blockquote>
-<p>在方法表中，如果子类没有重写父类的方法就不会出现父类的方法信息，但是会出现编译器自动添加的方法，最典型的就是<code><clinit></clinit></code>和<code><init></init></code>，这里并没有 静态变量的赋值和静态语句块所以并没有生成<code><clinit></clinit></code> 方法，另外一点和上面字段表的一样，Java语言中重载是不能以返回值来界定的，但是在Class文件格式中，只要描述符不一致，就是可以共存的，而方法的描述符就包括了参数列表和返回值</p>
+<p>在方法表中，如果子类没有重写父类的方法就不会出现父类的方法信息，但是会出现编译器自动添加的方法，最典型的就是<code>&lt;clinit&gt;</code>和<code>&lt;init&gt;</code>，这里并没有 静态变量的赋值和静态语句块所以并没有生成<code>&lt;clinit&gt;</code> 方法，另外一点和上面字段表的一样，Java语言中重载是不能以返回值来界定的，但是在Class文件格式中，只要描述符不一致，就是可以共存的，而方法的描述符就包括了参数列表和返回值</p>
 </blockquote>
 <h2 id="属性表集合"><a href="#属性表集合" class="headerlink" title="属性表集合"></a>属性表集合</h2><p>属性表（attribute_info），Class文件，字段表，方法表中可以携带自己的属性表，说有attribute_info的前两项都是u2类型的<code>attribute_name_index</code>和u4类型的<code>attribute_length</code>分别代表属性名字的索引和属性值的大小 ，Java虚拟机中预定义了一些属性，这些属性都各有各的含义和结构</p>
 <table>
@@ -650,8 +619,8 @@ SourceFile<span class="token operator">:</span> <span class="token string">"Test
 </tr>
 </tbody></table>
 <p>🎯<strong>紧接着上面的方法表分析</strong></p>
-<p><em>这里分析的还是方法表第一个方法（<code><init></init></code>）所携带的属性表</em></p>
-<p><img alt="mark" data-src="http://static.imlgw.top/blog/20190904/Gd5cWl6Yr84x.png?imageslim" src="/img/loading.gif" class="lazyload"></p>
+<p><em>这里分析的还是方法表第一个方法（<code>&lt;init&gt;</code>）所携带的属性表</em></p>
+<p><img src="http://static.imlgw.top/blog/20190904/Gd5cWl6Yr84x.png?imageslim" alt="mark"></p>
 <p>⚡ <code>0x0009</code> 对应<code>attribute_name_index</code>，属性名称的索引，常量池中为 <code>#9 = Utf8   Code</code>说明此属性是方法的字节码描述，也就是方法中的代码</p>
 <p>⚡ <code>0x00000038</code> 代表<code>attribute_length</code> 顾名思义就是属性值的长度，这里是56（不包含attribute_name_index和attribute_length）</p>
 <p>⚡<code>0x0002</code>代表<code>max_stack</code> 操作数栈（Operand Stacks）深度的最大值，虚拟机运行的时候会根据这个值来分配栈帧（StackFrame）中的操作栈深度</p>
@@ -661,8 +630,8 @@ SourceFile<span class="token operator">:</span> <span class="token string">"Test
 <p>方法参数（包括实例方法中的this引用），trycatch语句中catch中定义的异常，方法体中定义的局部变量 都需要使用局部变量表来存放，但是最后并不是把所有这些局部变量占用的<code>Slot</code>加起来就是<code>max_locals</code> 因为<strong>局部变量表中的Slot是可以复用的</strong>，当代码执行超过一个局部变量的作用域时，这个变量占用的Slot就可以被其他局部变量所使用，所以编译器会根据作用域来分配<code>Slot</code> 给各个局部变量使用</p>
 </blockquote>
 <p>⚡<code>0x0000000A</code>u4类型的<code>code_length</code> 代表的就是字节码的长度，这里是10，说明后面有10个字节长度的字节码指令流</p>
-<p>⚡u1类型的<code>code</code> 就是具体用字节码指令，每个指令都是一个u1的单字节指令，也就是说最多有256个指令，目前Java虚拟机已经定义了其中约200条编码值对应的指令，这里有连续的10个单字节指令，构成了<code><init></init></code>方法的字节码指令</p>
-<p>⚡<code>0x0000</code>代表<code>exception_table_length</code> 异常表的长度，这里<code><init></init></code>方法没有异常抛出所以为0</p>
+<p>⚡u1类型的<code>code</code> 就是具体用字节码指令，每个指令都是一个u1的单字节指令，也就是说最多有256个指令，目前Java虚拟机已经定义了其中约200条编码值对应的指令，这里有连续的10个单字节指令，构成了<code>&lt;init&gt;</code>方法的字节码指令</p>
+<p>⚡<code>0x0000</code>代表<code>exception_table_length</code> 异常表的长度，这里<code>&lt;init&gt;</code>方法没有异常抛出所以为0</p>
 <p>⚡ <code>exception_info</code>类型的<code>exception_table</code> 异常表，存放处理异常的信息（try-catch中的异常），前面的长度为0所以这里不存在这一项数据</p>
 <p><strong>异常表结构</strong></p>
 <table>
@@ -697,7 +666,7 @@ SourceFile<span class="token operator">:</span> <span class="token string">"Test
 <p>每个exception_table表项由start_pc，end_pc，handler_pc，catch_type（指向常量池中CONSTANT_Class_info类型的常量）组成</p>
 <p>当字节码在start_pc到end_pc之间出现了类型为catch_type或者其子类的异常，就转到handler_pc行继续执行，当catch_type为0时表示处理所有的异常</p>
 <p>⚡<code>0x0002</code> 代表<code>attributes_count</code> 是<code>Code</code> 属性表的<strong>附加属性</strong>的入口（一层套一层啊😂），值为2意味着附加属性表的数量为2</p>
-<h3 id="LineNumberTable属性"><a href="#LineNumberTable属性" class="headerlink" title="LineNumberTable属性"></a>LineNumberTable属性</h3><p>这个就是上面<strong><code><init></init></code>方法Code属性附加的第一个属性</strong>，这个属性用于描述Java源代码行号和字节码行号（偏移量）之间的对应关系，他并不是运行的必须属性，但是默认会生成到Class文件中，可以使用<code>-g:none</code>或<code>-g:lines</code>取消生成这个属性，取消之后程序抛异常的时候不会显示出错的行号，并且在调试的时候，也无法按照源码行来设置断点，其结构如下表</p>
+<h3 id="LineNumberTable属性"><a href="#LineNumberTable属性" class="headerlink" title="LineNumberTable属性"></a>LineNumberTable属性</h3><p>这个就是上面<strong><code>&lt;init&gt;</code>方法Code属性附加的第一个属性</strong>，这个属性用于描述Java源代码行号和字节码行号（偏移量）之间的对应关系，他并不是运行的必须属性，但是默认会生成到Class文件中，可以使用<code>-g:none</code>或<code>-g:lines</code>取消生成这个属性，取消之后程序抛异常的时候不会显示出错的行号，并且在调试的时候，也无法按照源码行来设置断点，其结构如下表</p>
 <table>
 <thead>
 <tr>
@@ -728,13 +697,13 @@ SourceFile<span class="token operator">:</span> <span class="token string">"Test
 </tr>
 </tbody></table>
 <p>🎯<strong>我们再接着上面的Code属性的属性表分析，看看Code的属性表是啥</strong></p>
-<p><img alt="mark" data-src="http://static.imlgw.top/blog/20190904/O7MuBcPXNPKT.png?imageslim" src="/img/loading.gif" class="lazyload"></p>
+<p><img src="http://static.imlgw.top/blog/20190904/O7MuBcPXNPKT.png?imageslim" alt="mark"></p>
 <p>⚡<code>0x000A</code> attributes_info的第一项，对应的是atttibute的名字的索引，常量池中对应第10项的索引是 </p>
 <p> <code>#10 = Utf8   LineNumberTable</code> 说明这个属性是LineNumberTable属性，然后根据上面给出的表格继续分析</p>
 <p>⚡<code>0x0000000A</code> 对应attribute_length，说明该属性值长度为10</p>
 <p>⚡<code>0x0002</code>对应line_number_table_length，说明有两处对应关系</p>
 <p>⚡ 后面紧跟的字节就对应的<code>line_number_table</code> 该属性又有两个属性，分别为<code>start_pc</code>和<code>line_number</code>两个u2类型的数据项，前者是字节码行号，后者是源码行号，前面line_number_table_length为2，所以这里后面有两个line_number_table</p>
-<h3 id="LocalVariableTable属性"><a href="#LocalVariableTable属性" class="headerlink" title="LocalVariableTable属性"></a>LocalVariableTable属性</h3><p>这个就是上面<strong><code><init></init></code> 方法Code属性附加的第二个属性</strong>，这个属性主要用于描述<strong>栈帧中局部变量表</strong>中的变量和Java源代码中定义的变量之间的关系，没有这项属性当在其他地方使用该方法的时候关于参数的名称都会丢失，最典型的就是IDE中有时候反编译一些框架的代码就会看见一些方法参数什么的都是arg0，arg1什么的</p>
+<h3 id="LocalVariableTable属性"><a href="#LocalVariableTable属性" class="headerlink" title="LocalVariableTable属性"></a>LocalVariableTable属性</h3><p>这个就是上面<strong><code>&lt;init&gt;</code> 方法Code属性附加的第二个属性</strong>，这个属性主要用于描述<strong>栈帧中局部变量表</strong>中的变量和Java源代码中定义的变量之间的关系，没有这项属性当在其他地方使用该方法的时候关于参数的名称都会丢失，最典型的就是IDE中有时候反编译一些框架的代码就会看见一些方法参数什么的都是arg0，arg1什么的</p>
 <p><strong>LocalVariableTable属性结构</strong></p>
 <table>
 <thead>
@@ -766,12 +735,12 @@ SourceFile<span class="token operator">:</span> <span class="token string">"Test
 </tr>
 </tbody></table>
 <p>🎯 <strong>我们接着上面的LineNumberTable属性分析<code>LocalVariableTable</code></strong></p>
-<p><img alt="mark" data-src="http://static.imlgw.top/blog/20190905/TafXz1oMkG4d.png?imageslim" src="/img/loading.gif" class="lazyload"></p>
+<p><img src="http://static.imlgw.top/blog/20190905/TafXz1oMkG4d.png?imageslim" alt="mark"></p>
 <p>⚡<code>0x000B</code>和之前所有的attributes_info一样，这个第一项代表该属性的名字在常量池的索引值，这里对应常量池第11项 <code>#11 = Utf8   LocalVariableTable</code> </p>
 <p>⚡<code>0x0000000C</code> 对应attribute_length，说明该属性值长度为12</p>
 <p>⚡<code>0x0001</code>对应local_variable_table_length，值为1说明只有一个局部变量</p>
 <blockquote>
-<p>其实到现在我们分析的属性表都还是在分析这个类的第一个方法，JVM自动生成的<code><init></init></code>方法所对应的属性表，而这个<code><init></init></code>很明显是没有参数的，是一个无参的空构造器，那么问题来了，这里的局部变量是从哪里来的？为什么不是0？</p>
+<p>其实到现在我们分析的属性表都还是在分析这个类的第一个方法，JVM自动生成的<code>&lt;init&gt;</code>方法所对应的属性表，而这个<code>&lt;init&gt;</code>很明显是没有参数的，是一个无参的空构造器，那么问题来了，这里的局部变量是从哪里来的？为什么不是0？</p>
 <p>其实这很好解释，平常编码的时候大家肯定都使用过<code>this</code> 这个关键字，通过这个关键字可以在实例方法中拿到当前的实例对象，这个1代表其实就是这个<code>this</code>，在Javac编译的时候会将对this的访问转换为对一个方法参数的访问，而这个方法参数会在运行这个实例方法的时候由JVM自动的传入，所以局部变量表中至少会存在一个指向当前实例的局部变量</p>
 </blockquote>
 <p>我们继续分析后面的<code>local_variable_info</code> </p>
@@ -817,7 +786,7 @@ SourceFile<span class="token operator">:</span> <span class="token string">"Test
 <p><code>#13 = Utf8    Ljvmstudy/classfile_stu/Test1;</code> 当前实例对象的<strong>全限定名</strong></p>
 <p>⚡<code>0x0000</code> 对应<code>index</code> 代表这个局部变量在<strong>栈帧局部变量表</strong>中Slot的位置</p>
 <blockquote>
-<p>_<strong>⏳ 到这里我们的方法表的第一个方法<code><init></init></code>的Code属性就结束了，由于<code><init></init></code>方法不包含其他的属性所以<code><init></init></code>方法在字节码中也已经结束了</strong>_，后面的方法就不再逐个字节的分析了，都是一样的，主要的是要搞清楚这些属性的层级和包含关系，不要搞混了</p>
+<p>_<strong>⏳ 到这里我们的方法表的第一个方法<code>&lt;init&gt;</code>的Code属性就结束了，由于<code>&lt;init&gt;</code>方法不包含其他的属性所以<code>&lt;init&gt;</code>方法在字节码中也已经结束了</strong>_，后面的方法就不再逐个字节的分析了，都是一样的，主要的是要搞清楚这些属性的层级和包含关系，不要搞混了</p>
 </blockquote>
 <h3 id="Exceptions属性"><a href="#Exceptions属性" class="headerlink" title="Exceptions属性"></a>Exceptions属性</h3><p><code>Exceptions</code> 属性和上面Code属性是平级的，和Code属性附带的<code>exception_table</code>并不是一个东西，不要搞混了，Exceptions属性的作用是列举出方法中可能抛出的受检查异常，也就是方法描述时在<code>throws</code>关键字后面列举的异常，结构如下</p>
 <table>
@@ -850,109 +819,244 @@ SourceFile<span class="token operator">:</span> <span class="token string">"Test
 </tr>
 </tbody></table>
 <p><code>number_of_exceptions</code>表示可能抛出多少种受检查异常，每种异常都是一个<code>exception_index_table</code> 很明显这个是一个索引，指向常量池中对应的Exception的描述符</p>
-<p>这里我们的<code><init></init></code> 方法并没有抛出异常，所以这一项属性并不存在，那我们找一个有异常的来看看</p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Test2</span> <span class="token punctuation">{</span>
+<p>这里我们的<code>&lt;init&gt;</code> 方法并没有抛出异常，所以这一项属性并不存在，那我们找一个有异常的来看看</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test2</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> bbbb = <span class="number">99</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="keyword">int</span> aaaa = <span class="number">99</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> List&lt;Integer&gt; list=<span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Test2</span><span class="params">(<span class="keyword">int</span> a)</span> </span>&#123;</span><br><span class="line">        bbbb = a;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">inc</span><span class="params">()</span> <span class="keyword">throws</span> ArithmeticException</span>&#123;</span><br><span class="line">        <span class="keyword">int</span> x;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            x=<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">return</span>  x;</span><br><span class="line">        &#125;<span class="keyword">catch</span> (Exception e)&#123;</span><br><span class="line">            x=<span class="number">2</span>;</span><br><span class="line">            <span class="keyword">return</span> x;</span><br><span class="line">        &#125;<span class="keyword">finally</span> &#123;</span><br><span class="line">            x=<span class="number">3</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Deprecated</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">deprecatedMethod</span><span class="params">()</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">int</span> bbbb <span class="token operator">=</span> <span class="token number">99</span><span class="token punctuation">;</span>
-
-    <span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token keyword">static</span> <span class="token keyword">int</span> aaaa <span class="token operator">=</span> <span class="token number">99</span><span class="token punctuation">;</span>
-
-    <span class="token keyword">private</span> List<span class="token operator"><</span>Integer<span class="token operator">></span> list<span class="token operator">=</span>null<span class="token punctuation">;</span>
-
-    <span class="token keyword">public</span> <span class="token function">Test2</span><span class="token punctuation">(</span><span class="token keyword">int</span> a<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        bbbb <span class="token operator">=</span> a<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">inc</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> ArithmeticException<span class="token punctuation">{</span>
-        <span class="token keyword">int</span> x<span class="token punctuation">;</span>
-        <span class="token keyword">try</span> <span class="token punctuation">{</span>
-            x<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span>
-            <span class="token keyword">return</span>  x<span class="token punctuation">;</span>
-        <span class="token punctuation">}</span><span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Exception</span> e<span class="token punctuation">)</span><span class="token punctuation">{</span>
-            x<span class="token operator">=</span><span class="token number">2</span><span class="token punctuation">;</span>
-            <span class="token keyword">return</span> x<span class="token punctuation">;</span>
-        <span class="token punctuation">}</span><span class="token keyword">finally</span> <span class="token punctuation">{</span>
-            x<span class="token operator">=</span><span class="token number">3</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token annotation punctuation">@Deprecated</span>
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">deprecatedMethod</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span></code></pre>
-<p><img alt="mark" data-src="http://static.imlgw.top/blog/20190905/uG5AQrVoHphH.png?imageslim" src="/img/loading.gif" class="lazyload"></p>
+<p><img src="http://static.imlgw.top/blog/20190905/uG5AQrVoHphH.png?imageslim" alt="mark"></p>
 <p>可以看到<code>exception_table</code> 里面记录了这个方法的异常处理表，也就是<code>try-catch</code>里面的异常处理，这也是Java代码的一部分，编译器使用了异常处理表去处理异常和finally机制，在jdk1.4之前使用的是简单的跳转指令来实现，而Exceptions属性和Code平级，只是列举了一些可能抛出的异常</p>
-<pre class=" language-java"><code class="language-java">Exceptions<span class="token operator">:</span>
-  <span class="token keyword">throws</span> java<span class="token punctuation">.</span>lang<span class="token punctuation">.</span>ArithmeticException</code></pre>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Exceptions:</span><br><span class="line">  <span class="keyword">throws</span> java.lang.ArithmeticException</span><br></pre></td></tr></table></figure>
 <h2 id="SourceFile属性"><a href="#SourceFile属性" class="headerlink" title="SourceFile属性"></a>SourceFile属性</h2><p>这个属性是属于Class文件的属性，很明显是用来记录生成这个Class文件的源代码名称，其值指向一个CONSTANT_Utf8_info的索引，值就是源文件的名字</p>
 <h2 id="ConstantValue属性"><a href="#ConstantValue属性" class="headerlink" title="ConstantValue属性"></a>ConstantValue属性</h2><p>这个属性在前一篇 <a href="http://imlgw.top/2019/08/17/shen-ru-li-jie-java-xu-ni-ji-er/#%E5%87%86%E5%A4%87">类加载器</a> 中提到过， <code>ConstantValue</code>属性的作用是通知虚拟机自动为静态变量赋值，只有被static关键字修饰的变量（类变量）可以使用这项属性</p>
-<p>如果<strong>同时使用final和static来修饰一个变量</strong>，并且这个变量的数据类型是基本类型或者<code>java.lang.String</code>的话，就生成<code>ConstantValue</code>属性，用于在<strong>准备阶段</strong>给变量赋初始值，如果这个变量没有被final修饰或者并非基本类型及字符串，则在准备阶段会被初始化为默认的零值，在<code><clinit></clinit></code>方法中进行真正的初始化</p>
+<p>如果<strong>同时使用final和static来修饰一个变量</strong>，并且这个变量的数据类型是基本类型或者<code>java.lang.String</code>的话，就生成<code>ConstantValue</code>属性，用于在<strong>准备阶段</strong>给变量赋初始值，如果这个变量没有被final修饰或者并非基本类型及字符串，则在准备阶段会被初始化为默认的零值，在<code>&lt;clinit&gt;</code>方法中进行真正的初始化</p>
 <p><strong>依然是上面Exceptions的Demo</strong></p>
-<p><img alt="mark" data-src="http://static.imlgw.top/blog/20190905/U8zwbs2c0n8a.png?imageslim" src="/img/loading.gif" class="lazyload"></p>
+<p><img src="http://static.imlgw.top/blog/20190905/U8zwbs2c0n8a.png?imageslim" alt="mark"></p>
 <p>可以看到<code>aaaa</code> 这个常量字段附带了 <code>ConstantValue</code> 属性其值就是指向常量池中99的一个索引</p>
 <blockquote>
 <p>🎯 后面还有一些属性就不再详细介绍了</p>
 <p>Signature用来记录泛型的信息，StackMapTable用来验证字节码，BootstarapMethods用来保存动态调用的引导方法限定符，Deprecated和Synthetic两个boolean属性……</p>
 </blockquote>
 <h2 id="Synchnorized字节码分析"><a href="#Synchnorized字节码分析" class="headerlink" title="Synchnorized字节码分析"></a>Synchnorized字节码分析</h2><p><strong>synchnorized</strong>关键字可以用来修饰方法体，或者方法体内的代码块，修饰方法体的时候同步是隐式的，无需通过字节码指令来控制，它实现在方法调用和返回中，为了看到字节码的变化，这里我们不讨论这种（两种方式的底层实现其实还是一样的）</p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Test4</span> <span class="token punctuation">{</span>
-    <span class="token keyword">public</span> <span class="token keyword">static</span> Integer a <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test4</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Integer a = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setA</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">synchronized</span> (<span class="keyword">this</span>) &#123;</span><br><span class="line">            a = x;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setA</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">synchronized</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            a <span class="token operator">=</span> x<span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span></code></pre>
 <p>编译后利用工具查看setA方法内生成的字节码指令（省略了次要的一些信息）</p>
-<pre class=" language-java"><code class="language-java"><span class="token number">0</span><span class="token operator">:</span> aload_0           <span class="token comment" spellcheck="true">//对象引用this入栈</span>
-<span class="token number">1</span><span class="token operator">:</span> dup                 <span class="token comment" spellcheck="true">//复制栈顶元素(this)</span>
-<span class="token number">2</span><span class="token operator">:</span> astore_2          <span class="token comment" spellcheck="true">//将栈顶元素(this)存入局部变量表Slot索引为2的位置</span>
-<span class="token number">3</span><span class="token operator">:</span> monitorenter      <span class="token comment" spellcheck="true">//以栈顶元素(this)为锁进入同步块</span>
-<span class="token number">4</span><span class="token operator">:</span> iload_1             <span class="token comment" spellcheck="true">//局部变量Slot 1位置的元素(x)入栈</span>
-<span class="token number">5</span><span class="token operator">:</span> invokestatic  #<span class="token number">2</span>  <span class="token comment" spellcheck="true">// Method java/lang/Integer.valueOf:(I)Ljava/lang/Integer;</span>
-<span class="token number">8</span><span class="token operator">:</span> putstatic     #<span class="token number">3</span>  <span class="token comment" spellcheck="true">// Field a:Ljava/lang/Integer; 用x给a赋值</span>
-<span class="token number">11</span><span class="token operator">:</span> aload_2          <span class="token comment" spellcheck="true">//局部变量表Slot 2元素(this)入栈</span>
-<span class="token number">12</span><span class="token operator">:</span> monitorexit      <span class="token comment" spellcheck="true">//退出同步</span>
-<span class="token number">13</span><span class="token operator">:</span> <span class="token keyword">goto</span>          <span class="token number">21</span> <span class="token comment" spellcheck="true">//跳转到21行结束</span>
-<span class="token number">16</span><span class="token operator">:</span> astore_3         <span class="token comment" spellcheck="true">//到这里说明异常了，将栈顶元素（异常对象）存入局部变量表Slot 3位置</span>
-<span class="token number">17</span><span class="token operator">:</span> aload_2          <span class="token comment" spellcheck="true">//局部变量表Slot 2元素(this)位置入栈</span>
-<span class="token number">18</span><span class="token operator">:</span> monitorexit      <span class="token comment" spellcheck="true">//退出同步</span>
-<span class="token number">19</span><span class="token operator">:</span> aload_3          <span class="token comment" spellcheck="true">//局部变量表Slot 3位置元素入栈</span>
-<span class="token number">20</span><span class="token operator">:</span> athrow           <span class="token comment" spellcheck="true">//抛出异常</span>
-<span class="token number">21</span><span class="token operator">:</span> <span class="token keyword">return</span>           <span class="token comment" spellcheck="true">//方法正常返回</span>
-Exception table<span class="token operator">:</span>
-    from    to  target type
-       <span class="token number">4</span>    <span class="token number">13</span>    <span class="token number">16</span>   any
-      <span class="token number">16</span>    <span class="token number">19</span>    <span class="token number">16</span>   any
-</code></pre>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="number">0</span>: aload_0           <span class="comment">//对象引用this入栈</span></span><br><span class="line"><span class="number">1</span>: dup	             <span class="comment">//复制栈顶元素(this)</span></span><br><span class="line"><span class="number">2</span>: astore_2          <span class="comment">//将栈顶元素(this)存入局部变量表Slot索引为2的位置</span></span><br><span class="line"><span class="number">3</span>: monitorenter      <span class="comment">//以栈顶元素(this)为锁进入同步块</span></span><br><span class="line"><span class="number">4</span>: iload_1	         <span class="comment">//局部变量Slot 1位置的元素(x)入栈</span></span><br><span class="line">5: invokestatic  #2  // Method java/lang/Integer.valueOf:(I)Ljava/lang/Integer;</span><br><span class="line">8: putstatic     #3  // Field a:Ljava/lang/Integer; 用x给a赋值</span><br><span class="line"><span class="number">11</span>: aload_2          <span class="comment">//局部变量表Slot 2元素(this)入栈</span></span><br><span class="line"><span class="number">12</span>: monitorexit      <span class="comment">//退出同步</span></span><br><span class="line"><span class="number">13</span>: goto          <span class="number">21</span> <span class="comment">//跳转到21行结束</span></span><br><span class="line"><span class="number">16</span>: astore_3         <span class="comment">//到这里说明异常了，将栈顶元素（异常对象）存入局部变量表Slot 3位置</span></span><br><span class="line"><span class="number">17</span>: aload_2          <span class="comment">//局部变量表Slot 2元素(this)位置入栈</span></span><br><span class="line"><span class="number">18</span>: monitorexit      <span class="comment">//退出同步</span></span><br><span class="line"><span class="number">19</span>: aload_3          <span class="comment">//局部变量表Slot 3位置元素入栈</span></span><br><span class="line"><span class="number">20</span>: athrow           <span class="comment">//抛出异常</span></span><br><span class="line"><span class="number">21</span>: <span class="keyword">return</span>           <span class="comment">//方法正常返回</span></span><br><span class="line">Exception table:</span><br><span class="line">    from    to  target type</span><br><span class="line">       <span class="number">4</span>    <span class="number">13</span>    <span class="number">16</span>   any</span><br><span class="line">      <span class="number">16</span>    <span class="number">19</span>    <span class="number">16</span>   any</span><br></pre></td></tr></table></figure>
 <p>最开始没有学字节码的时候一直很纳闷为啥有两个<code>monitorexit</code> ，现在算是明白了，这是为了保证synchnorized在方法异常的情况下仍然可以正常的释放锁，而不至于导致锁泄露，这也是比较推荐使用synchnorized的原因之一</p>
 <p>通过字节码可以看到，编译器为我们自动的生成了一个异常表，也就是前面Code属性中携带的exception_table属性，如果在指定的程序段内发生异常，会按照异常表指定的target进行跳转，无论如何都会释放这个锁</p>
-<h2 id="总结-amp-参考"><a href="#总结-amp-参考" class="headerlink" title="总结 & 参考"></a>总结 & 参考</h2><p>这一部分主要记录了Class字节码的文件结构相关的内容，也算是是逐个字节的分析了一遍，收获还是挺大的，对JVM平台的理解又加深了，当然这一篇也是给下一篇<strong>虚拟机节码的执行引擎</strong>做铺垫</p>
+<h2 id="总结-amp-参考"><a href="#总结-amp-参考" class="headerlink" title="总结 &amp; 参考"></a>总结 &amp; 参考</h2><p>这一部分主要记录了Class字节码的文件结构相关的内容，也算是是逐个字节的分析了一遍，收获还是挺大的，对JVM平台的理解又加深了，当然这一篇也是给下一篇<strong>虚拟机节码的执行引擎</strong>做铺垫</p>
 <p><strong><em>《深入理解Java虚拟机》——周志明</em></strong></p>
-</body></html></div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">imlgw</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://imlgw.top/2019/09/05/shen-ru-li-jie-java-xu-ni-ji-san/">http://imlgw.top/2019/09/05/shen-ru-li-jie-java-xu-ni-ji-san/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://imlgw.top">iMlGw0</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Class%E7%BB%93%E6%9E%84/">Class结构    </a><a class="post-meta__tags" href="/tags/JVM/">JVM    </a></div><div class="post_share"><div class="social-share" data-image="http://static.imlgw.top/blog/20190905/bvODiOGH0IfM.jpg?imageslim" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js"></script></div></div><div class="post-reward"><a class="reward-button button--primary button--animated"> <i class="fa fa-qrcode"></i> 打赏<div class="reward-main"><ul class="reward-all"><li class="reward-item"><img class="lazyload post-qr-code__img" src="/img/wechat.png" alt="微信"><div class="post-qr-code__desc">微信</div></li><li class="reward-item"><img class="lazyload post-qr-code__img" src="/img/alipay.png" alt="支付寶"><div class="post-qr-code__desc">支付寶</div></li></ul></div></a></div><nav class="pagination_post" id="pagination"><div class="prev-post pull_left"><a href="/2019/09/15/leetcode-cha-zhao/"><img class="prev_cover lazyload" data-src="http://static.imlgw.top/blog/20190915/vqTRbmP6PbOo.jpg?imageslim" onerror="onerror=null;src='/img/404.jpg'"><div class="label">上一篇</div><div class="prev_info"><span>LeetCode查找</span></div></a></div><div class="next-post pull_right"><a href="/2019/09/01/leetcode-dong-tai-gui-hua/"><img class="next_cover lazyload" data-src="http://static.imlgw.top/blog/20190903/6oWNO41xhu1B.jpg?imageslim" onerror="onerror=null;src='/img/404.jpg'"><div class="label">下一篇</div><div class="next_info"><span>LeetCode动态规划</span></div></a></div></nav><div class="relatedPosts"><div class="relatedPosts_headline"><i class="fa fa-fw fa-thumbs-up" aria-hidden="true"></i><span> 相关推荐</span></div><div class="relatedPosts_list"><div class="relatedPosts_item"><a href="/2019/08/17/shen-ru-li-jie-java-xu-ni-ji-er/" title="深入理解Java虚拟机（二）"><img class="relatedPosts_cover lazyload"data-src="http://static.imlgw.top/blog/20190826/dYaTXirlDNhC.jpg?imageslim"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2020-04-25</div><div class="relatedPosts_title">深入理解Java虚拟机（二）</div></div></a></div><div class="relatedPosts_item"><a href="/2019/08/11/shen-ru-li-jie-java-xu-ni-ji-yi/" title="深入理解Java虚拟机（一）"><img class="relatedPosts_cover lazyload"data-src="http://static.imlgw.top/blog/20190817/D1Ru1EJew7lf.jpg?imageslim"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2020-04-25</div><div class="relatedPosts_title">深入理解Java虚拟机（一）</div></div></a></div></div><div class="clear_both"></div></div><hr><div id="post-comment"><div class="comment_headling"><i class="fa fa-comments fa-fw" aria-hidden="true"></i><span> 评论</span></div><div class="vcomment" id="vcomment"></div><script src="https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script><script>var notify = false == true ? true : false;
-var verify = true == true ? true : false;
-var GUEST_INFO = ['nick','mail','link'];
-var guest_info = 'nick,mail,link'.split(',').filter(function(item){
-  return GUEST_INFO.indexOf(item) > -1
-});
-guest_info = guest_info.length == 0 ? GUEST_INFO :guest_info;
 
-window.valine = new Valine({
-  el:'#vcomment',
-  notify:notify,
-  verify:verify,
-  appId:'MkcXmeDvktRNBDBrVqb9KYPH-MdYXbMMI',
-  appKey:'swDnb5a9u9Ksp2Rwkdm7Qulh',
-  placeholder:'留下邮箱才能收到及时收到回复~~',
-  avatar:'monsterid',
-  guest_info:guest_info,
-  pageSize:'10',
-  lang:'zh-cn',
-  recordIP: true
-});</script></div></div></main><footer id="footer" style="background-image: url(http://static.imlgw.top/blog/20190905/bvODiOGH0IfM.jpg?imageslim)" data-type="photo"><div id="footer-wrap"><div class="copyright">&copy;2018 - 2020 By imlgw</div><div class="framework-info"><span>驱动 </span><a href="http://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener"><span>Butterfly</span></a></div><div class="icp"><a href="http://beian.miit.gov.cn/publish/query/indexFirst.action" target="_blank" rel="noopener"><span>鄂ICP备18011208号</span></a></div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><i class="fa fa-book" id="readmode" title="阅读模式"></i><i class="fa fa-plus" id="font_plus" title="放大字体"></i><i class="fa fa-minus" id="font_minus" title="缩小字体"></i><a class="translate_chn_to_cht" id="translateLink" href="javascript:translatePage();" title="简繁转换" target="_self">簡</a></div><div id="rightside-config-show"><div id="rightside_config" title="设置"><i class="fa fa-cog" aria-hidden="true"></i></div><a id="to_comment" href="#post-comment" title="直达评论"><i class="scroll_to_comment fa fa-comments">  </i></a><i class="fa fa-list-ul close" id="mobile-toc-button" title="目录" aria-hidden="true"></i><i class="fa fa-arrow-up" id="go-up" title="回到顶部" aria-hidden="true"></i></div></section><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/medium-zoom/dist/medium-zoom.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script id="ribbon_piao" mobile="undefined" src="https://cdn.jsdelivr.net/gh/jerryc127/butterfly_cdn@2.1.0/js/piao.js"></script><script src="https://cdn.jsdelivr.net/npm/activate-power-mode/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
-POWERMODE.shake = false; 
-document.body.addEventListener('input', POWERMODE);
-</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@latest/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@latest/lazysizes.min.js" async=""></script><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章"></div></div></div><hr><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a href="https://github.com/wzpan/hexo-generator-search" target="_blank" rel="noopener" style="color:#49B1F5;">hexo-generator-search</a>
- <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fa fa-times"></i></span></div><div class="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/live2d-widget@3.x/lib/L2Dwidget.min.js"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"https://cdn.jsdelivr.net/npm/live2d-widget-model-hijiki@1.0.5/assets/hijiki.model.json"},"display":{"superSample":2,"width":160,"height":320,"position":"right","hOffset":0,"vOffset":-70},"mobile":{"show":false,"scale":0.2},"log":false});</script></body></html>
+    </div>
+
+  </article>
+  <div class="toc-container">
+    
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Class类文件的结构"><span class="toc-text">Class类文件的结构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Class文件整体结构"><span class="toc-text">Class文件整体结构</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#常量池"><span class="toc-text">常量池</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#常量池项目类型"><span class="toc-text">常量池项目类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#cp-info"><span class="toc-text">cp_info</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#访问标志"><span class="toc-text">访问标志</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#类索引，父类索引接口索引集合"><span class="toc-text">类索引，父类索引接口索引集合</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#字段表集合"><span class="toc-text">字段表集合</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#field-info"><span class="toc-text">field_info</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#方法表集合"><span class="toc-text">方法表集合</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#method-info"><span class="toc-text">method_info</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#属性表集合"><span class="toc-text">属性表集合</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Code属性"><span class="toc-text">Code属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LineNumberTable属性"><span class="toc-text">LineNumberTable属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LocalVariableTable属性"><span class="toc-text">LocalVariableTable属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Exceptions属性"><span class="toc-text">Exceptions属性</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SourceFile属性"><span class="toc-text">SourceFile属性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ConstantValue属性"><span class="toc-text">ConstantValue属性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Synchnorized字节码分析"><span class="toc-text">Synchnorized字节码分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结-amp-参考"><span class="toc-text">总结 &amp; 参考</span></a></li></ol>
+  </div>
+
+
+  </div>
+</div>
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'true' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "MkcXmeDvktRNBDBrVqb9KYPH-MdYXbMMI",
+            app_key: "swDnb5a9u9Ksp2Rwkdm7Qulh",
+            placeholder: "留下邮箱才能收到收到回复喔 ~",
+            avatar:"monsterid"
+        });
+    }
+</script>
+    </section>
+  
+<div class="copyright">
+    <span>本作品采用</span>
+    <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">知识共享署名 4.0 国际许可协议</a>
+    <span>进行许可。 转载时请注明原文链接。</span>
+</div>
+
+
+  
+    <div class="post-nav">
+      <div class="post-nav-item post-nav-next">
+        
+          <span>〈 </span>
+          <a href="/2019/09/01/leetcode-dong-tai-gui-hua/" rel="next" title="LeetCode动态规划">
+          LeetCode动态规划
+          </a>
+        
+      </div>
+  
+      <div class="post-nav-item post-nav-prev">
+          
+          <a href="/2019/09/15/leetcode-cha-zhao/" rel="prev" title="LeetCode查找">
+            LeetCode查找
+          </a>
+          <span>〉</span>
+        
+      </div>
+    </div>
+  
+
+    </div>
+
+    
+
+  </div>
+  <footer class="footer text-center">
+    <div id="bottom-inner">
+        <a class="bottom-item" href="https://github.com/imlgw" target="_blank">GitHub</a> |
+        <a class="bottom-item" href="/links">友情链接</a> |
+        <a class="bottom-item" href="https://hexo.io" target="_blank">Powered by hexo</a> |
+        <a class="bottom-item" href="https://github.com/fooying/hexo-theme-xoxo-plus" target="_blank">Theme xoxo-plus</a> |
+        <a class="bottom-item" href="/atom.xml">RSS</a>
+    </div>
+</footer>
+
+  
+
+<script>
+  (function(window, document, undefined) {
+
+    var timer = null;
+
+    function returnTop() {
+      cancelAnimationFrame(timer);
+      timer = requestAnimationFrame(function fn() {
+        var oTop = document.body.scrollTop || document.documentElement.scrollTop;
+        if (oTop > 0) {
+          document.body.scrollTop = document.documentElement.scrollTop = oTop - 50;
+          timer = requestAnimationFrame(fn);
+        } else {
+          cancelAnimationFrame(timer);
+        }
+      });
+    }
+
+    var hearts = [];
+    window.requestAnimationFrame = (function() {
+      return window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.oRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        function(callback) {
+          setTimeout(callback, 1000 / 60);
+        }
+    })();
+    init();
+
+    function init() {
+      css(".heart{z-index:9999;width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);}.heart:after,.heart:before{content: '';width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: absolute;}.heart:after{top: -5px;}.heart:before{left: -5px;}");
+      attachEvent();
+      gameloop();
+      addMenuEvent();
+    }
+
+    function gameloop() {
+      for (var i = 0; i < hearts.length; i++) {
+        if (hearts[i].alpha <= 0) {
+          document.body.removeChild(hearts[i].el);
+          hearts.splice(i, 1);
+          continue;
+        }
+        hearts[i].y--;
+        hearts[i].scale += 0.004;
+        hearts[i].alpha -= 0.013;
+        hearts[i].el.style.cssText = "left:" + hearts[i].x + "px;top:" + hearts[i].y + "px;opacity:" + hearts[i].alpha + ";transform:scale(" + hearts[i].scale + "," + hearts[i].scale + ") rotate(45deg);background:" + hearts[i].color;
+      }
+      requestAnimationFrame(gameloop);
+    }
+
+    /**
+     * 给logo设置点击事件
+     * 
+     * - 回到顶部
+     * - 出现爱心
+     */
+    function attachEvent() {
+      var old = typeof window.onclick === "function" && window.onclick;
+      var logo = document.getElementById("logo");
+      if (logo) {
+        logo.onclick = function(event) {
+          returnTop();
+          old && old();
+          createHeart(event);
+        }
+      }
+      
+    }
+
+    function createHeart(event) {
+      var d = document.createElement("div");
+      d.className = "heart";
+      hearts.push({
+        el: d,
+        x: event.clientX - 5,
+        y: event.clientY - 5,
+        scale: 1,
+        alpha: 1,
+        color: randomColor()
+      });
+      document.body.appendChild(d);
+    }
+
+    function css(css) {
+      var style = document.createElement("style");
+      style.type = "text/css";
+      try {
+        style.appendChild(document.createTextNode(css));
+      } catch (ex) {
+        style.styleSheet.cssText = css;
+      }
+      document.getElementsByTagName('head')[0].appendChild(style);
+    }
+
+    function randomColor() {
+      // return "rgb(" + (~~(Math.random() * 255)) + "," + (~~(Math.random() * 255)) + "," + (~~(Math.random() * 255)) + ")";
+      return "#F44336";
+    }
+
+    function addMenuEvent() {
+      var menu = document.getElementById('menu-main-post');
+      if (menu) {
+        var toc = document.getElementById('toc');
+        if (toc) {
+          menu.onclick = function() {
+            if (toc) {
+              if (toc.style.display == 'block') {
+                toc.style.display = 'none';
+              } else {
+                toc.style.display = 'block';
+              }
+            }
+          };
+        } else {
+          menu.style.display = 'none';
+        }
+      }
+    }
+
+  })(window, document);
+</script>
+
+  
+
+
+
+  
+
+<script src="https://cdn.jsdelivr.net/npm/live2d-widget@3.x/lib/L2Dwidget.min.js"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"https://cdn.jsdelivr.net/npm/live2d-widget-model-hijiki@1.0.5/assets/hijiki.model.json"},"display":{"superSample":2,"width":160,"height":320,"position":"right","hOffset":0,"vOffset":-70},"mobile":{"show":false,"scale":0.2},"log":false});</script></body>
+</html>

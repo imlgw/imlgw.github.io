@@ -1464,9 +1464,9 @@
       
         <tags>
             
-            <tag> Hexo </tag>
-            
             <tag> 入门 </tag>
+            
+            <tag> Hexo </tag>
             
             <tag> 体验 </tag>
             
@@ -1480,18 +1480,18 @@
     
     
     <entry>
-      <title>留言板</title>
-      <link href="/board/index.html"/>
-      <url>/board/index.html</url>
+      <title>关于我</title>
+      <link href="/about/index.html"/>
+      <url>/about/index.html</url>
       
     </entry>
     
     
     
     <entry>
-      <title>关于我</title>
-      <link href="/about/index.html"/>
-      <url>/about/index.html</url>
+      <title>留言板</title>
+      <link href="/board/index.html"/>
+      <url>/board/index.html</url>
       
     </entry>
     
@@ -1516,18 +1516,18 @@
     
     
     <entry>
-      <title>大佬们</title>
-      <link href="/link/index.html"/>
-      <url>/link/index.html</url>
+      <title>项目</title>
+      <link href="/project/index.html"/>
+      <url>/project/index.html</url>
       
     </entry>
     
     
     
     <entry>
-      <title>文章标签</title>
-      <link href="/tags/index.html"/>
-      <url>/tags/index.html</url>
+      <title>大佬们</title>
+      <link href="/links/index.html"/>
+      <url>/links/index.html</url>
       
     </entry>
     
@@ -1537,6 +1537,15 @@
       <title>Search</title>
       <link href="/search/index.html"/>
       <url>/search/index.html</url>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>文章标签</title>
+      <link href="/tags/index.html"/>
+      <url>/tags/index.html</url>
       
     </entry>
     

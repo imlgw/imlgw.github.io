@@ -1,49 +1,141 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5"><title>CAS与原子变量 | iMlGw0</title><meta name="description" content="CAS与原子变量"><meta name="keywords" content="多线程,并发编程"><meta name="author" content="imlgw"><meta name="copyright" content="imlgw"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/img/Cup.ico"><link rel="preconnect" href="//cdn.jsdelivr.net"><link rel="preconnect" href="https://hm.baidu.com"><link rel="preconnect" href="https://fonts.googleapis.com" crossorigin><link rel="preconnect" href="//busuanzi.ibruce.info"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="CAS与原子变量"><meta name="twitter:description" content="CAS与原子变量"><meta name="twitter:image" content="http://static.imlgw.top/image/20190713/wallhaven-zmpd3j.jpg"><meta property="og:type" content="article"><meta property="og:title" content="CAS与原子变量"><meta property="og:url" content="http://imlgw.top/2019/04/22/cas-yu-yuan-zi-bian-liang/"><meta property="og:site_name" content="iMlGw0"><meta property="og:description" content="CAS与原子变量"><meta property="og:image" content="http://static.imlgw.top/image/20190713/wallhaven-zmpd3j.jpg"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script src="https://cdn.jsdelivr.net/npm/js-cookie/dist/js.cookie.min.js"></script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css"><link rel="canonical" href="http://imlgw.top/2019/04/22/cas-yu-yuan-zi-bian-liang/"><link rel="prev" title="Volatile关键字详解" href="http://imlgw.top/2019/04/29/volatile-guan-jian-zi/"><link rel="next" title="Java多线程之设计模式" href="http://imlgw.top/2019/04/09/java-duo-xian-cheng-li-mian-de-she-ji-mo-shi/"><script>var _hmt = _hmt || [];
-(function() {
-  var hm = document.createElement("script");
-  hm.src = "https://hm.baidu.com/hm.js?93be601f1b40364d8cd640d751012180";
-  var s = document.getElementsByTagName("script")[0]; 
-  s.parentNode.insertBefore(hm, s);
-})();
-</script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><script>var GLOBAL_CONFIG = { 
-  root: '/',
-  algolia: undefined,
-  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容:${query}"}},
-  translate: {"defaultEncoding":1,"translateDelay":0,"cookieDomain":"imlgw.top","msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简"},
-  copy: {
-    success: '复制成功',
-    error: '复制错误',
-    noSupport: '浏览器不支持'
-  },
-  bookmark: {
-    title: 'Snackbar.bookmark.title',
-    message_prev: '按',
-    message_next: '键将本页加入书签'
-  },
-  runtime_unit: '天',
-  runtime: true,
-  copyright: {"languages":{"author":"作者: imlgw","link":"链接: http://imlgw.top/2019/04/22/cas-yu-yuan-zi-bian-liang/","source":"来源: iMlGw0","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
-  ClickShowText: undefined,
-  medium_zoom: true,
-  fancybox: false,
-  Snackbar: {"bookmark":{"title":"Snackbar.bookmark.title","message_prev":"按","message_next":"键将本页加入书签"},"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#2d3035","position":"bottom-left"},
-  baiduPush: false,
-  isHome: false,
-  isPost: true
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#202020"/>
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
   
-}</script><meta name="generator" content="Hexo 4.2.0"><link rel="stylesheet" href="/css/prism.css" type="text/css"></head><body><header> <div id="page-header"><span class="pull_left" id="blog_name"><a class="blog_title" id="site-name" href="/">iMlGw0</a></span><span class="toggle-menu pull_right close"><a class="site-page"><i class="fa fa-bars fa-fw" aria-hidden="true"></i></a></span><span class="pull_right menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/board/"><i class="fa-fw fa fa-link"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-list" aria-hidden="true"></i><span> LeetCode</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="http://imlgw.top/2019/02/27/leetcode-lian-biao/"><i class="fa-fw fa fa-tags"></i><span> 链表</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/05/04/leetcode-shu-zu/"><i class="fa-fw fa fa-tags"></i><span> 数组</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/10/01/leetcode-zhan-dui-lie/"><i class="fa-fw fa fa-tags"></i><span> 栈&amp;队列</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/09/15/leetcode-cha-zhao/"><i class="fa-fw fa fa-tags"></i><span> 查找</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/12/06/leetcode-er-fen-cha-zhao/"><i class="fa-fw fa fa-tags"></i><span> 二分查找</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/11/06/leetcode-er-cha-shu/"><i class="fa-fw fa fa-tags"></i><span> 二叉树</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/07/20/leetcode-hua-dong-chuang-kou/"><i class="fa-fw fa fa-tags"></i><span> 滑动窗口</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/09/01/leetcode-dong-tai-gui-hua/"><i class="fa-fw fa fa-tags"></i><span> 动态规划</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/11/29/leetcode-bei-bao-wen-ti/"><i class="fa-fw fa fa-tags"></i><span> 背包问题</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/10/10/leetcode-hui-su/"><i class="fa-fw fa fa-tags"></i><span> 回溯</span></a></li><li><a class="site-page" href="http://imlgw.top/2020/01/21/leetcode-tan-xin/"><i class="fa-fw fa fa-tags"></i><span> 贪心</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link"><i class="fa-fw fa fa-address-book"></i><span> 大佬们</span></a></div></div></span><span class="pull_right" id="search_button"><a class="site-page social-icon search"><i class="fa fa-search fa-fw"></i><span> 搜索</span></a></span></div></header><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="http://static.imlgw.top/maofu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">59</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">58</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">12</div></a></div></div></div><hr><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/board/"><i class="fa-fw fa fa-link"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-list" aria-hidden="true"></i><span> LeetCode</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="http://imlgw.top/2019/02/27/leetcode-lian-biao/"><i class="fa-fw fa fa-tags"></i><span> 链表</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/05/04/leetcode-shu-zu/"><i class="fa-fw fa fa-tags"></i><span> 数组</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/10/01/leetcode-zhan-dui-lie/"><i class="fa-fw fa fa-tags"></i><span> 栈&amp;队列</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/09/15/leetcode-cha-zhao/"><i class="fa-fw fa fa-tags"></i><span> 查找</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/12/06/leetcode-er-fen-cha-zhao/"><i class="fa-fw fa fa-tags"></i><span> 二分查找</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/11/06/leetcode-er-cha-shu/"><i class="fa-fw fa fa-tags"></i><span> 二叉树</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/07/20/leetcode-hua-dong-chuang-kou/"><i class="fa-fw fa fa-tags"></i><span> 滑动窗口</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/09/01/leetcode-dong-tai-gui-hua/"><i class="fa-fw fa fa-tags"></i><span> 动态规划</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/11/29/leetcode-bei-bao-wen-ti/"><i class="fa-fw fa fa-tags"></i><span> 背包问题</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/10/10/leetcode-hui-su/"><i class="fa-fw fa fa-tags"></i><span> 回溯</span></a></li><li><a class="site-page" href="http://imlgw.top/2020/01/21/leetcode-tan-xin/"><i class="fa-fw fa fa-tags"></i><span> 贪心</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link"><i class="fa-fw fa fa-address-book"></i><span> 大佬们</span></a></div></div></div><div id="mobile-sidebar-toc"><div class="toc_mobile_headline">目录</div><div class="sidebar-toc__content"><ol class="toc_mobile_items"><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#CAS"><span class="toc_mobile_items-number">1.</span> <span class="toc_mobile_items-text">CAS</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#原子变量类"><span class="toc_mobile_items-number">2.</span> <span class="toc_mobile_items-text">原子变量类</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#利用CAS写一个锁"><span class="toc_mobile_items-number">2.1.</span> <span class="toc_mobile_items-text">利用CAS写一个锁</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#ABA问题"><span class="toc_mobile_items-number">2.2.</span> <span class="toc_mobile_items-text">ABA问题</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-4"><a class="toc_mobile_items-link" href="#无法接受的例子"><span class="toc_mobile_items-number">2.2.1.</span> <span class="toc_mobile_items-text">无法接受的例子</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-4"><a class="toc_mobile_items-link" href="#如何解决ABA问题"><span class="toc_mobile_items-number">2.2.2.</span> <span class="toc_mobile_items-text">如何解决ABA问题</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-4"><a class="toc_mobile_items-link" href="#小插曲-Integer缓存"><span class="toc_mobile_items-number">2.2.3.</span> <span class="toc_mobile_items-text">小插曲(Integer缓存)</span></a></li></ol></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#字段更新器"><span class="toc_mobile_items-number">2.3.</span> <span class="toc_mobile_items-text">字段更新器</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-4"><a class="toc_mobile_items-link" href="#AtomicIntegerFieldUpdater测试"><span class="toc_mobile_items-number">2.3.1.</span> <span class="toc_mobile_items-text">AtomicIntegerFieldUpdater测试</span></a></li></ol></li></ol></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#Unsafe双刃剑"><span class="toc_mobile_items-number">3.</span> <span class="toc_mobile_items-text">Unsafe双刃剑</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#获取Unsafe"><span class="toc_mobile_items-number">3.1.</span> <span class="toc_mobile_items-text">获取Unsafe</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#CAS相关"><span class="toc_mobile_items-number">3.2.</span> <span class="toc_mobile_items-text">CAS相关</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#利用Unsafe自己写一个原子Counter"><span class="toc_mobile_items-number">3.3.</span> <span class="toc_mobile_items-text">利用Unsafe自己写一个原子Counter</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#Unsafe的骚操作"><span class="toc_mobile_items-number">3.4.</span> <span class="toc_mobile_items-text">Unsafe的骚操作</span></a></li></ol></li></ol></div></div></div><div id="body-wrap"><div id="web_bg" data-type="color"></div><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true">     </i><div class="auto_open" id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#CAS"><span class="toc-number">1.</span> <span class="toc-text">CAS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#原子变量类"><span class="toc-number">2.</span> <span class="toc-text">原子变量类</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#利用CAS写一个锁"><span class="toc-number">2.1.</span> <span class="toc-text">利用CAS写一个锁</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ABA问题"><span class="toc-number">2.2.</span> <span class="toc-text">ABA问题</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#无法接受的例子"><span class="toc-number">2.2.1.</span> <span class="toc-text">无法接受的例子</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#如何解决ABA问题"><span class="toc-number">2.2.2.</span> <span class="toc-text">如何解决ABA问题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#小插曲-Integer缓存"><span class="toc-number">2.2.3.</span> <span class="toc-text">小插曲(Integer缓存)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#字段更新器"><span class="toc-number">2.3.</span> <span class="toc-text">字段更新器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#AtomicIntegerFieldUpdater测试"><span class="toc-number">2.3.1.</span> <span class="toc-text">AtomicIntegerFieldUpdater测试</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Unsafe双刃剑"><span class="toc-number">3.</span> <span class="toc-text">Unsafe双刃剑</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#获取Unsafe"><span class="toc-number">3.1.</span> <span class="toc-text">获取Unsafe</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CAS相关"><span class="toc-number">3.2.</span> <span class="toc-text">CAS相关</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#利用Unsafe自己写一个原子Counter"><span class="toc-number">3.3.</span> <span class="toc-text">利用Unsafe自己写一个原子Counter</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Unsafe的骚操作"><span class="toc-number">3.4.</span> <span class="toc-text">Unsafe的骚操作</span></a></li></ol></li></ol></div></div></div><main id="content-outer"><div id="top-container" style="background-image: url(http://static.imlgw.top/image/20190713/wallhaven-zmpd3j.jpg)"><div id="post-info"><div id="post-title"><div class="posttitle">CAS与原子变量</div></div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 发表于 2019-04-22<span class="post-meta__separator">|</span><i class="fa fa-history fa-fw" aria-hidden="true"></i> 更新于 2019-12-26</time><span class="post-meta__separator">|</span><span><i class="fa fa-inbox post-meta__icon fa-fw" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/%E5%B9%B6%E5%8F%91/">并发</a></span><div class="post-meta-wordcount"><i class="fa fa-file-word-o post-meta__icon fa-fw" aria-hidden="true"></i><span>字数总计:</span><span class="word-count">2.2k</span><span class="post-meta__separator">|</span><i class="fa fa-clock-o post-meta__icon fa-fw" aria-hidden="true"></i><span>阅读时长: 8 分钟</span><div class="post-meta-pv-cv"><span class="post-meta__separator">|</span><span><i class="fa fa-eye post-meta__icon fa-fw" aria-hidden="true"> </i>阅读量:</span><span id="busuanzi_value_page_pv"></span></div></div></div></div></div><div class="layout layout_post" id="content-inner">   <article id="post"><div class="article-container" id="post-content"><html><head></head><body><h2 id="CAS"><a href="#CAS" class="headerlink" title="CAS"></a>CAS</h2><p><em>这个<strong>CAS</strong>可不是单点登陆的那个CAS😄!!!</em></p>
+  
+    <meta name="keywords" content="多线程,并发编程," />
+  
+
+  
+    <meta name="description" content="大悲无泪，大悟无言，大笑无声。" />
+  
+  
+  
+  <link rel="icon" type="image/x-icon" href="/img/cat.ico">
+  
+  <title>CAS与原子变量 [ iMlGw0 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="//cdn.bootcss.com/pure/1.0.0/pure-min.css">
+    
+      <link rel="stylesheet" href="/css/xoxo.css">
+    
+  
+<meta name="generator" content="Hexo 4.2.0"><link rel="stylesheet" href="/css/prism.css" type="text/css"></head>
+
+
+<body>
+  <div class="nav-container">
+    <nav class="home-menu pure-menu pure-menu-horizontal">
+  <a class="pure-menu-heading" href="/">
+    
+      <img class="avatar" src="http://static.imlgw.top/maofu.png">
+    
+    <span class="title" style="text-transform:none">iMlGw0</span>
+  </a>
+
+  <ul class="pure-menu-list clearfix">
+      
+          
+            
+              <li class="pure-menu-item"><a href="/" class="pure-menu-link">首页</a></li>
+            
+          
+      
+          
+            
+              <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
+            
+              <a href="#" id="post" class="pure-menu-link">文章</a>
+              <ul class="pure-menu-children">
+              
+                  
+                    <li class="pure-menu-item"><a href="/categories" style="color:#202020;" class="pure-menu-link">分类</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="/archives" style="color:#202020;" class="pure-menu-link">归档</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="/tags" style="color:#202020;" class="pure-menu-link">标签</a></li>
+                  
+              
+              </ul>
+            </li>
+          
+      
+          
+            
+              <li class="pure-menu-item"><a href="/project" class="pure-menu-link">项目</a></li>
+            
+          
+      
+          
+            
+              <li class="pure-menu-item"><a href="/search" class="pure-menu-link">搜索</a></li>
+            
+          
+      
+          
+            
+              <li class="pure-menu-item"><a href="/about" class="pure-menu-link">关于</a></li>
+            
+          
+      
+  </ul>
+   
+</nav>
+
+  </div>
+
+  <div class="container" id="content-outer">
+    <div class="inner" id="content-inner">
+      <div class="post-container">
+  <article class="post" id="post">
+    <header class="post-header text-center">
+      <h1 class="title">
+        CAS与原子变量
+      </h1>
+      <span>
+        
+        <time class="time" datetime="2019-04-21T16:00:00.000Z">
+        2019-04-22
+      </time>
+        
+      </span>
+      <span class="slash">/</span>
+      <span class="post-meta">
+      <span class="post-tags">
+        <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" rel="tag">多线程</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" rel="tag">并发编程</a></li></ul>
+      </span>
+    </span>
+      <span class="slash">/</span>
+      <span class="read">
+      <span id="busuanzi_value_page_pv"></span> 点击
+    </span>
+      <span class="slash">/</span>
+      <span class="read">阅读耗时 23 分钟</span>
+    </header>
+
+    <div class="post-content">
+      <h2 id="CAS"><a href="#CAS" class="headerlink" title="CAS"></a>CAS</h2><p><em>这个<strong>CAS</strong>可不是单点登陆的那个CAS😄!!!</em></p>
 <blockquote>
 <p>CAS（Compare-and-Swap），是对一种处理器指令的称呼，很多Java多线程相关的类库的最终实现都会借助CAS</p>
 </blockquote>
 <p>​    从所周知，类似<code>i++</code>自增这样的操作并不是原子的，是一个<code>read-modify-write</code>的操作 ，如果要保证这种操作的原子性按照之前的做法可以使用<code>synchronized</code>内部锁来解决，但是这样似乎有点太小题大做了，锁确实可以解决这个问题，但是前面的文章也提到过，锁是很消耗性能的，并不是最好的做法，比较好的做法就是<strong>CAS</strong>，它能够将这些操作转换为原子操作。</p>
 <p>​    Compare and Swap，比较并交换，顾名思义是一种<code>if-then-act</code>的操作，而这个操作的原子性由<code>处理器</code>保证(硬件锁)，如果一个线程想要将变量V的值由A变为B，借助CAS就会产生类似下面代码的作用</p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">boolean</span> <span class="token function">comapreAndSet</span><span class="token punctuation">(</span>Variable V<span class="token punctuation">,</span>Object A<span class="token punctuation">,</span>Objext B<span class="token punctuation">)</span><span class="token punctuation">{</span>
-    <span class="token keyword">if</span><span class="token punctuation">(</span>V<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">==</span>A<span class="token punctuation">)</span><span class="token punctuation">{</span> <span class="token comment" spellcheck="true">//判断是否和当前V的值相同（是否被修改）</span>
-        V<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span>B<span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment" spellcheck="true">//没被修改就更新</span>
-        <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-    <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//被修改过就直接return</span>
-<span class="token punctuation">}</span></code></pre>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">comapreAndSet</span><span class="params">(Variable V,Object A,Objext B)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(V.get()==A)&#123; <span class="comment">//判断是否和当前V的值相同（是否被修改）</span></span><br><span class="line">        V.set(B);   <span class="comment">//没被修改就更新</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">false</span>; <span class="comment">//被修改过就直接return</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>这样一来就是先下手为强了，当你最先修改了V的值，后面的所有线程都会直接失败，所以实际上也是一种快速失败策略，当然你也可以尝试再次请求直到成功为止。</p>
 <h2 id="原子变量类"><a href="#原子变量类" class="headerlink" title="原子变量类"></a>原子变量类</h2><p>_原子变量类_是基于CAS实现的一组保证共享变量<code>read-modify-write</code>操作(例如自增)原子性的工具类</p>
 <table>
@@ -73,230 +165,33 @@
 <p>关于怎么使用就不多介绍，API上都写的明明白白，这里有个地方需要注意，数组类单纯的GET/SET并不是原子操作。</p>
 <h3 id="利用CAS写一个锁"><a href="#利用CAS写一个锁" class="headerlink" title="利用CAS写一个锁"></a>利用CAS写一个锁</h3><p><a href="http://imlgw.top/2019/04/07/java-duo-xian-cheng-xue-xi-bi-ji/">前面的文章</a>  利用内部锁实现过一个<strong>BooleanLock</strong>，这里利用CAS再实现一个简易的锁</p>
 <p><strong>getLockException</strong></p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">GetLockException</span> <span class="token keyword">extends</span> <span class="token class-name">Exception</span><span class="token punctuation">{</span>
-    <span class="token keyword">public</span> <span class="token function">GetLockException</span><span class="token punctuation">(</span>String message<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">super</span><span class="token punctuation">(</span>message<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GetLockException</span> <span class="keyword">extends</span> <span class="title">Exception</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">GetLockException</span><span class="params">(String message)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(message);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">GetLockException</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-    <span class="token keyword">public</span> <span class="token function">GetLockException</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">super</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span></code></pre>
 <p><strong>CASLock</strong> </p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">CASLock</span> <span class="token punctuation">{</span>
-    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> AtomicInteger value <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">AtomicInteger</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CASLock</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> AtomicInteger value = <span class="keyword">new</span> AtomicInteger();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Thread lockedThread;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">trylock</span><span class="params">()</span> <span class="keyword">throws</span> GetLockException </span>&#123;</span><br><span class="line">        <span class="keyword">boolean</span> success = value.compareAndSet(<span class="number">0</span>, <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">if</span> (!success) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> GetLockException(<span class="string">"获得锁失败"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        lockedThread = Thread.currentThread();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">unlock</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="number">0</span> == value.get()) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (lockedThread == Thread.currentThread()) &#123;</span><br><span class="line">            <span class="comment">//解铃还须系铃人</span></span><br><span class="line">            <span class="keyword">boolean</span> success = value.compareAndSet(<span class="number">1</span>, <span class="number">0</span>);</span><br><span class="line">            System.out.println(Thread.currentThread().getName() + <span class="string">" 释放了锁"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-    <span class="token keyword">private</span> Thread lockedThread<span class="token punctuation">;</span>
-
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">trylock</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> GetLockException <span class="token punctuation">{</span>
-        <span class="token keyword">boolean</span> success <span class="token operator">=</span> value<span class="token punctuation">.</span><span class="token function">compareAndSet</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>success<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">GetLockException</span><span class="token punctuation">(</span><span class="token string">"获得锁失败"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        lockedThread <span class="token operator">=</span> Thread<span class="token punctuation">.</span><span class="token function">currentThread</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">unlock</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token number">0</span> <span class="token operator">==</span> value<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">return</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>lockedThread <span class="token operator">==</span> Thread<span class="token punctuation">.</span><span class="token function">currentThread</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token comment" spellcheck="true">//解铃还须系铃人</span>
-            <span class="token keyword">boolean</span> success <span class="token operator">=</span> value<span class="token punctuation">.</span><span class="token function">compareAndSet</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>Thread<span class="token punctuation">.</span><span class="token function">currentThread</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">" 释放了锁"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span></code></pre>
 <p>其实挺简单的，值得注意的地方就是释放锁的时候别忘了判断是不是当前线程加的锁，解铃还须系铃人😂</p>
 <h3 id="ABA问题"><a href="#ABA问题" class="headerlink" title="ABA问题"></a>ABA问题</h3><blockquote>
-<p>从所周知，CAS成立的条件就是共享变量当前值和当前线程所提供的旧值相同，我们就可以认为这个变量没有被修改过，那么问题来了，对于一个共享变量<strong>V</strong>，如果当前线程看到它的时候它的值是A，当它想执行CAS修改这个变量的时候，另一个线程将<strong>V</strong>的值从A–>B–>A，那么这时当前线程再来执行CAS的时候，是否可以认为变量<strong>V</strong>没有被修改过呢？这里执行肯定是会成功的，但是这样结果是否可以接受呢 ?</p>
+<p>从所周知，CAS成立的条件就是共享变量当前值和当前线程所提供的旧值相同，我们就可以认为这个变量没有被修改过，那么问题来了，对于一个共享变量<strong>V</strong>，如果当前线程看到它的时候它的值是A，当它想执行CAS修改这个变量的时候，另一个线程将<strong>V</strong>的值从A–&gt;B–&gt;A，那么这时当前线程再来执行CAS的时候，是否可以认为变量<strong>V</strong>没有被修改过呢？这里执行肯定是会成功的，但是这样结果是否可以接受呢 ?</p>
 </blockquote>
-<h4 id="无法接受的例子"><a href="#无法接受的例子" class="headerlink" title="无法接受的例子"></a>无法接受的例子</h4><p><img alt="mark" data-src="http://static.imlgw.top///20190423/vakfPgUQChGb.png?imageslim" src="/img/loading.gif" class="lazyload"></p>
+<h4 id="无法接受的例子"><a href="#无法接受的例子" class="headerlink" title="无法接受的例子"></a>无法接受的例子</h4><p><img src="http://static.imlgw.top///20190423/vakfPgUQChGb.png?imageslim" alt="mark"></p>
 <p>上图为用<strong>单链表</strong>实现的栈结构，若T2先抢到了执行权，将A，B弹出栈，然后依次<code>push</code>了D，C，A，然后T1执行，利用CAS，head.compareAndSet(A，B)，执行成功，栈顶变为B，然而B就是个孤儿节点，这样一来C，D节点就被莫名其妙被丢掉了这显然是有问题的</p>
 <h4 id="如何解决ABA问题"><a href="#如何解决ABA问题" class="headerlink" title="如何解决ABA问题"></a>如何解决ABA问题</h4><p>其实ABA问题并非完全无法接受，要考虑具体的场景，当然Java中也提供了解决的方案:</p>
 <p><code>AtomicStampedReference</code> 这个类看名字就知道是带了戳的，带了一个类似版本号的东西，直接上源码吧。</p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">AtomicStampedReference</span><span class="token operator"><</span>V<span class="token operator">></span> <span class="token punctuation">{</span>
-    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">class</span> <span class="token class-name">Pair</span><span class="token operator"><</span>T<span class="token operator">></span> <span class="token punctuation">{</span>
-        <span class="token keyword">final</span> T reference<span class="token punctuation">;</span>
-        <span class="token keyword">final</span> <span class="token keyword">int</span> stamp<span class="token punctuation">;</span>
-        <span class="token keyword">private</span> <span class="token function">Pair</span><span class="token punctuation">(</span>T reference<span class="token punctuation">,</span> <span class="token keyword">int</span> stamp<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">this</span><span class="token punctuation">.</span>reference <span class="token operator">=</span> reference<span class="token punctuation">;</span>
-            <span class="token keyword">this</span><span class="token punctuation">.</span>stamp <span class="token operator">=</span> stamp<span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        <span class="token keyword">static</span> <span class="token operator"><</span>T<span class="token operator">></span> Pair<span class="token operator"><</span>T<span class="token operator">></span> <span class="token function">of</span><span class="token punctuation">(</span>T reference<span class="token punctuation">,</span> <span class="token keyword">int</span> stamp<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Pair</span><span class="token operator"><</span>T<span class="token operator">></span><span class="token punctuation">(</span>reference<span class="token punctuation">,</span> stamp<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AtomicStampedReference</span>&lt;<span class="title">V</span>&gt; </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Pair</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">        <span class="keyword">final</span> T reference;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> stamp;</span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="title">Pair</span><span class="params">(T reference, <span class="keyword">int</span> stamp)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.reference = reference;</span><br><span class="line">            <span class="keyword">this</span>.stamp = stamp;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">static</span> &lt;T&gt; <span class="function">Pair&lt;T&gt; <span class="title">of</span><span class="params">(T reference, <span class="keyword">int</span> stamp)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> Pair&lt;T&gt;(reference, stamp);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">volatile</span> Pair&lt;V&gt; pair;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">AtomicStampedReference</span><span class="params">(V initialRef, <span class="keyword">int</span> initialStamp)</span> </span>&#123;</span><br><span class="line">        pair = Pair.of(initialRef, initialStamp);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Returns the current value of the reference.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> the current value of the reference</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> V <span class="title">getReference</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> pair.reference;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getStamp</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> pair.stamp;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> V <span class="title">get</span><span class="params">(<span class="keyword">int</span>[] stampHolder)</span> </span>&#123;</span><br><span class="line">        Pair&lt;V&gt; pair = <span class="keyword">this</span>.pair;</span><br><span class="line">        stampHolder[<span class="number">0</span>] = pair.stamp;</span><br><span class="line">        <span class="keyword">return</span> pair.reference;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">weakCompareAndSet</span><span class="params">(V   expectedReference,</span></span></span><br><span class="line"><span class="function"><span class="params">                                     V   newReference,</span></span></span><br><span class="line"><span class="function"><span class="params">                                     <span class="keyword">int</span> expectedStamp,</span></span></span><br><span class="line"><span class="function"><span class="params">                                     <span class="keyword">int</span> newStamp)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> compareAndSet(expectedReference, newReference,</span><br><span class="line">                             expectedStamp, newStamp);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Atomically sets the value of both the reference and stamp</span></span><br><span class="line"><span class="comment">     * to the given update values if the</span></span><br><span class="line"><span class="comment">     * current reference is &#123;<span class="doctag">@code</span> ==&#125; to the expected reference</span></span><br><span class="line"><span class="comment">     * and the current stamp is equal to the expected stamp.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> expectedReference the expected value of the reference</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> newReference the new value for the reference</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> expectedStamp the expected value of the stamp</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> newStamp the new value for the stamp</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> &#123;<span class="doctag">@code</span> true&#125; if successful</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">compareAndSet</span><span class="params">(V   expectedReference,</span></span></span><br><span class="line"><span class="function"><span class="params">                                 V   newReference,</span></span></span><br><span class="line"><span class="function"><span class="params">                                 <span class="keyword">int</span> expectedStamp,</span></span></span><br><span class="line"><span class="function"><span class="params">                                 <span class="keyword">int</span> newStamp)</span> </span>&#123;</span><br><span class="line">        Pair&lt;V&gt; current = pair;</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">            expectedReference == current.reference &amp;&amp; <span class="comment">//期望值和当前值相等</span></span><br><span class="line">            expectedStamp == current.stamp &amp;&amp;	<span class="comment">//期望的戳和当前的戳一致</span></span><br><span class="line">            ((newReference == current.reference &amp;&amp; <span class="comment">//新的值是不是和当前的值一样</span></span><br><span class="line">              newStamp == current.stamp) ||		<span class="comment">//新的戳是不是和当前的戳一样</span></span><br><span class="line">             casPair(current, Pair.of(newReference, newStamp))); <span class="comment">//如果不一样就利用CAS设置新值</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">set</span><span class="params">(V newReference, <span class="keyword">int</span> newStamp)</span> </span>&#123;</span><br><span class="line">        Pair&lt;V&gt; current = pair;</span><br><span class="line">        <span class="keyword">if</span> (newReference != current.reference || newStamp != current.stamp)</span><br><span class="line">            <span class="keyword">this</span>.pair = Pair.of(newReference, newStamp);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">attemptStamp</span><span class="params">(V expectedReference, <span class="keyword">int</span> newStamp)</span> </span>&#123;</span><br><span class="line">        Pair&lt;V&gt; current = pair;</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">            expectedReference == current.reference &amp;&amp;</span><br><span class="line">            (newStamp == current.stamp ||</span><br><span class="line">             casPair(current, Pair.of(expectedReference, newStamp)));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Unsafe mechanics 底层调用unsafe的方法</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> sun.misc.Unsafe UNSAFE = sun.misc.Unsafe.getUnsafe();</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> pairOffset =objectFieldOffset(UNSAFE, <span class="string">"pair"</span>, AtomicStampedReference<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">    <span class="comment">//cas设置新值</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">casPair</span><span class="params">(Pair&lt;V&gt; cmp, Pair&lt;V&gt; val)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> UNSAFE.compareAndSwapObject(<span class="keyword">this</span>, pairOffset, cmp, val);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">long</span> <span class="title">objectFieldOffset</span><span class="params">(sun.misc.Unsafe UNSAFE,</span></span></span><br><span class="line"><span class="function"><span class="params">                                  String field, Class&lt;?&gt; klazz)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> UNSAFE.objectFieldOffset(klazz.getDeclaredField(field));</span><br><span class="line">        &#125; <span class="keyword">catch</span> (NoSuchFieldException e) &#123;</span><br><span class="line">            <span class="comment">// Convert Exception to corresponding Error</span></span><br><span class="line">            NoSuchFieldError error = <span class="keyword">new</span> NoSuchFieldError(field);</span><br><span class="line">            error.initCause(e);</span><br><span class="line">            <span class="keyword">throw</span> error;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-    <span class="token keyword">private</span> <span class="token keyword">volatile</span> Pair<span class="token operator"><</span>V<span class="token operator">></span> pair<span class="token punctuation">;</span>
 
-    <span class="token keyword">public</span> <span class="token function">AtomicStampedReference</span><span class="token punctuation">(</span>V initialRef<span class="token punctuation">,</span> <span class="token keyword">int</span> initialStamp<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        pair <span class="token operator">=</span> Pair<span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span>initialRef<span class="token punctuation">,</span> initialStamp<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token comment" spellcheck="true">/**
-     * Returns the current value of the reference.
-     *
-     * @return the current value of the reference
-     */</span>
-    <span class="token keyword">public</span> V <span class="token function">getReference</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> pair<span class="token punctuation">.</span>reference<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">getStamp</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> pair<span class="token punctuation">.</span>stamp<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token keyword">public</span> V <span class="token function">get</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> stampHolder<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        Pair<span class="token operator"><</span>V<span class="token operator">></span> pair <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>pair<span class="token punctuation">;</span>
-        stampHolder<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> pair<span class="token punctuation">.</span>stamp<span class="token punctuation">;</span>
-        <span class="token keyword">return</span> pair<span class="token punctuation">.</span>reference<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">weakCompareAndSet</span><span class="token punctuation">(</span>V   expectedReference<span class="token punctuation">,</span>
-                                     V   newReference<span class="token punctuation">,</span>
-                                     <span class="token keyword">int</span> expectedStamp<span class="token punctuation">,</span>
-                                     <span class="token keyword">int</span> newStamp<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> <span class="token function">compareAndSet</span><span class="token punctuation">(</span>expectedReference<span class="token punctuation">,</span> newReference<span class="token punctuation">,</span>
-                             expectedStamp<span class="token punctuation">,</span> newStamp<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token comment" spellcheck="true">/**
-     * Atomically sets the value of both the reference and stamp
-     * to the given update values if the
-     * current reference is {@code ==} to the expected reference
-     * and the current stamp is equal to the expected stamp.
-     *
-     * @param expectedReference the expected value of the reference
-     * @param newReference the new value for the reference
-     * @param expectedStamp the expected value of the stamp
-     * @param newStamp the new value for the stamp
-     * @return {@code true} if successful
-     */</span>
-    <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">compareAndSet</span><span class="token punctuation">(</span>V   expectedReference<span class="token punctuation">,</span>
-                                 V   newReference<span class="token punctuation">,</span>
-                                 <span class="token keyword">int</span> expectedStamp<span class="token punctuation">,</span>
-                                 <span class="token keyword">int</span> newStamp<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        Pair<span class="token operator"><</span>V<span class="token operator">></span> current <span class="token operator">=</span> pair<span class="token punctuation">;</span>
-        <span class="token keyword">return</span>
-            expectedReference <span class="token operator">==</span> current<span class="token punctuation">.</span>reference <span class="token operator">&&</span> <span class="token comment" spellcheck="true">//期望值和当前值相等</span>
-            expectedStamp <span class="token operator">==</span> current<span class="token punctuation">.</span>stamp <span class="token operator">&&</span>    <span class="token comment" spellcheck="true">//期望的戳和当前的戳一致</span>
-            <span class="token punctuation">(</span><span class="token punctuation">(</span>newReference <span class="token operator">==</span> current<span class="token punctuation">.</span>reference <span class="token operator">&&</span> <span class="token comment" spellcheck="true">//新的值是不是和当前的值一样</span>
-              newStamp <span class="token operator">==</span> current<span class="token punctuation">.</span>stamp<span class="token punctuation">)</span> <span class="token operator">||</span>        <span class="token comment" spellcheck="true">//新的戳是不是和当前的戳一样</span>
-             <span class="token function">casPair</span><span class="token punctuation">(</span>current<span class="token punctuation">,</span> Pair<span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span>newReference<span class="token punctuation">,</span> newStamp<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//如果不一样就利用CAS设置新值</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">set</span><span class="token punctuation">(</span>V newReference<span class="token punctuation">,</span> <span class="token keyword">int</span> newStamp<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        Pair<span class="token operator"><</span>V<span class="token operator">></span> current <span class="token operator">=</span> pair<span class="token punctuation">;</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>newReference <span class="token operator">!=</span> current<span class="token punctuation">.</span>reference <span class="token operator">||</span> newStamp <span class="token operator">!=</span> current<span class="token punctuation">.</span>stamp<span class="token punctuation">)</span>
-            <span class="token keyword">this</span><span class="token punctuation">.</span>pair <span class="token operator">=</span> Pair<span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span>newReference<span class="token punctuation">,</span> newStamp<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">attemptStamp</span><span class="token punctuation">(</span>V expectedReference<span class="token punctuation">,</span> <span class="token keyword">int</span> newStamp<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        Pair<span class="token operator"><</span>V<span class="token operator">></span> current <span class="token operator">=</span> pair<span class="token punctuation">;</span>
-        <span class="token keyword">return</span>
-            expectedReference <span class="token operator">==</span> current<span class="token punctuation">.</span>reference <span class="token operator">&&</span>
-            <span class="token punctuation">(</span>newStamp <span class="token operator">==</span> current<span class="token punctuation">.</span>stamp <span class="token operator">||</span>
-             <span class="token function">casPair</span><span class="token punctuation">(</span>current<span class="token punctuation">,</span> Pair<span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span>expectedReference<span class="token punctuation">,</span> newStamp<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token comment" spellcheck="true">// Unsafe mechanics 底层调用unsafe的方法</span>
-    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> sun<span class="token punctuation">.</span>misc<span class="token punctuation">.</span>Unsafe UNSAFE <span class="token operator">=</span> sun<span class="token punctuation">.</span>misc<span class="token punctuation">.</span>Unsafe<span class="token punctuation">.</span><span class="token function">getUnsafe</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">long</span> pairOffset <span class="token operator">=</span><span class="token function">objectFieldOffset</span><span class="token punctuation">(</span>UNSAFE<span class="token punctuation">,</span> <span class="token string">"pair"</span><span class="token punctuation">,</span> AtomicStampedReference<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token comment" spellcheck="true">//cas设置新值</span>
-    <span class="token keyword">private</span> <span class="token keyword">boolean</span> <span class="token function">casPair</span><span class="token punctuation">(</span>Pair<span class="token operator"><</span>V<span class="token operator">></span> cmp<span class="token punctuation">,</span> Pair<span class="token operator"><</span>V<span class="token operator">></span> val<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> UNSAFE<span class="token punctuation">.</span><span class="token function">compareAndSwapObject</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">,</span> pairOffset<span class="token punctuation">,</span> cmp<span class="token punctuation">,</span> val<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token keyword">static</span> <span class="token keyword">long</span> <span class="token function">objectFieldOffset</span><span class="token punctuation">(</span>sun<span class="token punctuation">.</span>misc<span class="token punctuation">.</span>Unsafe UNSAFE<span class="token punctuation">,</span>
-                                  String field<span class="token punctuation">,</span> Class<span class="token operator"><</span><span class="token operator">?</span><span class="token operator">></span> klazz<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">try</span> <span class="token punctuation">{</span>
-            <span class="token keyword">return</span> UNSAFE<span class="token punctuation">.</span><span class="token function">objectFieldOffset</span><span class="token punctuation">(</span>klazz<span class="token punctuation">.</span><span class="token function">getDeclaredField</span><span class="token punctuation">(</span>field<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">NoSuchFieldException</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token comment" spellcheck="true">// Convert Exception to corresponding Error</span>
-            NoSuchFieldError error <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">NoSuchFieldError</span><span class="token punctuation">(</span>field<span class="token punctuation">)</span><span class="token punctuation">;</span>
-            error<span class="token punctuation">.</span><span class="token function">initCause</span><span class="token punctuation">(</span>e<span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token keyword">throw</span> error<span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span></code></pre>
 <p>这里删掉了部分注释， 可以看到里面封装了一个<code>Pair</code>里面有对象的引用和一个戳，在进行CAS的时候会判断<code>期望的引用</code>（传进来的引用）和<code>当前实际的引用</code>是不是一致，<code>期望的戳</code>（传进来的戳）和<code>当前实际的戳</code>是不是一致的，不一致就会直接<code>fail</code>，关键的CAS代码：</p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">compareAndSet</span><span class="token punctuation">(</span>V   expectedReference<span class="token punctuation">,</span>
-                                 V   newReference<span class="token punctuation">,</span>
-                                 <span class="token keyword">int</span> expectedStamp<span class="token punctuation">,</span>
-                                 <span class="token keyword">int</span> newStamp<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        Pair<span class="token operator"><</span>V<span class="token operator">></span> current <span class="token operator">=</span> pair<span class="token punctuation">;</span>
-        <span class="token keyword">return</span>  
-            expectedReference <span class="token operator">==</span> current<span class="token punctuation">.</span>reference <span class="token operator">&&</span> <span class="token comment" spellcheck="true">//期望值和当前值相等</span>
-            expectedStamp <span class="token operator">==</span> current<span class="token punctuation">.</span>stamp <span class="token operator">&&</span>    <span class="token comment" spellcheck="true">//期望的戳和当前的戳一致</span>
-            <span class="token punctuation">(</span><span class="token punctuation">(</span>newReference <span class="token operator">==</span> current<span class="token punctuation">.</span>reference <span class="token operator">&&</span> <span class="token comment" spellcheck="true">//新的值是不是和当前的值一样</span>
-              newStamp <span class="token operator">==</span> current<span class="token punctuation">.</span>stamp<span class="token punctuation">)</span> <span class="token operator">||</span>        <span class="token comment" spellcheck="true">//新的戳是不是和当前的戳一样</span>
-             <span class="token function">casPair</span><span class="token punctuation">(</span>current<span class="token punctuation">,</span> Pair<span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span>newReference<span class="token punctuation">,</span> newStamp<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//如果不一样就利用CAS设置新值</span>
- <span class="token punctuation">}</span></code></pre>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">compareAndSet</span><span class="params">(V   expectedReference,</span></span></span><br><span class="line"><span class="function"><span class="params">                                 V   newReference,</span></span></span><br><span class="line"><span class="function"><span class="params">                                 <span class="keyword">int</span> expectedStamp,</span></span></span><br><span class="line"><span class="function"><span class="params">                                 <span class="keyword">int</span> newStamp)</span> </span>&#123;</span><br><span class="line">        Pair&lt;V&gt; current = pair;</span><br><span class="line">        <span class="keyword">return</span>  </span><br><span class="line">            expectedReference == current.reference &amp;&amp; <span class="comment">//期望值和当前值相等</span></span><br><span class="line">            expectedStamp == current.stamp &amp;&amp;	<span class="comment">//期望的戳和当前的戳一致</span></span><br><span class="line">            ((newReference == current.reference &amp;&amp; <span class="comment">//新的值是不是和当前的值一样</span></span><br><span class="line">              newStamp == current.stamp) ||		<span class="comment">//新的戳是不是和当前的戳一样</span></span><br><span class="line">             casPair(current, Pair.of(newReference, newStamp))); <span class="comment">//如果不一样就利用CAS设置新值</span></span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
 <p><strong>测试AtomicStampedReference</strong></p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">AtomicRefStampedTest</span> <span class="token punctuation">{</span>
-   <span class="token keyword">static</span> AtomicStampedReference<span class="token operator"><</span>Integer<span class="token operator">></span> reference<span class="token operator">=</span><span class="token keyword">new</span> <span class="token class-name">AtomicStampedReference</span><span class="token operator"><</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AtomicRefStampedTest</span> </span>&#123;</span><br><span class="line">   <span class="keyword">static</span> AtomicStampedReference&lt;Integer&gt; reference=<span class="keyword">new</span> AtomicStampedReference&lt;&gt;(<span class="number">100</span>,<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//第一个线程进行ABA操作</span></span><br><span class="line">        <span class="keyword">new</span> Thread(()-&gt;&#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                TimeUnit.SECONDS.sleep(<span class="number">1</span>);</span><br><span class="line">                System.out.println(<span class="string">"t1 "</span>+reference.compareAndSet(<span class="number">100</span>, <span class="number">101</span>, reference.getStamp(), reference.getStamp()+<span class="number">1</span>));</span><br><span class="line">                System.out.println(reference.getStamp()+<span class="string">","</span>+reference.getReference());</span><br><span class="line">                System.out.println(<span class="string">"t1 "</span>+ reference.compareAndSet(<span class="number">101</span>, <span class="number">100</span>,reference.getStamp() , reference.getStamp()+<span class="number">1</span>));</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;).start();</span><br><span class="line"></span><br><span class="line">		<span class="comment">//第二个线程等待第一个线程执行完</span></span><br><span class="line">        <span class="keyword">new</span> Thread(()-&gt;&#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="keyword">int</span> stamp = reference.getStamp();</span><br><span class="line">                <span class="comment">//假设执行到这里发生上下文切换</span></span><br><span class="line">                System.out.println(<span class="string">"Before sleep:stamp="</span>+stamp);</span><br><span class="line">                TimeUnit.SECONDS.sleep(<span class="number">5</span>);</span><br><span class="line">                System.out.println(<span class="string">"After sleep:stamp="</span>+reference.getStamp());</span><br><span class="line">                <span class="keyword">boolean</span> b = reference.compareAndSet(<span class="number">100</span>, <span class="number">101</span>, stamp, stamp + <span class="number">1</span>);</span><br><span class="line">                System.out.println(b);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;).start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">	Before sleep:stamp=0</span></span><br><span class="line"><span class="comment">	t1 true</span></span><br><span class="line"><span class="comment">	1,101</span></span><br><span class="line"><span class="comment">	t1 true</span></span><br><span class="line"><span class="comment">	After sleep:stamp=2</span></span><br><span class="line"><span class="comment">	false</span></span><br><span class="line"><span class="comment">**/</span></span><br></pre></td></tr></table></figure>
 
-    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token comment" spellcheck="true">//第一个线程进行ABA操作</span>
-        <span class="token keyword">new</span> <span class="token class-name">Thread</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token operator">></span><span class="token punctuation">{</span>
-            <span class="token keyword">try</span> <span class="token punctuation">{</span>
-                TimeUnit<span class="token punctuation">.</span>SECONDS<span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-                System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"t1 "</span><span class="token operator">+</span>reference<span class="token punctuation">.</span><span class="token function">compareAndSet</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">,</span> <span class="token number">101</span><span class="token punctuation">,</span> reference<span class="token punctuation">.</span><span class="token function">getStamp</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> reference<span class="token punctuation">.</span><span class="token function">getStamp</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-                System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>reference<span class="token punctuation">.</span><span class="token function">getStamp</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">+</span><span class="token string">","</span><span class="token operator">+</span>reference<span class="token punctuation">.</span><span class="token function">getReference</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-                System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"t1 "</span><span class="token operator">+</span> reference<span class="token punctuation">.</span><span class="token function">compareAndSet</span><span class="token punctuation">(</span><span class="token number">101</span><span class="token punctuation">,</span> <span class="token number">100</span><span class="token punctuation">,</span>reference<span class="token punctuation">.</span><span class="token function">getStamp</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">,</span> reference<span class="token punctuation">.</span><span class="token function">getStamp</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">InterruptedException</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-
-            <span class="token punctuation">}</span>
-
-        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-        <span class="token comment" spellcheck="true">//第二个线程等待第一个线程执行完</span>
-        <span class="token keyword">new</span> <span class="token class-name">Thread</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token operator">></span><span class="token punctuation">{</span>
-            <span class="token keyword">try</span> <span class="token punctuation">{</span>
-                <span class="token keyword">int</span> stamp <span class="token operator">=</span> reference<span class="token punctuation">.</span><span class="token function">getStamp</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-                <span class="token comment" spellcheck="true">//假设执行到这里发生上下文切换</span>
-                System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Before sleep:stamp="</span><span class="token operator">+</span>stamp<span class="token punctuation">)</span><span class="token punctuation">;</span>
-                TimeUnit<span class="token punctuation">.</span>SECONDS<span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-                System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"After sleep:stamp="</span><span class="token operator">+</span>reference<span class="token punctuation">.</span><span class="token function">getStamp</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-                <span class="token keyword">boolean</span> b <span class="token operator">=</span> reference<span class="token punctuation">.</span><span class="token function">compareAndSet</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">,</span> <span class="token number">101</span><span class="token punctuation">,</span> stamp<span class="token punctuation">,</span> stamp <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-                System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>b<span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">InterruptedException</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-
-            <span class="token punctuation">}</span>
-        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-<span class="token comment" spellcheck="true">/**
-    Before sleep:stamp=0
-    t1 true
-    1,101
-    t1 true
-    After sleep:stamp=2
-    false
-**/</span></code></pre>
 <p>结果肯定是t2执行失败了，毕竟戳不一样了，就算引用一样也没用。</p>
-<h4 id="小插曲-Integer缓存"><a href="#小插曲-Integer缓存" class="headerlink" title="小插曲(Integer缓存)"></a>小插曲(Integer缓存)</h4><p>这里一开始发生了一个小插曲，首先这里是的引用类型是 <code>Integer</code>类型的，然后我在进行CAS的时候从100—>200 ,然后又从200–>100，可能细心的朋友已经知道啥问题了，后面的从200–>100会失败，为啥？这个200和前面的200不是一个对象，引用不一样，那为啥101就可以呢？对，Integer有一个缓冲池，大小在-128–127之间的数，可以直接从缓冲池中拿，我开始在这里纠结了好一会儿😂</p>
+<h4 id="小插曲-Integer缓存"><a href="#小插曲-Integer缓存" class="headerlink" title="小插曲(Integer缓存)"></a>小插曲(Integer缓存)</h4><p>这里一开始发生了一个小插曲，首先这里是的引用类型是 <code>Integer</code>类型的，然后我在进行CAS的时候从100—&gt;200 ,然后又从200–&gt;100，可能细心的朋友已经知道啥问题了，后面的从200–&gt;100会失败，为啥？这个200和前面的200不是一个对象，引用不一样，那为啥101就可以呢？对，Integer有一个缓冲池，大小在-128–127之间的数，可以直接从缓冲池中拿，我开始在这里纠结了好一会儿😂</p>
 <h3 id="字段更新器"><a href="#字段更新器" class="headerlink" title="字段更新器"></a>字段更新器</h3><p>如果我们只需要某个类里的某个字段，也就是说让普通的变量也享受原子操作，可以使用原子更新字段类，如在某些时候由于项目前期考虑不周全，项目需求又发生变化，使得某个类中的变量需要执行多线程操作，由于该变量多处使用，改动起来比较麻烦，而且原来使用的地方无需使用线程安全，只要求新场景需要使用时，可以借助原子更新器处理这种场景，Java中提供了几种字段更新器<code>AtomicIntegerFieldUpdater</code>，<code>AtomicLongFieldUpdater</code>，<code>AtomicReferenceFieldUpdater</code>，看名字就知道是对应啥的</p>
-<h4 id="AtomicIntegerFieldUpdater测试"><a href="#AtomicIntegerFieldUpdater测试" class="headerlink" title="AtomicIntegerFieldUpdater测试"></a>AtomicIntegerFieldUpdater测试</h4><pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">AtomicIntegerFieldUpdaterTest</span> <span class="token punctuation">{</span>
-    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        AtomicIntegerFieldUpdater updater <span class="token operator">=</span> AtomicIntegerFieldUpdater<span class="token punctuation">.</span><span class="token function">newUpdater</span><span class="token punctuation">(</span>TestUpdate<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span> <span class="token string">"num"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        TestUpdate testUpdate <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">TestUpdate</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        Stream<span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span><span class="token string">"t1"</span><span class="token punctuation">,</span> <span class="token string">"t2"</span><span class="token punctuation">,</span> <span class="token string">"t3"</span><span class="token punctuation">,</span> <span class="token string">"t4"</span><span class="token punctuation">,</span> <span class="token string">"t5"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span>s <span class="token operator">-</span><span class="token operator">></span> <span class="token punctuation">{</span>
-            <span class="token keyword">new</span> <span class="token class-name">Thread</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token punctuation">{</span>
-                <span class="token keyword">int</span> MAX <span class="token operator">=</span> <span class="token number">100</span><span class="token punctuation">;</span>
-                <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator"><</span> MAX<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>updater<span class="token punctuation">.</span><span class="token function">getAndIncrement</span><span class="token punctuation">(</span>testUpdate<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-                <span class="token punctuation">}</span>
-            <span class="token punctuation">}</span><span class="token punctuation">,</span> s<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+<h4 id="AtomicIntegerFieldUpdater测试"><a href="#AtomicIntegerFieldUpdater测试" class="headerlink" title="AtomicIntegerFieldUpdater测试"></a>AtomicIntegerFieldUpdater测试</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AtomicIntegerFieldUpdaterTest</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        AtomicIntegerFieldUpdater updater = AtomicIntegerFieldUpdater.newUpdater(TestUpdate.class, "num");</span><br><span class="line">        TestUpdate testUpdate = <span class="keyword">new</span> TestUpdate();</span><br><span class="line">        Stream.of(<span class="string">"t1"</span>, <span class="string">"t2"</span>, <span class="string">"t3"</span>, <span class="string">"t4"</span>, <span class="string">"t5"</span>).forEach(s -&gt; &#123;</span><br><span class="line">            <span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line">                <span class="keyword">int</span> MAX = <span class="number">100</span>;</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; MAX; i++) &#123;</span><br><span class="line">                    System.out.println(updater.getAndIncrement(testUpdate));</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;, s).start();</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">TestUpdate</span> </span>&#123;</span><br><span class="line">        <span class="keyword">volatile</span> <span class="keyword">int</span> num;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-
-    <span class="token keyword">static</span> <span class="token keyword">class</span> <span class="token class-name">TestUpdate</span> <span class="token punctuation">{</span>
-        <span class="token keyword">volatile</span> <span class="token keyword">int</span> num<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span></code></pre>
 <p>这样就保证了Integer字段自增操作的原子性，另外两个与之类似。</p>
 <p><strong>需要注意的地方</strong></p>
 <ul>
@@ -309,7 +204,7 @@
 <li><p>属性必须对当前的Updater所在的区域是可见的，也就是说无论何时都应该保证操作类与被操作类间的可见性。</p>
 </li>
 </ul>
-<p><img alt="mark" data-src="http://static.imlgw.top///20190430/hIuzU4rePaAe.png?imageslim" src="/img/loading.gif" class="lazyload"></p>
+<p><img src="http://static.imlgw.top///20190430/hIuzU4rePaAe.png?imageslim" alt="mark"></p>
 <blockquote>
 <p>使用字段更新器比起直接使用原子类要节约内存，但是操作起来不方便</p>
 </blockquote>
@@ -319,161 +214,27 @@
 <li>Unsafe的不少方法中必须提供原始地址(内存地址)和被替换对象的地址，偏移量要自己计算，一旦出现问题就是JVM崩溃级别的异常，会导致整个JVM实例崩溃，表现为应用程序直接崩掉。</li>
 <li>Unsafe提供的直接内存访问的方法中使用的内存不受JVM管理(无法被GC)，需要手动管理，一旦出现疏忽很有可能成为内存泄漏的源头。</li>
 </ul>
-<h3 id="获取Unsafe"><a href="#获取Unsafe" class="headerlink" title="获取Unsafe"></a>获取Unsafe</h3><pre class=" language-java"><code class="language-java">    <span class="token comment" spellcheck="true">//获取Unsafe</span>
-    <span class="token keyword">public</span> <span class="token keyword">static</span> Unsafe <span class="token function">getUnsafe</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        Field f <span class="token operator">=</span> null<span class="token punctuation">;</span>
-        <span class="token keyword">try</span> <span class="token punctuation">{</span>
-            f <span class="token operator">=</span> Unsafe<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">.</span><span class="token function">getDeclaredField</span><span class="token punctuation">(</span><span class="token string">"theUnsafe"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-            f<span class="token punctuation">.</span><span class="token function">setAccessible</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token keyword">return</span> <span class="token punctuation">(</span>Unsafe<span class="token punctuation">)</span>f<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>null<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Exception</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">RuntimeException</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span></code></pre>
+<h3 id="获取Unsafe"><a href="#获取Unsafe" class="headerlink" title="获取Unsafe"></a>获取Unsafe</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//获取Unsafe</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Unsafe <span class="title">getUnsafe</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Field f = <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        f = Unsafe.class.getDeclaredField("theUnsafe");</span><br><span class="line">        f.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">        <span class="keyword">return</span> (Unsafe)f.get(<span class="keyword">null</span>);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <h3 id="CAS相关"><a href="#CAS相关" class="headerlink" title="CAS相关"></a>CAS相关</h3><p>Java中的CAS实现调用的就是三个本地方法，第一个参数代表的就是实例对象，第二个参数代表需要CAS字段在该实例上的偏移量（不用自己计算，Unsafe提供了方法计算偏移量），第三个参数就是期望值，最后一个参数就是更新的值</p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">final</span> <span class="token keyword">native</span> <span class="token keyword">boolean</span> <span class="token function">compareAndSwapObject</span><span class="token punctuation">(</span>Object var1<span class="token punctuation">,</span> <span class="token keyword">long</span> var2<span class="token punctuation">,</span> Object var4<span class="token punctuation">,</span> Object var5<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">native</span> <span class="keyword">boolean</span> <span class="title">compareAndSwapObject</span><span class="params">(Object var1, <span class="keyword">long</span> var2, Object var4, Object var5)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">native</span> <span class="keyword">boolean</span> <span class="title">compareAndSwapInt</span><span class="params">(Object var1, <span class="keyword">long</span> var2, <span class="keyword">int</span> var4, <span class="keyword">int</span> var5)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">native</span> <span class="keyword">boolean</span> <span class="title">compareAndSwapLong</span><span class="params">(Object var1, <span class="keyword">long</span> var2, <span class="keyword">long</span> var4, <span class="keyword">long</span> var6)</span></span>;</span><br></pre></td></tr></table></figure>
 
-<span class="token keyword">public</span> <span class="token keyword">final</span> <span class="token keyword">native</span> <span class="token keyword">boolean</span> <span class="token function">compareAndSwapInt</span><span class="token punctuation">(</span>Object var1<span class="token punctuation">,</span> <span class="token keyword">long</span> var2<span class="token punctuation">,</span> <span class="token keyword">int</span> var4<span class="token punctuation">,</span> <span class="token keyword">int</span> var5<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<h3 id="利用Unsafe自己写一个原子Counter"><a href="#利用Unsafe自己写一个原子Counter" class="headerlink" title="利用Unsafe自己写一个原子Counter"></a>利用Unsafe自己写一个原子Counter</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CASCounter</span> <span class="keyword">implements</span> <span class="title">Counter</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">long</span> counter = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">CASCounter</span><span class="params">()</span> <span class="keyword">throws</span> NoSuchFieldException </span>&#123;</span><br><span class="line">        unsafe = getUnsafe();</span><br><span class="line">        <span class="comment">//获取counter字段的内存偏移量</span></span><br><span class="line">        offset= unsafe.objectFieldOffset(CASCounter.class.getDeclaredField("counter"));</span><br><span class="line">        System.out.println(offset);</span><br><span class="line">    &#125;</span><br><span class="line">	</span><br><span class="line">    <span class="keyword">private</span> Unsafe unsafe;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">long</span> offset;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Unsafe <span class="title">getUnsafe</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        Field f = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            f = Unsafe.class.getDeclaredField("theUnsafe");</span><br><span class="line">            f.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">            <span class="keyword">return</span> (Unsafe)f.get(<span class="keyword">null</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">increment</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">long</span> current=counter;</span><br><span class="line">        <span class="keyword">while</span> (!unsafe.compareAndSwapLong(<span class="keyword">this</span>,offset,current,current+<span class="number">1</span>))&#123;</span><br><span class="line">            current=counter;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">long</span> <span class="title">getCounter</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> counter;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Counter</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">increment</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">long</span> <span class="title">getCounter</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<span class="token keyword">public</span> <span class="token keyword">final</span> <span class="token keyword">native</span> <span class="token keyword">boolean</span> <span class="token function">compareAndSwapLong</span><span class="token punctuation">(</span>Object var1<span class="token punctuation">,</span> <span class="token keyword">long</span> var2<span class="token punctuation">,</span> <span class="token keyword">long</span> var4<span class="token punctuation">,</span> <span class="token keyword">long</span> var6<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
-<h3 id="利用Unsafe自己写一个原子Counter"><a href="#利用Unsafe自己写一个原子Counter" class="headerlink" title="利用Unsafe自己写一个原子Counter"></a>利用Unsafe自己写一个原子Counter</h3><pre class=" language-java"><code class="language-java"><span class="token keyword">class</span> <span class="token class-name">CASCounter</span> <span class="token keyword">implements</span> <span class="token class-name">Counter</span> <span class="token punctuation">{</span>
-    <span class="token keyword">private</span> <span class="token keyword">volatile</span> <span class="token keyword">long</span> counter <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-
-    <span class="token keyword">public</span> <span class="token function">CASCounter</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> NoSuchFieldException <span class="token punctuation">{</span>
-        unsafe <span class="token operator">=</span> <span class="token function">getUnsafe</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token comment" spellcheck="true">//获取counter字段的内存偏移量</span>
-        offset<span class="token operator">=</span> unsafe<span class="token punctuation">.</span><span class="token function">objectFieldOffset</span><span class="token punctuation">(</span>CASCounter<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">.</span><span class="token function">getDeclaredField</span><span class="token punctuation">(</span><span class="token string">"counter"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>offset<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token keyword">private</span> Unsafe unsafe<span class="token punctuation">;</span>
-    <span class="token keyword">private</span> <span class="token keyword">long</span> offset<span class="token punctuation">;</span>
-
-    <span class="token keyword">public</span> <span class="token keyword">static</span> Unsafe <span class="token function">getUnsafe</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        Field f <span class="token operator">=</span> null<span class="token punctuation">;</span>
-        <span class="token keyword">try</span> <span class="token punctuation">{</span>
-            f <span class="token operator">=</span> Unsafe<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">.</span><span class="token function">getDeclaredField</span><span class="token punctuation">(</span><span class="token string">"theUnsafe"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-            f<span class="token punctuation">.</span><span class="token function">setAccessible</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token keyword">return</span> <span class="token punctuation">(</span>Unsafe<span class="token punctuation">)</span>f<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>null<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Exception</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">RuntimeException</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token annotation punctuation">@Override</span>
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">increment</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">long</span> current<span class="token operator">=</span>counter<span class="token punctuation">;</span>
-        <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token operator">!</span>unsafe<span class="token punctuation">.</span><span class="token function">compareAndSwapLong</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">,</span>offset<span class="token punctuation">,</span>current<span class="token punctuation">,</span>current<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-            current<span class="token operator">=</span>counter<span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token annotation punctuation">@Override</span>
-    <span class="token keyword">public</span> <span class="token keyword">long</span> <span class="token function">getCounter</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> counter<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-
-<span class="token keyword">interface</span> <span class="token class-name">Counter</span> <span class="token punctuation">{</span>
-    <span class="token keyword">void</span> <span class="token function">increment</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-    <span class="token keyword">long</span> <span class="token function">getCounter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span></code></pre>
 <h3 id="Unsafe的骚操作"><a href="#Unsafe的骚操作" class="headerlink" title="Unsafe的骚操作"></a>Unsafe的骚操作</h3><p><strong>绕过构造器创建对象</strong></p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">UnsafeFooTest</span> <span class="token punctuation">{</span>
-    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token keyword">throws</span> ClassNotFoundException<span class="token punctuation">,</span>InstantiationException<span class="token punctuation">,</span> NoSuchFieldException <span class="token punctuation">{</span>
-        Unsafe unsafe <span class="token operator">=</span> UnsafeTest<span class="token punctuation">.</span><span class="token function">getUnsafe</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token comment" spellcheck="true">//绕过构造器创建对象</span>
-        Simple simple <span class="token operator">=</span> <span class="token punctuation">(</span>Simple<span class="token punctuation">)</span> unsafe<span class="token punctuation">.</span><span class="token function">allocateInstance</span><span class="token punctuation">(</span>Simple<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>simple<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//null</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>simple<span class="token punctuation">.</span><span class="token function">getClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getClassLoader</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UnsafeFooTest</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> ClassNotFoundException,InstantiationException, NoSuchFieldException </span>&#123;</span><br><span class="line">        Unsafe unsafe = UnsafeTest.getUnsafe();</span><br><span class="line">        <span class="comment">//绕过构造器创建对象</span></span><br><span class="line">        Simple simple = (Simple) unsafe.allocateInstance(Simple<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">        System.out.println(simple.get()); <span class="comment">//null</span></span><br><span class="line">        System.out.println(simple.getClass().getClassLoader());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Simple</span> </span>&#123;</span><br><span class="line">        <span class="keyword">private</span> String a = <span class="string">"a"</span>;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">Simple</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            a = <span class="string">"new"</span>;</span><br><span class="line">            System.out.println(<span class="string">"============== "</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> String <span class="title">get</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> a;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">static</span> &#123;</span><br><span class="line">            System.out.println(<span class="string">"静态代码块"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-    <span class="token keyword">static</span> <span class="token keyword">class</span> <span class="token class-name">Simple</span> <span class="token punctuation">{</span>
-        <span class="token keyword">private</span> String a <span class="token operator">=</span> <span class="token string">"a"</span><span class="token punctuation">;</span>
-        <span class="token keyword">public</span> <span class="token function">Simple</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            a <span class="token operator">=</span> <span class="token string">"new"</span><span class="token punctuation">;</span>
-            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"============== "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-
-        <span class="token keyword">public</span> String <span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">return</span> a<span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        <span class="token keyword">static</span> <span class="token punctuation">{</span>
-            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"静态代码块"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span></code></pre>
 <p><strong>修改字段在内存中的值</strong></p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">UnsafeFooTest</span> <span class="token punctuation">{</span>
-    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token keyword">throws</span> ClassNotFoundException<span class="token punctuation">,</span> InstantiationException<span class="token punctuation">,</span> NoSuchFieldException <span class="token punctuation">{</span>
-        Unsafe unsafe <span class="token operator">=</span> UnsafeTest<span class="token punctuation">.</span><span class="token function">getUnsafe</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        Permission permission <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Permission</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        permission<span class="token punctuation">.</span><span class="token function">doSth</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token comment" spellcheck="true">//通过反射也可以做到，但是unsafe直接是到内存地址中将值修改了</span>
-        Field access_allow <span class="token operator">=</span> permission<span class="token punctuation">.</span><span class="token function">getClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getDeclaredField</span><span class="token punctuation">(</span><span class="token string">"ACCESS_ALLOW"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token comment" spellcheck="true">//获取字段再对象中的内存偏移量，可以简单理解为指针（内存地址）</span>
-        unsafe<span class="token punctuation">.</span><span class="token function">putLong</span><span class="token punctuation">(</span>permission<span class="token punctuation">,</span>unsafe<span class="token punctuation">.</span><span class="token function">objectFieldOffset</span><span class="token punctuation">(</span>access_allow<span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        permission<span class="token punctuation">.</span><span class="token function">doSth</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UnsafeFooTest</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> ClassNotFoundException, InstantiationException, NoSuchFieldException </span>&#123;</span><br><span class="line">        Unsafe unsafe = UnsafeTest.getUnsafe();</span><br><span class="line">        Permission permission = <span class="keyword">new</span> Permission();</span><br><span class="line">        permission.doSth();</span><br><span class="line">        <span class="comment">//通过反射也可以做到，但是unsafe直接是到内存地址中将值修改了</span></span><br><span class="line">        Field access_allow = permission.getClass().getDeclaredField(<span class="string">"ACCESS_ALLOW"</span>);</span><br><span class="line">        <span class="comment">//获取字段再对象中的内存偏移量，可以简单理解为指针（内存地址）</span></span><br><span class="line">        unsafe.putLong(permission,unsafe.objectFieldOffset(access_allow),-<span class="number">1</span>);</span><br><span class="line">        permission.doSth();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Permission</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> ACCESS_ALLOW = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">isAllow</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span>  ACCESS_ALLOW==-<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doSth</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (isAllow()) &#123;</span><br><span class="line">            System.out.println(<span class="string">"i am workind"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<span class="token keyword">class</span> <span class="token class-name">Permission</span> <span class="token punctuation">{</span>
-    <span class="token keyword">private</span> <span class="token keyword">int</span> ACCESS_ALLOW <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-
-    <span class="token keyword">private</span> <span class="token keyword">boolean</span> <span class="token function">isAllow</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">return</span>  ACCESS_ALLOW<span class="token operator">==</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">doSth</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">isAllow</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"i am workind"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span></code></pre>
 <p><strong>defindClass加载类文件</strong></p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">UnsafeFooTest</span> <span class="token punctuation">{</span>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UnsafeFooTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> ClassNotFoundException, InstantiationException, NoSuchFieldException, IllegalAccessException, NoSuchMethodException, InvocationTargetException </span>&#123;</span><br><span class="line">        Unsafe unsafe = UnsafeTest.getUnsafe();</span><br><span class="line">        <span class="keyword">byte</span>[] bytes = loadClassContent();</span><br><span class="line">        Class&lt;?&gt; aClass = unsafe.defineClass(<span class="keyword">null</span>, bytes, <span class="number">0</span>, bytes.length, ClassLoader.getSystemClassLoader(), <span class="keyword">null</span>);</span><br><span class="line">        <span class="keyword">int</span> get = (<span class="keyword">int</span>) aClass.getMethod(<span class="string">"get"</span>).invoke(aClass.newInstance(), <span class="keyword">null</span>);</span><br><span class="line">        System.out.println(get);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//将class字节码加载到内存中</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">byte</span>[] loadClassContent() &#123;</span><br><span class="line">        File f = <span class="keyword">new</span> File(<span class="string">"D:\\ClassLoaderTest\\Res.class"</span>);</span><br><span class="line">        FileInputStream stream = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">byte</span>[] bytes=<span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            stream = <span class="keyword">new</span> FileInputStream(f);</span><br><span class="line">             bytes = <span class="keyword">new</span> <span class="keyword">byte</span>[(<span class="keyword">int</span>) f.length()];</span><br><span class="line">            stream.read(bytes);</span><br><span class="line">            stream.close();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (FileNotFoundException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> bytes;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token keyword">throws</span> ClassNotFoundException<span class="token punctuation">,</span> InstantiationException<span class="token punctuation">,</span> NoSuchFieldException<span class="token punctuation">,</span> IllegalAccessException<span class="token punctuation">,</span> NoSuchMethodException<span class="token punctuation">,</span> InvocationTargetException <span class="token punctuation">{</span>
-        Unsafe unsafe <span class="token operator">=</span> UnsafeTest<span class="token punctuation">.</span><span class="token function">getUnsafe</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span> bytes <span class="token operator">=</span> <span class="token function">loadClassContent</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        Class<span class="token operator"><</span><span class="token operator">?</span><span class="token operator">></span> aClass <span class="token operator">=</span> unsafe<span class="token punctuation">.</span><span class="token function">defineClass</span><span class="token punctuation">(</span>null<span class="token punctuation">,</span> bytes<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> bytes<span class="token punctuation">.</span>length<span class="token punctuation">,</span> ClassLoader<span class="token punctuation">.</span><span class="token function">getSystemClassLoader</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> null<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">int</span> get <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">)</span> aClass<span class="token punctuation">.</span><span class="token function">getMethod</span><span class="token punctuation">(</span><span class="token string">"get"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">invoke</span><span class="token punctuation">(</span>aClass<span class="token punctuation">.</span><span class="token function">newInstance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> null<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>get<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token comment" spellcheck="true">//将class字节码加载到内存中</span>
-    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">loadClassContent</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        File f <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">File</span><span class="token punctuation">(</span><span class="token string">"D:\\ClassLoaderTest\\Res.class"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        FileInputStream stream <span class="token operator">=</span> null<span class="token punctuation">;</span>
-        <span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span> bytes<span class="token operator">=</span>null<span class="token punctuation">;</span>
-        <span class="token keyword">try</span> <span class="token punctuation">{</span>
-            stream <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">FileInputStream</span><span class="token punctuation">(</span>f<span class="token punctuation">)</span><span class="token punctuation">;</span>
-             bytes <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">byte</span><span class="token punctuation">[</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">)</span> f<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-            stream<span class="token punctuation">.</span><span class="token function">read</span><span class="token punctuation">(</span>bytes<span class="token punctuation">)</span><span class="token punctuation">;</span>
-            stream<span class="token punctuation">.</span><span class="token function">close</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">FileNotFoundException</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">IOException</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        <span class="token keyword">return</span> bytes<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span></code></pre>
 <p>将编译好的class文件放到对应的目录下</p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Res</span> <span class="token punctuation">{</span>
-    <span class="token keyword">private</span> <span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Res</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> i=<span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Res</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.i=<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">get</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> i;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-    <span class="token keyword">public</span> <span class="token function">Res</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-        <span class="token keyword">this</span><span class="token punctuation">.</span>i<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> i<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span></code></pre>
 <p><strong>结果</strong>，是不是很牛皮？🐂🍺是🐂🍺但是这个玩意尽量的别用。。</p>
-<p><img alt="mark" data-src="http://static.imlgw.top/blog/20190720/zLJJUhQ6GAdc.png?imageslim" src="/img/loading.gif" class="lazyload"></p>
+<p><img src="http://static.imlgw.top/blog/20190720/zLJJUhQ6GAdc.png?imageslim" alt="mark"></p>
 <p><strong>Unsafe</strong>里面的方法还有很多这里就不都列举了，毕竟暂时还用不到，如果想了解更多可以看看这几篇文章</p>
 <ul>
 <li><p><a href="https://www.cnblogs.com/throwable/p/9139947.html" target="_blank" rel="noopener">JAVA中神奇的双刃剑–Unsafe</a></p>
@@ -483,28 +244,219 @@
 <li><p><a href="https://tech.meituan.com/2019/02/14/talk-about-java-magic-class-unsafe.html" target="_blank" rel="noopener">Java魔法类：Unsafe应用解析</a></p>
 </li>
 </ul>
-</body></html></div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">imlgw</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://imlgw.top/2019/04/22/cas-yu-yuan-zi-bian-liang/">http://imlgw.top/2019/04/22/cas-yu-yuan-zi-bian-liang/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://imlgw.top">iMlGw0</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">多线程    </a><a class="post-meta__tags" href="/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/">并发编程    </a></div><div class="post_share"><div class="social-share" data-image="http://static.imlgw.top/image/20190713/wallhaven-zmpd3j.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js"></script></div></div><div class="post-reward"><a class="reward-button button--primary button--animated"> <i class="fa fa-qrcode"></i> 打赏<div class="reward-main"><ul class="reward-all"><li class="reward-item"><img class="lazyload post-qr-code__img" src="/img/wechat.png" alt="微信"><div class="post-qr-code__desc">微信</div></li><li class="reward-item"><img class="lazyload post-qr-code__img" src="/img/alipay.png" alt="支付寶"><div class="post-qr-code__desc">支付寶</div></li></ul></div></a></div><nav class="pagination_post" id="pagination"><div class="prev-post pull_left"><a href="/2019/04/29/volatile-guan-jian-zi/"><img class="prev_cover lazyload" data-src="http://static.imlgw.top///20190429/O1leMFc6AcR4.png?imageslim" onerror="onerror=null;src='/img/404.jpg'"><div class="label">上一篇</div><div class="prev_info"><span>Volatile关键字详解</span></div></a></div><div class="next-post pull_right"><a href="/2019/04/09/java-duo-xian-cheng-li-mian-de-she-ji-mo-shi/"><img class="next_cover lazyload" data-src="http://static.imlgw.top/blog/20190726/C6uND3E3nwWJ.jpg?imageslim" onerror="onerror=null;src='/img/404.jpg'"><div class="label">下一篇</div><div class="next_info"><span>Java多线程之设计模式</span></div></a></div></nav><div class="relatedPosts"><div class="relatedPosts_headline"><i class="fa fa-fw fa-thumbs-up" aria-hidden="true"></i><span> 相关推荐</span></div><div class="relatedPosts_list"><div class="relatedPosts_item"><a href="/2019/09/24/abstractqueuedsynchronizer/" title="AQS源码解析（上）"><img class="relatedPosts_cover lazyload"data-src="http://static.imlgw.top/blog/20190924/fjWv53purgaU.jpg?imageslim"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2020-04-25</div><div class="relatedPosts_title">AQS源码解析（上）</div></div></a></div><div class="relatedPosts_item"><a href="/2019/07/30/threadpoolexecutor-yuan-ma-jie-xi/" title="ThreadPoolExecutor源码解析"><img class="relatedPosts_cover lazyload"data-src="http://static.imlgw.top/blog/20190806/wdUz2J3lFXcL.jpg?imageslim"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2020-04-25</div><div class="relatedPosts_title">ThreadPoolExecutor源码解析</div></div></a></div><div class="relatedPosts_item"><a href="/2019/08/10/zi-xuan-suo-clh-suo-mcs-suo/" title="自旋锁，CLH锁，MCS锁"><img class="relatedPosts_cover lazyload"data-src="http://static.imlgw.top/blog/20190810/eUpUP2rgLLol.jpg?imageslim"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2020-04-25</div><div class="relatedPosts_title">自旋锁，CLH锁，MCS锁</div></div></a></div></div><div class="clear_both"></div></div><hr><div id="post-comment"><div class="comment_headling"><i class="fa fa-comments fa-fw" aria-hidden="true"></i><span> 评论</span></div><div class="vcomment" id="vcomment"></div><script src="https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script><script>var notify = false == true ? true : false;
-var verify = true == true ? true : false;
-var GUEST_INFO = ['nick','mail','link'];
-var guest_info = 'nick,mail,link'.split(',').filter(function(item){
-  return GUEST_INFO.indexOf(item) > -1
-});
-guest_info = guest_info.length == 0 ? GUEST_INFO :guest_info;
 
-window.valine = new Valine({
-  el:'#vcomment',
-  notify:notify,
-  verify:verify,
-  appId:'MkcXmeDvktRNBDBrVqb9KYPH-MdYXbMMI',
-  appKey:'swDnb5a9u9Ksp2Rwkdm7Qulh',
-  placeholder:'留下邮箱才能收到及时收到回复~~',
-  avatar:'monsterid',
-  guest_info:guest_info,
-  pageSize:'10',
-  lang:'zh-cn',
-  recordIP: true
-});</script></div></div></main><footer id="footer" style="background-image: url(http://static.imlgw.top/image/20190713/wallhaven-zmpd3j.jpg)" data-type="photo"><div id="footer-wrap"><div class="copyright">&copy;2018 - 2020 By imlgw</div><div class="framework-info"><span>驱动 </span><a href="http://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener"><span>Butterfly</span></a></div><div class="icp"><a href="http://beian.miit.gov.cn/publish/query/indexFirst.action" target="_blank" rel="noopener"><span>鄂ICP备18011208号</span></a></div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><i class="fa fa-book" id="readmode" title="阅读模式"></i><i class="fa fa-plus" id="font_plus" title="放大字体"></i><i class="fa fa-minus" id="font_minus" title="缩小字体"></i><a class="translate_chn_to_cht" id="translateLink" href="javascript:translatePage();" title="简繁转换" target="_self">簡</a></div><div id="rightside-config-show"><div id="rightside_config" title="设置"><i class="fa fa-cog" aria-hidden="true"></i></div><a id="to_comment" href="#post-comment" title="直达评论"><i class="scroll_to_comment fa fa-comments">  </i></a><i class="fa fa-list-ul close" id="mobile-toc-button" title="目录" aria-hidden="true"></i><i class="fa fa-arrow-up" id="go-up" title="回到顶部" aria-hidden="true"></i></div></section><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/medium-zoom/dist/medium-zoom.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script id="ribbon_piao" mobile="undefined" src="https://cdn.jsdelivr.net/gh/jerryc127/butterfly_cdn@2.1.0/js/piao.js"></script><script src="https://cdn.jsdelivr.net/npm/activate-power-mode/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
-POWERMODE.shake = false; 
-document.body.addEventListener('input', POWERMODE);
-</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@latest/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@latest/lazysizes.min.js" async=""></script><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章"></div></div></div><hr><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a href="https://github.com/wzpan/hexo-generator-search" target="_blank" rel="noopener" style="color:#49B1F5;">hexo-generator-search</a>
- <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fa fa-times"></i></span></div><div class="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/live2d-widget@3.x/lib/L2Dwidget.min.js"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"https://cdn.jsdelivr.net/npm/live2d-widget-model-hijiki@1.0.5/assets/hijiki.model.json"},"display":{"superSample":2,"width":160,"height":320,"position":"right","hOffset":0,"vOffset":-70},"mobile":{"show":false,"scale":0.2},"log":false});</script></body></html>
+    </div>
+
+  </article>
+  <div class="toc-container">
+    
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#CAS"><span class="toc-text">CAS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#原子变量类"><span class="toc-text">原子变量类</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#利用CAS写一个锁"><span class="toc-text">利用CAS写一个锁</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ABA问题"><span class="toc-text">ABA问题</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#无法接受的例子"><span class="toc-text">无法接受的例子</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#如何解决ABA问题"><span class="toc-text">如何解决ABA问题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#小插曲-Integer缓存"><span class="toc-text">小插曲(Integer缓存)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#字段更新器"><span class="toc-text">字段更新器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#AtomicIntegerFieldUpdater测试"><span class="toc-text">AtomicIntegerFieldUpdater测试</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Unsafe双刃剑"><span class="toc-text">Unsafe双刃剑</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#获取Unsafe"><span class="toc-text">获取Unsafe</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CAS相关"><span class="toc-text">CAS相关</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#利用Unsafe自己写一个原子Counter"><span class="toc-text">利用Unsafe自己写一个原子Counter</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Unsafe的骚操作"><span class="toc-text">Unsafe的骚操作</span></a></li></ol></li></ol>
+  </div>
+
+
+  </div>
+</div>
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'true' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "MkcXmeDvktRNBDBrVqb9KYPH-MdYXbMMI",
+            app_key: "swDnb5a9u9Ksp2Rwkdm7Qulh",
+            placeholder: "留下邮箱才能收到收到回复喔 ~",
+            avatar:"monsterid"
+        });
+    }
+</script>
+    </section>
+  
+<div class="copyright">
+    <span>本作品采用</span>
+    <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">知识共享署名 4.0 国际许可协议</a>
+    <span>进行许可。 转载时请注明原文链接。</span>
+</div>
+
+
+  
+    <div class="post-nav">
+      <div class="post-nav-item post-nav-next">
+        
+          <span>〈 </span>
+          <a href="/2019/04/09/java-duo-xian-cheng-li-mian-de-she-ji-mo-shi/" rel="next" title="Java多线程之设计模式">
+          Java多线程之设计模式
+          </a>
+        
+      </div>
+  
+      <div class="post-nav-item post-nav-prev">
+          
+          <a href="/2019/04/29/volatile-guan-jian-zi/" rel="prev" title="Volatile关键字详解">
+            Volatile关键字详解
+          </a>
+          <span>〉</span>
+        
+      </div>
+    </div>
+  
+
+    </div>
+
+    
+
+  </div>
+  <footer class="footer text-center">
+    <div id="bottom-inner">
+        <a class="bottom-item" href="https://github.com/imlgw" target="_blank">GitHub</a> |
+        <a class="bottom-item" href="/links">友情链接</a> |
+        <a class="bottom-item" href="https://hexo.io" target="_blank">Powered by hexo</a> |
+        <a class="bottom-item" href="https://github.com/fooying/hexo-theme-xoxo-plus" target="_blank">Theme xoxo-plus</a> |
+        <a class="bottom-item" href="/atom.xml">RSS</a>
+    </div>
+</footer>
+
+  
+
+<script>
+  (function(window, document, undefined) {
+
+    var timer = null;
+
+    function returnTop() {
+      cancelAnimationFrame(timer);
+      timer = requestAnimationFrame(function fn() {
+        var oTop = document.body.scrollTop || document.documentElement.scrollTop;
+        if (oTop > 0) {
+          document.body.scrollTop = document.documentElement.scrollTop = oTop - 50;
+          timer = requestAnimationFrame(fn);
+        } else {
+          cancelAnimationFrame(timer);
+        }
+      });
+    }
+
+    var hearts = [];
+    window.requestAnimationFrame = (function() {
+      return window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.oRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        function(callback) {
+          setTimeout(callback, 1000 / 60);
+        }
+    })();
+    init();
+
+    function init() {
+      css(".heart{z-index:9999;width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);}.heart:after,.heart:before{content: '';width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: absolute;}.heart:after{top: -5px;}.heart:before{left: -5px;}");
+      attachEvent();
+      gameloop();
+      addMenuEvent();
+    }
+
+    function gameloop() {
+      for (var i = 0; i < hearts.length; i++) {
+        if (hearts[i].alpha <= 0) {
+          document.body.removeChild(hearts[i].el);
+          hearts.splice(i, 1);
+          continue;
+        }
+        hearts[i].y--;
+        hearts[i].scale += 0.004;
+        hearts[i].alpha -= 0.013;
+        hearts[i].el.style.cssText = "left:" + hearts[i].x + "px;top:" + hearts[i].y + "px;opacity:" + hearts[i].alpha + ";transform:scale(" + hearts[i].scale + "," + hearts[i].scale + ") rotate(45deg);background:" + hearts[i].color;
+      }
+      requestAnimationFrame(gameloop);
+    }
+
+    /**
+     * 给logo设置点击事件
+     * 
+     * - 回到顶部
+     * - 出现爱心
+     */
+    function attachEvent() {
+      var old = typeof window.onclick === "function" && window.onclick;
+      var logo = document.getElementById("logo");
+      if (logo) {
+        logo.onclick = function(event) {
+          returnTop();
+          old && old();
+          createHeart(event);
+        }
+      }
+      
+    }
+
+    function createHeart(event) {
+      var d = document.createElement("div");
+      d.className = "heart";
+      hearts.push({
+        el: d,
+        x: event.clientX - 5,
+        y: event.clientY - 5,
+        scale: 1,
+        alpha: 1,
+        color: randomColor()
+      });
+      document.body.appendChild(d);
+    }
+
+    function css(css) {
+      var style = document.createElement("style");
+      style.type = "text/css";
+      try {
+        style.appendChild(document.createTextNode(css));
+      } catch (ex) {
+        style.styleSheet.cssText = css;
+      }
+      document.getElementsByTagName('head')[0].appendChild(style);
+    }
+
+    function randomColor() {
+      // return "rgb(" + (~~(Math.random() * 255)) + "," + (~~(Math.random() * 255)) + "," + (~~(Math.random() * 255)) + ")";
+      return "#F44336";
+    }
+
+    function addMenuEvent() {
+      var menu = document.getElementById('menu-main-post');
+      if (menu) {
+        var toc = document.getElementById('toc');
+        if (toc) {
+          menu.onclick = function() {
+            if (toc) {
+              if (toc.style.display == 'block') {
+                toc.style.display = 'none';
+              } else {
+                toc.style.display = 'block';
+              }
+            }
+          };
+        } else {
+          menu.style.display = 'none';
+        }
+      }
+    }
+
+  })(window, document);
+</script>
+
+  
+
+
+
+  
+
+<script src="https://cdn.jsdelivr.net/npm/live2d-widget@3.x/lib/L2Dwidget.min.js"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"https://cdn.jsdelivr.net/npm/live2d-widget-model-hijiki@1.0.5/assets/hijiki.model.json"},"display":{"superSample":2,"width":160,"height":320,"position":"right","hOffset":0,"vOffset":-70},"mobile":{"show":false,"scale":0.2},"log":false});</script></body>
+</html>

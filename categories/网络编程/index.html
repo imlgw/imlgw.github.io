@@ -1,38 +1,286 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5"><title>分类: 网络编程 | iMlGw0</title><meta name="description" content="大悲无泪，大悟无言，大笑无声。"><meta name="keywords" content="imlgw,半岛铁盒,blog,Java博客,程序员,个人博客,java開發,程序員,個人博客,Java"><meta name="author" content="imlgw"><meta name="copyright" content="imlgw"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/img/Cup.ico"><link rel="preconnect" href="//cdn.jsdelivr.net"><link rel="preconnect" href="https://hm.baidu.com"><link rel="preconnect" href="https://fonts.googleapis.com" crossorigin><link rel="preconnect" href="//busuanzi.ibruce.info"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="分类: 网络编程"><meta name="twitter:description" content="大悲无泪，大悟无言，大笑无声。"><meta name="twitter:image" content="http://static.imlgw.top/maofu.png"><meta property="og:type" content="website"><meta property="og:title" content="分类: 网络编程"><meta property="og:url" content="http://imlgw.top/categories/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/"><meta property="og:site_name" content="iMlGw0"><meta property="og:description" content="大悲无泪，大悟无言，大笑无声。"><meta property="og:image" content="http://static.imlgw.top/maofu.png"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script src="https://cdn.jsdelivr.net/npm/js-cookie/dist/js.cookie.min.js"></script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css"><link rel="canonical" href="http://imlgw.top/categories/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/"><script>var _hmt = _hmt || [];
-(function() {
-  var hm = document.createElement("script");
-  hm.src = "https://hm.baidu.com/hm.js?93be601f1b40364d8cd640d751012180";
-  var s = document.getElementsByTagName("script")[0]; 
-  s.parentNode.insertBefore(hm, s);
-})();
-</script><link rel="preload" href="/" as="image"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><script>var GLOBAL_CONFIG = { 
-  root: '/',
-  algolia: undefined,
-  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容:${query}"}},
-  translate: {"defaultEncoding":1,"translateDelay":0,"cookieDomain":"imlgw.top","msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简"},
-  copy: {
-    success: '复制成功',
-    error: '复制错误',
-    noSupport: '浏览器不支持'
-  },
-  bookmark: {
-    title: 'Snackbar.bookmark.title',
-    message_prev: '按',
-    message_next: '键将本页加入书签'
-  },
-  runtime_unit: '天',
-  runtime: true,
-  copyright: {"languages":{"author":"作者: imlgw","link":"链接: http://imlgw.top/categories/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/","source":"来源: iMlGw0","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
-  ClickShowText: undefined,
-  medium_zoom: true,
-  fancybox: false,
-  Snackbar: {"bookmark":{"title":"Snackbar.bookmark.title","message_prev":"按","message_next":"键将本页加入书签"},"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#2d3035","position":"bottom-left"},
-  baiduPush: false,
-  isHome: false,
-  isPost: false
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#202020"/>
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
   
-}</script><meta name="generator" content="Hexo 4.2.0"><link rel="stylesheet" href="/css/prism.css" type="text/css"></head><body><header> <div id="page-header"><span class="pull_left" id="blog_name"><a class="blog_title" id="site-name" href="/">iMlGw0</a></span><span class="toggle-menu pull_right close"><a class="site-page"><i class="fa fa-bars fa-fw" aria-hidden="true"></i></a></span><span class="pull_right menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/board/"><i class="fa-fw fa fa-link"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-list" aria-hidden="true"></i><span> LeetCode</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="http://imlgw.top/2019/02/27/leetcode-lian-biao/"><i class="fa-fw fa fa-tags"></i><span> 链表</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/05/04/leetcode-shu-zu/"><i class="fa-fw fa fa-tags"></i><span> 数组</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/10/01/leetcode-zhan-dui-lie/"><i class="fa-fw fa fa-tags"></i><span> 栈&amp;队列</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/09/15/leetcode-cha-zhao/"><i class="fa-fw fa fa-tags"></i><span> 查找</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/12/06/leetcode-er-fen-cha-zhao/"><i class="fa-fw fa fa-tags"></i><span> 二分查找</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/11/06/leetcode-er-cha-shu/"><i class="fa-fw fa fa-tags"></i><span> 二叉树</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/07/20/leetcode-hua-dong-chuang-kou/"><i class="fa-fw fa fa-tags"></i><span> 滑动窗口</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/09/01/leetcode-dong-tai-gui-hua/"><i class="fa-fw fa fa-tags"></i><span> 动态规划</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/11/29/leetcode-bei-bao-wen-ti/"><i class="fa-fw fa fa-tags"></i><span> 背包问题</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/10/10/leetcode-hui-su/"><i class="fa-fw fa fa-tags"></i><span> 回溯</span></a></li><li><a class="site-page" href="http://imlgw.top/2020/01/21/leetcode-tan-xin/"><i class="fa-fw fa fa-tags"></i><span> 贪心</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link"><i class="fa-fw fa fa-address-book"></i><span> 大佬们</span></a></div></div></span><span class="pull_right" id="search_button"><a class="site-page social-icon search"><i class="fa fa-search fa-fw"></i><span> 搜索</span></a></span></div></header><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="http://static.imlgw.top/maofu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">59</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">58</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">12</div></a></div></div></div><hr><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/board/"><i class="fa-fw fa fa-link"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-list" aria-hidden="true"></i><span> LeetCode</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="http://imlgw.top/2019/02/27/leetcode-lian-biao/"><i class="fa-fw fa fa-tags"></i><span> 链表</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/05/04/leetcode-shu-zu/"><i class="fa-fw fa fa-tags"></i><span> 数组</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/10/01/leetcode-zhan-dui-lie/"><i class="fa-fw fa fa-tags"></i><span> 栈&amp;队列</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/09/15/leetcode-cha-zhao/"><i class="fa-fw fa fa-tags"></i><span> 查找</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/12/06/leetcode-er-fen-cha-zhao/"><i class="fa-fw fa fa-tags"></i><span> 二分查找</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/11/06/leetcode-er-cha-shu/"><i class="fa-fw fa fa-tags"></i><span> 二叉树</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/07/20/leetcode-hua-dong-chuang-kou/"><i class="fa-fw fa fa-tags"></i><span> 滑动窗口</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/09/01/leetcode-dong-tai-gui-hua/"><i class="fa-fw fa fa-tags"></i><span> 动态规划</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/11/29/leetcode-bei-bao-wen-ti/"><i class="fa-fw fa fa-tags"></i><span> 背包问题</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/10/10/leetcode-hui-su/"><i class="fa-fw fa fa-tags"></i><span> 回溯</span></a></li><li><a class="site-page" href="http://imlgw.top/2020/01/21/leetcode-tan-xin/"><i class="fa-fw fa fa-tags"></i><span> 贪心</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link"><i class="fa-fw fa fa-address-book"></i><span> 大佬们</span></a></div></div></div></div><div id="body-wrap"><div id="web_bg" data-type="color"></div><nav class="not_index_bg" id="nav"><div id="page_site-info"><div id="site-title"><span class="blogtitle">网络编程</span></div></div></nav><main id="content-outer"><div class="layout_page" id="content-inner"><div id="category"><div class="article-sort-title">分类 - 网络编程</div><div class="article-sort"><div class="article-sort-item year">2019</div><div class="article-sort-item"><div class="article-sort-img"><a class="article-sort-item__img" href="/2019/07/19/socket-wang-luo-bian-cheng/"><img src="http://static.imlgw.top/image/20190719/Ob9k514MhYVn.png?imageslim" alt="Socket网络编程"></a></div><div class="article-sort-post"><a class="article-sort-item__post" href="/2019/07/19/socket-wang-luo-bian-cheng/"><i class="fa fa-clock-o" aria-hidden="true"></i><time class="article-sort-item__time">2019-07-19</time><div class="article-sort-item__title">Socket网络编程</div></a></div></div></div><nav id="pagination"><div class="pagination"><span class="page-number current">1</span></div></nav></div><div class="aside_content" id="aside_content"><div class="card-widget card-info"><div class="card-content"><div class="card-info-avatar is-center"><img class="avatar-img" src="http://static.imlgw.top/maofu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"><div class="author-info__name">imlgw</div><div class="author-info__description">大悲无泪，大悟无言，大笑无声。</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length_num">59</div></a></div><div class="card-info-data-item is-center">      <a href="/tags/"><div class="headline">标签</div><div class="length_num">58</div></a></div><div class="card-info-data-item is-center">     <a href="/categories/"><div class="headline">分类</div><div class="length_num">12</div></a></div></div><div class="card-info-bookmark is-center"><a class="bookmark button--primary button--animated" id="bookmark-it" href="javascript:;" title="加入书签" target="_self"><i class="fa fa-bookmark" aria-hidden="true"></i><span>加入书签</span></a></div><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/imlgw" target="_blank"><i class="fa fa-github" aria-hidden="true"></i></a><a class="social-icon" href="https://www.instagram.com/reso1mi/" target="_blank"><i class="fa fa-instagram" aria-hidden="true"></i></a><a class="social-icon" href="mailto:privateli@foxmail.com" target="_blank"><i class="fa fa-envelope" aria-hidden="true"></i></a><a class="social-icon" href="tencent://AddContact/?fromId=50&amp;fromSubId=1&amp;subcmd=all&amp;uin=1650487028" target="_blank"><i class="fa fa-qq" aria-hidden="true"></i></a></div></div></div><div class="card-widget card-announcement"><div class="card-content"><div class="item-headline"><i class="fa fa-bullhorn card-announcement-animation" aria-hidden="true"></i><span>公告</span></div><div class="announcement_content">🎉欢迎大家来到我的小站, 喜欢的朋友可以收藏一下💗</div></div></div><div class="card-widget card-recent-post"><div class="card-content"><div class="item-headline"><i class="fa fa-history" aria-hidden="true"></i><span>最新文章</span></div><div class="aside-recent-item"> <div class="aside-recent-post"><a href="/2020/02/02/bing-cha-ji/"><div class="aside-post-cover"><img class="aside-post-bg lazyload" data-src="http://static.imlgw.top/blog/20200101/SdfeawuEf9Qz.png?imageslim" onerror="this.onerror=null;this.src='/img/404.jpg'" title="并查集" alt="并查集"></div><div class="aside-post-title"><div class="aside-post_title" href="/2020/02/02/bing-cha-ji/" title="并查集">并查集</div><time class="aside-post_meta post-meta__date">2020-02-02</time></div></a></div><div class="aside-recent-post"><a href="/2020/01/21/leetcode-tan-xin/"><div class="aside-post-cover"><img class="aside-post-bg lazyload" data-src="http://static.imlgw.top/image/featureimages/7.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" title="LeetCode贪心" alt="LeetCode贪心"></div><div class="aside-post-title"><div class="aside-post_title" href="/2020/01/21/leetcode-tan-xin/" title="LeetCode贪心">LeetCode贪心</div><time class="aside-post_meta post-meta__date">2020-01-21</time></div></a></div><div class="aside-recent-post"><a href="/2019/12/23/wo-chang-yong-de-yi-xie-gong-ju-he-wang-zhan/"><div class="aside-post-cover"><img class="aside-post-bg lazyload" data-src="http://static.imlgw.top///20190407/UH6EHRQK6IsM.jpg?imageslim" onerror="this.onerror=null;this.src='/img/404.jpg'" title="常用的一些工具和网站" alt="常用的一些工具和网站"></div><div class="aside-post-title"><div class="aside-post_title" href="/2019/12/23/wo-chang-yong-de-yi-xie-gong-ju-he-wang-zhan/" title="常用的一些工具和网站">常用的一些工具和网站</div><time class="aside-post_meta post-meta__date">2019-12-23</time></div></a></div><div class="aside-recent-post"><a href="/2019/12/17/zi-dian-shu/"><div class="aside-post-cover"><img class="aside-post-bg lazyload" data-src="http://static.imlgw.top/blog/20191217/LBpwvvgOLq1S.jpg?imageslim" onerror="this.onerror=null;this.src='/img/404.jpg'" title="字典树初探" alt="字典树初探"></div><div class="aside-post-title"><div class="aside-post_title" href="/2019/12/17/zi-dian-shu/" title="字典树初探">字典树初探</div><time class="aside-post_meta post-meta__date">2019-12-17</time></div></a></div><div class="aside-recent-post"><a href="/2019/12/09/xian-duan-shu/"><div class="aside-post-cover"><img class="aside-post-bg lazyload" data-src="https://i.loli.net/2019/12/09/b1LJaFSeGxsTKwn.png" onerror="this.onerror=null;this.src='/img/404.jpg'" title="线段树初探" alt="线段树初探"></div><div class="aside-post-title"><div class="aside-post_title" href="/2019/12/09/xian-duan-shu/" title="线段树初探">线段树初探</div><time class="aside-post_meta post-meta__date">2019-12-09</time></div></a></div></div></div></div><div class="card-widget card-categories"><div class="card-content"><div class="item-headline"><i class="fa fa-folder-open" aria-hidden="true"></i><span>分类</span></div><ul class="aside-category-item">       <li class="aside-category-list"><a class="aside-category-list_link" href="/categories/Hexo/"><span class="aside-category-list_name">Hexo</span><span class="aside-category-list_length">2</span></a></li><li class="aside-category-list"><a class="aside-category-list_link" href="/categories/JVM/"><span class="aside-category-list_name">JVM</span><span class="aside-category-list_length">4</span></a></li><li class="aside-category-list"><a class="aside-category-list_link" href="/categories/Web/"><span class="aside-category-list_name">Web</span><span class="aside-category-list_length">11</span></a></li><li class="aside-category-list"><a class="aside-category-list_link" href="/categories/%E5%B7%A5%E5%85%B7/"><span class="aside-category-list_name">工具</span><span class="aside-category-list_length">2</span></a></li><li class="aside-category-list"><a class="aside-category-list_link" href="/categories/%E5%B9%B6%E5%8F%91/"><span class="aside-category-list_name">并发</span><span class="aside-category-list_length">9</span></a></li><li class="aside-category-list"><a class="aside-category-list_link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"><span class="aside-category-list_name">数据结构</span><span class="aside-category-list_length">6</span></a></li><li class="aside-category-list"><a class="aside-category-list_link" href="/categories/%E6%B8%97%E9%80%8F/"><span class="aside-category-list_name">渗透</span><span class="aside-category-list_length">1</span></a></li><li class="aside-category-list"><a class="aside-category-list_link" href="/categories/%E7%88%AC%E8%99%AB/"><span class="aside-category-list_name">爬虫</span><span class="aside-category-list_length">1</span></a></li><li class="aside-category-list"><a class="aside-category-list_link" href="/categories/%E7%AE%97%E6%B3%95/"><span class="aside-category-list_name">算法</span><span class="aside-category-list_length">17</span></a></li><li class="aside-category-list"><a class="aside-category-list_link" href="/categories/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/"><span class="aside-category-list_name">网络编程</span><span class="aside-category-list_length">1</span></a></li><li class="aside-category-list"><a class="aside-category-list_link" href="/categories/%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95/"><span class="aside-category-list_name">踩坑记录</span><span class="aside-category-list_length">4</span></a></li><li class="aside-category-list"><a class="aside-category-list_link" href="/categories/%E8%BF%90%E7%BB%B4/"><span class="aside-category-list_name">运维</span><span class="aside-category-list_length">1</span></a></li></ul></div></div><div class="card-widget card-tags"><div class="card-content"><div class="item-headline"><i class="fa fa-tags" aria-hidden="true"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/Bug/" style="font-size: 19px; color: #999fa7">Bug</a> <a href="/tags/CAS/" style="font-size: 16px; color: #999">CAS</a> <a href="/tags/ClassLoader/" style="font-size: 16px; color: #999">ClassLoader</a> <a href="/tags/Class%E7%BB%93%E6%9E%84/" style="font-size: 16px; color: #999">Class结构</a> <a href="/tags/ES6/" style="font-size: 16px; color: #999">ES6</a> <a href="/tags/FastDFS/" style="font-size: 16px; color: #999">FastDFS</a> <a href="/tags/Hexo/" style="font-size: 17px; color: #999b9e">Hexo</a> <a href="/tags/JMeter/" style="font-size: 16px; color: #999">JMeter</a> <a href="/tags/JNI/" style="font-size: 16px; color: #999">JNI</a> <a href="/tags/JSR/" style="font-size: 16px; color: #999">JSR</a> <a href="/tags/JVM/" style="font-size: 18px; color: #999da3">JVM</a> <a href="/tags/Java/" style="font-size: 16px; color: #999">Java</a> <a href="/tags/JavaScript/" style="font-size: 16px; color: #999">JavaScript</a> <a href="/tags/Kali/" style="font-size: 16px; color: #999">Kali</a> <a href="/tags/LRU/" style="font-size: 16px; color: #999">LRU</a> <a href="/tags/LeetCode/" style="font-size: 24px; color: #99a9bf">LeetCode</a> <a href="/tags/Nginx/" style="font-size: 16px; color: #999">Nginx</a> <a href="/tags/Nmap/" style="font-size: 16px; color: #999">Nmap</a> <a href="/tags/NodeJS/" style="font-size: 16px; color: #999">NodeJS</a> <a href="/tags/Redis/" style="font-size: 18px; color: #999da3">Redis</a> <a href="/tags/SSO/" style="font-size: 16px; color: #999">SSO</a> <a href="/tags/Socket/" style="font-size: 16px; color: #999">Socket</a> <a href="/tags/Solr/" style="font-size: 16px; color: #999">Solr</a> <a href="/tags/Spring/" style="font-size: 20px; color: #99a1ac">Spring</a> <a href="/tags/SpringMVC/" style="font-size: 16px; color: #999">SpringMVC</a> <a href="/tags/misc/" style="font-size: 16px; color: #999">misc</a> <a href="/tags/%E4%BA%8C%E5%88%86/" style="font-size: 16px; color: #999">二分</a> <a href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" style="font-size: 16px; color: #999">二叉树</a> <a href="/tags/%E4%BC%98%E5%85%88%E9%98%9F%E5%88%97/" style="font-size: 16px; color: #999">优先队列</a> <a href="/tags/%E4%BD%93%E9%AA%8C/" style="font-size: 16px; color: #999">体验</a> <a href="/tags/%E5%85%A5%E9%97%A8/" style="font-size: 17px; color: #999b9e">入门</a> <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" style="font-size: 16px; color: #999">动态规划</a> <a href="/tags/%E5%8F%82%E6%95%B0%E6%A0%A1%E9%AA%8C/" style="font-size: 16px; color: #999">参数校验</a> <a href="/tags/%E5%9B%9E%E6%BA%AF/" style="font-size: 16px; color: #999">回溯</a> <a href="/tags/%E5%A0%86/" style="font-size: 16px; color: #999">堆</a> <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" style="font-size: 22px; color: #99a5b6">多线程</a> <a href="/tags/%E5%B7%A5%E5%85%B7/" style="font-size: 17px; color: #999b9e">工具</a> <a href="/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" style="font-size: 21px; color: #99a3b1">并发编程</a> <a href="/tags/%E6%8A%80%E6%9C%AF/" style="font-size: 17px; color: #999b9e">技术</a> <a href="/tags/%E6%8E%92%E5%BA%8F/" style="font-size: 16px; color: #999">排序</a> <a href="/tags/%E6%90%9C%E7%B4%A2/" style="font-size: 16px; color: #999">搜索</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 23px; color: #99a7ba">数据结构</a> <a href="/tags/%E6%95%B0%E7%BB%84/" style="font-size: 16px; color: #999">数组</a> <a href="/tags/%E6%98%A0%E5%B0%84/" style="font-size: 16px; color: #999">映射</a> <a href="/tags/%E6%9F%A5%E6%89%BE/" style="font-size: 16px; color: #999">查找</a> <a href="/tags/%E6%A0%91/" style="font-size: 18px; color: #999da3">树</a> <a href="/tags/%E6%A1%86%E6%9E%B6/" style="font-size: 16px; color: #999">框架</a> <a href="/tags/%E6%B7%98%E6%B7%98%E5%95%86%E5%9F%8E/" style="font-size: 17px; color: #999b9e">淘淘商城</a> <a href="/tags/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/" style="font-size: 16px; color: #999">滑动窗口</a> <a href="/tags/%E7%88%AC%E8%99%AB/" style="font-size: 16px; color: #999">爬虫</a> <a href="/tags/%E7%A7%92%E6%9D%80/" style="font-size: 16px; color: #999">秒杀</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 20px; color: #99a1ac">算法</a> <a href="/tags/%E8%83%8C%E5%8C%85/" style="font-size: 16px; color: #999">背包</a> <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 16px; color: #999">设计模式</a> <a href="/tags/%E8%B4%AA%E5%BF%83/" style="font-size: 16px; color: #999">贪心</a> <a href="/tags/%E8%BD%AC%E8%BD%BD/" style="font-size: 17px; color: #999b9e">转载</a> <a href="/tags/%E9%93%BE%E8%A1%A8/" style="font-size: 16px; color: #999">链表</a> <a href="/tags/%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/" style="font-size: 16px; color: #999">集群搭建</a></div></div></div><div class="card-widget card-archives"><div class="card-content"><div class="item-headline"><i class="fa fa-archive" aria-hidden="true"></i><span>归档</span></div><ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/"><span class="archive-list-date">2020年02月</span><span class="archive-list-count">1</span></a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/"><span class="archive-list-date">2020年01月</span><span class="archive-list-count">1</span></a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/"><span class="archive-list-date">2019年12月</span><span class="archive-list-count">6</span></a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/"><span class="archive-list-date">2019年11月</span><span class="archive-list-count">6</span></a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/"><span class="archive-list-date">2019年10月</span><span class="archive-list-count">2</span></a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/"><span class="archive-list-date">2019年09月</span><span class="archive-list-count">4</span></a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/"><span class="archive-list-date">2019年08月</span><span class="archive-list-count">4</span></a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/"><span class="archive-list-date">2019年07月</span><span class="archive-list-count">4</span></a></li><li class="archive-list-item"><a class="archive-list-link-more" href="/archives" >查看更多</a></li></ul></div></div><div class="card-widget card-webinfo"><div class="card-content"><div class="item-headline"><i class="fa fa-line-chart" aria-hidden="true"></i><span>网站资讯</span></div><div class="webinfo"><div class="webinfo-item"><div class="webinfo-article-name">文章数目 :</div><div class="webinfo-article-count">59</div></div><div class="webinfo-item"><div class="webinfo-runtime-name">已运行时间 :</div><div class="webinfo-runtime-count" id="webinfo-runtime-count" start_date="5/18/2018 00:00:00">     </div></div><div class="webinfo-item">      <div class="webinfo-site-uv-name">本站访客数 :</div><div class="webinfo-site-uv-count" id="busuanzi_value_site_uv"></div></div><div class="webinfo-item"><div class="webinfo-site-name">本站总访问量 :</div><div class="webinfo-site-pv-count" id="busuanzi_value_site_pv"></div></div></div></div></div></div></div></main><footer id="footer" data-type="photo"><div id="footer-wrap"><div class="copyright">&copy;2018 - 2020 By imlgw</div><div class="framework-info"><span>驱动 </span><a href="http://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener"><span>Butterfly</span></a></div><div class="icp"><a href="http://beian.miit.gov.cn/publish/query/indexFirst.action" target="_blank" rel="noopener"><span>鄂ICP备18011208号</span></a></div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><a class="translate_chn_to_cht" id="translateLink" href="javascript:translatePage();" title="简繁转换" target="_self">簡</a></div><div id="rightside-config-show"><div id="rightside_config" title="设置"><i class="fa fa-cog" aria-hidden="true"></i></div><i class="fa fa-arrow-up" id="go-up" title="回到顶部" aria-hidden="true"></i></div></section><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/medium-zoom/dist/medium-zoom.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script id="ribbon_piao" mobile="undefined" src="https://cdn.jsdelivr.net/gh/jerryc127/butterfly_cdn@2.1.0/js/piao.js"></script><script src="https://cdn.jsdelivr.net/npm/activate-power-mode/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
-POWERMODE.shake = false; 
-document.body.addEventListener('input', POWERMODE);
-</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@latest/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@latest/lazysizes.min.js" async=""></script><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章"></div></div></div><hr><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a href="https://github.com/wzpan/hexo-generator-search" target="_blank" rel="noopener" style="color:#49B1F5;">hexo-generator-search</a>
- <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fa fa-times"></i></span></div><div class="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/live2d-widget@3.x/lib/L2Dwidget.min.js"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"https://cdn.jsdelivr.net/npm/live2d-widget-model-hijiki@1.0.5/assets/hijiki.model.json"},"display":{"superSample":2,"width":160,"height":320,"position":"right","hOffset":0,"vOffset":-70},"mobile":{"show":false,"scale":0.2},"log":false});</script></body></html>
+  
+    <meta name="keywords" content="imlgw,半岛铁盒,blog,Java博客,程序员,个人博客,java開發,程序員,個人博客,Java" />
+  
+
+  
+    <meta name="description" content="大悲无泪，大悟无言，大笑无声。" />
+  
+  
+  
+  <link rel="icon" type="image/x-icon" href="/img/cat.ico">
+  
+  <title>category: 网络编程 [ iMlGw0 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="//cdn.bootcss.com/pure/1.0.0/pure-min.css">
+    
+      <link rel="stylesheet" href="/css/xoxo.css">
+    
+  
+<meta name="generator" content="Hexo 4.2.0"><link rel="stylesheet" href="/css/prism.css" type="text/css"></head>
+
+
+<body>
+  <div class="nav-container">
+    <nav class="home-menu pure-menu pure-menu-horizontal">
+  <a class="pure-menu-heading" href="/">
+    
+      <img class="avatar" src="http://static.imlgw.top/maofu.png">
+    
+    <span class="title" style="text-transform:none">iMlGw0</span>
+  </a>
+
+  <ul class="pure-menu-list clearfix">
+      
+          
+            
+              <li class="pure-menu-item"><a href="/" class="pure-menu-link">首页</a></li>
+            
+          
+      
+          
+            
+              <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover actived">
+            
+              <a href="#" id="post" class="pure-menu-link">文章</a>
+              <ul class="pure-menu-children">
+              
+                  
+                    <li class="pure-menu-item"><a href="/categories" class="pure-menu-link">分类</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="/archives" style="color:#202020;" class="pure-menu-link">归档</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="/tags" style="color:#202020;" class="pure-menu-link">标签</a></li>
+                  
+              
+              </ul>
+            </li>
+          
+      
+          
+            
+              <li class="pure-menu-item"><a href="/project" class="pure-menu-link">项目</a></li>
+            
+          
+      
+          
+            
+              <li class="pure-menu-item"><a href="/search" class="pure-menu-link">搜索</a></li>
+            
+          
+      
+          
+            
+              <li class="pure-menu-item"><a href="/about" class="pure-menu-link">关于</a></li>
+            
+          
+      
+  </ul>
+   
+</nav>
+
+  </div>
+
+  <div class="container" id="content-outer">
+    <div class="inner" id="content-inner">
+      
+
+  
+  
+    
+    
+    <section class="post page archives">
+      <h3 class="archive-year-wrap">
+        <a href="/archives/2019" class="archive-year">
+          2019
+        </a>
+      </h3>
+      <div class="archives">
+  
+  <div class="archive" >
+  <a class="post-go" href="/2019/07/19/socket-wang-luo-bian-cheng/">
+    <div>
+      <span class="date">
+        07-19
+      </span>
+      <span class="slash">/</span>
+      Socket网络编程
+    </div>
+
+    <!--<div class="excerpt">-->
+      <!---->
+    <!--</div>-->
+  </a>
+
+</div>
+
+
+  </div></section>
+
+    </div>
+
+    
+
+  </div>
+  <footer class="footer text-center">
+    <div id="bottom-inner">
+        <a class="bottom-item" href="https://github.com/imlgw" target="_blank">GitHub</a> |
+        <a class="bottom-item" href="/links">友情链接</a> |
+        <a class="bottom-item" href="https://hexo.io" target="_blank">Powered by hexo</a> |
+        <a class="bottom-item" href="https://github.com/fooying/hexo-theme-xoxo-plus" target="_blank">Theme xoxo-plus</a> |
+        <a class="bottom-item" href="/atom.xml">RSS</a>
+    </div>
+</footer>
+
+  
+
+<script>
+  (function(window, document, undefined) {
+
+    var timer = null;
+
+    function returnTop() {
+      cancelAnimationFrame(timer);
+      timer = requestAnimationFrame(function fn() {
+        var oTop = document.body.scrollTop || document.documentElement.scrollTop;
+        if (oTop > 0) {
+          document.body.scrollTop = document.documentElement.scrollTop = oTop - 50;
+          timer = requestAnimationFrame(fn);
+        } else {
+          cancelAnimationFrame(timer);
+        }
+      });
+    }
+
+    var hearts = [];
+    window.requestAnimationFrame = (function() {
+      return window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.oRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        function(callback) {
+          setTimeout(callback, 1000 / 60);
+        }
+    })();
+    init();
+
+    function init() {
+      css(".heart{z-index:9999;width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);}.heart:after,.heart:before{content: '';width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: absolute;}.heart:after{top: -5px;}.heart:before{left: -5px;}");
+      attachEvent();
+      gameloop();
+      addMenuEvent();
+    }
+
+    function gameloop() {
+      for (var i = 0; i < hearts.length; i++) {
+        if (hearts[i].alpha <= 0) {
+          document.body.removeChild(hearts[i].el);
+          hearts.splice(i, 1);
+          continue;
+        }
+        hearts[i].y--;
+        hearts[i].scale += 0.004;
+        hearts[i].alpha -= 0.013;
+        hearts[i].el.style.cssText = "left:" + hearts[i].x + "px;top:" + hearts[i].y + "px;opacity:" + hearts[i].alpha + ";transform:scale(" + hearts[i].scale + "," + hearts[i].scale + ") rotate(45deg);background:" + hearts[i].color;
+      }
+      requestAnimationFrame(gameloop);
+    }
+
+    /**
+     * 给logo设置点击事件
+     * 
+     * - 回到顶部
+     * - 出现爱心
+     */
+    function attachEvent() {
+      var old = typeof window.onclick === "function" && window.onclick;
+      var logo = document.getElementById("logo");
+      if (logo) {
+        logo.onclick = function(event) {
+          returnTop();
+          old && old();
+          createHeart(event);
+        }
+      }
+      
+    }
+
+    function createHeart(event) {
+      var d = document.createElement("div");
+      d.className = "heart";
+      hearts.push({
+        el: d,
+        x: event.clientX - 5,
+        y: event.clientY - 5,
+        scale: 1,
+        alpha: 1,
+        color: randomColor()
+      });
+      document.body.appendChild(d);
+    }
+
+    function css(css) {
+      var style = document.createElement("style");
+      style.type = "text/css";
+      try {
+        style.appendChild(document.createTextNode(css));
+      } catch (ex) {
+        style.styleSheet.cssText = css;
+      }
+      document.getElementsByTagName('head')[0].appendChild(style);
+    }
+
+    function randomColor() {
+      // return "rgb(" + (~~(Math.random() * 255)) + "," + (~~(Math.random() * 255)) + "," + (~~(Math.random() * 255)) + ")";
+      return "#F44336";
+    }
+
+    function addMenuEvent() {
+      var menu = document.getElementById('menu-main-post');
+      if (menu) {
+        var toc = document.getElementById('toc');
+        if (toc) {
+          menu.onclick = function() {
+            if (toc) {
+              if (toc.style.display == 'block') {
+                toc.style.display = 'none';
+              } else {
+                toc.style.display = 'block';
+              }
+            }
+          };
+        } else {
+          menu.style.display = 'none';
+        }
+      }
+    }
+
+  })(window, document);
+</script>
+
+  
+
+
+
+  
+
+<script src="https://cdn.jsdelivr.net/npm/live2d-widget@3.x/lib/L2Dwidget.min.js"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"https://cdn.jsdelivr.net/npm/live2d-widget-model-hijiki@1.0.5/assets/hijiki.model.json"},"display":{"superSample":2,"width":160,"height":320,"position":"right","hOffset":0,"vOffset":-70},"mobile":{"show":false,"scale":0.2},"log":false});</script></body>
+</html>

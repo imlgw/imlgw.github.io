@@ -1,390 +1,391 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5"><title>WebMvcConfigurer小结 | iMlGw0</title><meta name="description" content="WebMvcConfigurer小结"><meta name="keywords" content="SpringMVC"><meta name="author" content="imlgw"><meta name="copyright" content="imlgw"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/img/Cup.ico"><link rel="preconnect" href="//cdn.jsdelivr.net"><link rel="preconnect" href="https://hm.baidu.com"><link rel="preconnect" href="https://fonts.googleapis.com" crossorigin><link rel="preconnect" href="//busuanzi.ibruce.info"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="WebMvcConfigurer小结"><meta name="twitter:description" content="WebMvcConfigurer小结"><meta name="twitter:image" content="http://static.imlgw.top/image/20190713/8b2b25e9-a8de-b3f4-a810-7814a40a193c.png"><meta property="og:type" content="article"><meta property="og:title" content="WebMvcConfigurer小结"><meta property="og:url" content="http://imlgw.top/2019/05/20/webmvcconfigurer/"><meta property="og:site_name" content="iMlGw0"><meta property="og:description" content="WebMvcConfigurer小结"><meta property="og:image" content="http://static.imlgw.top/image/20190713/8b2b25e9-a8de-b3f4-a810-7814a40a193c.png"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script src="https://cdn.jsdelivr.net/npm/js-cookie/dist/js.cookie.min.js"></script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css"><link rel="canonical" href="http://imlgw.top/2019/05/20/webmvcconfigurer/"><link rel="prev" title="数据库大作业" href="http://imlgw.top/2019/05/20/shu-ju-ku-da-zuo-ye/"><link rel="next" title="JSR303-参数检验" href="http://imlgw.top/2019/05/13/jsr303-can-shu-xiao-yan/"><script>var _hmt = _hmt || [];
-(function() {
-  var hm = document.createElement("script");
-  hm.src = "https://hm.baidu.com/hm.js?93be601f1b40364d8cd640d751012180";
-  var s = document.getElementsByTagName("script")[0]; 
-  s.parentNode.insertBefore(hm, s);
-})();
-</script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><script>var GLOBAL_CONFIG = { 
-  root: '/',
-  algolia: undefined,
-  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容:${query}"}},
-  translate: {"defaultEncoding":1,"translateDelay":0,"cookieDomain":"imlgw.top","msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简"},
-  copy: {
-    success: '复制成功',
-    error: '复制错误',
-    noSupport: '浏览器不支持'
-  },
-  bookmark: {
-    title: 'Snackbar.bookmark.title',
-    message_prev: '按',
-    message_next: '键将本页加入书签'
-  },
-  runtime_unit: '天',
-  runtime: true,
-  copyright: {"languages":{"author":"作者: imlgw","link":"链接: http://imlgw.top/2019/05/20/webmvcconfigurer/","source":"来源: iMlGw0","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
-  ClickShowText: undefined,
-  medium_zoom: true,
-  fancybox: false,
-  Snackbar: {"bookmark":{"title":"Snackbar.bookmark.title","message_prev":"按","message_next":"键将本页加入书签"},"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#2d3035","position":"bottom-left"},
-  baiduPush: false,
-  isHome: false,
-  isPost: true
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#202020"/>
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
   
-}</script><meta name="generator" content="Hexo 4.2.0"><link rel="stylesheet" href="/css/prism.css" type="text/css"></head><body><header> <div id="page-header"><span class="pull_left" id="blog_name"><a class="blog_title" id="site-name" href="/">iMlGw0</a></span><span class="toggle-menu pull_right close"><a class="site-page"><i class="fa fa-bars fa-fw" aria-hidden="true"></i></a></span><span class="pull_right menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/board/"><i class="fa-fw fa fa-link"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-list" aria-hidden="true"></i><span> LeetCode</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="http://imlgw.top/2019/02/27/leetcode-lian-biao/"><i class="fa-fw fa fa-tags"></i><span> 链表</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/05/04/leetcode-shu-zu/"><i class="fa-fw fa fa-tags"></i><span> 数组</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/10/01/leetcode-zhan-dui-lie/"><i class="fa-fw fa fa-tags"></i><span> 栈&amp;队列</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/09/15/leetcode-cha-zhao/"><i class="fa-fw fa fa-tags"></i><span> 查找</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/12/06/leetcode-er-fen-cha-zhao/"><i class="fa-fw fa fa-tags"></i><span> 二分查找</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/11/06/leetcode-er-cha-shu/"><i class="fa-fw fa fa-tags"></i><span> 二叉树</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/07/20/leetcode-hua-dong-chuang-kou/"><i class="fa-fw fa fa-tags"></i><span> 滑动窗口</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/09/01/leetcode-dong-tai-gui-hua/"><i class="fa-fw fa fa-tags"></i><span> 动态规划</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/11/29/leetcode-bei-bao-wen-ti/"><i class="fa-fw fa fa-tags"></i><span> 背包问题</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/10/10/leetcode-hui-su/"><i class="fa-fw fa fa-tags"></i><span> 回溯</span></a></li><li><a class="site-page" href="http://imlgw.top/2020/01/21/leetcode-tan-xin/"><i class="fa-fw fa fa-tags"></i><span> 贪心</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link"><i class="fa-fw fa fa-address-book"></i><span> 大佬们</span></a></div></div></span><span class="pull_right" id="search_button"><a class="site-page social-icon search"><i class="fa fa-search fa-fw"></i><span> 搜索</span></a></span></div></header><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="http://static.imlgw.top/maofu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">59</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">58</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">12</div></a></div></div></div><hr><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/board/"><i class="fa-fw fa fa-link"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-list" aria-hidden="true"></i><span> LeetCode</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="http://imlgw.top/2019/02/27/leetcode-lian-biao/"><i class="fa-fw fa fa-tags"></i><span> 链表</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/05/04/leetcode-shu-zu/"><i class="fa-fw fa fa-tags"></i><span> 数组</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/10/01/leetcode-zhan-dui-lie/"><i class="fa-fw fa fa-tags"></i><span> 栈&amp;队列</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/09/15/leetcode-cha-zhao/"><i class="fa-fw fa fa-tags"></i><span> 查找</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/12/06/leetcode-er-fen-cha-zhao/"><i class="fa-fw fa fa-tags"></i><span> 二分查找</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/11/06/leetcode-er-cha-shu/"><i class="fa-fw fa fa-tags"></i><span> 二叉树</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/07/20/leetcode-hua-dong-chuang-kou/"><i class="fa-fw fa fa-tags"></i><span> 滑动窗口</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/09/01/leetcode-dong-tai-gui-hua/"><i class="fa-fw fa fa-tags"></i><span> 动态规划</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/11/29/leetcode-bei-bao-wen-ti/"><i class="fa-fw fa fa-tags"></i><span> 背包问题</span></a></li><li><a class="site-page" href="http://imlgw.top/2019/10/10/leetcode-hui-su/"><i class="fa-fw fa fa-tags"></i><span> 回溯</span></a></li><li><a class="site-page" href="http://imlgw.top/2020/01/21/leetcode-tan-xin/"><i class="fa-fw fa fa-tags"></i><span> 贪心</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link"><i class="fa-fw fa fa-address-book"></i><span> 大佬们</span></a></div></div></div><div id="mobile-sidebar-toc"><div class="toc_mobile_headline">目录</div><div class="sidebar-toc__content"><ol class="toc_mobile_items"><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#起源"><span class="toc_mobile_items-number">1.</span> <span class="toc_mobile_items-text">起源</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#WebMvcConfigurer是干嘛的？"><span class="toc_mobile_items-number">2.</span> <span class="toc_mobile_items-text">WebMvcConfigurer是干嘛的？</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#WebMvcConfigurationSupport"><span class="toc_mobile_items-number">2.1.</span> <span class="toc_mobile_items-text">WebMvcConfigurationSupport</span></a></li></ol></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#WebMvcConfigurer内的方法"><span class="toc_mobile_items-number">3.</span> <span class="toc_mobile_items-text">WebMvcConfigurer内的方法</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#注意事项"><span class="toc_mobile_items-number">4.</span> <span class="toc_mobile_items-text">注意事项</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#实例"><span class="toc_mobile_items-number">5.</span> <span class="toc_mobile_items-text">实例</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#Controller参数绑定"><span class="toc_mobile_items-number">5.1.</span> <span class="toc_mobile_items-text">Controller参数绑定</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-4"><a class="toc_mobile_items-link" href="#重写addArgumentResolvers"><span class="toc_mobile_items-number">5.1.1.</span> <span class="toc_mobile_items-text">重写addArgumentResolvers</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-4"><a class="toc_mobile_items-link" href="#实现HandlerMethodArgumentResolver"><span class="toc_mobile_items-number">5.1.2.</span> <span class="toc_mobile_items-text">实现HandlerMethodArgumentResolver</span></a></li></ol></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#拦截器"><span class="toc_mobile_items-number">5.2.</span> <span class="toc_mobile_items-text">拦截器</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-4"><a class="toc_mobile_items-link" href="#自定义注解"><span class="toc_mobile_items-number">5.2.1.</span> <span class="toc_mobile_items-text">自定义注解</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-4"><a class="toc_mobile_items-link" href="#重写HandlerInterceptor"><span class="toc_mobile_items-number">5.2.2.</span> <span class="toc_mobile_items-text">重写HandlerInterceptor</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-4"><a class="toc_mobile_items-link" href="#WebConfig里面添加拦截器"><span class="toc_mobile_items-number">5.2.3.</span> <span class="toc_mobile_items-text">WebConfig里面添加拦截器</span></a></li></ol></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#视图解析器"><span class="toc_mobile_items-number">5.3.</span> <span class="toc_mobile_items-text">视图解析器</span></a></li></ol></li></ol></div></div></div><div id="body-wrap"><div id="web_bg" data-type="color"></div><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true">     </i><div class="auto_open" id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#起源"><span class="toc-number">1.</span> <span class="toc-text">起源</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#WebMvcConfigurer是干嘛的？"><span class="toc-number">2.</span> <span class="toc-text">WebMvcConfigurer是干嘛的？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#WebMvcConfigurationSupport"><span class="toc-number">2.1.</span> <span class="toc-text">WebMvcConfigurationSupport</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#WebMvcConfigurer内的方法"><span class="toc-number">3.</span> <span class="toc-text">WebMvcConfigurer内的方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#注意事项"><span class="toc-number">4.</span> <span class="toc-text">注意事项</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实例"><span class="toc-number">5.</span> <span class="toc-text">实例</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Controller参数绑定"><span class="toc-number">5.1.</span> <span class="toc-text">Controller参数绑定</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#重写addArgumentResolvers"><span class="toc-number">5.1.1.</span> <span class="toc-text">重写addArgumentResolvers</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#实现HandlerMethodArgumentResolver"><span class="toc-number">5.1.2.</span> <span class="toc-text">实现HandlerMethodArgumentResolver</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#拦截器"><span class="toc-number">5.2.</span> <span class="toc-text">拦截器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#自定义注解"><span class="toc-number">5.2.1.</span> <span class="toc-text">自定义注解</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#重写HandlerInterceptor"><span class="toc-number">5.2.2.</span> <span class="toc-text">重写HandlerInterceptor</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#WebConfig里面添加拦截器"><span class="toc-number">5.2.3.</span> <span class="toc-text">WebConfig里面添加拦截器</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#视图解析器"><span class="toc-number">5.3.</span> <span class="toc-text">视图解析器</span></a></li></ol></li></ol></div></div></div><main id="content-outer"><div id="top-container" style="background-image: url(http://static.imlgw.top/image/20190713/8b2b25e9-a8de-b3f4-a810-7814a40a193c.png)"><div id="post-info"><div id="post-title"><div class="posttitle">WebMvcConfigurer小结</div></div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 发表于 2019-05-20<span class="post-meta__separator">|</span><i class="fa fa-history fa-fw" aria-hidden="true"></i> 更新于 2019-12-23</time><span class="post-meta__separator">|</span><span><i class="fa fa-inbox post-meta__icon fa-fw" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/Web/">Web</a></span><div class="post-meta-wordcount"><i class="fa fa-file-word-o post-meta__icon fa-fw" aria-hidden="true"></i><span>字数总计:</span><span class="word-count">1.7k</span><span class="post-meta__separator">|</span><i class="fa fa-clock-o post-meta__icon fa-fw" aria-hidden="true"></i><span>阅读时长: 7 分钟</span><div class="post-meta-pv-cv"><span class="post-meta__separator">|</span><span><i class="fa fa-eye post-meta__icon fa-fw" aria-hidden="true"> </i>阅读量:</span><span id="busuanzi_value_page_pv"></span></div></div></div></div></div><div class="layout layout_post" id="content-inner">   <article id="post"><div class="article-container" id="post-content"><html><head></head><body><h2 id="起源"><a href="#起源" class="headerlink" title="起源"></a>起源</h2><p>利用Redis做分布式session，因为没有借助Spring-session或者其他的session共享方案，手动处理session的存取，在控制层获取cookie中的数据是较为麻烦，所以希望直接将cookie的数据转化为需要的bean然后绑定到参数中，这里就可以借助<strong>WebMvcConfigurer</strong>来实现这个需求简化代码</p>
+  
+    <meta name="keywords" content="SpringMVC," />
+  
+
+  
+    <meta name="description" content="大悲无泪，大悟无言，大笑无声。" />
+  
+  
+  
+  <link rel="icon" type="image/x-icon" href="/img/cat.ico">
+  
+  <title>WebMvcConfigurer小结 [ iMlGw0 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="//cdn.bootcss.com/pure/1.0.0/pure-min.css">
+    
+      <link rel="stylesheet" href="/css/xoxo.css">
+    
+  
+<meta name="generator" content="Hexo 4.2.0"><link rel="stylesheet" href="/css/prism.css" type="text/css"></head>
+
+
+<body>
+  <div class="nav-container">
+    <nav class="home-menu pure-menu pure-menu-horizontal">
+  <a class="pure-menu-heading" href="/">
+    
+      <img class="avatar" src="http://static.imlgw.top/maofu.png">
+    
+    <span class="title" style="text-transform:none">iMlGw0</span>
+  </a>
+
+  <ul class="pure-menu-list clearfix">
+      
+          
+            
+              <li class="pure-menu-item"><a href="/" class="pure-menu-link">首页</a></li>
+            
+          
+      
+          
+            
+              <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
+            
+              <a href="#" id="post" class="pure-menu-link">文章</a>
+              <ul class="pure-menu-children">
+              
+                  
+                    <li class="pure-menu-item"><a href="/categories" style="color:#202020;" class="pure-menu-link">分类</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="/archives" style="color:#202020;" class="pure-menu-link">归档</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="/tags" style="color:#202020;" class="pure-menu-link">标签</a></li>
+                  
+              
+              </ul>
+            </li>
+          
+      
+          
+            
+              <li class="pure-menu-item"><a href="/project" class="pure-menu-link">项目</a></li>
+            
+          
+      
+          
+            
+              <li class="pure-menu-item"><a href="/search" class="pure-menu-link">搜索</a></li>
+            
+          
+      
+          
+            
+              <li class="pure-menu-item"><a href="/about" class="pure-menu-link">关于</a></li>
+            
+          
+      
+  </ul>
+   
+</nav>
+
+  </div>
+
+  <div class="container" id="content-outer">
+    <div class="inner" id="content-inner">
+      <div class="post-container">
+  <article class="post" id="post">
+    <header class="post-header text-center">
+      <h1 class="title">
+        WebMvcConfigurer小结
+      </h1>
+      <span>
+        
+        <time class="time" datetime="2019-05-19T16:00:00.000Z">
+        2019-05-20
+      </time>
+        
+      </span>
+      <span class="slash">/</span>
+      <span class="post-meta">
+      <span class="post-tags">
+        <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringMVC/" rel="tag">SpringMVC</a></li></ul>
+      </span>
+    </span>
+      <span class="slash">/</span>
+      <span class="read">
+      <span id="busuanzi_value_page_pv"></span> 点击
+    </span>
+      <span class="slash">/</span>
+      <span class="read">阅读耗时 13 分钟</span>
+    </header>
+
+    <div class="post-content">
+      <h2 id="起源"><a href="#起源" class="headerlink" title="起源"></a>起源</h2><p>利用Redis做分布式session，因为没有借助Spring-session或者其他的session共享方案，手动处理session的存取，在控制层获取cookie中的数据是较为麻烦，所以希望直接将cookie的数据转化为需要的bean然后绑定到参数中，这里就可以借助<strong>WebMvcConfigurer</strong>来实现这个需求简化代码</p>
 <h2 id="WebMvcConfigurer是干嘛的？"><a href="#WebMvcConfigurer是干嘛的？" class="headerlink" title="WebMvcConfigurer是干嘛的？"></a>WebMvcConfigurer是干嘛的？</h2><p>Spring把实现了WebMvcConfigurer接口的bean都看作为SpringMvc的<strong>扩展配置</strong>，如果既想要使用SpringBoot对SpringMvc的自动配置，又想要对自动配置进行扩展，添加一些用户自己的配置，像拦截器，消息转换器或者下文中的参数绑定，只需要写一个实现了WebMvcConfigurer接口的配置类，实现相关方法就能够添加自己的配置了。</p>
 <blockquote>
 <p>SpringBoot2.0之前也就是Spring5之前可以直接继承<strong>WebMvcConfigurationAdapter</strong>+<strong>@EnableWebMvc</strong>注解来实现上述需求，但是这个方法在之后的版本中弃用了(还可以用但是不太好)，因为jdk8之后的接口中可以有<strong>默认方法</strong>了，所以这个抽象类就并没有存在的意义了</p>
 </blockquote>
 <h3 id="WebMvcConfigurationSupport"><a href="#WebMvcConfigurationSupport" class="headerlink" title="WebMvcConfigurationSupport"></a>WebMvcConfigurationSupport</h3><p>其实还有一种方法就是直接继承这个WebMvcConfigurationSupport，上面的WebMvcConfigurer只是扩展配置，如果直接继承WebMvcConfigurationSupport，那么就可以重写默认的配置，如果对原理不是很清楚的开发者不小心重写错了默认的配置，springmvc可能相关功能就无法生效。</p>
-<h2 id="WebMvcConfigurer内的方法"><a href="#WebMvcConfigurer内的方法" class="headerlink" title="WebMvcConfigurer内的方法"></a>WebMvcConfigurer内的方法</h2><pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">WebMvcConfigurer</span> <span class="token punctuation">{</span>
-    <span class="token keyword">default</span> <span class="token keyword">void</span> <span class="token function">configurePathMatch</span><span class="token punctuation">(</span>PathMatchConfigurer configurer<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token punctuation">}</span>
+<h2 id="WebMvcConfigurer内的方法"><a href="#WebMvcConfigurer内的方法" class="headerlink" title="WebMvcConfigurer内的方法"></a>WebMvcConfigurer内的方法</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">WebMvcConfigurer</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">configurePathMatch</span><span class="params">(PathMatchConfigurer configurer)</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">configureContentNegotiation</span><span class="params">(ContentNegotiationConfigurer configurer)</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">configureAsyncSupport</span><span class="params">(AsyncSupportConfigurer configurer)</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">configureDefaultServletHandling</span><span class="params">(DefaultServletHandlerConfigurer configurer)</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">addFormatters</span><span class="params">(FormatterRegistry registry)</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">	</span><br><span class="line">    <span class="comment">//添加拦截器</span></span><br><span class="line">    <span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">addInterceptors</span><span class="params">(InterceptorRegistry registry)</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">	<span class="comment">//添加资源处理器</span></span><br><span class="line">    <span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">addResourceHandlers</span><span class="params">(ResourceHandlerRegistry registry)</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">addCorsMappings</span><span class="params">(CorsRegistry registry)</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">	<span class="comment">//视图控制器</span></span><br><span class="line">    <span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">addViewControllers</span><span class="params">(ViewControllerRegistry registry)</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">configureViewResolvers</span><span class="params">(ViewResolverRegistry registry)</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">	<span class="comment">//添加参数解析器</span></span><br><span class="line">    <span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">addArgumentResolvers</span><span class="params">(List&lt;HandlerMethodArgumentResolver&gt; resolvers)</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">addReturnValueHandlers</span><span class="params">(List&lt;HandlerMethodReturnValueHandler&gt; handlers)</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">	<span class="comment">//消息转换器</span></span><br><span class="line">    <span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">configureMessageConverters</span><span class="params">(List&lt;HttpMessageConverter&lt;?&gt;&gt; converters)</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">extendMessageConverters</span><span class="params">(List&lt;HttpMessageConverter&lt;?&gt;&gt; converters)</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">configureHandlerExceptionResolvers</span><span class="params">(List&lt;HandlerExceptionResolver&gt; resolvers)</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">extendHandlerExceptionResolvers</span><span class="params">(List&lt;HandlerExceptionResolver&gt; resolvers)</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Nullable</span></span><br><span class="line">    <span class="function"><span class="keyword">default</span> Validator <span class="title">getValidator</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Nullable</span></span><br><span class="line">    <span class="function"><span class="keyword">default</span> MessageCodesResolver <span class="title">getMessageCodesResolver</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-    <span class="token keyword">default</span> <span class="token keyword">void</span> <span class="token function">configureContentNegotiation</span><span class="token punctuation">(</span>ContentNegotiationConfigurer configurer<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token keyword">default</span> <span class="token keyword">void</span> <span class="token function">configureAsyncSupport</span><span class="token punctuation">(</span>AsyncSupportConfigurer configurer<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token keyword">default</span> <span class="token keyword">void</span> <span class="token function">configureDefaultServletHandling</span><span class="token punctuation">(</span>DefaultServletHandlerConfigurer configurer<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token keyword">default</span> <span class="token keyword">void</span> <span class="token function">addFormatters</span><span class="token punctuation">(</span>FormatterRegistry registry<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token comment" spellcheck="true">//添加拦截器</span>
-    <span class="token keyword">default</span> <span class="token keyword">void</span> <span class="token function">addInterceptors</span><span class="token punctuation">(</span>InterceptorRegistry registry<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token punctuation">}</span>
-    <span class="token comment" spellcheck="true">//添加资源处理器</span>
-    <span class="token keyword">default</span> <span class="token keyword">void</span> <span class="token function">addResourceHandlers</span><span class="token punctuation">(</span>ResourceHandlerRegistry registry<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token keyword">default</span> <span class="token keyword">void</span> <span class="token function">addCorsMappings</span><span class="token punctuation">(</span>CorsRegistry registry<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token punctuation">}</span>
-    <span class="token comment" spellcheck="true">//视图控制器</span>
-    <span class="token keyword">default</span> <span class="token keyword">void</span> <span class="token function">addViewControllers</span><span class="token punctuation">(</span>ViewControllerRegistry registry<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token keyword">default</span> <span class="token keyword">void</span> <span class="token function">configureViewResolvers</span><span class="token punctuation">(</span>ViewResolverRegistry registry<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token punctuation">}</span>
-    <span class="token comment" spellcheck="true">//添加参数解析器</span>
-    <span class="token keyword">default</span> <span class="token keyword">void</span> <span class="token function">addArgumentResolvers</span><span class="token punctuation">(</span>List<span class="token operator"><</span>HandlerMethodArgumentResolver<span class="token operator">></span> resolvers<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token keyword">default</span> <span class="token keyword">void</span> <span class="token function">addReturnValueHandlers</span><span class="token punctuation">(</span>List<span class="token operator"><</span>HandlerMethodReturnValueHandler<span class="token operator">></span> handlers<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token punctuation">}</span>
-    <span class="token comment" spellcheck="true">//消息转换器</span>
-    <span class="token keyword">default</span> <span class="token keyword">void</span> <span class="token function">configureMessageConverters</span><span class="token punctuation">(</span>List<span class="token operator"><</span>HttpMessageConverter<span class="token operator"><</span><span class="token operator">?</span><span class="token operator">>></span> converters<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token keyword">default</span> <span class="token keyword">void</span> <span class="token function">extendMessageConverters</span><span class="token punctuation">(</span>List<span class="token operator"><</span>HttpMessageConverter<span class="token operator"><</span><span class="token operator">?</span><span class="token operator">>></span> converters<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token keyword">default</span> <span class="token keyword">void</span> <span class="token function">configureHandlerExceptionResolvers</span><span class="token punctuation">(</span>List<span class="token operator"><</span>HandlerExceptionResolver<span class="token operator">></span> resolvers<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token keyword">default</span> <span class="token keyword">void</span> <span class="token function">extendHandlerExceptionResolvers</span><span class="token punctuation">(</span>List<span class="token operator"><</span>HandlerExceptionResolver<span class="token operator">></span> resolvers<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token annotation punctuation">@Nullable</span>
-    <span class="token keyword">default</span> Validator <span class="token function">getValidator</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> null<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token annotation punctuation">@Nullable</span>
-    <span class="token keyword">default</span> MessageCodesResolver <span class="token function">getMessageCodesResolver</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> null<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span></code></pre>
 <h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><p>在<strong>SpringBoot</strong>下自定义的WebMvcConfigurer实现配置类上是不需要添加<strong>@EnableWebMvc</strong>的，因为<strong>SpringBoot</strong>已经实例化了WebMvcConfigurationSupport，如果添加了该注解，默认的WebMvcConfigurationSupport配置类就会失效，mvc默认的配置会失效，也就是以用户定义的为主，一般建议还是不覆盖默认的好。</p>
 <p>这点可以从SpringBoot的<strong>WebMvcAutoConfiguration</strong>中看到。（@EnableWebMvc会导入一个WebMvcConfigurationSupport的子类，叫 DelegatingWebMvcConfiguration）。</p>
-<p><img alt="mark" data-src="http://static.imlgw.top///20190520/p5I6RuWHJPMy.png?imageslim" src="/img/loading.gif" class="lazyload"></p>
+<p><img src="http://static.imlgw.top///20190520/p5I6RuWHJPMy.png?imageslim" alt="mark"></p>
 <p>当没有WebMvcConfigurationSupport的时候自动配置才会生效</p>
 <blockquote>
 <p><a href="https://docs.spring.io/spring-boot/docs/2.0.0.RELEASE/reference/htmlsingle/#boot-features-spring-mvc-auto-configuration" target="_blank" rel="noopener">官方文档</a></p>
 <p>If you want to keep Spring Boot MVC features and you want to add additional <a href="https://docs.spring.io/spring/docs/5.0.4.RELEASE/spring-framework-reference/web.html#mvc" target="_blank" rel="noopener">MVC configuration</a> (interceptors, formatters, view controllers, and other features), you can add your own <code>@Configuration</code> class of type <code>WebMvcConfigurer</code> but <strong>without</strong> <code>@EnableWebMvc</code>. If you wish to provide custom instances of <code>RequestMappingHandlerMapping</code>, <code>RequestMappingHandlerAdapter</code>, or <code>ExceptionHandlerExceptionResolver</code>, you can declare a <code>WebMvcRegistrationsAdapter</code> instance to provide such components.</p>
 </blockquote>
 <h2 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h2><h3 id="Controller参数绑定"><a href="#Controller参数绑定" class="headerlink" title="Controller参数绑定"></a>Controller参数绑定</h3><p>在SpringMVC里面可以轻松的把表单的数据映射到对应的bean中，但是有时候这并不能满足我们的需求，比如下面的例子。</p>
-<pre class=" language-java"><code class="language-java"><span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span><span class="token string">"/to_list"</span><span class="token punctuation">)</span>
-<span class="token keyword">public</span> String <span class="token function">tolist</span><span class="token punctuation">(</span>HttpServletResponse response<span class="token punctuation">,</span> Model model<span class="token punctuation">,</span>
-                         <span class="token annotation punctuation">@CookieValue</span><span class="token punctuation">(</span>value <span class="token operator">=</span> SpikeUserService<span class="token punctuation">.</span>COOK1_NAME_TOKEN<span class="token punctuation">,</span> required <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">)</span> String cookie<span class="token punctuation">,</span>
-                         <span class="token annotation punctuation">@RequestParam</span><span class="token punctuation">(</span>value <span class="token operator">=</span> SpikeUserService<span class="token punctuation">.</span>COOK1_NAME_TOKEN<span class="token punctuation">,</span> required <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">)</span> String param<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token comment" spellcheck="true">/*手机浏览器，有可能将cookie放在参数中*/</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>param <span class="token operator">==</span> null <span class="token operator">&&</span> cookie <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">return</span> <span class="token string">"login"</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        String cook <span class="token operator">=</span> cookie <span class="token operator">!=</span> null <span class="token operator">?</span> cookie <span class="token operator">:</span> param<span class="token punctuation">;</span>
-        SpikeUser user <span class="token operator">=</span> spikeUserService<span class="token punctuation">.</span><span class="token function">getUserByToken</span><span class="token punctuation">(</span>response<span class="token punctuation">,</span> cook<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>user<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        model<span class="token punctuation">.</span><span class="token function">addAttribute</span><span class="token punctuation">(</span><span class="token string">"user"</span><span class="token punctuation">,</span> user<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">return</span> <span class="token string">"goods_list"</span><span class="token punctuation">;</span>
- <span class="token punctuation">}</span></code></pre>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/to_list"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">tolist</span><span class="params">(HttpServletResponse response, Model model,</span></span></span><br><span class="line"><span class="function"><span class="params">                         @CookieValue(value = SpikeUserService.COOK1_NAME_TOKEN, required = <span class="keyword">false</span>)</span> String cookie,</span></span><br><span class="line"><span class="function">                         @<span class="title">RequestParam</span><span class="params">(value = SpikeUserService.COOK1_NAME_TOKEN, required = <span class="keyword">false</span>)</span> String param) </span>&#123;</span><br><span class="line">        <span class="comment">/*手机浏览器，有可能将cookie放在参数中*/</span></span><br><span class="line">        <span class="keyword">if</span> (param == <span class="keyword">null</span> &amp;&amp; cookie == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"login"</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        String cook = cookie != <span class="keyword">null</span> ? cookie : param;</span><br><span class="line">        SpikeUser user = spikeUserService.getUserByToken(response, cook);</span><br><span class="line">        System.out.println(user);</span><br><span class="line">        model.addAttribute(<span class="string">"user"</span>, user);</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"goods_list"</span>;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
 <p>可以看到这里为了获取这个<strong>SpikeUser</strong>对象并不能直接从表单中获取，需要借助cookie然后从redis里面查询，如果下面还有一些其他的controller需要获取这个对象，又要写很多重复的代码。这个时候我们就可以通过上面介绍的WebMvcConfigurer来实现简化代码。</p>
-<h4 id="重写addArgumentResolvers"><a href="#重写addArgumentResolvers" class="headerlink" title="重写addArgumentResolvers"></a>重写addArgumentResolvers</h4><pre class=" language-java"><code class="language-java"><span class="token annotation punctuation">@Configuration</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">WebConfig</span> <span class="token keyword">implements</span> <span class="token class-name">WebMvcConfigurer</span> <span class="token punctuation">{</span>
+<h4 id="重写addArgumentResolvers"><a href="#重写addArgumentResolvers" class="headerlink" title="重写addArgumentResolvers"></a>重写addArgumentResolvers</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WebConfig</span> <span class="keyword">implements</span> <span class="title">WebMvcConfigurer</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Autowired</span> <span class="comment">//注入我们的参数解析器</span></span><br><span class="line">    SpikeUserArgumentResolver spikeUserArgumentResolver;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addArgumentResolvers</span><span class="params">(List&lt;HandlerMethodArgumentResolver&gt; argumentResolvers)</span> </span>&#123;</span><br><span class="line">        argumentResolvers.add(spikeUserArgumentResolver);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-    <span class="token annotation punctuation">@Autowired</span> <span class="token comment" spellcheck="true">//注入我们的参数解析器</span>
-    SpikeUserArgumentResolver spikeUserArgumentResolver<span class="token punctuation">;</span>
-
-    <span class="token annotation punctuation">@Override</span>
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">addArgumentResolvers</span><span class="token punctuation">(</span>List<span class="token operator"><</span>HandlerMethodArgumentResolver<span class="token operator">></span> argumentResolvers<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        argumentResolvers<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>spikeUserArgumentResolver<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span></code></pre>
 <p>这里只需要实现<strong>addArgumentResolvers</strong>就可以了，注意加上<strong>@Configuration</strong>注解将WebConfig托付给Spring，使我们添加的参数解析器生效。</p>
-<h4 id="实现HandlerMethodArgumentResolver"><a href="#实现HandlerMethodArgumentResolver" class="headerlink" title="实现HandlerMethodArgumentResolver"></a>实现HandlerMethodArgumentResolver</h4><pre class=" language-java"><code class="language-java"><span class="token annotation punctuation">@Service</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">SpikeUserArgumentResolver</span> <span class="token keyword">implements</span> <span class="token class-name">HandlerMethodArgumentResolver</span> <span class="token punctuation">{</span>
+<h4 id="实现HandlerMethodArgumentResolver"><a href="#实现HandlerMethodArgumentResolver" class="headerlink" title="实现HandlerMethodArgumentResolver"></a>实现HandlerMethodArgumentResolver</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SpikeUserArgumentResolver</span> <span class="keyword">implements</span> <span class="title">HandlerMethodArgumentResolver</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    SpikeUserService userService;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">supportsParameter</span><span class="params">(MethodParameter parameter)</span> </span>&#123;</span><br><span class="line">        Class&lt;?&gt; clazz = parameter.getParameterType();</span><br><span class="line">        <span class="comment">//处理SpikeUser类型的</span></span><br><span class="line">        <span class="keyword">return</span> clazz==SpikeUser<span class="class">.<span class="keyword">class</span></span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">resolveArgument</span><span class="params">(MethodParameter parameter, ModelAndViewContainer mavContainer,</span></span></span><br><span class="line"><span class="function"><span class="params">                                  NativeWebRequest webRequest, WebDataBinderFactory binderFactory)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        HttpServletRequest request = webRequest.getNativeRequest(HttpServletRequest<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">        HttpServletResponse response = webRequest.getNativeResponse(HttpServletResponse<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line"></span><br><span class="line">        String paramToken = request.getParameter(SpikeUserService.COOK1_NAME_TOKEN);</span><br><span class="line">        String cookieToken = getCookieValue(request, SpikeUserService.COOK1_NAME_TOKEN);</span><br><span class="line">        <span class="keyword">if</span>(StringUtils.isEmpty(cookieToken) &amp;&amp; StringUtils.isEmpty(paramToken)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        String token = StringUtils.isEmpty(paramToken)?cookieToken:paramToken;</span><br><span class="line">        <span class="keyword">return</span> userService.getUserByToken(response,token);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> String <span class="title">getCookieValue</span><span class="params">(HttpServletRequest request, String cookiName)</span> </span>&#123;</span><br><span class="line">        Cookie[]  cookies = request.getCookies();</span><br><span class="line">        <span class="keyword">for</span>(Cookie cookie : cookies) &#123;</span><br><span class="line">            <span class="keyword">if</span>(cookie.getName().equals(cookiName)) &#123;</span><br><span class="line">                <span class="keyword">return</span> cookie.getValue();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-    <span class="token annotation punctuation">@Autowired</span>
-    SpikeUserService userService<span class="token punctuation">;</span>
-
-    <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">supportsParameter</span><span class="token punctuation">(</span>MethodParameter parameter<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        Class<span class="token operator"><</span><span class="token operator">?</span><span class="token operator">></span> clazz <span class="token operator">=</span> parameter<span class="token punctuation">.</span><span class="token function">getParameterType</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token comment" spellcheck="true">//处理SpikeUser类型的</span>
-        <span class="token keyword">return</span> clazz<span class="token operator">==</span>SpikeUser<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-
-    <span class="token keyword">public</span> Object <span class="token function">resolveArgument</span><span class="token punctuation">(</span>MethodParameter parameter<span class="token punctuation">,</span> ModelAndViewContainer mavContainer<span class="token punctuation">,</span>
-                                  NativeWebRequest webRequest<span class="token punctuation">,</span> WebDataBinderFactory binderFactory<span class="token punctuation">)</span> <span class="token keyword">throws</span> Exception <span class="token punctuation">{</span>
-        HttpServletRequest request <span class="token operator">=</span> webRequest<span class="token punctuation">.</span><span class="token function">getNativeRequest</span><span class="token punctuation">(</span>HttpServletRequest<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        HttpServletResponse response <span class="token operator">=</span> webRequest<span class="token punctuation">.</span><span class="token function">getNativeResponse</span><span class="token punctuation">(</span>HttpServletResponse<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-        String paramToken <span class="token operator">=</span> request<span class="token punctuation">.</span><span class="token function">getParameter</span><span class="token punctuation">(</span>SpikeUserService<span class="token punctuation">.</span>COOK1_NAME_TOKEN<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        String cookieToken <span class="token operator">=</span> <span class="token function">getCookieValue</span><span class="token punctuation">(</span>request<span class="token punctuation">,</span> SpikeUserService<span class="token punctuation">.</span>COOK1_NAME_TOKEN<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">if</span><span class="token punctuation">(</span>StringUtils<span class="token punctuation">.</span><span class="token function">isEmpty</span><span class="token punctuation">(</span>cookieToken<span class="token punctuation">)</span> <span class="token operator">&&</span> StringUtils<span class="token punctuation">.</span><span class="token function">isEmpty</span><span class="token punctuation">(</span>paramToken<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">return</span> null<span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        String token <span class="token operator">=</span> StringUtils<span class="token punctuation">.</span><span class="token function">isEmpty</span><span class="token punctuation">(</span>paramToken<span class="token punctuation">)</span><span class="token operator">?</span>cookieToken<span class="token operator">:</span>paramToken<span class="token punctuation">;</span>
-        <span class="token keyword">return</span> userService<span class="token punctuation">.</span><span class="token function">getUserByToken</span><span class="token punctuation">(</span>response<span class="token punctuation">,</span>token<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token keyword">private</span> String <span class="token function">getCookieValue</span><span class="token punctuation">(</span>HttpServletRequest request<span class="token punctuation">,</span> String cookiName<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        Cookie<span class="token punctuation">[</span><span class="token punctuation">]</span>  cookies <span class="token operator">=</span> request<span class="token punctuation">.</span><span class="token function">getCookies</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">for</span><span class="token punctuation">(</span>Cookie cookie <span class="token operator">:</span> cookies<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">if</span><span class="token punctuation">(</span>cookie<span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>cookiName<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                <span class="token keyword">return</span> cookie<span class="token punctuation">.</span><span class="token function">getValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span>
-        <span class="token punctuation">}</span>
-        <span class="token keyword">return</span> null<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span></code></pre>
 <p>然后就可以直接在在控制器中拿到SpikeUser了，代码变得清爽简洁</p>
-<pre class=" language-java"><code class="language-java">    <span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span><span class="token string">"/to_list"</span><span class="token punctuation">)</span>
-    <span class="token keyword">public</span> String <span class="token function">tolist</span><span class="token punctuation">(</span>Model model<span class="token punctuation">,</span>SpikeUser spikeUser<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>spikeUser<span class="token operator">==</span>null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">return</span> <span class="token string">"login"</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        model<span class="token punctuation">.</span><span class="token function">addAttribute</span><span class="token punctuation">(</span><span class="token string">"user"</span><span class="token punctuation">,</span> spikeUser<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">return</span> <span class="token string">"goods_list"</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/to_list"</span>)</span><br><span class="line">   <span class="function"><span class="keyword">public</span> String <span class="title">tolist</span><span class="params">(Model model,SpikeUser spikeUser)</span> </span>&#123;</span><br><span class="line">       <span class="keyword">if</span> (spikeUser==<span class="keyword">null</span>) &#123;</span><br><span class="line">           <span class="keyword">return</span> <span class="string">"login"</span>;</span><br><span class="line">       &#125;</span><br><span class="line">       model.addAttribute(<span class="string">"user"</span>, spikeUser);</span><br><span class="line">       <span class="keyword">return</span> <span class="string">"goods_list"</span>;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//未优化</span></span><br><span class="line">   <span class="meta">@SuppressWarnings</span>(<span class="string">"all"</span>)</span><br><span class="line">   <span class="meta">@RequestMapping</span>(<span class="string">"/to_list0"</span>)</span><br><span class="line">   <span class="meta">@Deprecated</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> String <span class="title">tolist0</span><span class="params">(HttpServletResponse response, Model model,</span></span></span><br><span class="line"><span class="function"><span class="params">                        @CookieValue(value = SpikeUserService.COOK1_NAME_TOKEN, required = <span class="keyword">false</span>)</span> String cookie,</span></span><br><span class="line"><span class="function">                        @<span class="title">RequestParam</span><span class="params">(value = SpikeUserService.COOK1_NAME_TOKEN, required = <span class="keyword">false</span>)</span> String param) </span>&#123;</span><br><span class="line">                           <span class="comment">//手机浏览器，有可能将cookie放在参数中</span></span><br><span class="line">       System.out.println(<span class="string">"cookie:"</span> +cookie);</span><br><span class="line">       System.out.println(<span class="string">"param "</span> +param);</span><br><span class="line">       <span class="keyword">if</span> (param == <span class="keyword">null</span> &amp;&amp; cookie == <span class="keyword">null</span>) &#123;</span><br><span class="line">           <span class="keyword">return</span> <span class="string">"login"</span>;</span><br><span class="line">       &#125;</span><br><span class="line">       String cook = cookie != <span class="keyword">null</span> ? cookie : param;</span><br><span class="line">       SpikeUser user = spikeUserService.getUserByToken(response, cook);</span><br><span class="line">       System.out.println(user);</span><br><span class="line">       model.addAttribute(<span class="string">"user"</span>, user);</span><br><span class="line">       <span class="keyword">return</span> <span class="string">"goods_list"</span>;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
 
-    <span class="token comment" spellcheck="true">//未优化</span>
-    <span class="token annotation punctuation">@SuppressWarnings</span><span class="token punctuation">(</span><span class="token string">"all"</span><span class="token punctuation">)</span>
-    <span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span><span class="token string">"/to_list0"</span><span class="token punctuation">)</span>
-    <span class="token annotation punctuation">@Deprecated</span>
-    <span class="token keyword">public</span> String <span class="token function">tolist0</span><span class="token punctuation">(</span>HttpServletResponse response<span class="token punctuation">,</span> Model model<span class="token punctuation">,</span>
-                         <span class="token annotation punctuation">@CookieValue</span><span class="token punctuation">(</span>value <span class="token operator">=</span> SpikeUserService<span class="token punctuation">.</span>COOK1_NAME_TOKEN<span class="token punctuation">,</span> required <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">)</span> String cookie<span class="token punctuation">,</span>
-                         <span class="token annotation punctuation">@RequestParam</span><span class="token punctuation">(</span>value <span class="token operator">=</span> SpikeUserService<span class="token punctuation">.</span>COOK1_NAME_TOKEN<span class="token punctuation">,</span> required <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">)</span> String param<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                            <span class="token comment" spellcheck="true">//手机浏览器，有可能将cookie放在参数中</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"cookie:"</span> <span class="token operator">+</span>cookie<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"param "</span> <span class="token operator">+</span>param<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>param <span class="token operator">==</span> null <span class="token operator">&&</span> cookie <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">return</span> <span class="token string">"login"</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        String cook <span class="token operator">=</span> cookie <span class="token operator">!=</span> null <span class="token operator">?</span> cookie <span class="token operator">:</span> param<span class="token punctuation">;</span>
-        SpikeUser user <span class="token operator">=</span> spikeUserService<span class="token punctuation">.</span><span class="token function">getUserByToken</span><span class="token punctuation">(</span>response<span class="token punctuation">,</span> cook<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>user<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        model<span class="token punctuation">.</span><span class="token function">addAttribute</span><span class="token punctuation">(</span><span class="token string">"user"</span><span class="token punctuation">,</span> user<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">return</span> <span class="token string">"goods_list"</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-</code></pre>
 <p>这也算是对SpringMVC原理的初次接触吧，后面关于框架还是多看源码啊。</p>
 <p>关于<strong>Spring-Session</strong>的内容后面用到再来介绍。</p>
 <h3 id="拦截器"><a href="#拦截器" class="headerlink" title="拦截器"></a>拦截器</h3><p>依然是SpringBoot2，所以还是实现的<strong>WebMvcConfigurer</strong>接口</p>
 <p>先看下拦截器的执行流程</p>
-<p><img alt="来自慕课" data-src="http://static.imlgw.top/image/20190609/vUv7FDoickvl.png?imageslim" src="/img/loading.gif" class="lazyload"></p>
-<h4 id="自定义注解"><a href="#自定义注解" class="headerlink" title="自定义注解"></a>自定义注解</h4><pre class=" language-java"><code class="language-java"><span class="token keyword">package</span> top<span class="token punctuation">.</span>imlgw<span class="token punctuation">.</span>spike<span class="token punctuation">.</span>intercept<span class="token punctuation">;</span>
+<p><img src="http://static.imlgw.top/image/20190609/vUv7FDoickvl.png?imageslim" alt="来自慕课"></p>
+<h4 id="自定义注解"><a href="#自定义注解" class="headerlink" title="自定义注解"></a>自定义注解</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> top.imlgw.spike.intercept;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.*;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> imlgw.top</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2019/6/9 15:13</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Target</span>(ElementType.METHOD)</span><br><span class="line"><span class="meta">@Retention</span>(RetentionPolicy.RUNTIME)</span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> NeedLogin &#123;</span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">needLogin</span><span class="params">()</span> <span class="keyword">default</span> <span class="keyword">true</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<span class="token keyword">import</span> java<span class="token punctuation">.</span>lang<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span>*<span class="token punctuation">;</span>
+<h4 id="重写HandlerInterceptor"><a href="#重写HandlerInterceptor" class="headerlink" title="重写HandlerInterceptor"></a>重写HandlerInterceptor</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> top.imlgw.spike.intercept;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.commons.lang3.StringUtils;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Component;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.method.HandlerMethod;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.HandlerInterceptor;</span><br><span class="line"><span class="keyword">import</span> top.imlgw.spike.entity.SpikeUser;</span><br><span class="line"><span class="keyword">import</span> top.imlgw.spike.service.SpikeUserService;</span><br><span class="line"><span class="keyword">import</span> top.imlgw.spike.utils.UserContext;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.Cookie;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> imlgw.top</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2019/6/8 23:22</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LoginIntercept</span> <span class="keyword">implements</span> <span class="title">HandlerInterceptor</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    SpikeUserService spikeUserService;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> request</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> response</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> handler</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 在登陆前拦截</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> Exception</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">preHandle</span><span class="params">(HttpServletRequest request, HttpServletResponse response, Object handler)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(!(handler <span class="keyword">instanceof</span> HandlerMethod))&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        HandlerMethod hm=(HandlerMethod) handler;</span><br><span class="line">        SpikeUser spikeUser = getSpikeUser(request, response);</span><br><span class="line">        <span class="comment">//有的页面不需要登陆(二次登陆)但是需要用户信息(订单页面...)，所以需要先存进去</span></span><br><span class="line">        UserContext.setUser(spikeUser);</span><br><span class="line">        <span class="comment">//获取方法上的注解</span></span><br><span class="line">        NeedLogin needLogin = hm.getMethodAnnotation(NeedLogin<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">        <span class="keyword">if</span>(needLogin==<span class="keyword">null</span> || ! needLogin.needLogin())&#123;</span><br><span class="line">            <span class="comment">//没有注解后者注解为false,就直接放过</span></span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//有注解，没登陆</span></span><br><span class="line">        <span class="keyword">if</span>(spikeUser==<span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/** 视图渲染完毕后调用(收尾工作)</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> request</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> response</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> handler</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> ex</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> Exception</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">afterCompletion</span><span class="params">(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="comment">//删除ThreadLocal中的User否则会产生错乱</span></span><br><span class="line">        UserContext.removeUser();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">	</span><br><span class="line">    <span class="function"><span class="keyword">private</span> SpikeUser <span class="title">getSpikeUser</span><span class="params">(HttpServletRequest request,HttpServletResponse response)</span></span>&#123;</span><br><span class="line">        <span class="comment">//拿参数中的token</span></span><br><span class="line">        String paramToken = request.getParameter(SpikeUserService.COOK_NAME_TOKEN);</span><br><span class="line">        <span class="comment">//拿cookie中的token</span></span><br><span class="line">        String cookieToken = getCookieValue(request, SpikeUserService.COOK_NAME_TOKEN);</span><br><span class="line">        <span class="keyword">if</span>(StringUtils.isEmpty(cookieToken) &amp;&amp; StringUtils.isEmpty(paramToken)) &#123;</span><br><span class="line">            <span class="comment">//没登陆cookie为空</span></span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        String token = StringUtils.isEmpty(paramToken)?cookieToken:paramToken;</span><br><span class="line">        SpikeUser user = spikeUserService.getUserByToken(response, token);</span><br><span class="line">        <span class="keyword">return</span> user;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">     * 获取cookie中的User</span></span><br><span class="line"><span class="comment">     * */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> String <span class="title">getCookieValue</span><span class="params">(HttpServletRequest request, String cookieName)</span> </span>&#123;</span><br><span class="line">        Cookie[]  cookies = request.getCookies();</span><br><span class="line">        <span class="keyword">if</span>(cookies == <span class="keyword">null</span> || cookies.length &lt;= <span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(Cookie cookie : cookies) &#123;</span><br><span class="line">            <span class="keyword">if</span>(cookie.getName().equals(cookieName)) &#123;</span><br><span class="line">                <span class="keyword">return</span> cookie.getValue();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<span class="token comment" spellcheck="true">/**
- * @author imlgw.top
- * @date 2019/6/9 15:13
- */</span>
-<span class="token annotation punctuation">@Target</span><span class="token punctuation">(</span>ElementType<span class="token punctuation">.</span>METHOD<span class="token punctuation">)</span>
-<span class="token annotation punctuation">@Retention</span><span class="token punctuation">(</span>RetentionPolicy<span class="token punctuation">.</span>RUNTIME<span class="token punctuation">)</span>
-<span class="token annotation punctuation">@Documented</span>
-<span class="token keyword">public</span> @<span class="token keyword">interface</span> <span class="token class-name">NeedLogin</span> <span class="token punctuation">{</span>
-    <span class="token keyword">boolean</span> <span class="token function">needLogin</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">default</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span></code></pre>
-<h4 id="重写HandlerInterceptor"><a href="#重写HandlerInterceptor" class="headerlink" title="重写HandlerInterceptor"></a>重写HandlerInterceptor</h4><pre class=" language-java"><code class="language-java"><span class="token keyword">package</span> top<span class="token punctuation">.</span>imlgw<span class="token punctuation">.</span>spike<span class="token punctuation">.</span>intercept<span class="token punctuation">;</span>
+<h4 id="WebConfig里面添加拦截器"><a href="#WebConfig里面添加拦截器" class="headerlink" title="WebConfig里面添加拦截器"></a>WebConfig里面添加拦截器</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> top.imlgw.spike.config;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.method.support.HandlerMethodArgumentResolver;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.config.annotation.InterceptorRegistry;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.config.annotation.ViewControllerRegistry;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.config.annotation.WebMvcConfigurer;</span><br><span class="line"><span class="keyword">import</span> top.imlgw.spike.intercept.LoginIntercept;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WebConfig</span> <span class="keyword">implements</span> <span class="title">WebMvcConfigurer</span></span>&#123;</span><br><span class="line">	<span class="comment">//自动装配或者 手动创建bean,加到Ioc容器中，否则取不到service</span></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    SpikeUserArgumentResolver spikeUserArgumentResolver;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    LoginIntercept loginIntercept;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addArgumentResolvers</span><span class="params">(List&lt;HandlerMethodArgumentResolver&gt; argumentResolvers)</span> </span>&#123;</span><br><span class="line">        argumentResolvers.add(spikeUserArgumentResolver);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addInterceptors</span><span class="params">(InterceptorRegistry registry)</span> </span>&#123;</span><br><span class="line">        registry.addInterceptor(loginIntercept).addPathPatterns(<span class="string">"/**"</span>).</span><br><span class="line">            excludePathPatterns(<span class="string">"/login/*"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<span class="token keyword">import</span> org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>commons<span class="token punctuation">.</span>lang3<span class="token punctuation">.</span>StringUtils<span class="token punctuation">;</span>
-<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>beans<span class="token punctuation">.</span>factory<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span>Autowired<span class="token punctuation">;</span>
-<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>stereotype<span class="token punctuation">.</span>Component<span class="token punctuation">;</span>
-<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>web<span class="token punctuation">.</span>method<span class="token punctuation">.</span>HandlerMethod<span class="token punctuation">;</span>
-<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>web<span class="token punctuation">.</span>servlet<span class="token punctuation">.</span>HandlerInterceptor<span class="token punctuation">;</span>
-<span class="token keyword">import</span> top<span class="token punctuation">.</span>imlgw<span class="token punctuation">.</span>spike<span class="token punctuation">.</span>entity<span class="token punctuation">.</span>SpikeUser<span class="token punctuation">;</span>
-<span class="token keyword">import</span> top<span class="token punctuation">.</span>imlgw<span class="token punctuation">.</span>spike<span class="token punctuation">.</span>service<span class="token punctuation">.</span>SpikeUserService<span class="token punctuation">;</span>
-<span class="token keyword">import</span> top<span class="token punctuation">.</span>imlgw<span class="token punctuation">.</span>spike<span class="token punctuation">.</span>utils<span class="token punctuation">.</span>UserContext<span class="token punctuation">;</span>
-
-<span class="token keyword">import</span> javax<span class="token punctuation">.</span>servlet<span class="token punctuation">.</span>http<span class="token punctuation">.</span>Cookie<span class="token punctuation">;</span>
-<span class="token keyword">import</span> javax<span class="token punctuation">.</span>servlet<span class="token punctuation">.</span>http<span class="token punctuation">.</span>HttpServletRequest<span class="token punctuation">;</span>
-<span class="token keyword">import</span> javax<span class="token punctuation">.</span>servlet<span class="token punctuation">.</span>http<span class="token punctuation">.</span>HttpServletResponse<span class="token punctuation">;</span>
-
-<span class="token comment" spellcheck="true">/**
- * @author imlgw.top
- * @date 2019/6/8 23:22
- */</span>
-<span class="token annotation punctuation">@Component</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">LoginIntercept</span> <span class="token keyword">implements</span> <span class="token class-name">HandlerInterceptor</span> <span class="token punctuation">{</span>
-
-    <span class="token annotation punctuation">@Autowired</span>
-    SpikeUserService spikeUserService<span class="token punctuation">;</span>
-
-    <span class="token comment" spellcheck="true">/**
-     * @param request
-     * @param response
-     * @param handler
-     * @return 在登陆前拦截
-     * @throws Exception
-     */</span>
-    <span class="token annotation punctuation">@Override</span>
-    <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">preHandle</span><span class="token punctuation">(</span>HttpServletRequest request<span class="token punctuation">,</span> HttpServletResponse response<span class="token punctuation">,</span> Object handler<span class="token punctuation">)</span> <span class="token keyword">throws</span> Exception <span class="token punctuation">{</span>
-        <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">!</span><span class="token punctuation">(</span>handler <span class="token keyword">instanceof</span> <span class="token class-name">HandlerMethod</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-            <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        HandlerMethod hm<span class="token operator">=</span><span class="token punctuation">(</span>HandlerMethod<span class="token punctuation">)</span> handler<span class="token punctuation">;</span>
-        SpikeUser spikeUser <span class="token operator">=</span> <span class="token function">getSpikeUser</span><span class="token punctuation">(</span>request<span class="token punctuation">,</span> response<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token comment" spellcheck="true">//有的页面不需要登陆(二次登陆)但是需要用户信息(订单页面...)，所以需要先存进去</span>
-        UserContext<span class="token punctuation">.</span><span class="token function">setUser</span><span class="token punctuation">(</span>spikeUser<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token comment" spellcheck="true">//获取方法上的注解</span>
-        NeedLogin needLogin <span class="token operator">=</span> hm<span class="token punctuation">.</span><span class="token function">getMethodAnnotation</span><span class="token punctuation">(</span>NeedLogin<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">if</span><span class="token punctuation">(</span>needLogin<span class="token operator">==</span>null <span class="token operator">||</span> <span class="token operator">!</span> needLogin<span class="token punctuation">.</span><span class="token function">needLogin</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-            <span class="token comment" spellcheck="true">//没有注解后者注解为false,就直接放过</span>
-            <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        <span class="token comment" spellcheck="true">//有注解，没登陆</span>
-        <span class="token keyword">if</span><span class="token punctuation">(</span>spikeUser<span class="token operator">==</span>null<span class="token punctuation">)</span><span class="token punctuation">{</span>
-            <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-
-    <span class="token comment" spellcheck="true">/** 视图渲染完毕后调用(收尾工作)
-     * @param request
-     * @param response
-     * @param handler
-     * @param ex
-     * @throws Exception
-     */</span>
-    <span class="token annotation punctuation">@Override</span>
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">afterCompletion</span><span class="token punctuation">(</span>HttpServletRequest request<span class="token punctuation">,</span> HttpServletResponse response<span class="token punctuation">,</span> Object handler<span class="token punctuation">,</span> Exception ex<span class="token punctuation">)</span> <span class="token keyword">throws</span> Exception <span class="token punctuation">{</span>
-        <span class="token comment" spellcheck="true">//删除ThreadLocal中的User否则会产生错乱</span>
-        UserContext<span class="token punctuation">.</span><span class="token function">removeUser</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-
-    <span class="token keyword">private</span> SpikeUser <span class="token function">getSpikeUser</span><span class="token punctuation">(</span>HttpServletRequest request<span class="token punctuation">,</span>HttpServletResponse response<span class="token punctuation">)</span><span class="token punctuation">{</span>
-        <span class="token comment" spellcheck="true">//拿参数中的token</span>
-        String paramToken <span class="token operator">=</span> request<span class="token punctuation">.</span><span class="token function">getParameter</span><span class="token punctuation">(</span>SpikeUserService<span class="token punctuation">.</span>COOK_NAME_TOKEN<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token comment" spellcheck="true">//拿cookie中的token</span>
-        String cookieToken <span class="token operator">=</span> <span class="token function">getCookieValue</span><span class="token punctuation">(</span>request<span class="token punctuation">,</span> SpikeUserService<span class="token punctuation">.</span>COOK_NAME_TOKEN<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">if</span><span class="token punctuation">(</span>StringUtils<span class="token punctuation">.</span><span class="token function">isEmpty</span><span class="token punctuation">(</span>cookieToken<span class="token punctuation">)</span> <span class="token operator">&&</span> StringUtils<span class="token punctuation">.</span><span class="token function">isEmpty</span><span class="token punctuation">(</span>paramToken<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token comment" spellcheck="true">//没登陆cookie为空</span>
-            <span class="token keyword">return</span> null<span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        String token <span class="token operator">=</span> StringUtils<span class="token punctuation">.</span><span class="token function">isEmpty</span><span class="token punctuation">(</span>paramToken<span class="token punctuation">)</span><span class="token operator">?</span>cookieToken<span class="token operator">:</span>paramToken<span class="token punctuation">;</span>
-        SpikeUser user <span class="token operator">=</span> spikeUserService<span class="token punctuation">.</span><span class="token function">getUserByToken</span><span class="token punctuation">(</span>response<span class="token punctuation">,</span> token<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">return</span> user<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-
-    <span class="token comment" spellcheck="true">/*
-     * 获取cookie中的User
-     * */</span>
-    <span class="token keyword">private</span> String <span class="token function">getCookieValue</span><span class="token punctuation">(</span>HttpServletRequest request<span class="token punctuation">,</span> String cookieName<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        Cookie<span class="token punctuation">[</span><span class="token punctuation">]</span>  cookies <span class="token operator">=</span> request<span class="token punctuation">.</span><span class="token function">getCookies</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">if</span><span class="token punctuation">(</span>cookies <span class="token operator">==</span> null <span class="token operator">||</span> cookies<span class="token punctuation">.</span>length <span class="token operator"><=</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-            <span class="token keyword">return</span> null<span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        <span class="token keyword">for</span><span class="token punctuation">(</span>Cookie cookie <span class="token operator">:</span> cookies<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">if</span><span class="token punctuation">(</span>cookie<span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>cookieName<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                <span class="token keyword">return</span> cookie<span class="token punctuation">.</span><span class="token function">getValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span>
-        <span class="token punctuation">}</span>
-        <span class="token keyword">return</span> null<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span></code></pre>
-<h4 id="WebConfig里面添加拦截器"><a href="#WebConfig里面添加拦截器" class="headerlink" title="WebConfig里面添加拦截器"></a>WebConfig里面添加拦截器</h4><pre class=" language-java"><code class="language-java"><span class="token keyword">package</span> top<span class="token punctuation">.</span>imlgw<span class="token punctuation">.</span>spike<span class="token punctuation">.</span>config<span class="token punctuation">;</span>
-
-<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>beans<span class="token punctuation">.</span>factory<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span>Autowired<span class="token punctuation">;</span>
-<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>context<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span>Configuration<span class="token punctuation">;</span>
-<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>web<span class="token punctuation">.</span>method<span class="token punctuation">.</span>support<span class="token punctuation">.</span>HandlerMethodArgumentResolver<span class="token punctuation">;</span>
-<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>web<span class="token punctuation">.</span>servlet<span class="token punctuation">.</span>config<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span>InterceptorRegistry<span class="token punctuation">;</span>
-<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>web<span class="token punctuation">.</span>servlet<span class="token punctuation">.</span>config<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span>ViewControllerRegistry<span class="token punctuation">;</span>
-<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>web<span class="token punctuation">.</span>servlet<span class="token punctuation">.</span>config<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span>WebMvcConfigurer<span class="token punctuation">;</span>
-<span class="token keyword">import</span> top<span class="token punctuation">.</span>imlgw<span class="token punctuation">.</span>spike<span class="token punctuation">.</span>intercept<span class="token punctuation">.</span>LoginIntercept<span class="token punctuation">;</span>
-<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>List<span class="token punctuation">;</span>
-
-<span class="token annotation punctuation">@Configuration</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">WebConfig</span> <span class="token keyword">implements</span> <span class="token class-name">WebMvcConfigurer</span><span class="token punctuation">{</span>
-    <span class="token comment" spellcheck="true">//自动装配或者 手动创建bean,加到Ioc容器中，否则取不到service</span>
-    <span class="token annotation punctuation">@Autowired</span>
-    SpikeUserArgumentResolver spikeUserArgumentResolver<span class="token punctuation">;</span>
-
-    <span class="token annotation punctuation">@Autowired</span>
-    LoginIntercept loginIntercept<span class="token punctuation">;</span>
-
-    <span class="token annotation punctuation">@Override</span>
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">addArgumentResolvers</span><span class="token punctuation">(</span>List<span class="token operator"><</span>HandlerMethodArgumentResolver<span class="token operator">></span> argumentResolvers<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        argumentResolvers<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>spikeUserArgumentResolver<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-
-    <span class="token annotation punctuation">@Override</span>
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">addInterceptors</span><span class="token punctuation">(</span>InterceptorRegistry registry<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        registry<span class="token punctuation">.</span><span class="token function">addInterceptor</span><span class="token punctuation">(</span>loginIntercept<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">addPathPatterns</span><span class="token punctuation">(</span><span class="token string">"/**"</span><span class="token punctuation">)</span><span class="token punctuation">.</span>
-            <span class="token function">excludePathPatterns</span><span class="token punctuation">(</span><span class="token string">"/login/*"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span></code></pre>
 <h3 id="视图解析器"><a href="#视图解析器" class="headerlink" title="视图解析器"></a>视图解析器</h3><p>不用为了跳转页面而专门写一个<strong>controller</strong></p>
-<pre class=" language-java"><code class="language-java"><span class="token annotation punctuation">@Override</span>
-<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">addViewControllers</span><span class="token punctuation">(</span>ViewControllerRegistry registry<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token comment" spellcheck="true">//这里如果是用的模板引擎，就只能是模板引擎template里面的文件</span>
-    <span class="token comment" spellcheck="true">//这里后面默认指的是static里面的文件，后缀为html</span>
-    registry<span class="token punctuation">.</span><span class="token function">addViewController</span><span class="token punctuation">(</span><span class="token string">"/"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">setViewName</span><span class="token punctuation">(</span><span class="token string">"login"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    registry<span class="token punctuation">.</span><span class="token function">addViewController</span><span class="token punctuation">(</span><span class="token string">"/goodslist"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">setViewName</span><span class="token punctuation">(</span><span class="token string">"goods_list"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    registry<span class="token punctuation">.</span><span class="token function">addViewController</span><span class="token punctuation">(</span><span class="token string">"/register"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">setViewName</span><span class="token punctuation">(</span><span class="token string">"register"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span></code></pre>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addViewControllers</span><span class="params">(ViewControllerRegistry registry)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//这里如果是用的模板引擎，就只能是模板引擎template里面的文件</span></span><br><span class="line">    <span class="comment">//这里后面默认指的是static里面的文件，后缀为html</span></span><br><span class="line">    registry.addViewController(<span class="string">"/"</span>).setViewName(<span class="string">"login"</span>);</span><br><span class="line">    registry.addViewController(<span class="string">"/goodslist"</span>).setViewName(<span class="string">"goods_list"</span>);</span><br><span class="line">    registry.addViewController(<span class="string">"/register"</span>).setViewName(<span class="string">"register"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <blockquote>
 <p>其他的以后用到会继续补充</p>
 </blockquote>
-</body></html></div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">imlgw</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://imlgw.top/2019/05/20/webmvcconfigurer/">http://imlgw.top/2019/05/20/webmvcconfigurer/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://imlgw.top">iMlGw0</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/SpringMVC/">SpringMVC    </a></div><div class="post_share"><div class="social-share" data-image="http://static.imlgw.top/image/20190713/8b2b25e9-a8de-b3f4-a810-7814a40a193c.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js"></script></div></div><div class="post-reward"><a class="reward-button button--primary button--animated"> <i class="fa fa-qrcode"></i> 打赏<div class="reward-main"><ul class="reward-all"><li class="reward-item"><img class="lazyload post-qr-code__img" src="/img/wechat.png" alt="微信"><div class="post-qr-code__desc">微信</div></li><li class="reward-item"><img class="lazyload post-qr-code__img" src="/img/alipay.png" alt="支付寶"><div class="post-qr-code__desc">支付寶</div></li></ul></div></a></div><nav class="pagination_post" id="pagination"><div class="prev-post pull_left"><a href="/2019/05/20/shu-ju-ku-da-zuo-ye/"><img class="prev_cover lazyload" data-src="http://static.imlgw.top/image/featureimages/12.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="label">上一篇</div><div class="prev_info"><span>数据库大作业</span></div></a></div><div class="next-post pull_right"><a href="/2019/05/13/jsr303-can-shu-xiao-yan/"><img class="next_cover lazyload" data-src="http://static.imlgw.top/image/featureimages/21.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="label">下一篇</div><div class="next_info"><span>JSR303-参数检验</span></div></a></div></nav><hr><div id="post-comment"><div class="comment_headling"><i class="fa fa-comments fa-fw" aria-hidden="true"></i><span> 评论</span></div><div class="vcomment" id="vcomment"></div><script src="https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script><script>var notify = false == true ? true : false;
-var verify = true == true ? true : false;
-var GUEST_INFO = ['nick','mail','link'];
-var guest_info = 'nick,mail,link'.split(',').filter(function(item){
-  return GUEST_INFO.indexOf(item) > -1
-});
-guest_info = guest_info.length == 0 ? GUEST_INFO :guest_info;
 
-window.valine = new Valine({
-  el:'#vcomment',
-  notify:notify,
-  verify:verify,
-  appId:'MkcXmeDvktRNBDBrVqb9KYPH-MdYXbMMI',
-  appKey:'swDnb5a9u9Ksp2Rwkdm7Qulh',
-  placeholder:'留下邮箱才能收到及时收到回复~~',
-  avatar:'monsterid',
-  guest_info:guest_info,
-  pageSize:'10',
-  lang:'zh-cn',
-  recordIP: true
-});</script></div></div></main><footer id="footer" style="background-image: url(http://static.imlgw.top/image/20190713/8b2b25e9-a8de-b3f4-a810-7814a40a193c.png)" data-type="photo"><div id="footer-wrap"><div class="copyright">&copy;2018 - 2020 By imlgw</div><div class="framework-info"><span>驱动 </span><a href="http://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener"><span>Butterfly</span></a></div><div class="icp"><a href="http://beian.miit.gov.cn/publish/query/indexFirst.action" target="_blank" rel="noopener"><span>鄂ICP备18011208号</span></a></div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><i class="fa fa-book" id="readmode" title="阅读模式"></i><i class="fa fa-plus" id="font_plus" title="放大字体"></i><i class="fa fa-minus" id="font_minus" title="缩小字体"></i><a class="translate_chn_to_cht" id="translateLink" href="javascript:translatePage();" title="简繁转换" target="_self">簡</a></div><div id="rightside-config-show"><div id="rightside_config" title="设置"><i class="fa fa-cog" aria-hidden="true"></i></div><a id="to_comment" href="#post-comment" title="直达评论"><i class="scroll_to_comment fa fa-comments">  </i></a><i class="fa fa-list-ul close" id="mobile-toc-button" title="目录" aria-hidden="true"></i><i class="fa fa-arrow-up" id="go-up" title="回到顶部" aria-hidden="true"></i></div></section><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/medium-zoom/dist/medium-zoom.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script id="ribbon_piao" mobile="undefined" src="https://cdn.jsdelivr.net/gh/jerryc127/butterfly_cdn@2.1.0/js/piao.js"></script><script src="https://cdn.jsdelivr.net/npm/activate-power-mode/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
-POWERMODE.shake = false; 
-document.body.addEventListener('input', POWERMODE);
-</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@latest/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@latest/lazysizes.min.js" async=""></script><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章"></div></div></div><hr><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a href="https://github.com/wzpan/hexo-generator-search" target="_blank" rel="noopener" style="color:#49B1F5;">hexo-generator-search</a>
- <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fa fa-times"></i></span></div><div class="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/live2d-widget@3.x/lib/L2Dwidget.min.js"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"https://cdn.jsdelivr.net/npm/live2d-widget-model-hijiki@1.0.5/assets/hijiki.model.json"},"display":{"superSample":2,"width":160,"height":320,"position":"right","hOffset":0,"vOffset":-70},"mobile":{"show":false,"scale":0.2},"log":false});</script></body></html>
+    </div>
+
+  </article>
+  <div class="toc-container">
+    
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#起源"><span class="toc-text">起源</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#WebMvcConfigurer是干嘛的？"><span class="toc-text">WebMvcConfigurer是干嘛的？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#WebMvcConfigurationSupport"><span class="toc-text">WebMvcConfigurationSupport</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#WebMvcConfigurer内的方法"><span class="toc-text">WebMvcConfigurer内的方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#注意事项"><span class="toc-text">注意事项</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实例"><span class="toc-text">实例</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Controller参数绑定"><span class="toc-text">Controller参数绑定</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#重写addArgumentResolvers"><span class="toc-text">重写addArgumentResolvers</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#实现HandlerMethodArgumentResolver"><span class="toc-text">实现HandlerMethodArgumentResolver</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#拦截器"><span class="toc-text">拦截器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#自定义注解"><span class="toc-text">自定义注解</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#重写HandlerInterceptor"><span class="toc-text">重写HandlerInterceptor</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#WebConfig里面添加拦截器"><span class="toc-text">WebConfig里面添加拦截器</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#视图解析器"><span class="toc-text">视图解析器</span></a></li></ol></li></ol>
+  </div>
+
+
+  </div>
+</div>
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'true' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "MkcXmeDvktRNBDBrVqb9KYPH-MdYXbMMI",
+            app_key: "swDnb5a9u9Ksp2Rwkdm7Qulh",
+            placeholder: "留下邮箱才能收到收到回复喔 ~",
+            avatar:"monsterid"
+        });
+    }
+</script>
+    </section>
+  
+<div class="copyright">
+    <span>本作品采用</span>
+    <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">知识共享署名 4.0 国际许可协议</a>
+    <span>进行许可。 转载时请注明原文链接。</span>
+</div>
+
+
+  
+    <div class="post-nav">
+      <div class="post-nav-item post-nav-next">
+        
+          <span>〈 </span>
+          <a href="/2019/05/13/jsr303-can-shu-xiao-yan/" rel="next" title="JSR303-参数检验">
+          JSR303-参数检验
+          </a>
+        
+      </div>
+  
+      <div class="post-nav-item post-nav-prev">
+          
+          <a href="/2019/05/20/shu-ju-ku-da-zuo-ye/" rel="prev" title="数据库大作业">
+            数据库大作业
+          </a>
+          <span>〉</span>
+        
+      </div>
+    </div>
+  
+
+    </div>
+
+    
+
+  </div>
+  <footer class="footer text-center">
+    <div id="bottom-inner">
+        <a class="bottom-item" href="https://github.com/imlgw" target="_blank">GitHub</a> |
+        <a class="bottom-item" href="/links">友情链接</a> |
+        <a class="bottom-item" href="https://hexo.io" target="_blank">Powered by hexo</a> |
+        <a class="bottom-item" href="https://github.com/fooying/hexo-theme-xoxo-plus" target="_blank">Theme xoxo-plus</a> |
+        <a class="bottom-item" href="/atom.xml">RSS</a>
+    </div>
+</footer>
+
+  
+
+<script>
+  (function(window, document, undefined) {
+
+    var timer = null;
+
+    function returnTop() {
+      cancelAnimationFrame(timer);
+      timer = requestAnimationFrame(function fn() {
+        var oTop = document.body.scrollTop || document.documentElement.scrollTop;
+        if (oTop > 0) {
+          document.body.scrollTop = document.documentElement.scrollTop = oTop - 50;
+          timer = requestAnimationFrame(fn);
+        } else {
+          cancelAnimationFrame(timer);
+        }
+      });
+    }
+
+    var hearts = [];
+    window.requestAnimationFrame = (function() {
+      return window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.oRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        function(callback) {
+          setTimeout(callback, 1000 / 60);
+        }
+    })();
+    init();
+
+    function init() {
+      css(".heart{z-index:9999;width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);}.heart:after,.heart:before{content: '';width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: absolute;}.heart:after{top: -5px;}.heart:before{left: -5px;}");
+      attachEvent();
+      gameloop();
+      addMenuEvent();
+    }
+
+    function gameloop() {
+      for (var i = 0; i < hearts.length; i++) {
+        if (hearts[i].alpha <= 0) {
+          document.body.removeChild(hearts[i].el);
+          hearts.splice(i, 1);
+          continue;
+        }
+        hearts[i].y--;
+        hearts[i].scale += 0.004;
+        hearts[i].alpha -= 0.013;
+        hearts[i].el.style.cssText = "left:" + hearts[i].x + "px;top:" + hearts[i].y + "px;opacity:" + hearts[i].alpha + ";transform:scale(" + hearts[i].scale + "," + hearts[i].scale + ") rotate(45deg);background:" + hearts[i].color;
+      }
+      requestAnimationFrame(gameloop);
+    }
+
+    /**
+     * 给logo设置点击事件
+     * 
+     * - 回到顶部
+     * - 出现爱心
+     */
+    function attachEvent() {
+      var old = typeof window.onclick === "function" && window.onclick;
+      var logo = document.getElementById("logo");
+      if (logo) {
+        logo.onclick = function(event) {
+          returnTop();
+          old && old();
+          createHeart(event);
+        }
+      }
+      
+    }
+
+    function createHeart(event) {
+      var d = document.createElement("div");
+      d.className = "heart";
+      hearts.push({
+        el: d,
+        x: event.clientX - 5,
+        y: event.clientY - 5,
+        scale: 1,
+        alpha: 1,
+        color: randomColor()
+      });
+      document.body.appendChild(d);
+    }
+
+    function css(css) {
+      var style = document.createElement("style");
+      style.type = "text/css";
+      try {
+        style.appendChild(document.createTextNode(css));
+      } catch (ex) {
+        style.styleSheet.cssText = css;
+      }
+      document.getElementsByTagName('head')[0].appendChild(style);
+    }
+
+    function randomColor() {
+      // return "rgb(" + (~~(Math.random() * 255)) + "," + (~~(Math.random() * 255)) + "," + (~~(Math.random() * 255)) + ")";
+      return "#F44336";
+    }
+
+    function addMenuEvent() {
+      var menu = document.getElementById('menu-main-post');
+      if (menu) {
+        var toc = document.getElementById('toc');
+        if (toc) {
+          menu.onclick = function() {
+            if (toc) {
+              if (toc.style.display == 'block') {
+                toc.style.display = 'none';
+              } else {
+                toc.style.display = 'block';
+              }
+            }
+          };
+        } else {
+          menu.style.display = 'none';
+        }
+      }
+    }
+
+  })(window, document);
+</script>
+
+  
+
+
+
+  
+
+<script src="https://cdn.jsdelivr.net/npm/live2d-widget@3.x/lib/L2Dwidget.min.js"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"https://cdn.jsdelivr.net/npm/live2d-widget-model-hijiki@1.0.5/assets/hijiki.model.json"},"display":{"superSample":2,"width":160,"height":320,"position":"right","hOffset":0,"vOffset":-70},"mobile":{"show":false,"scale":0.2},"log":false});</script></body>
+</html>
