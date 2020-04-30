@@ -252,6 +252,29 @@
     
     
     <entry>
+      <title>Redis思维导图</title>
+      <link href="/2019/11/16/redis-si-wei-dao-tu/"/>
+      <url>/2019/11/16/redis-si-wei-dao-tu/</url>
+      
+      
+      <categories>
+          
+          <category> Web </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Redis </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>LRU队列实现</title>
       <link href="/2019/11/16/lrucache/"/>
       <url>/2019/11/16/lrucache/</url>
@@ -269,29 +292,6 @@
             <tag> LeetCode </tag>
             
             <tag> LRU </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>Redis思维导图</title>
-      <link href="/2019/11/16/redis-si-wei-dao-tu/"/>
-      <url>/2019/11/16/redis-si-wei-dao-tu/</url>
-      
-      
-      <categories>
-          
-          <category> Web </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> Redis </tag>
             
         </tags>
       
@@ -1135,9 +1135,9 @@
             
             <tag> Bug </tag>
             
-            <tag> Solr </tag>
-            
             <tag> Spring </tag>
+            
+            <tag> Solr </tag>
             
         </tags>
       
@@ -1498,15 +1498,6 @@
     
     
     <entry>
-      <title>分类</title>
-      <link href="/categories/index.html"/>
-      <url>/categories/index.html</url>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>friends</title>
       <link href="/friends/index.html"/>
       <url>/friends/index.html</url>
@@ -1516,9 +1507,9 @@
     
     
     <entry>
-      <title>项目</title>
-      <link href="/project/index.html"/>
-      <url>/project/index.html</url>
+      <title>分类</title>
+      <link href="/categories/index.html"/>
+      <url>/categories/index.html</url>
       
     </entry>
     
@@ -1528,6 +1519,15 @@
       <title>大佬们</title>
       <link href="/links/index.html"/>
       <url>/links/index.html</url>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>项目</title>
+      <link href="/project/index.html"/>
+      <url>/project/index.html</url>
       
     </entry>
     

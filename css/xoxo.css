@@ -868,6 +868,7 @@ code {
   background-color: #f6f6f6;
   font-family: "Source Code Pro", "courier new", "Input Mono", "PT Mono", Consolas, Monaco, Menlo, monospace;
   font-size: 0.9rem;
+  line-height: 0.8rem;
 }
 pre {
   padding: 10px;
