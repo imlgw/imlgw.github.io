@@ -757,6 +757,7 @@ body {
 }
 .category-list {
   list-style: upper-alpha;
+  margin-left: 49px;
 }
 .category-list ol,
 .category-list ul {
@@ -796,6 +797,7 @@ body {
 }
 .search-result-list {
   margin-top: 10px;
+  margin-left: 20px;
 }
 .search-result-list a.search-result-title {
   color: #202020;
@@ -808,6 +810,9 @@ body {
 .search-result-list .search-keyword {
   color: #FF5722;
   font-weight: bold;
+}
+.archives {
+    margin-left: 10px;
 }
 .archives .archive-year-wrap {
   font-size: 1.3rem;

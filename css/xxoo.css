@@ -715,6 +715,7 @@ body {
 }
 .category-list {
   list-style: upper-alpha;
+  margin-left: 49px;
 }
 .category-list ol,
 .category-list ul {
