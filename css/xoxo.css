@@ -486,7 +486,7 @@ body {
 }
 @media (max-width: 576px) {
   .post {
-    padding: 10px 50px;
+    /*padding: 10px 50px;*/
   }
 }
 .post .post-header {
