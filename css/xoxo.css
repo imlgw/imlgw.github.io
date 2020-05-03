@@ -430,7 +430,7 @@ body {
     display: block;
     position: fixed;
     margin-left: -15px;
-    max-height: calc(100vh - 150px);
+    max-height: calc(100vh - 220px);
     width: 200px;
     top: 25%;
     font-size: 12px;
