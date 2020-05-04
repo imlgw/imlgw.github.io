@@ -1480,6 +1480,15 @@
     
     
     <entry>
+      <title>分类</title>
+      <link href="/categories/index.html"/>
+      <url>/categories/index.html</url>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>关于我</title>
       <link href="/about/index.html"/>
       <url>/about/index.html</url>
@@ -1492,15 +1501,6 @@
       <title>留言板</title>
       <link href="/board/index.html"/>
       <url>/board/index.html</url>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>分类</title>
-      <link href="/categories/index.html"/>
-      <url>/categories/index.html</url>
       
     </entry>
     
@@ -1525,18 +1525,18 @@
     
     
     <entry>
-      <title>Search</title>
-      <link href="/search/index.html"/>
-      <url>/search/index.html</url>
+      <title>项目</title>
+      <link href="/project/index.html"/>
+      <url>/project/index.html</url>
       
     </entry>
     
     
     
     <entry>
-      <title>项目</title>
-      <link href="/project/index.html"/>
-      <url>/project/index.html</url>
+      <title>Search</title>
+      <link href="/search/index.html"/>
+      <url>/search/index.html</url>
       
     </entry>
     
