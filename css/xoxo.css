@@ -281,6 +281,14 @@ body {
   padding: 4px 15px;
   color: inherit;
 }
+
+@media screen and (max-width: 615px) {
+    .nav-container .home-menu .pure-menu-list .pure-menu-link {
+      padding: 4px 11px;
+      color: inherit;
+    }    
+}
+
 /*
 .nav-container .home-menu .pure-menu-list .pure-menu-link:after {
   content: ' ';
@@ -484,9 +492,10 @@ body {
     padding: 10px 50px;
   }
 }
+/*移动端宽度*/
 @media (max-width: 576px) {
   .post {
-    /*padding: 10px 50px;*/
+    padding: 10px 15px;
   }
 }
 .post .post-header {
