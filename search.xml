@@ -4,6 +4,29 @@
   
     
     <entry>
+      <title>Linux文件权限和目录配置</title>
+      <link href="/2020/05/27/linux-de-wen-jian-quan-xian-yu-mu-lu-pei-zhi/"/>
+      <url>/2020/05/27/linux-de-wen-jian-quan-xian-yu-mu-lu-pei-zhi/</url>
+      
+      
+      <categories>
+          
+          <category> Linux </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Linux </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>KMP算法</title>
       <link href="/2020/05/13/kmp-suan-fa/"/>
       <url>/2020/05/13/kmp-suan-fa/</url>
@@ -744,29 +767,6 @@
     
     
     <entry>
-      <title>WebMvcConfigurer小结</title>
-      <link href="/2019/05/20/webmvcconfigurer/"/>
-      <url>/2019/05/20/webmvcconfigurer/</url>
-      
-      
-      <categories>
-          
-          <category> Web </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> SpringMVC </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>数据库大作业</title>
       <link href="/2019/05/20/shu-ju-ku-da-zuo-ye/"/>
       <url>/2019/05/20/shu-ju-ku-da-zuo-ye/</url>
@@ -782,6 +782,29 @@
         <tags>
             
             <tag> 工具 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>WebMvcConfigurer小结</title>
+      <link href="/2019/05/20/webmvcconfigurer/"/>
+      <url>/2019/05/20/webmvcconfigurer/</url>
+      
+      
+      <categories>
+          
+          <category> Web </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> SpringMVC </tag>
             
         </tags>
       
