@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>Gacache分布式缓存</title>
+      <link href="/2020/06/02/gacache-fen-bu-shi-huan-cun/"/>
+      <url>/2020/06/02/gacache-fen-bu-shi-huan-cun/</url>
+      
+      
+      <categories>
+          
+          <category> Web </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 开源项目 </tag>
+            
+            <tag> Gacache </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Linux文件权限和目录配置</title>
       <link href="/2020/05/27/linux-de-wen-jian-quan-xian-yu-mu-lu-pei-zhi/"/>
       <url>/2020/05/27/linux-de-wen-jian-quan-xian-yu-mu-lu-pei-zhi/</url>
@@ -767,29 +792,6 @@
     
     
     <entry>
-      <title>数据库大作业</title>
-      <link href="/2019/05/20/shu-ju-ku-da-zuo-ye/"/>
-      <url>/2019/05/20/shu-ju-ku-da-zuo-ye/</url>
-      
-      
-      <categories>
-          
-          <category> 工具 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> 工具 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>WebMvcConfigurer小结</title>
       <link href="/2019/05/20/webmvcconfigurer/"/>
       <url>/2019/05/20/webmvcconfigurer/</url>
@@ -805,6 +807,29 @@
         <tags>
             
             <tag> SpringMVC </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>数据库大作业</title>
+      <link href="/2019/05/20/shu-ju-ku-da-zuo-ye/"/>
+      <url>/2019/05/20/shu-ju-ku-da-zuo-ye/</url>
+      
+      
+      <categories>
+          
+          <category> 工具 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 工具 </tag>
             
         </tags>
       
