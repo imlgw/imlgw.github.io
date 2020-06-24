@@ -284,7 +284,7 @@
 <blockquote>
 <p>我首先想到的就是Hash表，这里翻了下评论区好像都是用的第二种方式去重的，难道用HashSet不好么😂，第二种必须要先排序，保证相同的元素都聚在一起，方便判断，这种题在纸上画一画递归树其实就很清楚了</p>
 </blockquote>
-<h3 id="Bug警告"><a href="#Bug警告" class="headerlink" title="Bug警告"></a>Bug警告</h3><p>这里 <code>!visit[i-1]</code>和 <code>visit[i-1]</code>对于这题来说并不影响正确性，但是你如果将生成的过程打印出来对比下就知道为啥了，具体的请看下面 [1079. 活字印刷](#1079. 活字印刷) 的解释</p>
+<h3 id="Bug警告"><a href="#Bug警告" class="headerlink" title="Bug警告"></a>Bug警告</h3><p>这里 <code>!visit[i-1]</code>和 <code>visit[i-1]</code>对于这题来说并不影响正确性，但是你如果将生成的过程打印出来对比下就知道为啥了，具体的请看下面 <a href="#1079-活字印刷">1079. 活字印刷</a> 的解释</p>
 <h2 id="1286-字母组合迭代器"><a href="#1286-字母组合迭代器" class="headerlink" title="1286. 字母组合迭代器"></a><a href="https://leetcode-cn.com/problems/iterator-for-combination/" target="_blank" rel="noopener">1286. 字母组合迭代器</a></h2><p>请你设计一个迭代器类，包括以下内容：</p>
 <ul>
 <li>一个构造函数，输入参数包括：一个 有序且字符唯一 的字符串 characters（该字符串只包含小写英文字母）和一个数字 combinationLength 。</li>
