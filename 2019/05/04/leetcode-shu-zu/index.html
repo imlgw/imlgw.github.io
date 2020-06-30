@@ -1674,10 +1674,10 @@ AB -&gt; 28
 <p>首先需要明确题目要求什么，<code>n!</code>结尾0的个数，直接算阶乘的值显然是不可能的，值会很大很容易溢出，而且大数相乘的时间复杂度也很高</p>
 <p>我们考虑下末尾的0是怎么来的，我们知道一个数x10，末尾就会多一个0，这里也一样，所以我们要求的就是在阶乘的过程中乘了多少个10，那么10从哪里来呢？</p>
 <p>我们将10拆解成<code>2*5</code>，问题就又转化成了，阶乘中产生了多少对<code>2*5</code>的因子，注意这个并不是单纯指1~n中某一个值2，或者5，而是中间每个数拆分出来的因子，比如15就拆分成3*5，中间就有一个5的因子，现在问题明确了，我们如何去求2或者5的因子个数呢？</p>
-<p>根据<strong>短板理论</strong>，很明显这两个因子我们只需要求其中<strong>个数较少</strong>的那一个就可以了，少的那个一定可以找到配对的另一个因子，举个例子，假设我们<code>n!</code>中产生了2个<strong>5的因子</strong>，和5个<strong>2的因子</strong>，那么很明显最后我们最后配对的<code>2*5</code>只有2对，也就是结尾会有2个0，那么2和5我们求哪一个呢？或者说2和5的因子数量一定会有固定的大小关系么？</p>
+<p>根据<strong>短板理论</strong>，很明显这两个因子我们只需要求其中<strong>个数较少</strong>的那一个就可以了，少的那个一定可以找到配对的另一个因子，举个例子，假设我们<code>n!</code>中产生了2个<strong>5的因子</strong>，和5个<strong>2的因子</strong>，那么很明显最后我们最后配对的<code>2x5</code>只有2对，也就是结尾会有2个0，那么2和5我们求哪一个呢？或者说2和5的因子数量一定会有固定的大小关系么？</p>
 <p>其实上面的问题凭直觉就能看出来，明显5的个数会少一些，应该求5的个数，但是秉承着严谨的态度，我们还是应该实际的算一算，而且后面code的时候也是需要算的</p>
-<p>首先看2的个数，我们每隔2个数就会产生一个2的因子，比如2，4，6，8，10…，但是同时有的数会有多个因子，这个里面也会产生2，比如4就可以拆解成2<em>2，也就是每*</em>隔4个元素<strong>，抛开原来每</strong>隔2个元素*<em>产生的2，会额外的再产生一个2的因子，同理8可以拆解成`2</em>2*2<code>，也就是所每隔8个元素又会产生一个额外的2，所以总体的n!中，包含2的因子个数是</code>n/2 + n/4 + n/8 + …`，同理也可推出5的因子个数，如下：<br><img src="http://static.imlgw.top/blog/20200630/lFrypQIJu57J.png?imageslim" alt="mark"><br>很明显同样项数m的情况下，5的因子的个数要更少，所以我们直接求因子5的个数就行了</p>
-<p>有了上面的结论，代码就很容易写了，直接模拟就行了</p>
+<p>首先看2的个数，我们每隔2个数就会产生一个2的因子，比如2，4，6，8，10…，但是同时有的数会有多个因子，这个里面也会产生2，比如4就可以拆解成<code>2x2</code>，也就是每隔<code>4</code>个元素，抛开原来每隔<code>2</code>个元素产生的2，会额外的再产生一个2的因子，同理8可以拆解成<code>2x2x2</code>，也就是所每隔8个元素又会产生一个额外的2，所以总体的n!中，包含2的因子个数是 <code>n/2 + n/4 + n/8 + ...</code>，同理也可推出5的因子个数，如下：<br><img src="http://static.imlgw.top/blog/20200630/lFrypQIJu57J.png?imageslim" alt="mark"><br>很明显同样项数m的情况下，5的因子的个数要更少，所以我们直接求因子5的个数就行了</p>
+<p>有了上面的结论，代码就很容易写了，直接模拟就行了，时间复杂度<code>O(log(5,N))</code></p>
 <figure class="highlight golang"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">trailingZeroes</span><span class="params">(n <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> count = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> n &gt; <span class="number">0</span>&#123;</span><br><span class="line">        n /= <span class="number">5</span></span><br><span class="line">        count += n</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> count</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="二进制"><a href="#二进制" class="headerlink" title="二进制"></a><em>二进制</em></h2><blockquote>
