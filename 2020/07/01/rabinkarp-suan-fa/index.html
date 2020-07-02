@@ -1,0 +1,442 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#202020"/>
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+  
+  
+    <meta name="keywords" content="数据结构,算法," />
+  
+
+  
+    <meta name="description" content="大悲无泪，大悟无言，大笑无声。" />
+  
+  
+  
+  <link rel="icon" type="image/x-icon" href="/img/cat.ico">
+  
+  <title>Rabin-Karp算法 [ iMlGw0 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="//cdn.bootcss.com/pure/1.0.0/pure-min.css">
+    
+      <link rel="stylesheet" href="/css/xoxo.css">
+    
+  
+<meta name="generator" content="Hexo 4.2.0"><link rel="stylesheet" href="/css/prism.css" type="text/css"></head>
+
+
+<body>
+  <div class="nav-container">
+    <nav class="home-menu pure-menu pure-menu-horizontal">
+  <a class="pure-menu-heading" href="/">
+    
+    <span class="title" style="text-transform:none">iMlGw0</span>
+  </a>
+
+  <ul class="pure-menu-list clearfix">
+      
+          
+            
+              <li class="pure-menu-item"><a href="/" class="pure-menu-link">首页</a></li>
+            
+          
+      
+          
+            
+              <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
+            
+              <a href="#" id="post" class="pure-menu-link">文章</a>
+              <ul class="pure-menu-children">
+              
+                  
+                    <li class="pure-menu-item"><a href="/categories" style="color:#202020;" class="pure-menu-link">分类</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="/archives" style="color:#202020;" class="pure-menu-link">归档</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="/tags" style="color:#202020;" class="pure-menu-link">标签</a></li>
+                  
+              
+              </ul>
+            </li>
+          
+      
+          
+            
+              <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
+            
+              <a href="#" id="LC" class="pure-menu-link">LC</a>
+              <ul class="pure-menu-children">
+              
+                  
+                    <li class="pure-menu-item"><a href="http://imlgw.top/2019/05/04/leetcode-shu-zu/" style="color:#202020;" class="pure-menu-link">数组</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="http://imlgw.top/2019/02/27/leetcode-lian-biao/" style="color:#202020;" class="pure-menu-link">链表</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="http://imlgw.top/2019/10/01/leetcode-zhan-dui-lie/" style="color:#202020;" class="pure-menu-link">栈&amp;队列</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="http://imlgw.top/2019/09/15/leetcode-cha-zhao/" style="color:#202020;" class="pure-menu-link">查找</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="http://imlgw.top/2019/07/20/leetcode-hua-dong-chuang-kou/" style="color:#202020;" class="pure-menu-link">滑动窗口</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="http://imlgw.top/2019/09/01/leetcode-dong-tai-gui-hua/" style="color:#202020;" class="pure-menu-link">动态规划</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="http://imlgw.top/2019/12/06/leetcode-er-fen-cha-zhao/" style="color:#202020;" class="pure-menu-link">二分查找</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="http://imlgw.top/2019/11/06/leetcode-er-cha-shu/" style="color:#202020;" class="pure-menu-link">二叉树</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="http://imlgw.top/2019/11/29/leetcode-bei-bao-wen-ti/" style="color:#202020;" class="pure-menu-link">背包问题</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="http://imlgw.top/2019/10/10/leetcode-hui-su/" style="color:#202020;" class="pure-menu-link">回溯</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="http://imlgw.top/2020/01/21/leetcode-tan-xin/" style="color:#202020;" class="pure-menu-link">贪心</a></li>
+                  
+              
+              </ul>
+            </li>
+          
+      
+          
+            
+              <li class="pure-menu-item"><a href="/project" class="pure-menu-link">项目</a></li>
+            
+          
+      
+          
+            
+              <li class="pure-menu-item"><a href="/search" class="pure-menu-link">搜索</a></li>
+            
+          
+      
+          
+            
+              <li class="pure-menu-item"><a href="/about" class="pure-menu-link">关于</a></li>
+            
+          
+      
+  </ul>
+   
+</nav>
+
+  </div>
+
+  <div class="container" id="content-outer">
+    <div class="inner" id="content-inner">
+      <div class="post-container">
+  <article class="post" id="post">
+    <header class="post-header text-center">
+      <h1 class="title">
+        Rabin-Karp算法
+      </h1>
+      <span>
+        
+        <time class="time" datetime="2020-07-01T13:03:40.958Z">
+        2020-07-01
+      </time>
+        
+      </span>
+      <span class="slash">/</span>
+      <span class="post-meta">
+      <span class="post-tags">
+        <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li></ul>
+      </span>
+    </span>
+      <span class="slash">/</span>
+      <span class="read">
+      <span id="busuanzi_value_page_pv"></span> 点击
+    </span>
+      <span class="slash">/</span>
+      <span class="read">阅读耗时 13 分钟</span>
+    </header>
+
+    <div class="post-content">
+      <blockquote>
+<p>见到好几次了，感觉不是很难，学一手，本来想详细的写一下完整的Rabin-Karp解析的，但是目前确实时间有点紧，加上自己也没做几题，理解的可能还不到位，等后面有时间再来补吧</p>
+</blockquote>
+<h2 id="1044-最长重复子串"><a href="#1044-最长重复子串" class="headerlink" title="1044. 最长重复子串"></a><a href="https://leetcode-cn.com/problems/longest-duplicate-substring/" target="_blank" rel="noopener">1044. 最长重复子串</a></h2><p>Difficulty: <strong>困难</strong></p>
+<p>给出一个字符串 <code>S</code>，考虑其所有<strong>重复子串</strong>（<code>S</code> 的连续子串，出现两次或多次，可能会有重叠）。</p>
+<p>返回<strong>任何</strong>具有最长可能长度的重复子串。（如果 <code>S</code> 不含重复子串，那么答案为 <code>&quot;&quot;</code>。）</p>
+<p><strong>示例 1：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">输入：&quot;banana&quot;</span><br><span class="line">输出：&quot;ana&quot;</span><br></pre></td></tr></table></figure>
+
+<p><strong>示例 2：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">输入：&quot;abcd&quot;</span><br><span class="line">输出：&quot;&quot;</span><br></pre></td></tr></table></figure>
+
+<p><strong>提示：</strong></p>
+<ol>
+<li><code>2 &lt;= S.length &lt;= 10^5</code></li>
+<li><code>S</code> 由小写英文字母组成。</li>
+</ol>
+<p><strong>解法一</strong></p>
+<p>看题解区学习了一下，整体的思路倒是不难，主要就是一个<code>rolling hash</code>的过程，然后就是关于MOD的选取，到现在也不是很清楚怎么选MOD。。。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">longestDupSubstring</span><span class="params">(String S)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n = S.length();</span><br><span class="line">    <span class="keyword">int</span> [] nums =<span class="keyword">new</span> <span class="keyword">int</span>[n];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; S.length(); i++) &#123;</span><br><span class="line">        nums[i] =  S.charAt(i) - <span class="string">'a'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">long</span> MOD =  <span class="number">1L</span>&lt;&lt;<span class="number">32</span>;</span><br><span class="line">    <span class="keyword">int</span> B = <span class="number">26</span>; </span><br><span class="line">    <span class="keyword">int</span> left = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> right = n - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> start = -<span class="number">1</span>, mlen = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (left &lt;= right)&#123;</span><br><span class="line">        <span class="keyword">int</span> mid = left + (right - left)/<span class="number">2</span>;</span><br><span class="line">        <span class="keyword">int</span> temp = RabinKarp(mid, B, nums, MOD);</span><br><span class="line">        <span class="keyword">if</span> (temp != -<span class="number">1</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span> (mid &gt; mlen)&#123;</span><br><span class="line">                mlen = mid;</span><br><span class="line">                start = temp;</span><br><span class="line">            &#125;</span><br><span class="line">            left = mid + <span class="number">1</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            right = mid - <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> start == -<span class="number">1</span> ? <span class="string">""</span> : S.substring(start, start + mlen);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">RabinKarp</span><span class="params">(<span class="keyword">int</span> len, <span class="keyword">int</span> B, <span class="keyword">int</span>[] nums, <span class="keyword">long</span> MOD)</span></span>&#123;</span><br><span class="line">    <span class="comment">//hash(S) = s[0] * B^(len-1) + s[1] * B^(len-2) + ... + s[n-1] *1</span></span><br><span class="line">    <span class="comment">//B^(len-1) (移除左端点时需要的值)</span></span><br><span class="line">    <span class="keyword">long</span> BL = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len - <span class="number">1</span>; i++)&#123;</span><br><span class="line">        BL = (BL * B) % MOD;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//[0,len-1]的hash值</span></span><br><span class="line">    <span class="keyword">long</span> h = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; i++)&#123;</span><br><span class="line">        h = (h * B + nums[i]) % MOD;</span><br><span class="line">    &#125;</span><br><span class="line">    HashSet&lt;Long&gt; set = <span class="keyword">new</span> HashSet&lt;&gt;();</span><br><span class="line">    set.add(h);</span><br><span class="line">    <span class="comment">//rolling hash</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= nums.length - len; i++)&#123;</span><br><span class="line">        <span class="comment">//+MOD是为了负数取模</span></span><br><span class="line">        h = (h - nums[i - <span class="number">1</span>] * BL % MOD + MOD) % MOD;</span><br><span class="line">        h = (h * B + nums[i + len - <span class="number">1</span>]) % MOD;</span><br><span class="line">        <span class="keyword">if</span> (set.contains(h))&#123;</span><br><span class="line">            <span class="keyword">return</span> i;</span><br><span class="line">        &#125;</span><br><span class="line">        set.add(h);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>解法二</strong></p>
+<p>补充一下冲突检测，猜mod也太玄学了😂</p>
+<blockquote>
+<p>这个冲突检测的方法有问题，留下做个印证，正确的检测请直接看 解法三</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//写一波检测冲突的</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">longestDupSubstring</span><span class="params">(String S)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n = S.length();</span><br><span class="line">    <span class="keyword">long</span> MOD = (<span class="keyword">long</span>) <span class="number">1e9</span>+<span class="number">7</span>;</span><br><span class="line">    <span class="keyword">int</span> B = <span class="number">26</span>; </span><br><span class="line">    <span class="keyword">int</span> left = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> right = n - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> start = -<span class="number">1</span>, mlen = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (left &lt;= right)&#123;</span><br><span class="line">        <span class="keyword">int</span> mid = left + (right - left)/<span class="number">2</span>;</span><br><span class="line">        <span class="keyword">int</span> temp = RabinKarp(mid, B, S, MOD);</span><br><span class="line">        <span class="keyword">if</span> (temp != -<span class="number">1</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span> (mid &gt; mlen)&#123;</span><br><span class="line">                mlen = mid;</span><br><span class="line">                start = temp;</span><br><span class="line">            &#125;</span><br><span class="line">            left = mid + <span class="number">1</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            right = mid - <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> start == -<span class="number">1</span> ? <span class="string">""</span> : S.substring(start, start + mlen);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">RabinKarp</span><span class="params">(<span class="keyword">int</span> len, <span class="keyword">int</span> B, String S, <span class="keyword">long</span> MOD)</span></span>&#123;</span><br><span class="line">    <span class="comment">//hash(S) = s[0] * B^(len-1) + s[1] * B^(len-2) + ... + s[n-1] *1</span></span><br><span class="line">    <span class="comment">//B^(len-1) (移除左端点时需要的值)</span></span><br><span class="line">    <span class="keyword">long</span> BL = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len - <span class="number">1</span>; i++)&#123;</span><br><span class="line">        BL = (BL * B) % MOD;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//[0,len-1]的hash值</span></span><br><span class="line">    <span class="keyword">long</span> h = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; i++)&#123;</span><br><span class="line">        h = (h * B + S.charAt(i) - <span class="string">'a'</span>) % MOD;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//这里肯定不能直接存字符串做冲突检测，太大了会MLE</span></span><br><span class="line">    <span class="comment">//存一个起始地址就可以了len已知</span></span><br><span class="line">    HashMap&lt;Long,Integer&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">    map.put(h, <span class="number">0</span>);</span><br><span class="line">    <span class="comment">//rolling hash</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= S.length() - len; i++)&#123;</span><br><span class="line">        <span class="comment">//+MOD是为了负数取模</span></span><br><span class="line">        h = (h - (S.charAt(i-<span class="number">1</span>) - <span class="string">'a'</span>) * BL % MOD + MOD) % MOD;</span><br><span class="line">        h = (h * B + (S.charAt(len + i -<span class="number">1</span>) - <span class="string">'a'</span>)) % MOD;</span><br><span class="line">        Integer start = map.get(h);</span><br><span class="line">        <span class="keyword">if</span> (start != <span class="keyword">null</span> &amp;&amp; S.substring(start, start + len).equals(S.substring(i, i + len)))&#123;</span><br><span class="line">            <span class="keyword">return</span> i;</span><br><span class="line">        &#125;</span><br><span class="line">        map.put(h, i);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>关于这个冲突检测有一个小问题，我尝试减小了<code>MOD</code>的大小，比如101，这样计算出来的结果在数据量较大的就不对了，得到的字符虽然确实是重复了，但是并不是最长的，按道理写了冲突检测后即使我MOD取1应该都是可以找出来的啊？======&gt;<br>在写上面这段话的时候突然想明白了，因为<code>MOD</code>取的太小，导致冲突的概率大大增加，而这里我做冲突检测的时候只保存了一个值，也就是说会有很多值被舍弃掉，也许你舍弃的值可能恰好就是最后的答案，字符越长，发生这种情况的概率就越高，所以说我这里冲突检测做的并不完全，能过也纯属运气，正确的冲突检测应该保存一个<code>List</code>链表，然后在发生冲突的时候在List中找有没有和当前字符相等的，这样一来，时间复杂度就会上去（其实这个过程就是设计Hash表的过程，链地址法解决冲突）</p>
+</blockquote>
+<p><strong>解法三</strong></p>
+<p>下面的应该就没什么问题了，链地址法，时间复杂度会增大，耗时增加到了500ms+，但是确保了100%的正确率，这是值得的，这次把mod调小也不会出错了，总体来说，这几番折腾收获还是挺大的，好事还是要多磨啊</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//再写一波检测冲突。。。</span></span><br><span class="line"><span class="comment">//上面的写的有问题，检测不完全</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">longestDupSubstring</span><span class="params">(String S)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n = S.length();</span><br><span class="line">    <span class="keyword">long</span> MOD = (<span class="keyword">long</span>) <span class="number">1e9</span>+<span class="number">7</span>;</span><br><span class="line">    <span class="keyword">int</span> B = <span class="number">26</span>; </span><br><span class="line">    <span class="keyword">int</span> left = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> right = n - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> start = -<span class="number">1</span>, mlen = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (left &lt;= right)&#123;</span><br><span class="line">        <span class="keyword">int</span> mid = left + (right - left)/<span class="number">2</span>;</span><br><span class="line">        <span class="keyword">int</span> temp = RabinKarp(mid, B, S, MOD);</span><br><span class="line">        <span class="keyword">if</span> (temp != -<span class="number">1</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span> (mid &gt; mlen)&#123;</span><br><span class="line">                mlen = mid;</span><br><span class="line">                start = temp;</span><br><span class="line">            &#125;</span><br><span class="line">            left = mid + <span class="number">1</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            right = mid - <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> start == -<span class="number">1</span> ? <span class="string">""</span> : S.substring(start, start + mlen);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">RabinKarp</span><span class="params">(<span class="keyword">int</span> len, <span class="keyword">int</span> B, String S, <span class="keyword">long</span> MOD)</span></span>&#123;</span><br><span class="line">    <span class="comment">//hash(S) = s[0] * B^(len-1) + s[1] * B^(len-2) + ... + s[n-1] *1</span></span><br><span class="line">    <span class="comment">//B^(len-1) (移除左端点时需要的值)</span></span><br><span class="line">    <span class="keyword">long</span> BL = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len - <span class="number">1</span>; i++)&#123;</span><br><span class="line">        BL = (BL * B) % MOD;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//[0,len-1]的hash值</span></span><br><span class="line">    <span class="keyword">long</span> h = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; i++)&#123;</span><br><span class="line">        h = (h * B + S.charAt(i) - <span class="string">'a'</span>) % MOD;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//这里肯定不能直接存字符串做冲突检测，太大了会MLE</span></span><br><span class="line">    <span class="comment">//存一个起始地址就可以了len已知</span></span><br><span class="line">    HashMap&lt;Long,List&lt;Integer&gt;&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">    map.put(h, <span class="keyword">new</span> ArrayList()&#123;&#123;add(<span class="number">0</span>);&#125;&#125;);</span><br><span class="line">    <span class="comment">//rolling hash</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= S.length() - len; i++)&#123;</span><br><span class="line">        <span class="comment">//+MOD是为了负数取模</span></span><br><span class="line">        h = (h - (S.charAt(i-<span class="number">1</span>) - <span class="string">'a'</span>) * BL % MOD + MOD) % MOD;</span><br><span class="line">        h = (h * B + (S.charAt(len + i -<span class="number">1</span>) - <span class="string">'a'</span>)) % MOD;</span><br><span class="line">        List&lt;Integer&gt; starts = map.get(h);</span><br><span class="line">        <span class="keyword">if</span> (check(starts, i, S, len))&#123;</span><br><span class="line">            <span class="keyword">return</span> i;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (starts == <span class="keyword">null</span>)&#123;</span><br><span class="line">            List&lt;Integer&gt; lis = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">            lis.add(i);</span><br><span class="line">            map.put(h, lis);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            starts.add(i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">check</span><span class="params">(List&lt;Integer&gt; starts, <span class="keyword">int</span> i, String s, <span class="keyword">int</span> len)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(starts == <span class="keyword">null</span> || starts.size() &lt;= <span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> left : starts) &#123;</span><br><span class="line">        <span class="keyword">if</span>(s.substring(left, left + len).equals(s.substring(i, i + len)))&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="718-最长重复子数组"><a href="#718-最长重复子数组" class="headerlink" title="718. 最长重复子数组"></a><a href="https://leetcode-cn.com/problems/maximum-length-of-repeated-subarray/" target="_blank" rel="noopener">718. 最长重复子数组</a></h2><p>给两个整数数组 <code>A</code> 和 <code>B</code> ，返回两个数组中公共的、长度最长的子数组的长度。</p>
+<p><strong>示例 1:</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">输入:</span><br><span class="line">A: [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">2</span>,<span class="number">1</span>]</span><br><span class="line">B: [<span class="number">3</span>,<span class="number">2</span>,<span class="number">1</span>,<span class="number">4</span>,<span class="number">7</span>]</span><br><span class="line">输出: <span class="number">3</span></span><br><span class="line">解释: </span><br><span class="line">长度最长的公共子数组是 [<span class="number">3</span>, <span class="number">2</span>, <span class="number">1</span>]。</span><br></pre></td></tr></table></figure>
+
+<p><strong>说明:</strong></p>
+<ol>
+<li>1 &lt;= len(A), len(B) &lt;= 1000</li>
+<li>0 &lt;= A[i], B[i] &lt; 100</li>
+</ol>
+<p><strong>解法一</strong></p>
+<p>dp的解法是O(N^2)的，略显暴力，动态规划的解法放在<a href="http://imlgw.top/2019/09/01/leetcode-dong-tai-gui-hua/#718-%E6%9C%80%E9%95%BF%E9%87%8D%E5%A4%8D%E5%AD%90%E6%95%B0%E7%BB%84">dp专题</a>中，这里要介绍的是二分+字符串Hash的<code>O(NlogN)</code>的解法</p>
+<p>这里直接莽过了，且效率极高（16ms），就不写冲突检测了</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">findLength</span><span class="params">(<span class="keyword">int</span>[] A, <span class="keyword">int</span>[] B)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> lenA = A.length, lenB = B.length;</span><br><span class="line">    <span class="keyword">int</span> left = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> right = Math.min(lenA, lenB);</span><br><span class="line">    <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (left &lt;= right)&#123;</span><br><span class="line">        <span class="keyword">int</span> mid = left +(right - left) / <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">if</span>(RabinKarp(A, B, mid))&#123;</span><br><span class="line">            res = Math.max(res, mid);</span><br><span class="line">            left = mid + <span class="number">1</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            right = mid - <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">RabinKarp</span><span class="params">(<span class="keyword">int</span>[] A,<span class="keyword">int</span>[] B, <span class="keyword">int</span> L)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> MOD = (<span class="keyword">int</span>) <span class="number">1e9</span>+<span class="number">7</span>, BASE = <span class="number">101</span>;</span><br><span class="line">    <span class="keyword">long</span> BL = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; L-<span class="number">1</span>; i++)&#123;</span><br><span class="line">        BL = (BL * BASE) % MOD;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//hash(A[0,L-1]),hash(B[0,L-1])</span></span><br><span class="line">    <span class="keyword">long</span> hA = <span class="number">0</span>, hB = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; L; i++)&#123;</span><br><span class="line">        hA = (hA * BASE + A[i]) % MOD;</span><br><span class="line">        hB = (hB * BASE + B[i]) % MOD;</span><br><span class="line">    &#125;</span><br><span class="line">    HashSet&lt;Long&gt; set =<span class="keyword">new</span> HashSet&lt;&gt;();</span><br><span class="line">    set.add(hA);</span><br><span class="line">    <span class="comment">//rolling hash A</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= A.length - L; i++)&#123;</span><br><span class="line">        hA = (hA - A[i-<span class="number">1</span>] * BL % MOD + MOD) % MOD;</span><br><span class="line">        hA = (hA * BASE + A[L + i -<span class="number">1</span>]) % MOD;</span><br><span class="line">        set.add(hA);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(set.contains(hB)) <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    <span class="comment">//rolling hash B</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= B.length - L; i++)&#123;</span><br><span class="line">        hB = (hB - B[i-<span class="number">1</span>] * BL % MOD + MOD) % MOD;</span><br><span class="line">        hB = (hB * BASE + B[L + i -<span class="number">1</span>]) % MOD;</span><br><span class="line">        <span class="comment">//这里还可以做一下冲突检测，set中需要多存一些信息</span></span><br><span class="line">        <span class="keyword">if</span>(set.contains(hB))&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    </div>
+
+  </article>
+  <div class="toc-container">
+    
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1044-最长重复子串"><span class="toc-text">1044. 最长重复子串</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#718-最长重复子数组"><span class="toc-text">718. 最长重复子数组</span></a></li></ol>
+  </div>
+
+
+  </div>
+</div>
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'true' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "MkcXmeDvktRNBDBrVqb9KYPH-MdYXbMMI",
+            app_key: "swDnb5a9u9Ksp2Rwkdm7Qulh",
+            placeholder: "留下邮箱才能收到收到回复喔 ~",
+            avatar:"monsterid"
+        });
+    }
+</script>
+    </section>
+  
+<div class="copyright">
+    <span>本作品采用</span>
+    <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">知识共享署名 4.0 国际许可协议</a>
+    <span>进行许可。 转载时请注明原文链接。</span>
+</div>
+
+
+  
+    <div class="post-nav">
+      <div class="post-nav-item post-nav-next">
+        
+          <span>〈 </span>
+          <a href="/2020/06/20/linux-ci-pan-yu-wen-jian-xi-tong/" rel="next" title="Linux磁盘与文件系统">
+          Linux磁盘与文件系统
+          </a>
+        
+      </div>
+  
+      <div class="post-nav-item post-nav-prev">
+          
+      </div>
+    </div>
+  
+
+    </div>
+
+    
+
+  </div>
+  <footer class="footer text-center">
+    <div id="bottom-inner">
+        <a class="bottom-item" href="https://github.com/imlgw" target="_blank">GitHub</a> |
+        <a class="bottom-item" href="/links">友情链接</a> |
+        <a class="bottom-item" href="https://hexo.io" target="_blank">Powered by hexo</a> |
+        <a class="bottom-item" href="https://github.com/fooying/hexo-theme-xoxo-plus" target="_blank">Theme xoxo-plus</a> |
+        <a class="bottom-item" href="https://imlgw.avosapps.us/" target="_blank" rel="noopener">博客评论管理</a>
+    </div>
+</footer>
+
+  
+
+<script>
+  (function(window, document, undefined) {
+
+    var timer = null;
+
+    function returnTop() {
+      cancelAnimationFrame(timer);
+      timer = requestAnimationFrame(function fn() {
+        var oTop = document.body.scrollTop || document.documentElement.scrollTop;
+        if (oTop > 0) {
+          document.body.scrollTop = document.documentElement.scrollTop = oTop - 50;
+          timer = requestAnimationFrame(fn);
+        } else {
+          cancelAnimationFrame(timer);
+        }
+      });
+    }
+
+    var hearts = [];
+    window.requestAnimationFrame = (function() {
+      return window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.oRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        function(callback) {
+          setTimeout(callback, 1000 / 60);
+        }
+    })();
+    init();
+
+    function init() {
+      css(".heart{z-index:9999;width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);}.heart:after,.heart:before{content: '';width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: absolute;}.heart:after{top: -5px;}.heart:before{left: -5px;}");
+      attachEvent();
+      gameloop();
+      addMenuEvent();
+    }
+
+    function gameloop() {
+      for (var i = 0; i < hearts.length; i++) {
+        if (hearts[i].alpha <= 0) {
+          document.body.removeChild(hearts[i].el);
+          hearts.splice(i, 1);
+          continue;
+        }
+        hearts[i].y--;
+        hearts[i].scale += 0.004;
+        hearts[i].alpha -= 0.013;
+        hearts[i].el.style.cssText = "left:" + hearts[i].x + "px;top:" + hearts[i].y + "px;opacity:" + hearts[i].alpha + ";transform:scale(" + hearts[i].scale + "," + hearts[i].scale + ") rotate(45deg);background:" + hearts[i].color;
+      }
+      requestAnimationFrame(gameloop);
+    }
+
+    /**
+     * 给logo设置点击事件
+     * 
+     * - 回到顶部
+     * - 出现爱心
+     */
+    function attachEvent() {
+      var old = typeof window.onclick === "function" && window.onclick;
+      var logo = document.getElementById("logo");
+      if (logo) {
+        logo.onclick = function(event) {
+          returnTop();
+          old && old();
+          createHeart(event);
+        }
+      }
+      
+    }
+
+    function createHeart(event) {
+      var d = document.createElement("div");
+      d.className = "heart";
+      hearts.push({
+        el: d,
+        x: event.clientX - 5,
+        y: event.clientY - 5,
+        scale: 1,
+        alpha: 1,
+        color: randomColor()
+      });
+      document.body.appendChild(d);
+    }
+
+    function css(css) {
+      var style = document.createElement("style");
+      style.type = "text/css";
+      try {
+        style.appendChild(document.createTextNode(css));
+      } catch (ex) {
+        style.styleSheet.cssText = css;
+      }
+      document.getElementsByTagName('head')[0].appendChild(style);
+    }
+
+    function randomColor() {
+      // return "rgb(" + (~~(Math.random() * 255)) + "," + (~~(Math.random() * 255)) + "," + (~~(Math.random() * 255)) + ")";
+      return "#F44336";
+    }
+
+    function addMenuEvent() {
+      var menu = document.getElementById('menu-main-post');
+      if (menu) {
+        var toc = document.getElementById('toc');
+        if (toc) {
+          menu.onclick = function() {
+            if (toc) {
+              if (toc.style.display == 'block') {
+                toc.style.display = 'none';
+              } else {
+                toc.style.display = 'block';
+              }
+            }
+          };
+        } else {
+          menu.style.display = 'none';
+        }
+      }
+    }
+
+  })(window, document);
+</script>
+
+  
+
+
+
+  
+
+<script src="https://cdn.jsdelivr.net/npm/live2d-widget@3.x/lib/L2Dwidget.min.js"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"https://cdn.jsdelivr.net/npm/live2d-widget-model-hijiki@1.0.5/assets/hijiki.model.json"},"display":{"superSample":2,"width":160,"height":320,"position":"right","hOffset":0,"vOffset":-70},"mobile":{"show":false,"scale":0.2},"log":false});</script></body>
+</html>
