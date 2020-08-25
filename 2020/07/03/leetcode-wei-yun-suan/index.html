@@ -181,7 +181,7 @@
       <span id="busuanzi_value_page_pv"></span> 点击
     </span>
       <span class="slash">/</span>
-      <span class="read">阅读耗时 20 分钟</span>
+      <span class="read">阅读耗时 21 分钟</span>
     </header>
 
     <div class="post-content">
@@ -366,7 +366,18 @@
 <blockquote>
 <p>golang和java的位运算优先级居然不一样，一开始写的go，该成java的时候发现不对，调试了下才发现😂，所以任何时候能加括号的尽量加括号，即使你知道不加也可以，最好还是要加上括号！！！</p>
 </blockquote>
+<h2 id="201-数字范围按位与"><a href="#201-数字范围按位与" class="headerlink" title="201. 数字范围按位与"></a><a href="https://leetcode-cn.com/problems/bitwise-and-of-numbers-range/" target="_blank" rel="noopener">201. 数字范围按位与</a></h2><p>Difficulty: <strong>中等</strong></p>
+<p>给定范围 [m, n]，其中 0 &lt;= m &lt;= n &lt;= 2147483647，返回此范围内所有数字的按位与（包含 m, n 两端点）。</p>
+<p>*<em>示例 1: *</em></p>
+<figure class="highlight golang"><table><tr><td class="code"><pre><span class="line">输入: [<span class="number">5</span>,<span class="number">7</span>]</span><br><span class="line">输出: <span class="number">4</span></span><br></pre></td></tr></table></figure>
 
+<p><strong>示例 2:</strong></p>
+<figure class="highlight golang"><table><tr><td class="code"><pre><span class="line">输入: [<span class="number">0</span>,<span class="number">1</span>]</span><br><span class="line">输出: <span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>解法一</strong><br>最长公共前缀</p>
+<figure class="highlight golang"><table><tr><td class="code"><pre><span class="line"><span class="comment">//最长公共前缀</span></span><br><span class="line"><span class="comment">//1011 011 m</span></span><br><span class="line"><span class="comment">//1011 100</span></span><br><span class="line"><span class="comment">//1011 101</span></span><br><span class="line"><span class="comment">//1011 110 n</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">rangeBitwiseAnd</span><span class="params">(m <span class="keyword">int</span>, n <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> tlen = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> m != n &#123;</span><br><span class="line">        m &gt;&gt;= <span class="number">1</span></span><br><span class="line">        n &gt;&gt;= <span class="number">1</span></span><br><span class="line">        tlen++</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> m &lt;&lt; tlen</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>解法二</strong></p>
+<figure class="highlight golang"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">rangeBitwiseAnd</span><span class="params">(m <span class="keyword">int</span>, n <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    <span class="keyword">for</span> n &gt; m &#123;</span><br><span class="line">        n &amp;= (n<span class="number">-1</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> n</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
     </div>
 
   </article>
@@ -374,7 +385,7 @@
     
   <div id="toc" class="toc-article">
     <strong class="toc-title">目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#LeetCode二进制"><span class="toc-text">LeetCode二进制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#136-只出现一次的数字"><span class="toc-text">136. 只出现一次的数字</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#260-只出现一次的数字-III"><span class="toc-text">260. 只出现一次的数字 III</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#268-缺失数字"><span class="toc-text">268. 缺失数字</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#461-汉明距离"><span class="toc-text">461. 汉明距离</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#191-位1的个数"><span class="toc-text">191. 位1的个数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#338-比特位计数"><span class="toc-text">338. 比特位计数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#231-2的幂"><span class="toc-text">231. 2的幂</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#458-可怜的小猪"><span class="toc-text">458. 可怜的小猪</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#371-两整数之和"><span class="toc-text">371. 两整数之和</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#190-颠倒二进制位"><span class="toc-text">190. 颠倒二进制位</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#LeetCode二进制"><span class="toc-text">LeetCode二进制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#136-只出现一次的数字"><span class="toc-text">136. 只出现一次的数字</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#260-只出现一次的数字-III"><span class="toc-text">260. 只出现一次的数字 III</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#268-缺失数字"><span class="toc-text">268. 缺失数字</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#461-汉明距离"><span class="toc-text">461. 汉明距离</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#191-位1的个数"><span class="toc-text">191. 位1的个数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#338-比特位计数"><span class="toc-text">338. 比特位计数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#231-2的幂"><span class="toc-text">231. 2的幂</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#458-可怜的小猪"><span class="toc-text">458. 可怜的小猪</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#371-两整数之和"><span class="toc-text">371. 两整数之和</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#190-颠倒二进制位"><span class="toc-text">190. 颠倒二进制位</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#201-数字范围按位与"><span class="toc-text">201. 数字范围按位与</span></a></li></ol>
   </div>
 
 
