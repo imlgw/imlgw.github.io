@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>Golang踩坑：exec执行任务取消后不退出</title>
+      <link href="/2020/08/25/golang-cai-keng-exec-qu-xiao-bu-tui-chu/"/>
+      <url>/2020/08/25/golang-cai-keng-exec-qu-xiao-bu-tui-chu/</url>
+      
+      
+      <categories>
+          
+          <category> 踩坑记录 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 开源项目 </tag>
+            
+            <tag> Golang </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>LeetCode位运算</title>
       <link href="/2020/07/03/leetcode-wei-yun-suan/"/>
       <url>/2020/07/03/leetcode-wei-yun-suan/</url>
