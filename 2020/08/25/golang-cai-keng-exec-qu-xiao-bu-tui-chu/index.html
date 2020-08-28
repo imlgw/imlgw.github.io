@@ -21,7 +21,7 @@
   
   <link rel="icon" type="image/x-icon" href="/img/cat.ico">
   
-  <title>Golang踩坑：exec执行任务取消后不退出 [ iMlGw0 ]</title>
+  <title>Golang踩坑：exec取消后不退出 [ iMlGw0 ]</title>
   
     <!-- stylesheets list from config.yml -->
     
@@ -127,6 +127,10 @@
                     <li class="pure-menu-item"><a href="http://imlgw.top/2020/07/03/leetcode-wei-yun-suan/" style="color:#202020;" class="pure-menu-link">位运算</a></li>
                   
               
+                  
+                    <li class="pure-menu-item"><a href="http://imlgw.top/2020/08/28/leetcode-dan-diao-zhan/" style="color:#202020;" class="pure-menu-link">单调栈</a></li>
+                  
+              
               </ul>
             </li>
           
@@ -161,7 +165,7 @@
   <article class="post" id="post">
     <header class="post-header text-center">
       <h1 class="title">
-        Golang踩坑：exec执行任务取消后不退出
+        Golang踩坑：exec取消后不退出
       </h1>
       <span>
         
@@ -222,7 +226,7 @@
 <figure class="highlight go"><table><tr><td class="code"><pre><span class="line">created by os/exec.(*Cmd).Start</span><br><span class="line">        /usr/lib/golang/src/os/exec/exec.<span class="keyword">go</span>:<span class="number">434</span> +<span class="number">0x608</span></span><br></pre></td></tr></table></figure>
 <p><img src="http://static.imlgw.top/blog/20200822/sh8qmlcDeD64.png?imageslim" alt="mark"><br>可以看到这个协程的作用就是向我们上面的主<code>goroutine</code>在等待的<code>c.errch</code>推送消息，那么这里<code>fn()</code>为什么没有返回呢？这个fn是在干嘛？继续翻一翻源码，发现这些函数<code>fn()</code>是在cmd.Start的时候创建的，用于处理shell的标准输入，输出和错误输出，而我们的程序就是卡在了这里，继续跟进上面的堆栈信息</p>
 <figure class="highlight go"><table><tr><td class="code"><pre><span class="line">os/exec.(*Cmd).writerDescriptor.func1(<span class="number">0x0</span>, <span class="number">0x0</span>)</span><br><span class="line">        /usr/lib/golang/src/os/exec/exec.<span class="keyword">go</span>:<span class="number">311</span> +<span class="number">0x63</span></span><br></pre></td></tr></table></figure>
-<p><img src="https://upload.cc/i1/2020/08/22/ls251C.png" alt="UTOOLS1598032678130.png"><br>可以看到这里就是具体协程执行的任务，这里有一个IO操作，可想而知程序就是阻塞在了这里，再往下分析就是内部epoll的代码了，就不往下了，我们分析下这段代码的意义，首先创建了管道<code>Pipe</code>，然后在协程中将读端<code>pr</code>的数据copy到<code>w</code>中，很明显这里就是<code>goroutine</code>通过pipe读取子进程的输出，但是由于某些原因<code>Pipe</code>阻塞了，无法从读端获取数据</p>
+<p><img src="http://static.imlgw.top/blog/20200826/Boqz6oWej6HA.png?imageslim" alt="mark"><br>可以看到这里就是具体协程执行的任务，这里有一个IO操作，可想而知程序就是阻塞在了这里，再往下分析就是内部epoll的代码了，就不往下了，我们分析下这段代码的意义，首先创建了管道<code>Pipe</code>，然后在协程中将读端<code>pr</code>的数据copy到<code>w</code>中，很明显这里就是<code>goroutine</code>通过pipe读取子进程的输出，但是由于某些原因<code>Pipe</code>阻塞了，无法从读端获取数据</p>
 <p>我们用<code>lsof -p</code>看一下该进程打开的资源</p>
 <figure class="highlight go"><table><tr><td class="code"><pre><span class="line">$ lsof -p <span class="number">27301</span></span><br><span class="line">COMMAND   PID USER   FD      TYPE    DEVICE SIZE/OFF      NODE NAME</span><br><span class="line">main    <span class="number">27301</span> root  cwd       DIR     <span class="number">253</span>,<span class="number">1</span>     <span class="number">4096</span>   <span class="number">1323417</span> /usr/local/gotest/cmd/demo3_cmdPit</span><br><span class="line">main    <span class="number">27301</span> root  rtd       DIR     <span class="number">253</span>,<span class="number">1</span>     <span class="number">4096</span>         <span class="number">2</span> /</span><br><span class="line">main    <span class="number">27301</span> root  txt       REG     <span class="number">253</span>,<span class="number">1</span>  <span class="number">7647232</span>    <span class="number">401334</span> /tmp/<span class="keyword">go</span>-build043247660/b001/exe/main</span><br><span class="line">main    <span class="number">27301</span> root  mem       REG     <span class="number">253</span>,<span class="number">1</span>  <span class="number">2151672</span>   <span class="number">1050229</span> /usr/lib64/libc<span class="number">-2.17</span>.so</span><br><span class="line">main    <span class="number">27301</span> root  mem       REG     <span class="number">253</span>,<span class="number">1</span>   <span class="number">141968</span>   <span class="number">1050255</span> /usr/lib64/libpthread<span class="number">-2.17</span>.so</span><br><span class="line">main    <span class="number">27301</span> root  mem       REG     <span class="number">253</span>,<span class="number">1</span>   <span class="number">163400</span>   <span class="number">1050214</span> /usr/lib64/ld<span class="number">-2.17</span>.so</span><br><span class="line">main    <span class="number">27301</span> root    <span class="number">0</span>u      CHR     <span class="number">136</span>,<span class="number">0</span>      <span class="number">0</span>t0         <span class="number">3</span> /dev/pts/<span class="number">0</span></span><br><span class="line">main    <span class="number">27301</span> root    <span class="number">1</span>u      CHR     <span class="number">136</span>,<span class="number">0</span>      <span class="number">0</span>t0         <span class="number">3</span> /dev/pts/<span class="number">0</span></span><br><span class="line">main    <span class="number">27301</span> root    <span class="number">2</span>u      CHR     <span class="number">136</span>,<span class="number">0</span>      <span class="number">0</span>t0         <span class="number">3</span> /dev/pts/<span class="number">0</span></span><br><span class="line">main    <span class="number">27301</span> root    <span class="number">3</span>u     IPv6 <span class="number">170355813</span>      <span class="number">0</span>t0       TCP *:<span class="number">6060</span> (LISTEN)</span><br><span class="line">main    <span class="number">27301</span> root    <span class="number">4</span>u  a_inode      <span class="number">0</span>,<span class="number">10</span>        <span class="number">0</span>      <span class="number">5074</span> [eventpoll]</span><br><span class="line">main    <span class="number">27301</span> root    <span class="number">5</span>r     FIFO       <span class="number">0</span>,<span class="number">9</span>      <span class="number">0</span>t0 <span class="number">170355794</span> pipe</span><br></pre></td></tr></table></figure>
 <p>可以看到确实打开了一个inode为170355794的管道，结合前面的分析，我们的shell在执行的时候<code>fork()</code>创建了子进程，但是kill的时候只kill了shell进程，而在<code>fork()</code>的时候会同时将当前进程的<code>pipe</code>的<code>fd[2]</code>描述符也复制过去，这就造成了<code>pipe</code>的写入端<code>fd[1]</code>被子进程继续持有（文件表引用计数不为0），而<code>goroutine</code>也会继续等待pipe写入端写入或者关闭，直到<code>sleep 50</code>执行完后才返回</p>
@@ -294,6 +298,11 @@
   
       <div class="post-nav-item post-nav-prev">
           
+          <a href="/2020/08/28/leetcode-dan-diao-zhan/" rel="prev" title="LeetCode单调栈">
+            LeetCode单调栈
+          </a>
+          <span>〉</span>
+        
       </div>
     </div>
   
