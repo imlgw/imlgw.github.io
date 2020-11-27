@@ -180,6 +180,21 @@
   </div>
 </section>
 
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+    <div id="gitalk-container"></div>
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script type="text/javascript">
+        var gitalk = new Gitalk({
+            clientID: '36b9b7d2d4ec2be32b05',
+            clientSecret: '951743102edb0f30653fa6729cf40c85f02a2f87',
+            id: window.location.pathname,
+            repo: 'imlgw.github.io',
+            owner: 'imlgw',
+            admin: 'imlgw'
+        })
+        gitalk.render('gitalk-container')
+    </script>
+
 
 
       
