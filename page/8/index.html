@@ -11,7 +11,7 @@
   <script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
   
   
-    <meta name="keywords" content="Bug,Spring," />
+    <meta name="keywords" content="imlgw,半岛铁盒,blog,Java博客,程序员,个人博客,java開發,程序員,個人博客,Java" />
   
 
   
@@ -21,7 +21,7 @@
   
   <link rel="icon" type="image/x-icon" href="/img/cat.ico">
   
-  <title>Spring-Security遇到的小问题 [ iMlGw0 ]</title>
+  <title> [ iMlGw0 ]半岛铁盒</title>
   
     <!-- stylesheets list from config.yml -->
     
@@ -45,7 +45,7 @@
       
           
             
-              <li class="pure-menu-item"><a href="/" class="pure-menu-link">首页</a></li>
+              <li class="pure-menu-item actived"><a href="/" class="pure-menu-link">首页</a></li>
             
           
       
@@ -161,109 +161,51 @@
 
   <div class="container" id="content-outer">
     <div class="inner" id="content-inner">
-      <div class="post-container">
-  <article class="post" id="post">
-    <header class="post-header text-center">
-      <h1 class="title">
-        Spring-Security遇到的小问题
-      </h1>
-      <span>
-        
-        <time class="time" datetime="2018-11-25T16:00:00.000Z">
-        2018-11-26
-      </time>
-        
-      </span>
-      <span class="slash">/</span>
-      <span class="post-meta">
-      <span class="post-tags">
-        <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Bug/" rel="tag">Bug</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring/" rel="tag">Spring</a></li></ul>
-      </span>
-    </span>
-      <span class="slash">/</span>
-      <span class="read">
-      <span id="busuanzi_value_page_pv"></span> 点击
-    </span>
-      <span class="slash">/</span>
-      <span class="read">阅读耗时 2 分钟</span>
-    </header>
+      
 
-    <div class="post-content">
-      <h2 id="Spring-Security-配置-intercept-url-的小问题"><a href="#Spring-Security-配置-intercept-url-的小问题" class="headerlink" title="Spring Security 配置 intercept-url 的小问题"></a>Spring Security 配置 intercept-url 的小问题</h2><p>文档： <a href="http://www.fengfly.com/document/springsecurity3/core-web-filters.html" target="_blank" rel="noopener">http://www.fengfly.com/document/springsecurity3/core-web-filters.html</a></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">&lt;bean id=<span class="string">"filterInvocationInterceptor"</span></span><br><span class="line">     <span class="class"><span class="keyword">class</span></span>=<span class="string">"org.springframework.security.intercept.web.FilterSecurityInterceptor"</span>&gt;</span><br><span class="line">  &lt;property name=<span class="string">"authenticationManager"</span> ref=<span class="string">"authenticationManager"</span>/&gt;</span><br><span class="line">  &lt;property name=<span class="string">"accessDecisionManager"</span> ref=<span class="string">"accessDecisionManager"</span>/&gt;</span><br><span class="line">  &lt;property name=<span class="string">"runAsManager"</span> ref=<span class="string">"runAsManager"</span>/&gt;</span><br><span class="line">  &lt;property name=<span class="string">"securityMetadataSource"</span>&gt;</span><br><span class="line">    &lt;security:filter-security-metadata-source path-type=<span class="string">"regex"</span>&gt;</span><br><span class="line">      &lt;security:intercept-url pattern=<span class="string">"\A/secure/super/.*\Z"</span> access=<span class="string">"ROLE_WE_DONT_HAVE"</span>/&gt;</span><br><span class="line">      &lt;security:intercept-url pattern=<span class="string">"\A/secure/.*\" access="</span>ROLE_SUPERVISOR,ROLE_TELLER<span class="string">"/&gt;</span></span><br><span class="line"><span class="string">    &lt;/security:filter-security-metadata-source&gt;</span></span><br><span class="line"><span class="string">  &lt;/property&gt;</span></span><br><span class="line"><span class="string">&lt;/bean&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>模式总是根据他们定义的顺序进行执行。因此很重要的是，把更确定的模式定义到列表的上面。 这会反映在你上面的例子中，更确定的/secure/super/模式放在没那么确定的 /secure/模式的上面。如果它们被反转了。/secure/会一直<br> 被匹配，/secure/super/就永远也不会执行。</p>
-<hr>
-<figure class="highlight"><table><tr><td class="code"><pre><span class="line">&lt;http use-expressions=<span class="string">"false"</span> entry-point-ref=<span class="string">"casProcessingFilterEntryPoint"</span>&gt;</span><br><span class="line">		&lt;intercept-url pattern=<span class="string">"/**"</span> access=<span class="string">"ROLE_USER"</span>/&gt;</span><br><span class="line">        &lt;!--经过SpringSecurity的环境上下文，偶然发现一个小坑--&gt;</span><br><span class="line">        &lt;intercept-url pattern=<span class="string">"/cart/*.do"</span> access=<span class="string">"IS_AUTHENTICATED_ANONYMOUSLY"</span>/&gt;</span><br><span class="line">        &lt;csrf disabled=<span class="string">"true"</span>/&gt;</span><br><span class="line">        &lt;!-- custom-filter为过滤器， position 表示将过滤器放在指定的位置上，before表示放在指定位置之前  ，after表示放在指定的位置之后  --&gt;</span><br><span class="line">        &lt;custom-filter ref=<span class="string">"casAuthenticationFilter"</span>  position=<span class="string">"CAS_FILTER"</span> /&gt;</span><br><span class="line">        &lt;custom-filter ref=<span class="string">"requestSingleLogoutFilter"</span> before=<span class="string">"LOGOUT_FILTER"</span>/&gt;</span><br><span class="line">        &lt;custom-filter ref=<span class="string">"singleLogoutFilter"</span> before=<span class="string">"CAS_FILTER"</span>/&gt;</span><br><span class="line">    &lt;/http&gt;</span><br></pre></td></tr></table></figure>
-<p>一个小问题，就是大范围在前面会覆盖后面的小范围所以像我上面那么写/cart/*.do 就不会执行相当于没写，起不到作用。</p>
-
-    </div>
-
-  </article>
-  <div class="toc-container">
+  <div class="recent-posts">
     
-  <div id="toc" class="toc-article">
-    <strong class="toc-title">目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Spring-Security-配置-intercept-url-的小问题"><span class="toc-text">Spring Security 配置 intercept-url 的小问题</span></a></li></ol>
-  </div>
 
-
-  </div>
-</div>
-
-
-    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
-      <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'false' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "MkcXmeDvktRNBDBrVqb9KYPH-MdYXbMMI",
-            app_key: "swDnb5a9u9Ksp2Rwkdm7Qulh",
-            placeholder: "留下邮箱才能收到回复喔 ~",
-            avatar:"monsterid"
-        });
-    }
-</script>
-    </section>
-  
-<div class="copyright">
-    <span>本作品采用</span>
-    <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">知识共享署名 4.0 国际许可协议</a>
-    <span>进行许可。 转载时请注明原文链接。</span>
-</div>
-
-
-  
-    <div class="post-nav">
-      <div class="post-nav-item post-nav-next">
-        
-          <span>〈 </span>
-          <a href="/2018/11/17/cas-dan-dian-deng-lu-xi-tong-ru-men/" rel="next" title="CAS单点登陆系统Demo">
-          CAS单点登陆系统Demo
-          </a>
-        
-      </div>
-  
-      <div class="post-nav-item post-nav-prev">
+      <article class="recent-post-item">
+        <a class="title" href="/2018/05/10/hexo-de-di-yi-pian-bo-ke/"><h2>Hexo第一篇博客</h2></a>
+        <div class="post-meta">
           
-          <a href="/2018/11/30/java-pa-chong-shi-zhan/" rel="prev" title="Java爬虫实战(一) ：爬取斗图社所有gif">
-            Java爬虫实战(一) ：爬取斗图社所有gif
-          </a>
-          <span>〉</span>
+          <time class="time" datetime="2018-05-10T01:00:00.000Z">
+            2018-05-10
+          </time>
+          
+          <span class="slash">/</span>
+          
+          <ul class="index-tag-list" itemprop="keywords"><li class="index-tag-list-item"><a class="index-tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a></li><li class="index-tag-list-item"><a class="index-tag-list-link" href="/tags/%E4%BD%93%E9%AA%8C/" rel="tag">体验</a></li><li class="index-tag-list-item"><a class="index-tag-list-link" href="/tags/%E5%85%A5%E9%97%A8/" rel="tag">入门</a></li></ul>
+          
+          
+        </div>
+
         
-      </div>
-    </div>
-  
+          <div class="post-excerpt">
+              第一篇Hexo博客
+才开始接触markdown不太熟悉，不过感觉还是很有意思的 😂  
+
+
+
+本来是想把这个博客放到我的阿里云上的，但是感觉日常写写博客也够了，移过去可以自己写写后台但感觉有点麻烦，等到以后有时间了再来折腾，日常用用这个静态的就够了 用了cdn加速访问速度还可以😉
+其实之前自己也
+          </div>
+        
+
+        <a class="more" href="/2018/05/10/hexo-de-di-yi-pian-bo-ke/"> 阅读全文〉</a>
+      </article>
+    
+  </div>
+
+
 
     </div>
 
+    
+      <nav class="page-nav text-center">
+          <a class="extend prev" rel="prev" href="/page/7/">〈</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span>
+      </nav>
     
 
   </div>

@@ -1,0 +1,447 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#202020"/>
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+  
+  
+    <meta name="keywords" content="LeetCode,动态规划," />
+  
+
+  
+    <meta name="description" content="大悲无泪，大悟无言，大笑无声。" />
+  
+  
+  
+  <link rel="icon" type="image/x-icon" href="/img/cat.ico">
+  
+  <title>Lc1621.大小为K的不重叠线段的数目 [ iMlGw0 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="//cdn.bootcss.com/pure/1.0.0/pure-min.css">
+    
+      <link rel="stylesheet" href="/css/xoxo.css">
+    
+  
+<meta name="generator" content="Hexo 4.2.0"><link rel="stylesheet" href="/css/prism.css" type="text/css"></head>
+
+
+<body>
+  <div class="nav-container">
+    <nav class="home-menu pure-menu pure-menu-horizontal">
+  <a class="pure-menu-heading" href="/">
+    
+    <span class="title" style="text-transform:none">iMlGw0</span>
+  </a>
+
+  <ul class="pure-menu-list clearfix">
+      
+          
+            
+              <li class="pure-menu-item"><a href="/" class="pure-menu-link">首页</a></li>
+            
+          
+      
+          
+            
+              <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
+            
+              <a href="#" id="post" class="pure-menu-link">文章</a>
+              <ul class="pure-menu-children">
+              
+                  
+                    <li class="pure-menu-item"><a href="/categories" style="color:#202020;" class="pure-menu-link">分类</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="/archives" style="color:#202020;" class="pure-menu-link">归档</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="/tags" style="color:#202020;" class="pure-menu-link">标签</a></li>
+                  
+              
+              </ul>
+            </li>
+          
+      
+          
+            
+              <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
+            
+              <a href="#" id="算法" class="pure-menu-link">算法</a>
+              <ul class="pure-menu-children">
+              
+                  
+                    <li class="pure-menu-item"><a href="http://imlgw.top/2019/05/04/leetcode-shu-zu/" style="color:#202020;" class="pure-menu-link">数组</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="http://imlgw.top/2019/02/27/leetcode-lian-biao/" style="color:#202020;" class="pure-menu-link">链表</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="http://imlgw.top/2019/10/01/leetcode-zhan-dui-lie/" style="color:#202020;" class="pure-menu-link">栈&amp;队列</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="http://imlgw.top/2019/09/15/leetcode-cha-zhao/" style="color:#202020;" class="pure-menu-link">查找</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="http://imlgw.top/2019/07/20/leetcode-hua-dong-chuang-kou/" style="color:#202020;" class="pure-menu-link">滑动窗口</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="http://imlgw.top/2019/09/01/leetcode-dong-tai-gui-hua/" style="color:#202020;" class="pure-menu-link">动态规划</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="http://imlgw.top/2019/12/06/leetcode-er-fen-cha-zhao/" style="color:#202020;" class="pure-menu-link">二分查找</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="http://imlgw.top/2019/11/06/leetcode-er-cha-shu/" style="color:#202020;" class="pure-menu-link">二叉树</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="http://imlgw.top/2019/11/29/leetcode-bei-bao-wen-ti/" style="color:#202020;" class="pure-menu-link">背包问题</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="http://imlgw.top/2019/10/10/leetcode-hui-su/" style="color:#202020;" class="pure-menu-link">回溯</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="http://imlgw.top/2020/01/21/leetcode-tan-xin/" style="color:#202020;" class="pure-menu-link">贪心</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="http://imlgw.top/2020/07/03/leetcode-wei-yun-suan/" style="color:#202020;" class="pure-menu-link">位运算</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="http://imlgw.top/2020/08/28/leetcode-dan-diao-zhan/" style="color:#202020;" class="pure-menu-link">单调栈</a></li>
+                  
+              
+              </ul>
+            </li>
+          
+      
+          
+            
+              <li class="pure-menu-item"><a href="/project" class="pure-menu-link">Github</a></li>
+            
+          
+      
+          
+            
+              <li class="pure-menu-item"><a href="/search" class="pure-menu-link">搜索</a></li>
+            
+          
+      
+          
+            
+              <li class="pure-menu-item"><a href="/about" class="pure-menu-link">关于</a></li>
+            
+          
+      
+  </ul>
+   
+</nav>
+
+  </div>
+
+  <div class="container" id="content-outer">
+    <div class="inner" id="content-inner">
+      <div class="post-container">
+  <article class="post" id="post">
+    <header class="post-header text-center">
+      <h1 class="title">
+        Lc1621.大小为K的不重叠线段的数目
+      </h1>
+      <span>
+        
+        <time class="time" datetime="2020-11-24T09:23:43.773Z">
+        2020-11-24
+      </time>
+        
+      </span>
+      <span class="slash">/</span>
+      <span class="post-meta">
+      <span class="post-tags">
+        <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="tag">动态规划</a></li></ul>
+      </span>
+    </span>
+      <span class="slash">/</span>
+      <span class="read">
+      <span id="busuanzi_value_page_pv"></span> 点击
+    </span>
+      <span class="slash">/</span>
+      <span class="read">阅读耗时 9 分钟</span>
+    </header>
+
+    <div class="post-content">
+      <h2 id="1621-大小为-K-的不重叠线段的数目"><a href="#1621-大小为-K-的不重叠线段的数目" class="headerlink" title="1621. 大小为 K 的不重叠线段的数目"></a><a href="https://leetcode-cn.com/problems/number-of-sets-of-k-non-overlapping-line-segments/" target="_blank" rel="noopener">1621. 大小为 K 的不重叠线段的数目</a></h2><p>Difficulty: <strong>中等</strong></p>
+<p>给你一维空间的 <code>n</code> 个点，其中第 <code>i</code> 个点（编号从 <code>0</code> 到 <code>n-1</code>）位于 <code>x = i</code> 处，请你找到 <strong>恰好</strong> <code>k</code> <strong>个不重叠</strong> 线段且每个线段至少覆盖两个点的方案数。线段的两个端点必须都是 <strong>整数坐标</strong> 。这 <code>k</code> 个线段不需要全部覆盖全部 <code>n</code> 个点，且它们的端点可以重合。<br>请你返回 <code>k</code> 个不重叠线段的方案数。由于答案可能很大，请将结果对 <code>1e9+7</code> <strong>取余</strong> 后返回。</p>
+<p><strong>示例 1：</strong></p>
+<p><img src="https://i.loli.net/2020/11/24/CO2b9MBa5WFTNnU.png" alt=""></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">输入：n = <span class="number">4</span>, k = <span class="number">2</span></span><br><span class="line">输出：<span class="number">5</span></span><br><span class="line">解释：</span><br><span class="line">如图所示，两个线段分别用红色和蓝色标出。</span><br><span class="line">上图展示了 <span class="number">5</span> 种不同的方案 &#123;(<span class="number">0</span>,<span class="number">2</span>),(<span class="number">2</span>,<span class="number">3</span>)&#125;，&#123;(<span class="number">0</span>,<span class="number">1</span>),(<span class="number">1</span>,<span class="number">3</span>)&#125;，&#123;(<span class="number">0</span>,<span class="number">1</span>),(<span class="number">2</span>,<span class="number">3</span>)&#125;，&#123;(<span class="number">1</span>,<span class="number">2</span>),(<span class="number">2</span>,<span class="number">3</span>)&#125;，&#123;(<span class="number">0</span>,<span class="number">1</span>),(<span class="number">1</span>,<span class="number">2</span>)&#125; 。</span><br></pre></td></tr></table></figure>
+
+<p><strong>示例 2：</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">输入：n = <span class="number">3</span>, k = <span class="number">1</span></span><br><span class="line">输出：<span class="number">3</span></span><br><span class="line">解释：总共有 <span class="number">3</span> 种不同的方案 &#123;(<span class="number">0</span>,<span class="number">1</span>)&#125;, &#123;(<span class="number">0</span>,<span class="number">2</span>)&#125;, &#123;(<span class="number">1</span>,<span class="number">2</span>)&#125; 。</span><br></pre></td></tr></table></figure>
+
+<p><strong>示例 3：</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">输入：n = <span class="number">30</span>, k = <span class="number">7</span></span><br><span class="line">输出：<span class="number">796297179</span></span><br><span class="line">解释：画 <span class="number">7</span> 条线段的总方案数为 <span class="number">3796297200</span> 种。将这个数对 <span class="number">109</span> + <span class="number">7</span> 取余得到 <span class="number">796297179</span> 。</span><br></pre></td></tr></table></figure>
+
+<p><strong>示例 4：</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">输入：n = <span class="number">5</span>, k = <span class="number">3</span></span><br><span class="line">输出：<span class="number">7</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>示例 5：</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">输入：n = <span class="number">3</span>, k = <span class="number">2</span></span><br><span class="line">输出：<span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>提示：</strong></p>
+<ul>
+<li><code>2 &lt;= n &lt;= 1000</code></li>
+<li><code>1 &lt;= k &lt;= n-1</code></li>
+</ul>
+<h3 id="解法一"><a href="#解法一" class="headerlink" title="解法一"></a>解法一</h3><p>这题题想了好久，最终还是妥协了，看了题解，发现有暴搜+记忆化的解法，试了下，T了</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> MOD = (<span class="keyword">int</span>)<span class="number">1e9</span>+<span class="number">7</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//写个暴搜试试（T了）</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">numberOfSets2</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">    Long[][] dp = <span class="keyword">new</span> Long[n+<span class="number">1</span>][k+<span class="number">1</span>];</span><br><span class="line">    <span class="keyword">return</span> dfs(n, k, dp);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//n个点放k条线段的方案数</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> k, Long[][] dp)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (dp[n][k] != <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> dp[n][k].intValue();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (k == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (k == <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> (n-<span class="number">1</span>)*n/<span class="number">2</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">long</span> res = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; n-i &gt;= k-<span class="number">2</span>; i++) &#123;</span><br><span class="line">        <span class="comment">//前(i+1)个点放一条线段有i种方案（刨开之前的方案）</span></span><br><span class="line">        res += <span class="number">1l</span> * i * dfs(n-i, k-<span class="number">1</span>, dp);</span><br><span class="line">        res = (res + MOD) % MOD;</span><br><span class="line">    &#125;</span><br><span class="line">    dp[n][k] = res;</span><br><span class="line">    <span class="keyword">return</span> (<span class="keyword">int</span>)res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="解法二"><a href="#解法二" class="headerlink" title="解法二"></a>解法二</h3><p>N^3dp，<code>dp[i][j]</code>代表长度为i的节点放置j条线段有几种方案，状态的转移分两种情况</p>
+<ol>
+<li>最后一条线段不覆盖右端点，那么递推就直接<code>dp[i][j] = dp[i-1][j]</code></li>
+<li>最后一条线段覆盖右端点，枚举最后一条线段的长度所对应的<code>dp[i-len][j-1]</code>累加起来</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">numberOfSets</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> MOD = (<span class="keyword">int</span>)<span class="number">1e9</span>+<span class="number">7</span>;</span><br><span class="line">    <span class="keyword">long</span>[][] dp = <span class="keyword">new</span> <span class="keyword">long</span>[n+<span class="number">1</span>][k+<span class="number">1</span>];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        dp[i][<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= Math.min(i-<span class="number">1</span>, k); j++) &#123;</span><br><span class="line">            <span class="comment">//j没有覆盖右端点的情况</span></span><br><span class="line">            dp[i][j] = dp[i-<span class="number">1</span>][j];</span><br><span class="line">            <span class="comment">//枚举j覆盖区间右端点的所有情况，注意从1开始</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> s = <span class="number">1</span>; s &lt; i; s++) &#123;</span><br><span class="line">                dp[i][j] = (dp[i][j] + dp[s][j-<span class="number">1</span>]) % MOD;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> (<span class="keyword">int</span>) dp[n][k];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里数据范围是1e3，显然N^3是过不了的，所以需要优化，三重循环种求的其实是前面已经计算过的累计的前缀和，所以可以通过前缀和优化成N^2</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">numberOfSets</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> MOD = (<span class="keyword">int</span>)<span class="number">1e9</span>+<span class="number">7</span>;</span><br><span class="line">    <span class="keyword">long</span>[][] dp = <span class="keyword">new</span> <span class="keyword">long</span>[n+<span class="number">1</span>][k+<span class="number">1</span>];</span><br><span class="line">    <span class="keyword">long</span>[][] sum = <span class="keyword">new</span> <span class="keyword">long</span>[n+<span class="number">1</span>][k+<span class="number">1</span>];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        dp[i][<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">        sum[i][<span class="number">0</span>] = sum[i-<span class="number">1</span>][<span class="number">0</span>] + <span class="number">1</span>; </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= Math.min(i-<span class="number">1</span>, k); j++) &#123;</span><br><span class="line">            <span class="comment">//j没有覆盖右端点的情况</span></span><br><span class="line">            dp[i][j] = dp[i-<span class="number">1</span>][j];</span><br><span class="line">            <span class="comment">//枚举j覆盖区间右端点的所有情况，注意从1开始</span></span><br><span class="line">            <span class="comment">// for (int s = 1; s &lt; i; s++) &#123;</span></span><br><span class="line">            <span class="comment">//     dp[i][j] = (dp[i][j] + dp[s][j-1]) % MOD;</span></span><br><span class="line">            <span class="comment">// &#125;</span></span><br><span class="line">            dp[i][j] = (dp[i][j] + sum[i-<span class="number">1</span>][j-<span class="number">1</span>]) % MOD;</span><br><span class="line">            sum[i][j] = sum[i-<span class="number">1</span>][j] + dp[i][j];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> (<span class="keyword">int</span>) dp[n][k];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="解法三"><a href="#解法三" class="headerlink" title="解法三"></a>解法三</h3><p>这种DP的方式更好理解</p>
+<ul>
+<li><code>dp[i][j][0]</code>: 前i个点放j条线段，第j条线段没有覆盖右端点，所以显然<code>dp[i][j][0] = dp[i-1][j][0] + dp[i-1][j][1]</code></li>
+<li><code>dp[i][j][1]</code>: 前i个点放j条线段，第j条线段覆盖右端点（可以延长），首先j位置单独成一条线段（<code>dp[i-1][j-1][0] + dp[i-1][j-1][1]</code>），然后就是j位置和前面的连成一条线段的（<code>dp[i-1][j]</code>）</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">numberOfSets</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> MOD = (<span class="keyword">int</span>)<span class="number">1e9</span>+<span class="number">7</span>;</span><br><span class="line">    <span class="comment">//dp[i][j][0]: 前i个点放j条线段，第j条线段没有覆盖右端点</span></span><br><span class="line">    <span class="comment">//dp[i][j][1]: 前i个点放j条线段，第j条线段覆盖右端点（可以延长）</span></span><br><span class="line">    <span class="keyword">long</span>[][][] dp = <span class="keyword">new</span> <span class="keyword">long</span>[n+<span class="number">1</span>][k+<span class="number">1</span>][<span class="number">2</span>];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        dp[i][<span class="number">0</span>][<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= Math.min(i-<span class="number">1</span>, k); j++) &#123;</span><br><span class="line">            dp[i][j][<span class="number">0</span>] = dp[i-<span class="number">1</span>][j][<span class="number">0</span>] + dp[i-<span class="number">1</span>][j][<span class="number">1</span>];</span><br><span class="line">            dp[i][j][<span class="number">1</span>] = dp[i-<span class="number">1</span>][j-<span class="number">1</span>][<span class="number">0</span>] + dp[i-<span class="number">1</span>][j-<span class="number">1</span>][<span class="number">1</span>] + dp[i-<span class="number">1</span>][j][<span class="number">1</span>];</span><br><span class="line">            dp[i][j][<span class="number">0</span>] = (dp[i][j][<span class="number">0</span>] + MOD) % MOD;</span><br><span class="line">            dp[i][j][<span class="number">1</span>] = (dp[i][j][<span class="number">1</span>] + MOD) % MOD;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> (<span class="keyword">int</span>)(dp[n][k][<span class="number">0</span>] + dp[n][k][<span class="number">1</span>] + MOD) % MOD;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="解法四"><a href="#解法四" class="headerlink" title="解法四"></a>解法四</h3><p>其实是上面解法的优化递推，省去了前缀和的空间，直接从状态转移方程上进行优化<br><img src="http://static.imlgw.top/blog/20201126/RxHR7Ushje0p.png?imageslim" alt="mark"><br>列出递推中的连续两项，然后进行合并优化，直接得到递推公式</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//有一点技巧性的递推</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">numberOfSets</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> MOD = (<span class="keyword">int</span>)<span class="number">1e9</span>+<span class="number">7</span>;</span><br><span class="line">    <span class="comment">//n个点，放k个线段，不重叠的方案数</span></span><br><span class="line">    <span class="keyword">long</span>[][] dp = <span class="keyword">new</span> <span class="keyword">long</span>[n+<span class="number">1</span>][k+<span class="number">1</span>];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        dp[i][<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= i-<span class="number">1</span> &amp;&amp; j &lt;= k; j++) &#123;</span><br><span class="line">            <span class="comment">//dp[2][1] = 2*dp[1][1] - dp[0][1] + dp[1][0]</span></span><br><span class="line">            dp[i][j] = <span class="number">2</span>*dp[i-<span class="number">1</span>][j] - dp[i-<span class="number">2</span>][j] + dp[i-<span class="number">1</span>][j-<span class="number">1</span>];</span><br><span class="line">            dp[i][j] = (dp[i][j] + MOD) % MOD;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> (<span class="keyword">int</span>)dp[n][k];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="解法五"><a href="#解法五" class="headerlink" title="解法五"></a>解法五</h3><p>数学法，看不懂，求C(n+k-1, 2k)</p>
+
+    </div>
+
+  </article>
+  <div class="toc-container">
+    
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1621-大小为-K-的不重叠线段的数目"><span class="toc-text">1621. 大小为 K 的不重叠线段的数目</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#解法一"><span class="toc-text">解法一</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#解法二"><span class="toc-text">解法二</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#解法三"><span class="toc-text">解法三</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#解法四"><span class="toc-text">解法四</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#解法五"><span class="toc-text">解法五</span></a></li></ol></li></ol>
+  </div>
+
+
+  </div>
+</div>
+
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "MkcXmeDvktRNBDBrVqb9KYPH-MdYXbMMI",
+            app_key: "swDnb5a9u9Ksp2Rwkdm7Qulh",
+            placeholder: "留下邮箱才能收到回复喔 ~",
+            avatar:"monsterid"
+        });
+    }
+</script>
+    </section>
+  
+<div class="copyright">
+    <span>本作品采用</span>
+    <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">知识共享署名 4.0 国际许可协议</a>
+    <span>进行许可。 转载时请注明原文链接。</span>
+</div>
+
+
+  
+    <div class="post-nav">
+      <div class="post-nav-item post-nav-next">
+        
+          <span>〈 </span>
+          <a href="/2020/11/19/pc-duan-ruan-jian-tui-jian/" rel="next" title="PC端软件推荐">
+          PC端软件推荐
+          </a>
+        
+      </div>
+  
+      <div class="post-nav-item post-nav-prev">
+          
+      </div>
+    </div>
+  
+
+    </div>
+
+    
+
+  </div>
+  <footer class="footer text-center">
+    <div id="bottom-inner">
+        <a class="bottom-item" href="https://github.com/imlgw" target="_blank">GitHub</a> |
+        <a class="bottom-item" href="/links">友情链接</a> |
+        <a class="bottom-item" href="https://hexo.io" target="_blank">Powered by hexo</a> |
+        <a class="bottom-item" href="https://github.com/fooying/hexo-theme-xoxo-plus" target="_blank">Theme xoxo-plus</a> |
+        <a class="bottom-item" href="https://imlgw.avosapps.us/" target="_blank" rel="noopener">博客评论管理</a>
+    </div>
+</footer>
+
+  
+
+<script>
+  (function(window, document, undefined) {
+
+    var timer = null;
+
+    function returnTop() {
+      cancelAnimationFrame(timer);
+      timer = requestAnimationFrame(function fn() {
+        var oTop = document.body.scrollTop || document.documentElement.scrollTop;
+        if (oTop > 0) {
+          document.body.scrollTop = document.documentElement.scrollTop = oTop - 50;
+          timer = requestAnimationFrame(fn);
+        } else {
+          cancelAnimationFrame(timer);
+        }
+      });
+    }
+
+    var hearts = [];
+    window.requestAnimationFrame = (function() {
+      return window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.oRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        function(callback) {
+          setTimeout(callback, 1000 / 60);
+        }
+    })();
+    init();
+
+    function init() {
+      css(".heart{z-index:9999;width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);}.heart:after,.heart:before{content: '';width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: absolute;}.heart:after{top: -5px;}.heart:before{left: -5px;}");
+      attachEvent();
+      gameloop();
+      addMenuEvent();
+    }
+
+    function gameloop() {
+      for (var i = 0; i < hearts.length; i++) {
+        if (hearts[i].alpha <= 0) {
+          document.body.removeChild(hearts[i].el);
+          hearts.splice(i, 1);
+          continue;
+        }
+        hearts[i].y--;
+        hearts[i].scale += 0.004;
+        hearts[i].alpha -= 0.013;
+        hearts[i].el.style.cssText = "left:" + hearts[i].x + "px;top:" + hearts[i].y + "px;opacity:" + hearts[i].alpha + ";transform:scale(" + hearts[i].scale + "," + hearts[i].scale + ") rotate(45deg);background:" + hearts[i].color;
+      }
+      requestAnimationFrame(gameloop);
+    }
+
+    /**
+     * 给logo设置点击事件
+     * 
+     * - 回到顶部
+     * - 出现爱心
+     */
+    function attachEvent() {
+      var old = typeof window.onclick === "function" && window.onclick;
+      var logo = document.getElementById("logo");
+      if (logo) {
+        logo.onclick = function(event) {
+          returnTop();
+          old && old();
+          createHeart(event);
+        }
+      }
+      
+    }
+
+    function createHeart(event) {
+      var d = document.createElement("div");
+      d.className = "heart";
+      hearts.push({
+        el: d,
+        x: event.clientX - 5,
+        y: event.clientY - 5,
+        scale: 1,
+        alpha: 1,
+        color: randomColor()
+      });
+      document.body.appendChild(d);
+    }
+
+    function css(css) {
+      var style = document.createElement("style");
+      style.type = "text/css";
+      try {
+        style.appendChild(document.createTextNode(css));
+      } catch (ex) {
+        style.styleSheet.cssText = css;
+      }
+      document.getElementsByTagName('head')[0].appendChild(style);
+    }
+
+    function randomColor() {
+      // return "rgb(" + (~~(Math.random() * 255)) + "," + (~~(Math.random() * 255)) + "," + (~~(Math.random() * 255)) + ")";
+      return "#F44336";
+    }
+
+    function addMenuEvent() {
+      var menu = document.getElementById('menu-main-post');
+      if (menu) {
+        var toc = document.getElementById('toc');
+        if (toc) {
+          menu.onclick = function() {
+            if (toc) {
+              if (toc.style.display == 'block') {
+                toc.style.display = 'none';
+              } else {
+                toc.style.display = 'block';
+              }
+            }
+          };
+        } else {
+          menu.style.display = 'none';
+        }
+      }
+    }
+
+  })(window, document);
+</script>
+
+  
+
+
+
+  
+
+<script src="https://cdn.jsdelivr.net/npm/live2d-widget@3.x/lib/L2Dwidget.min.js"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"https://cdn.jsdelivr.net/npm/live2d-widget-model-hijiki@1.0.5/assets/hijiki.model.json"},"display":{"superSample":2,"width":160,"height":320,"position":"right","hOffset":0,"vOffset":-70},"mobile":{"show":false,"scale":0.2},"log":false});</script></body>
+</html>
