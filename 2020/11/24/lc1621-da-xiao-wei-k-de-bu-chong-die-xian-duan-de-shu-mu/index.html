@@ -251,20 +251,28 @@
 
     <section id="comments" style="margin:10px;padding:10px;background:#fff;">
       
-    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
-    <div id="gitalk-container"></div>
-    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
-    <script type="text/javascript">
-        var gitalk = new Gitalk({
-            clientID: '36b9b7d2d4ec2be32b05',
-            clientSecret: '951743102edb0f30653fa6729cf40c85f02a2f87',
-            id: window.location.pathname,
-            repo: 'imlgw.github.io',
-            owner: 'imlgw',
-            admin: 'imlgw'
-        })
-        gitalk.render('gitalk-container')
-    </script>
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'imlgw';
+    
+    var disqus_url = 'http://imlgw.top/2020/11/24/lc1621-da-xiao-wei-k-de-bu-chong-die-xian-duan-de-shu-mu/';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <script id="dsq-count-scr" src="//imlgw.disqus.com/count.js" async></script>
+
 
 
     </section>
