@@ -98,6 +98,29 @@
     
     
     <entry>
+      <title>Fuck面试</title>
+      <link href="/2020/09/04/fuck-mian-shi/"/>
+      <url>/2020/09/04/fuck-mian-shi/</url>
+      
+      
+      <categories>
+          
+          <category> 踩坑记录 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 面试 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>LeetCode单调栈</title>
       <link href="/2020/08/28/leetcode-dan-diao-zhan/"/>
       <url>/2020/08/28/leetcode-dan-diao-zhan/</url>
@@ -1011,29 +1034,6 @@
     
     
     <entry>
-      <title>数据库大作业</title>
-      <link href="/2019/05/20/shu-ju-ku-da-zuo-ye/"/>
-      <url>/2019/05/20/shu-ju-ku-da-zuo-ye/</url>
-      
-      
-      <categories>
-          
-          <category> 工具 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> 工具 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>WebMvcConfigurer小结</title>
       <link href="/2019/05/20/webmvcconfigurer/"/>
       <url>/2019/05/20/webmvcconfigurer/</url>
@@ -1049,6 +1049,29 @@
         <tags>
             
             <tag> SpringMVC </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>数据库大作业</title>
+      <link href="/2019/05/20/shu-ju-ku-da-zuo-ye/"/>
+      <url>/2019/05/20/shu-ju-ku-da-zuo-ye/</url>
+      
+      
+      <categories>
+          
+          <category> 工具 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 工具 </tag>
             
         </tags>
       
@@ -1781,15 +1804,6 @@
     
     
     <entry>
-      <title>留言板</title>
-      <link href="/board/index.html"/>
-      <url>/board/index.html</url>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>分类</title>
       <link href="/categories/index.html"/>
       <url>/categories/index.html</url>
@@ -1838,6 +1852,15 @@
       <title>文章标签</title>
       <link href="/tags/index.html"/>
       <url>/tags/index.html</url>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Music</title>
+      <link href="/music/index.html"/>
+      <url>/music/index.html</url>
       
     </entry>
     
