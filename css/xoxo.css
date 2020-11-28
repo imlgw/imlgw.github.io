@@ -338,7 +338,7 @@ body {
 }
 @media screen and (max-width: 576px) {
   .recent-posts .recent-post-item .post-excerpt {
-    display: none;
+     /* display: none; */
   }
 }
 .recent-posts .recent-post-item .post-meta {
@@ -1032,5 +1032,4 @@ code {
 .highlight .function .title {
   color: #525252;
 }
-
 /*# sourceMappingURL=xoxo.css.map */
