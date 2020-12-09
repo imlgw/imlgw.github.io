@@ -50,12 +50,14 @@ h5,
 h6 {
   margin: 0.5rem 0;
   line-height: 1.5rem;
-  font-weight: 500;
+  font-weight: bold;
+  /*border-bottom: 1px solid;*/
 }
 b,
 optgroup,
 strong {
   font-weight: 600;
+  font-size: 15px;
 }
 a {
   color: inherit;
@@ -891,8 +893,11 @@ pre code {
   padding: 10px;
 }
 code {
-  padding: 2px 4px;
+  padding: 2px 5px;
   font-size: 0.9rem;
+  color: #f47466;
+  font-weight: 600;
+  border-radius: 6px;
 }
 .highlight {
   display: block;
@@ -1032,4 +1037,10 @@ code {
 .highlight .function .title {
   color: #525252;
 }
+
+/*h1:before,  h2:before,  h3:before,  h4:before, h5:before, h6:before, hr:before {
+    display: inline-block;
+    font-weight: 600;
+    font-family: 'Font Awesome 5 Free';
+}*/
 /*# sourceMappingURL=xoxo.css.map */
