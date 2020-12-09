@@ -194,15 +194,15 @@
 
     <div class="post-content">
       <ul>
-<li><a href="#自旋锁">自旋锁</a><ul>
-<li><a href="#简单自旋锁">简单自旋锁</a></li>
+<li><a href="#%E8%87%AA%E6%97%8B%E9%94%81">自旋锁</a><ul>
+<li><a href="#%E7%AE%80%E5%8D%95%E8%87%AA%E6%97%8B%E9%94%81">简单自旋锁</a></li>
 <li><a href="#ticket-lock">Ticket Lock</a></li>
 </ul>
 </li>
-<li><a href="#clh锁">CLH锁</a></li>
-<li><a href="#mcs锁">MCS锁</a></li>
-<li><a href="#总结">总结</a></li>
-<li><a href="#参考">参考</a></li>
+<li><a href="#clh%E9%94%81">CLH锁</a></li>
+<li><a href="#mcs%E9%94%81">MCS锁</a></li>
+<li><a href="#%E6%80%BB%E7%BB%93">总结</a></li>
+<li><a href="#%E5%8F%82%E8%80%83">参考</a></li>
 </ul>
 <h2 id="自旋锁"><a href="#自旋锁" class="headerlink" title="自旋锁"></a>自旋锁</h2><p>自旋锁(spin lock)是一个典型的对临界资源的互斥手段，自旋锁是基于CAS原语的，所以它是轻量级的同步操作，它的名称来源于它的特性。自旋锁是指当一个线程尝试获取某个锁时，如果该锁已被其他线程占用，就一直循环检测锁是否被释放，而不是进入线程挂起或睡眠状态。由于自旋锁只不进行线程状态的改变（挂起线程），所以当线程竞争不激烈时，它的响应速度极快（因为<code>避免了线程调度的上下文切换</code>）。自旋锁适用于锁保护的临界区很小的情况，线程竞争不激烈的场景下。如果线程之间竞争激烈或者临界区的操作特别耗时，那么线程的自旋操作就会耗费大量的cpu资源，所以这种情况下性能就会下降明显。</p>
 <h3 id="简单自旋锁"><a href="#简单自旋锁" class="headerlink" title="简单自旋锁"></a>简单自旋锁</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SimpleSpinLock</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> AtomicReference&lt;Thread&gt; owner = <span class="keyword">new</span> AtomicReference&lt;Thread&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">lock</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        Thread currentThread = Thread.currentThread();</span><br><span class="line">        <span class="comment">// 如果锁未被占用，则设置当前线程为锁的拥有者</span></span><br><span class="line">        <span class="comment">// 后面解锁的就只能是当前线程</span></span><br><span class="line">        <span class="keyword">while</span> (!owner.compareAndSet(<span class="keyword">null</span>, currentThread)) &#123;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">unlock</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        Thread currentThread = Thread.currentThread();</span><br><span class="line">        <span class="comment">// 只有锁的拥有者才能释放锁</span></span><br><span class="line">        owner.compareAndSet(currentThread, <span class="keyword">null</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>

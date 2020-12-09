@@ -229,11 +229,11 @@
 <p>需要注意的是虽然SpringMVC拦截的是.do，但是由于使用了shiro(或者你的其他权限框架)，那么未登录情况下是不能直接访问除shiro配置文件里面允许匿名访问的路径之外的静态资源文件。</p>
 <p>举个例子，你把静态资源文件放在了项目根目录，但是参考上面配置文件，显然不在匿名访问路径列表之内，所以会提示你先登录，登录之后才可访问项目根目录的静态资源文件。</p>
 <ul>
-<li>未登录前访问项目根目录下1.jpg , 跳到登录页面：</li>
+<li>  未登录前访问项目根目录下1.jpg , 跳到登录页面：</li>
 </ul>
 <p><img src="https://img-blog.csdn.net/20170518094647021?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvSjA4MDYyNA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="image"></p>
 <ul>
-<li>登录后访问项目根目录下1.jpg :</li>
+<li>  登录后访问项目根目录下1.jpg :</li>
 </ul>
 <p><img src="https://img-blog.csdn.net/20170518094717006?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvSjA4MDYyNA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="image"></p>
 <p>另外，建议最好参考shiro配置文件，比如1.jpg放到images文件夹下，那么不用登录就可以直接访问。</p>
@@ -256,7 +256,7 @@
 <h2 id="【4】第四种示例与解决办法"><a href="#【4】第四种示例与解决办法" class="headerlink" title="【4】第四种示例与解决办法"></a><strong>【4】第四种示例与解决办法</strong></h2><p>确切说这里只解决不通过controller而直接访问jsp的问题。</p>
 <p><code>&lt;mvc:view-controller/&gt;</code>直接访问view-name对应的jsp</p>
 <ul>
-<li>jsp路径依据视图解析器配置。</li>
+<li>  jsp路径依据视图解析器配置。</li>
 </ul>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line">&lt;!-- mvc:view-controller可使其直接访问路径 --&gt;  </span><br><span class="line">&lt;mvc:view-controller path=<span class="string">"/i18n"</span> view-name=<span class="string">"i18n"</span>/&gt;</span><br><span class="line"></span><br><span class="line">&lt;mvc:view-controller path=<span class="string">"/i18n2"</span> view-name=<span class="string">"i18n2"</span>/&gt;</span><br></pre></td></tr></table></figure>
 

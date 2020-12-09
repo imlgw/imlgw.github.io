@@ -219,7 +219,7 @@
 <blockquote>
 <p>The Java Virtual Machine has a <em>method area</em> that is <code>shared</code> among all Java Virtual Machine threads. The method area is analogous to the storage area for compiled code of a conventional language or analogous to the “text” segment in an operating system process. It stores per-class structures such as the <strong>run-time constant pool</strong>, <strong>field</strong> and <strong>method data</strong>, and the code for methods and constructors, including the special methods (<a href="https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-2.html#jvms-2.9" target="_blank" rel="noopener">§2.9</a>) used in class and instance initialization and interface initialization.</p>
 </blockquote>
-<p><strong>运行时常量池(run-time constant pool)</strong>：</p>
+<p>**运行时常量池(run-time constant pool)**：</p>
 <p>是方法区的一部分，用于存放编译期生成的各种字面量”123”，”LGW” 等字符串常量池，和符号引用。运行时常量池具有动态性，并非只有Class文件中的内容才能进入运行时常量池，运行期间也能将新的常量放入池中。如String.intern()方法。</p>
 <p><strong>方法栈（JVM Stack）</strong>：</p>
 <p>线程私有。存储局部变量表、操作栈、动态链接、方法出口，<code>对象指针</code>。</p>
@@ -317,7 +317,7 @@
 <h3 id="③初始化："><a href="#③初始化：" class="headerlink" title="③初始化："></a>③初始化：</h3><p>初始化阶段就是执行<code>类构造器&lt;clinit&gt;</code>方法的过程</p>
 <h4 id="类构造器-lt-client-gt"><a href="#类构造器-lt-client-gt" class="headerlink" title="类构造器&lt;client&gt;"></a>类构造器&lt;client&gt;</h4><p>💡<code>&lt;clinit&gt;</code>方法是由编译器自动收集类中的所有<strong>类变量的赋值</strong>动作和<strong>静态语句块</strong>（static块）中的语句合并产生的，编译器收集的顺序是由语句在源文件中<strong>出现的顺序决定的</strong>，静态语句块只能访问到定义在静态语句块之前的变量，定义在它之后的变量，在前面的静态语句块<strong>可以赋值</strong>，但是<strong>不能访问</strong>（比如print）</p>
 <p>💡 和<strong>实例构造器</strong><code>&lt;init&gt;</code> 不同，不需要显式的去调用父类的构造器，虚拟机会保证子类的<code>&lt;clinit&gt;</code>方法执行之前，父类的<code>&lt;clinit&gt;</code>方法已经执行完毕，因此虚拟机中第一个被执行的<code>&lt;clinit&gt;</code> 一定是Object类</p>
-<p>💡<code>&lt;clinit&gt;</code> 方法对于类或者接口来说并不是必须的，如果类中没有静态语句块也没有静态变量的<strong>赋值</strong>操作，那么编译器可以不为这个类生成<code>&lt;clinit&gt;</code> 方法</p>
+<p>💡<code> &lt;clinit&gt;</code> 方法对于类或者接口来说并不是必须的，如果类中没有静态语句块也没有静态变量的<strong>赋值</strong>操作，那么编译器可以不为这个类生成<code>&lt;clinit&gt;</code> 方法</p>
 <p>💡 对于接口，不能使用static块，但是可以有静态变量的赋值操作。子类接口的<code>&lt;clinit&gt;</code>方法调用并不保证父接口的<code>&lt;clinit&gt;</code>方法被先调用，只有用到父接口的静态变量的时候，父接口<code>&lt;clinit&gt;</code>方法才会被调用。接口的实现类在初始化时也一样不会执行接口的<code>&lt;clinit&gt;</code>方法。</p>
 <p>💡 虚拟机会保证一个类的<code>&lt;clinit&gt;</code>方法在多线程环境中被正确地加锁、同步。如果一个线程的<code>&lt;clinit&gt;</code>方法调用时间过长，就可能造成多个线程阻塞。Demo如下</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ClinitThreadTest</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">new</span> Thread(()-&gt;<span class="keyword">new</span> SimpleObj()).start();</span><br><span class="line">        <span class="keyword">new</span> Thread(()-&gt;<span class="keyword">new</span> SimpleObj()).start();</span><br><span class="line">        <span class="keyword">new</span> Thread(()-&gt;<span class="keyword">new</span> SimpleObj()).start();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">SimpleObj</span></span>&#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">static</span> AtomicBoolean init=<span class="keyword">new</span> AtomicBoolean(<span class="keyword">true</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">static</span> &#123;</span><br><span class="line">            System.out.println(Thread.currentThread().getName()+<span class="string">" i will be init"</span>);</span><br><span class="line">            <span class="keyword">while</span> (init.get())&#123;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(<span class="string">"i am finished"</span>);</span><br><span class="line">       &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -348,7 +348,7 @@
 
 <p>⚡new 一个Obj数组的时候，<strong>会加载</strong>Obj类，<strong>不会初始化</strong>Obj对象，但是会导致另一个类的初始化: <code>Lclassloader_study.misc.Obj</code>  这个类就代表了一个元素类型为Obj的一维数组，数组中应有的属性length和方法clone()都是在这个类实现的，这个类是由JVM在运行期间动态的为我们生成的，这个动作由<code>anewarray</code> 指令触发，而基本类型的数组由 <code>newarray</code> 指令触发。</p>
 <p>⚡ final修饰的常量会在<strong>编译期间</strong>就放到调用这个变量的方法的类的常量池中，既不会加载也不会初始化，这一点可以通过反编译<code>ClassActiveUse</code> 看的到，两个类不存在任何关系了，甚至可以在编译完成后<code>将Obj的class文件删掉</code>仍然可以执行，但是后面的另一个final常量很明显在<strong>编译期间无法确定值</strong>，只有在运行期间才能回去到值，所以会加载并初始化类</p>
-<p>⚡ 对接口的初始化和对类的初始化有一点不同，接口也有初始化过程，接口和类真正有区别是在上面主动使用的第5点，在<strong>子接口被加载的时候并不要求其父接口全部完成了初始化</strong>，只有在真正使用到父接口的时候才会初始化，这一点可以参考前文的 <a href="#③初始化：">类构造器部分</a></p>
+<p>⚡ 对接口的初始化和对类的初始化有一点不同，接口也有初始化过程，接口和类真正有区别是在上面主动使用的第5点，在<strong>子接口被加载的时候并不要求其父接口全部完成了初始化</strong>，只有在真正使用到父接口的时候才会初始化，这一点可以参考前文的 <a href="#%E2%91%A2%E5%88%9D%E5%A7%8B%E5%8C%96%EF%BC%9A">类构造器部分</a></p>
 <blockquote>
 <p><code>-XX:+TraceClassLoading</code> 可以用来追踪类的加载信息并且打印出来</p>
 </blockquote>
@@ -361,7 +361,7 @@
 <h2 id="JVM类加载器"><a href="#JVM类加载器" class="headerlink" title="JVM类加载器"></a>JVM类加载器</h2><h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><blockquote>
 <p>虚拟机设计团队把加载阶段中的 <code>“通过一个类的全限定名来获取描述此类的二进制字节流”</code> 这个动作被放到Java虚拟机外部去实现，以便于让应用程序自己决定如何去获取所需要的类。实现这个动作的代码模块称为 <code>“类加载器”</code></p>
 </blockquote>
-<p> 类加载器并不需要等到某个类被 “首次使用” 时才加载它，这一点从前面讲解的 <a href="#被动使用">被动使用的例子</a> 哪里就看得出来</p>
+<p> 类加载器并不需要等到某个类被 “首次使用” 时才加载它，这一点从前面讲解的 <a href="#%E8%A2%AB%E5%8A%A8%E4%BD%BF%E7%94%A8">被动使用的例子</a> 哪里就看得出来</p>
 <p>JVM规范允许类加载器在预料某个类将要被使用的时候就预先加载它，如果在预先加载的过程中遇到了class文件缺失或者存在错误，类加载器必须在程序<strong>首次主动使用</strong>该类时才报告错误（LinkageError错误）</p>
 <p> 如果这个类一直没有被程序主动使用，那么类加载器就不会报告错误</p>
 <p><img src="http://static.imlgw.top///20190419/pKeI6Bx6lbcX.png?imageslim" alt="JVM类加载器"></p>

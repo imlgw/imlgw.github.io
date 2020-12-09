@@ -311,7 +311,7 @@
 <p>首先明确一点，这里我们对第<code>coins[i]</code>个硬币有两种选择 </p>
 <ol>
 <li>不拿 </li>
-<li>拿，拿1~k个(k为硬币个数的限制，这里没有限制，所以是无穷大)</li>
+<li> 拿，拿1~k个(k为硬币个数的限制，这里没有限制，所以是无穷大)</li>
 </ol>
 <p>进而我们可以的到状态转移的方程：</p>
 <p><code>f[i][j] = min(f[i-1][j], f[i-1][j-c]+1, f[i-1][j-2*c]+2, ..., f[i-1][j-k*c]+k)</code></p>
@@ -469,7 +469,7 @@
 <li><code>letters[i].length == 1</code></li>
 <li><code>score.length == 26</code></li>
 <li><code>0 &lt;= score[i] &lt;= 10</code></li>
-<li><code>words[i] 和 letters[i]</code>只包含小写的英文字母</li>
+<li><code>words[i] 和 letters[i] </code>只包含小写的英文字母</li>
 </ul>
 <p><strong>解法一</strong></p>
 <p>看着题目就知道这题不简单😂，11.10的周赛最后一题，1ms，用01背包的思路做的，很多地方其实还没处理好</p>
@@ -493,7 +493,7 @@
 <figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="number">12</span></span><br><span class="line"><span class="number">4</span></span><br></pre></td></tr></table></figure>
 <p>Source<br>2013腾讯编程马拉松初赛第〇场（3月20日）</p>
 <p><strong>解法一</strong></p>
-<p>三维费用的背包，但是和前面的<a href="#474-一和零">474.一和零</a>还有点不一样，三个维度的费用是无关的，而1和0中1的个数和0的个数是相关的</p>
+<p>三维费用的背包，但是和前面的<a href="#474-%E4%B8%80%E5%92%8C%E9%9B%B6">474.一和零</a>还有点不一样，三个维度的费用是无关的，而1和0中1的个数和0的个数是相关的</p>
 <blockquote>
 <p>代码使用了Petr的输入模板，自己改进了下，增加了输入结束判断，所以看起来特别长</p>
 </blockquote>

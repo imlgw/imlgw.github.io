@@ -260,13 +260,13 @@
 <p>例如: <code>3 4 5 4 3 6</code> </p>
 <p>首先<code>3 4 5</code>都顺利的存入栈中，此时栈中元素为<code>【0，1，2】</code> ，当想存入下一个元素<code>i=3,h[i]=4</code>的时候，发现4比当前栈顶小，所以我们就可以开始计算<strong>完全包含栈中每个柱子</strong>的最大矩形的面积</p>
 <ol>
-<li><p>由于当前<strong><code>i</code></strong> 位置的元素是比栈顶小，那么就说明 <strong><code>i-1</code></strong> 位置的元素一定比当前栈顶元素大！也就是向右边最多扩展到<strong><code>i-1</code></strong>位置</p>
+<li><p>由于当前**<code>i</code>** 位置的元素是比栈顶小，那么就说明 <strong><code>i-1</code></strong> 位置的元素一定比当前栈顶元素大！也就是向右边最多扩展到**<code>i-1</code>**位置</p>
 </li>
-<li><p>由于单调栈的结构，当前栈顶的下一个栈中元素<strong><code>left</code></strong>，其实就是当前栈顶的左边最近的比它小的元素，所以<strong><code>left+1</code></strong>位置的元素一定是比当前栈顶元素大(也有可能相等)！，所以向左边最多扩展到 <strong><code>left+1</code></strong> 位置</p>
+<li><p>由于单调栈的结构，当前栈顶的下一个栈中元素**<code>left</code><strong>，其实就是当前栈顶的左边最近的比它小的元素，所以</strong><code>left+1</code><strong>位置的元素一定是比当前栈顶元素大(也有可能相等)！，所以向左边最多扩展到 **<code>left+1</code></strong> 位置</p>
 </li>
-<li><p>上面其实还分析漏了一种情况，那就是栈顶和 <strong><code>i</code></strong> 位置元素相等的情况，第一点中提到的其实是 <strong><code>i</code></strong> 位置元素小于栈顶的情况，如果相等，那么向右能扩展到的位置还会是<strong><code>i-1</code></strong>么？显然不是，至少应该是<strong><code>i</code></strong>甚至更大，那我们这里计算的右边界不就是错误的？那我们将 <strong><code>=</code></strong> 去掉可以么？去掉之后单调栈就不再是严格单调了，这样的到的右边界确实准确了，但是我们的左边界由于栈中存在相等的元素，就变的不再准确了！</p>
+<li><p>上面其实还分析漏了一种情况，那就是栈顶和 <strong><code>i</code></strong> 位置元素相等的情况，第一点中提到的其实是 <strong><code>i</code></strong> 位置元素小于栈顶的情况，如果相等，那么向右能扩展到的位置还会是**<code>i-1</code><strong>么？显然不是，至少应该是</strong><code>i</code><strong>甚至更大，那我们这里计算的右边界不就是错误的？那我们将 **<code>=</code></strong> 去掉可以么？去掉之后单调栈就不再是严格单调了，这样的到的右边界确实准确了，但是我们的左边界由于栈中存在相等的元素，就变的不再准确了！</p>
 </li>
-<li><p>那我们如何处理这种情况呢？其实根本就不用处理，既然栈顶能<strong>向右</strong>扩展到 <strong><code>i-1</code></strong> 那么反过来，<strong><code>i-1</code></strong> 一样可以<strong>向左</strong>扩展到<strong>栈顶</strong> 位置，进而还可以扩展到<strong><code>left+1</code></strong>位置，而向左扩展的<strong><code>left+1</code></strong>是准确的，不会有误差，所以我们只需要等待 <strong><code>i-1</code></strong>位置的元素弹出，然后就可以重新计算得到最大值，这个最大值肯定是包含之前的哪个最大当然这里其实那个 <strong><code>heights[i]&lt;=heights[stack.peek()]</code></strong> 中的等号也可以去掉，这样栈就不是严格单调的了，<strong><code>left+1</code></strong>也不再准确，但是此时 <strong><code>i-1</code></strong> 就准确了，所以我们可以等待<strong><code>left+1</code></strong> 弹栈之后再重新计算，总而言之，就是相等的情况是不用做额外的处理</p>
+<li><p>那我们如何处理这种情况呢？其实根本就不用处理，既然栈顶能<strong>向右</strong>扩展到 <strong><code>i-1</code></strong> 那么反过来，**<code>i-1</code>** 一样可以<strong>向左</strong>扩展到<strong>栈顶</strong> 位置，进而还可以扩展到**<code>left+1</code><strong>位置，而向左扩展的</strong><code>left+1</code><strong>是准确的，不会有误差，所以我们只需要等待 **<code>i-1</code>**位置的元素弹出，然后就可以重新计算得到最大值，这个最大值肯定是包含之前的哪个最大当然这里其实那个 **<code>heights[i]&lt;=heights[stack.peek()]</code></strong> 中的等号也可以去掉，这样栈就不是严格单调的了，**<code>left+1</code><strong>也不再准确，但是此时 **<code>i-1</code></strong> 就准确了，所以我们可以等待**<code>left+1</code>** 弹栈之后再重新计算，总而言之，就是相等的情况是不用做额外的处理</p>
 <p><img src="http://static.imlgw.top/blog/20200129/gJPOkfEPDxwg.png?imageslim" alt="mark"></p>
 <p>可以看到按照代码中的逻辑在计算完全包含当前绿色的栈顶元素的最大矩形的时候其实只计算到一部分，当计算到后面的相等的柱子的时候会完全包含之前的柱子的值，这样就不会有问题</p>
 </li>
@@ -305,7 +305,7 @@
 <p><strong>说明 :</strong></p>
 <ol>
 <li>输入的数组长度范围在 [1, 10,000]。</li>
-<li>输入的数组可能包含<strong>重复</strong>元素 ，所以<strong>升序</strong>的意思是<strong>&lt;=。</strong></li>
+<li>输入的数组可能包含<strong>重复</strong>元素 ，所以<strong>升序</strong>的意思是**&lt;=。**</li>
 </ol>
 <p><strong>解法一</strong></p>
 <p><del>单调栈的解法明天再写</del></p>
@@ -436,7 +436,7 @@
 <p>惭愧，这题还是看的题解，这题还是挺巧妙的，我们把大于8小时的时间段看作<code>+1</code>，小于8小时的看作<code>-1</code>，这样问题就转换成了求<strong>区间和大于0的最长长度</strong>，而区间和我们又可以联想到用前缀和，这样我们将题目的例子转换一下就变成了</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line">hours:    <span class="number">9</span> <span class="number">9</span>  <span class="number">6</span>  <span class="number">0</span>  <span class="number">6</span>  <span class="number">6</span>  <span class="number">9</span></span><br><span class="line">hours:  <span class="number">0</span> <span class="number">1</span> <span class="number">1</span> -<span class="number">1</span> -<span class="number">1</span> -<span class="number">1</span> -<span class="number">1</span>  <span class="number">1</span></span><br><span class="line">  pre:  <span class="number">0</span> <span class="number">1</span> <span class="number">2</span>  <span class="number">1</span>  <span class="number">0</span> -<span class="number">1</span> -<span class="number">2</span> -<span class="number">1</span></span><br></pre></td></tr></table></figure>
 
-<p>只要<code>pre</code>中两点的前缀<code>pre[j]-pre[i]&gt;0</code>就说明区间<code>[i+1，j]</code>是满足条件的，我们要求的就是满足条件的最长宽度，这样一来问题其实就转换成了和上面<a href="#962-最大宽度坡">962.最大宽度坡</a>一样了，我们按照上面的步骤求解就ok了</p>
+<p>只要<code>pre</code>中两点的前缀<code>pre[j]-pre[i]&gt;0</code>就说明区间<code>[i+1，j]</code>是满足条件的，我们要求的就是满足条件的最长宽度，这样一来问题其实就转换成了和上面<a href="#962-%E6%9C%80%E5%A4%A7%E5%AE%BD%E5%BA%A6%E5%9D%A1">962.最大宽度坡</a>一样了，我们按照上面的步骤求解就ok了</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">longestWPI</span><span class="params">(<span class="keyword">int</span>[] hours)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span>[] pre=<span class="keyword">new</span> <span class="keyword">int</span>[hours.length+<span class="number">1</span>];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=hours.length;i++)&#123;</span><br><span class="line">        pre[i]=pre[i-<span class="number">1</span>]+(hours[i-<span class="number">1</span>]&gt;<span class="number">8</span>?<span class="number">1</span>:-<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    Deque&lt;Integer&gt; stack=<span class="keyword">new</span> ArrayDeque&lt;&gt;();</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;pre.length;i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(stack.isEmpty() || pre[i]&lt;pre[stack.peek()])&#123;</span><br><span class="line">            stack.push(i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> res=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=pre.length-<span class="number">1</span>;i&gt;=<span class="number">0</span>;i--)&#123;</span><br><span class="line">        <span class="keyword">while</span>(!stack.isEmpty() &amp;&amp; pre[i]-pre[stack.peek()]&gt;<span class="number">0</span>)&#123;</span><br><span class="line">            res=Math.max(res,i-stack.pop()); <span class="comment">//不用+1</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="907-子数组的最小值之和"><a href="#907-子数组的最小值之和" class="headerlink" title="907. 子数组的最小值之和"></a><a href="https://leetcode-cn.com/problems/sum-of-subarray-minimums/" target="_blank" rel="noopener">907. 子数组的最小值之和</a></h2><p>给定一个整数数组 <code>A</code>，找到 <code>min(B)</code> 的总和，其中 <code>B</code> 的范围为 <code>A</code> 的每个（连续）子数组。</p>
@@ -462,7 +462,7 @@
 <p>在看了大佬的做法后发现上面的是可以化简的：<code>a*b+a+b+1=(a+1)*(b+1)</code></p>
 </blockquote>
 <h2 id="5454-统计全-1-子矩形"><a href="#5454-统计全-1-子矩形" class="headerlink" title="5454. 统计全 1 子矩形"></a><a href="https://leetcode-cn.com/problems/count-submatrices-with-all-ones/" target="_blank" rel="noopener">5454. 统计全 1 子矩形</a></h2><p>Difficulty: <strong>中等</strong></p>
-<p>给你一个只包含 0 和 1 的 <code>rows * columns</code> 矩阵 <code>mat</code> ，请你返回有多少个 <strong>子矩形</strong> 的元素全部都是 1 。</p>
+<p>给你一个只包含 0 和 1 的 <code>rows * columns</code> 矩阵 <code>mat</code> ，请你返回有多少个 <strong>子矩形</strong> 的元素全部都是 1 。</p>
 <p><strong>示例 1：</strong></p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">输入：mat &#x3D; [[1,0,1],</span><br><span class="line">            [1,1,0],</span><br><span class="line">            [1,1,0]]</span><br><span class="line">输出：13</span><br><span class="line">解释：</span><br><span class="line">有 6 个 1x1 的矩形。</span><br><span class="line">有 2 个 1x2 的矩形。</span><br><span class="line">有 3 个 2x1 的矩形。</span><br><span class="line">有 1 个 2x2 的矩形。</span><br><span class="line">有 1 个 3x1 的矩形。</span><br><span class="line">矩形数目总共 &#x3D; 6 + 2 + 3 + 1 + 1 &#x3D; 13 。</span><br></pre></td></tr></table></figure>
 
@@ -477,9 +477,9 @@
 
 <p><strong>提示：</strong></p>
 <ul>
-<li><code>1 &lt;= rows &lt;= 150</code></li>
-<li><code>1 &lt;= columns &lt;= 150</code></li>
-<li><code>0 &lt;= mat[i][j] &lt;= 1</code></li>
+<li>  <code>1 &lt;= rows &lt;= 150</code></li>
+<li>  <code>1 &lt;= columns &lt;= 150</code></li>
+<li>  <code>0 &lt;= mat[i][j] &lt;= 1</code></li>
 </ul>
 <p><strong>解法一</strong></p>
 <p>196周赛T3，感觉还是挺难的，不过数据量比较小，只有150，所以暴力其实就可以</p>
@@ -499,7 +499,7 @@
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">numSubmat</span><span class="params">(<span class="keyword">int</span>[][] mat)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> m = mat.length;</span><br><span class="line">    <span class="keyword">int</span> n = mat[<span class="number">0</span>].length;</span><br><span class="line">    <span class="comment">//预处理mat[i][j]上边有多少个连续的1</span></span><br><span class="line">    <span class="keyword">int</span>[][] upCnt= <span class="keyword">new</span> <span class="keyword">int</span>[m][n];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(mat[i][j] == <span class="number">1</span>)&#123;</span><br><span class="line">                upCnt[i][j] = i==<span class="number">0</span> ? mat[i][j]&amp;<span class="number">1</span> : upCnt[i-<span class="number">1</span>][j]+<span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//单调递增栈维护列的长度</span></span><br><span class="line">    Deque&lt;<span class="keyword">int</span>[]&gt; stack = <span class="keyword">new</span> ArrayDeque&lt;&gt;();</span><br><span class="line">    <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; m; i++)&#123;</span><br><span class="line">        stack.clear();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; j++) &#123;</span><br><span class="line">            <span class="keyword">while</span>(!stack.isEmpty() &amp;&amp; upCnt[i][stack.peek()[<span class="number">0</span>]] &gt; upCnt[i][j])&#123;</span><br><span class="line">                stack.pop();</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">int</span>[] pair = stack.isEmpty() ? <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;-<span class="number">1</span>,<span class="number">0</span>&#125; : stack.peek();</span><br><span class="line">            <span class="comment">//以当前栈顶元素mat[i][pair[0]]为右下角能形成矩形个数</span></span><br><span class="line">            <span class="keyword">int</span> cur = (j-pair[<span class="number">0</span>]) * upCnt[i][j] + pair[<span class="number">1</span>];</span><br><span class="line">            res += cur;</span><br><span class="line">            <span class="comment">//将mat[i][j]的索引j和以其为右下角形成的矩阵个数cur也存入单调栈</span></span><br><span class="line">            stack.push(<span class="keyword">new</span> <span class="keyword">int</span>[]&#123;j, cur&#125;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>这个思路比上面要容易理解多了</p>
 <h2 id="面试题-03-05-栈排序"><a href="#面试题-03-05-栈排序" class="headerlink" title="面试题 03.05. 栈排序"></a><a href="https://leetcode-cn.com/problems/sort-of-stacks-lcci/" target="_blank" rel="noopener">面试题 03.05. 栈排序</a></h2><p>Difficulty: <strong>中等</strong></p>
-<p>栈排序。 编写程序，对栈进行排序使最小元素位于栈顶。最多只能使用一个其他的临时栈存放数据，但不得将元素复制到别的数据结构（如数组）中。该栈支持如下操作：<code>push</code>、<code>pop</code>、<code>peek</code> 和 <code>isEmpty</code>。当栈为空时，<code>peek</code> 返回 -1。</p>
+<p>栈排序。 编写程序，对栈进行排序使最小元素位于栈顶。最多只能使用一个其他的临时栈存放数据，但不得将元素复制到别的数据结构（如数组）中。该栈支持如下操作：<code>push</code>、<code>pop</code>、<code>peek</code> 和 <code>isEmpty</code>。当栈为空时，<code>peek</code> 返回 -1。</p>
 <p><strong>示例1:</strong></p>
 <figure class="highlight go"><table><tr><td class="code"><pre><span class="line"> 输入：</span><br><span class="line">[<span class="string">"SortedStack"</span>, <span class="string">"push"</span>, <span class="string">"push"</span>, <span class="string">"peek"</span>, <span class="string">"pop"</span>, <span class="string">"peek"</span>]</span><br><span class="line">[[], [<span class="number">1</span>], [<span class="number">2</span>], [], [], []]</span><br><span class="line"> 输出：</span><br><span class="line">[null,null,null,<span class="number">1</span>,null,<span class="number">2</span>]</span><br></pre></td></tr></table></figure>
 
@@ -508,7 +508,7 @@
 
 <p><strong>说明:</strong></p>
 <ol>
-<li>栈中的元素数目在[0, 5000]范围内。</li>
+<li> 栈中的元素数目在[0, 5000]范围内。</li>
 </ol>
 <p><strong>解法一</strong></p>
 <p>之前在书上看到过这一题，但是时间久了忘了咋做了，只记得是单调栈，思考了下还是写出来了</p>

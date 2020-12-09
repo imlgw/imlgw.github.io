@@ -199,7 +199,7 @@
 
 <p>然后修改路径：hexo_bolg/themes/your-theme/layout/_partial下的article.ejs文件，在<code>&lt;% if (!index &amp;&amp; post.comments){ %&gt;</code> 代码块下添加如下代码：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;% if (!index)&#123; %&gt;</span><br><span class="line">  &lt;% if (post.comments)&#123; %&gt;</span><br><span class="line">  &lt;%- partial(&#39;post&#x2F;livere&#39;) %&gt;</span><br><span class="line">  &lt;% &#125; else &#123; %&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;lv-container&quot;&gt;&lt;&#x2F;div&gt;</span><br><span class="line">  &lt;% &#125; %&gt;</span><br><span class="line">&lt;% &#125; %&gt;</span><br></pre></td></tr></table></figure>
-<p><img src="http://p0.cdn.img9.top/ipfs/QmWwSjQj5zqz5mAgEtYjgTBRXRqBapvZMaEzArt8xRqQm2?0.jpg" alt=""></p>
+<p><img src="http://p0.cdn.img9.top/ipfs/QmWwSjQj5zqz5mAgEtYjgTBRXRqBapvZMaEzArt8xRqQm2?0.jpg"></p>
 <p><del>此时LiveRe已经添加OK了，重新部署你的博客然后刷新页面就可以看到博客中添加好了LiveRe评论</del><br>换了 Valine</p>
 
     </div>

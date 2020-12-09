@@ -199,29 +199,26 @@
 </ul>
 <h3 id="1-配置CAS服务端"><a href="#1-配置CAS服务端" class="headerlink" title="1. 配置CAS服务端"></a>1. 配置CAS服务端</h3><p>从上面的架构图也可以大概知道CAS运作的方式,首先配置好CAS的Server端，直接将CAS的war包拷到tomcat的webapp目录下然后启动tomcat自动解压就可以了，这里我设置的tomcat的端口是8888，地址栏输入localhost:8888/cas能看到CAS的登陆界面说明部署成功</p>
 <ul>
-<li><p>去除https<br> CAS默认使用的是HTTPS协议，如果使用HTTPS协议需要SSL安全证书（需向特定的机构申请和购买） 。如果对安全要求不高或是在开发测试阶段，可使用HTTP协议。我们这里讲解通过修改配置，让CAS使用HTTP协议。</p>
+<li><p>去除https<br>  CAS默认使用的是HTTPS协议，如果使用HTTPS协议需要SSL安全证书（需向特定的机构申请和购买） 。如果对安全要求不高或是在开发测试阶段，可使用HTTP协议。我们这里讲解通过修改配置，让CAS使用HTTP协议。</p>
 <ul>
 <li><p>修改cas的WEB-INF/deployerConfigContext.xml找到下面的配置<br><bean class="org.jasig.cas.authentication.handler.support.HttpBasedServiceCredentialsAuthenticationHandler"
 p:httpClient-ref="httpClient"/><br>这里需要增加参数p:requireSecure=”false”，requireSecure属性意思为是否需要安全验证，即HTTPS，false为不采用</p>
-<ul>
+</li>
 <li><p>修改cas的/WEB-INF/spring-configuration/ticketGrantingTicketCookieGenerator.xml<br>找到下面配置<br><bean id="ticketGrantingTicketCookieGenerator" class="org.jasig.cas.web.support.CookieRetrievingCookieGenerator"
-p:cookieSecure="true"
-p:cookieMaxAge="-1"
-p:cookieName="CASTGC"
-p:cookiePath="/cas" /></p>
+ p:cookieSecure="true"
+ p:cookieMaxAge="-1"
+ p:cookieName="CASTGC"
+ p:cookiePath="/cas" /></p>
 </li>
 <li><p>参数p:cookieSecure=”true”，同理为HTTPS验证相关，TRUE为采用HTTPS验证，FALSE为不采用https验证。<br>参数p:cookieMaxAge=”-1”，是COOKIE的最大生命周期，-1为无生命周期，即只在当前打开的窗口有效，关闭或重新打开其它窗口，仍会要求验证。可以根据需要修改为大于0的数字，比如3600等，意思是在3600秒内，打开任意窗口，都不需要验证。</p>
-<p>我们这里将cookieSecure改为false , cookieMaxAge 改为3600</p>
+<p>   我们这里将cookieSecure改为false , cookieMaxAge 改为3600</p>
 </li>
-</ul>
-</li>
-</ul>
-<ul>
-<li>修改cas的WEB-INF/spring-configuration/warnCookieGenerator.xml<br>   <bean id="warnCookieGenerator" class="org.jasig.cas.web.support.CookieRetrievingCookieGenerator"
+<li><p>修改cas的WEB-INF/spring-configuration/warnCookieGenerator.xml<br>   <bean id="warnCookieGenerator" class="org.jasig.cas.web.support.CookieRetrievingCookieGenerator"
    p:cookieSecure="true"
    p:cookieMaxAge="-1"
    p:cookieName="CASPRIVACY"
-   p:cookiePath="/cas" /><br>我们这里将cookieSecure改为false , cookieMaxAge 改为3600</li>
+   p:cookiePath="/cas" /><br>我们这里将cookieSecure改为false , cookieMaxAge 改为3600</p>
+</li>
 </ul>
 </li>
 </ul>
@@ -231,20 +228,12 @@ p:cookiePath="/cas" /></p>
 <li><p>cas有默认的密码但是实际中肯定是要从数据库中查的，所以我们需要配置下数据源</p>
 </li>
 <li><p>修改cas服务端中web-inf下deployerConfigContext.xml ，添加如下配置</p>
-   <figure class="highlight java"><table><tr><td class="code"><pre><span class="line">&lt;bean id=<span class="string">"dataSource"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"com.mchange.v2.c3p0.ComboPooledDataSource"</span> </span><br><span class="line"> p:driverClass=<span class="string">"com.mysql.jdbc.Driver"</span></span><br><span class="line"> p:jdbcUrl=<span class="string">"jdbc:mysql://127.0.0.1:3306/pinyougoudb?characterEncoding=utf8"</span></span><br><span class="line"> p:user=<span class="string">"root"</span></span><br><span class="line"> p:password=<span class="string">"123456"</span> /&gt;</span><br><span class="line">&lt;bean id=<span class="string">"passwordEncoder"</span></span><br><span class="line"><span class="class"><span class="keyword">class</span></span>=<span class="string">"org.jasig.cas.authentication.handler.DefaultPasswordEncoder"</span> </span><br><span class="line"> c:encodingAlgorithm=<span class="string">"MD5"</span></span><br><span class="line"> p:characterEncoding=<span class="string">"UTF-8"</span> /&gt;</span><br><span class="line">&lt;bean id=<span class="string">"dbAuthHandler"</span> </span><br><span class="line"> <span class="class"><span class="keyword">class</span></span>=<span class="string">"org.jasig.cas.adaptors.jdbc.QueryDatabaseAuthenticationHandler"</span></span><br><span class="line"> p:dataSource-ref=<span class="string">"dataSource"</span></span><br><span class="line"> p:sql=<span class="string">"select password from tb_user where username = ?"</span></span><br><span class="line"> p:passwordEncoder-ref=<span class="string">"passwordEncoder"</span>/&gt;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>然后在配置文件开始部分找到如下配置</li>
-</ul>
+   <figure class="highlight java"><table><tr><td class="code"><pre><span class="line">&lt;bean id=<span class="string">"dataSource"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"com.mchange.v2.c3p0.ComboPooledDataSource"</span> </span><br><span class="line"> p:driverClass=<span class="string">"com.mysql.jdbc.Driver"</span></span><br><span class="line"> p:jdbcUrl=<span class="string">"jdbc:mysql://127.0.0.1:3306/pinyougoudb?characterEncoding=utf8"</span></span><br><span class="line"> p:user=<span class="string">"root"</span></span><br><span class="line"> p:password=<span class="string">"123456"</span> /&gt;</span><br><span class="line">&lt;bean id=<span class="string">"passwordEncoder"</span></span><br><span class="line"><span class="class"><span class="keyword">class</span></span>=<span class="string">"org.jasig.cas.authentication.handler.DefaultPasswordEncoder"</span> </span><br><span class="line"> c:encodingAlgorithm=<span class="string">"MD5"</span></span><br><span class="line"> p:characterEncoding=<span class="string">"UTF-8"</span> /&gt;</span><br><span class="line">&lt;bean id=<span class="string">"dbAuthHandler"</span> </span><br><span class="line"> <span class="class"><span class="keyword">class</span></span>=<span class="string">"org.jasig.cas.adaptors.jdbc.QueryDatabaseAuthenticationHandler"</span></span><br><span class="line"> p:dataSource-ref=<span class="string">"dataSource"</span></span><br><span class="line"> p:sql=<span class="string">"select password from tb_user where username = ?"</span></span><br><span class="line"> p:passwordEncoder-ref=<span class="string">"passwordEncoder"</span>/&gt;</span><br></pre></td></tr></table></figure></li>
+<li><p>然后在配置文件开始部分找到如下配置</p>
 <figure class="highlight"><table><tr><td class="code"><pre><span class="line"> &lt;bean id=<span class="string">"authenticationManager"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"org.jasig.cas.authentication.PolicyBasedAuthenticationManager"</span>&gt;</span><br><span class="line">        &lt;constructor-arg&gt;</span><br><span class="line">            &lt;map&gt;               </span><br><span class="line">                &lt;entry key-ref=<span class="string">"proxyAuthenticationHandler"</span> value-ref=<span class="string">"proxyPrincipalResolver"</span> /&gt;</span><br><span class="line">                &lt;entry key-ref=<span class="string">"primaryAuthenticationHandler"</span> value-ref=<span class="string">"primaryPrincipalResolver"</span> /&gt;</span><br><span class="line">            &lt;/map&gt;</span><br><span class="line">        &lt;/constructor-arg&gt;      </span><br><span class="line">        &lt;property name=<span class="string">"authenticationPolicy"</span>&gt;</span><br><span class="line">            &lt;bean <span class="class"><span class="keyword">class</span></span>=<span class="string">"org.jasig.cas.authentication.AnyAuthenticationPolicy"</span> /&gt;</span><br><span class="line">        &lt;/property&gt;</span><br><span class="line">&lt;/bean&gt;</span><br></pre></td></tr></table></figure>
 <p>其中 <entry key-ref="primaryAuthenticationHandler" value-ref="primaryPrincipalResolver" />一句是使用固定的用户名和密码，我们在下面可以看到这两个bean ,如果我们使用数据库认证用户名和密码，需要将这句注释掉。<br>添加下面这一句配置</p>
-<entry key-ref="dbAuthHandler" value-ref="primaryPrincipalResolver"/>
-- 将三个jar包加入到cas的lib目录下
-![oss](https://imlgwpicture.oss-cn-qingdao.aliyuncs.com/blogImage/casjar.PNG)
-第一个和第三个大家应该很熟悉了，中间的那个是cas对jdbc的支持包
-
-
-
-
+<entry key-ref="dbAuthHandler" value-ref="primaryPrincipalResolver"/></li>
+<li><p>将三个jar包加入到cas的lib目录下<br><img src="https://imlgwpicture.oss-cn-qingdao.aliyuncs.com/blogImage/casjar.PNG" alt="oss"><br>第一个和第三个大家应该很熟悉了，中间的那个是cas对jdbc的支持包</p>
 </li>
 </ul>
 </li>

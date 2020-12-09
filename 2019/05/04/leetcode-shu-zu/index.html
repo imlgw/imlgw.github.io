@@ -271,7 +271,7 @@
 <p>这个解法其实就是单调栈😂，当时还是菜鸟根本就不懂，现在回头一看就懂了hahaha~ </p>
 <p>放到<a href="http://imlgw.top/2019/10/01/leetcode-zhan-dui-lie/#%E5%8D%95%E8%B0%83%E6%A0%88">单调栈专题</a>里面解释了</p>
 </blockquote>
-<h2 id="15-三数之和"><a href="#15-三数之和" class="headerlink" title="15. 三数之和"></a><a href="https://leetcode-cn.com/problems/3sum/" target="_blank" rel="noopener">15. 三数之和</a></h2><p>给定一个包含 <em>n</em> 个整数的数组 <code>nums</code>，判断 <code>nums</code> 中是否存在三个元素 <em>a，b，c ，*使得 *a + b + c =</em> 0 ？找出所有满足条件且不重复的三元组。</p>
+<h2 id="15-三数之和"><a href="#15-三数之和" class="headerlink" title="15. 三数之和"></a><a href="https://leetcode-cn.com/problems/3sum/" target="_blank" rel="noopener">15. 三数之和</a></h2><p>给定一个包含 <em>n</em> 个整数的数组 <code>nums</code>，判断 <code>nums</code> 中是否存在三个元素 <em>a，b，c ，</em>使得 <em>a + b + c =</em> 0 ？找出所有满足条件且不重复的三元组。</p>
 <p><strong>注意：</strong>答案中不可以包含重复的三元组。</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line">例如, 给定数组 nums = [-<span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, -<span class="number">1</span>, -<span class="number">4</span>]，</span><br><span class="line"></span><br><span class="line">满足要求的三元组集合为：</span><br><span class="line">[</span><br><span class="line">  [-<span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>],</span><br><span class="line">  [-<span class="number">1</span>, -<span class="number">1</span>, <span class="number">2</span>]</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
 
@@ -332,7 +332,7 @@
 <p>上面题目加一点，在前后相等的时候判断index前是否已经有两个相等</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">removeDuplicates</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> index=<span class="number">2</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">2</span>;i&lt;nums.length;i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(nums[i]!=nums[i-<span class="number">1</span>] || (nums[i]==nums[i-<span class="number">1</span>] &amp;&amp; nums[index-<span class="number">2</span>]!=nums[index-<span class="number">1</span>]))&#123;</span><br><span class="line">            nums[index++]=nums[i];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> index;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h2 id="27-移除元素"><a href="#27-移除元素" class="headerlink" title="27. 移除元素"></a><a href="https://leetcode-cn.com/problems/remove-element/" target="_blank" rel="noopener">27. 移除元素</a></h2><p>给定一个数组 <em>nums</em> 和一个值 <em>val<em>，你需要*</em>原地**移除所有数值等于 *val</em> 的元素，返回移除后数组的新长度。</p>
+<h2 id="27-移除元素"><a href="#27-移除元素" class="headerlink" title="27. 移除元素"></a><a href="https://leetcode-cn.com/problems/remove-element/" target="_blank" rel="noopener">27. 移除元素</a></h2><p>给定一个数组 <em>nums</em> 和一个值 <em>val</em>，你需要<strong>原地</strong>移除所有数值等于 <em>val</em> 的元素，返回移除后数组的新长度。</p>
 <p>不要使用额外的数组空间，你必须在<strong>原地修改输入数组</strong>并在使用 O(1) 额外空间的条件下完成。</p>
 <p>元素的顺序可以改变。你不需要考虑数组中超出新长度后面的元素。</p>
 <p><strong>示例 1:</strong></p>
@@ -380,7 +380,7 @@
 <ul>
 <li><p>第一步，逆序找到第一个峰值的左边第一个元素 <code>a[i-1]</code>。</p>
 </li>
-<li><p>将峰值右边的<strong>最小的</strong>比<code>a[i-1]</code>大的<code>a[j]</code>(其实就是<code>右边最后一个比它大的元素</code>)元素与<strong>a[i-1]</strong>交换。</p>
+<li><p>将峰值右边的<strong>最小的</strong>比<code>a[i-1]</code>大的<code>a[j]</code>(其实就是<code>右边最后一个比它大的元素</code>)元素与**a[i-1]**交换。</p>
 </li>
 <li><p>翻转刚刚调整过<code>a[i-1]</code>后面的逆序的数组(<code>a[i]--&gt;a[len-1]</code>)。</p>
 </li>
@@ -545,7 +545,7 @@
 
 <p>1ms ，98%beats.</p>
 <p><strong>解法二</strong></p>
-<p>看了下评论区发现自己还是太年轻了，原来这题是可以在<strong>O(1)</strong>的空间复杂度下完成的</p>
+<p>看了下评论区发现自己还是太年轻了，原来这题是可以在**O(1)**的空间复杂度下完成的</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">merge3</span><span class="params">(<span class="keyword">int</span>[] nums1, <span class="keyword">int</span> m, <span class="keyword">int</span>[] nums2, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(nums1.length&lt;=<span class="number">0</span>||nums2.length&lt;=<span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> i1=m-<span class="number">1</span>,i2=n-<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i=m+n-<span class="number">1</span>;i&gt;=<span class="number">0</span>;i--) &#123;</span><br><span class="line">        <span class="keyword">if</span>(i1&lt;<span class="number">0</span>)&#123;</span><br><span class="line">            nums1[i]=nums2[i2--];</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span>(i2&lt;<span class="number">0</span>)&#123;</span><br><span class="line">            nums1[i]=nums1[i1--];</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span>(nums1[i1]&gt;nums2[i2]) &#123;</span><br><span class="line">            nums1[i]=nums1[i1--];</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span>(nums1[i1]&lt;=nums2[i2] )&#123;</span><br><span class="line">            nums1[i]=nums2[i2--];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>合并后的长度确定，nums1的空间也足够，所以完全可以从后往前，从大到小，从而避免了使用额外的空间储存结果，学到了学到了👏</p>
@@ -724,7 +724,7 @@
 <p>其实还有一类做法，利用<code>快排+二分</code>的思想，一般也被称为快选</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">findKthLargest</span><span class="params">(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n=nums.length;</span><br><span class="line">    <span class="keyword">int</span> left=<span class="number">0</span>,right=nums.length-<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(left&lt;=right)&#123;</span><br><span class="line">        <span class="comment">//分治</span></span><br><span class="line">        <span class="keyword">int</span> base=partion(nums,left,right); <span class="comment">//拿到划分点</span></span><br><span class="line">        <span class="keyword">if</span>(base&lt;n-k)&#123;</span><br><span class="line">            left=base+<span class="number">1</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span>(base&gt;n-k)&#123;</span><br><span class="line">            right=base-<span class="number">1</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> nums[base];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">partion</span><span class="params">(<span class="keyword">int</span> []nums,<span class="keyword">int</span> left,<span class="keyword">int</span> right)</span></span>&#123;</span><br><span class="line">    <span class="comment">//随机取值</span></span><br><span class="line">    swap(nums,left,left+(<span class="keyword">int</span>) (Math.random() * (right - left + <span class="number">1</span>)));</span><br><span class="line">    <span class="keyword">int</span> base=left;</span><br><span class="line">    <span class="keyword">while</span>(left&lt;right)&#123;</span><br><span class="line">        <span class="keyword">while</span>(left&lt;right&amp;&amp;nums[right]&gt;nums[base])&#123;</span><br><span class="line">            right--;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span>(left&lt;right&amp;&amp;nums[left]&lt;=nums[base])&#123;</span><br><span class="line">            left++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(left&lt;right)&#123;</span><br><span class="line">            swap(nums,left,right);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//归位</span></span><br><span class="line">    swap(nums,left,base);</span><br><span class="line">    <span class="keyword">return</span> left;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span>  <span class="keyword">void</span>  <span class="title">swap</span><span class="params">(<span class="keyword">int</span> []nums,<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> temp=nums[a];</span><br><span class="line">    nums[a]=nums[b];</span><br><span class="line">    nums[b]=temp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>这里最好用<strong>随机</strong>的<strong>partition</strong>，我试了下<strong>不随机</strong>大概<code>50+ms 30%beat</code>，这种随机的大概<code>3ms 97%beats</code>，差距还是很大的，时间复杂度是<strong>O(N)</strong></p>
+<p>这里最好用<strong>随机</strong>的<strong>partition</strong>，我试了下<strong>不随机</strong>大概<code>50+ms 30%beat</code>，这种随机的大概<code>3ms 97%beats </code>，差距还是很大的，时间复杂度是<strong>O(N)</strong></p>
 <blockquote>
 <p>至于为什么是O(N)，我们可以来分析下，这里<strong>假设每次划分都是差不多中点的位置</strong>，如果是快排，那么在<strong>partition</strong>之后依然需要两边的子数组进行<strong>partition</strong>，分治整个递归栈的高度就是<code>logN</code>，每层都是N，所以整体的复杂度就<strong>O(NlogN)</strong>….扯远了，回到正题</p>
 <p>来说说我们这里为什么是O(N)，这里我们沿用前面的分析过程，递归栈深度依然是<code>logN</code>，但是我们在这里第一次确定划分点的相对<strong>k</strong>的位置后，下一步<strong>只需要划分其中一边的元素，不用对另一边的元素继续</strong>，也就是n/2，再往下就是n/4，n/8，n/16 ….   而 <code>(1+1/2+1/4+1/8+......1/2^n)n &lt;=2n</code> ，也就是说整体的复杂度是低于O(2N)的，所以这里复杂度就是O(N)</p>
@@ -744,7 +744,7 @@
 <p><a href="https://zhuanlan.zhihu.com/p/31498036" target="_blank" rel="noopener">具体的时间复杂度证明</a>，当n取5时候，在划分的时候<strong>至少</strong>会大于<strong>3n/10</strong>的元素，避免了极端情况，保证在最坏情况下也不会太坏。</p>
 <p><img src="http://static.imlgw.top/image/20190617/Lc4M5f2qkegH.png?imageslim" alt="mark"></p>
 <p>如上图，每一列为分好的一组元素，中间黄色部分为每组的中位数，红色块为<strong>中位数的中位数</strong>，这个中位数至少会大于等于左上角黑框框住的部分，所以在划分的时候会保证至少减小大约3n/10 的规模。</p>
-<p>所以时间复杂度   <code>T(N)&lt;=T(n/5)+T( 7n/10)+c*n</code>  总体时间复杂度<strong>O(N)</strong>，至于为什么不用其他的元素可以看看上面的那篇文章。</p>
+<p>所以时间复杂度   <code>T(N)&lt;=T(n/5)+T( 7n/10)+c*n</code>  总体时间复杂度**O(N)**，至于为什么不用其他的元素可以看看上面的那篇文章。</p>
 <h2 id="347-前-K-个高频元素"><a href="#347-前-K-个高频元素" class="headerlink" title="347. 前 K 个高频元素"></a><a href="https://leetcode-cn.com/problems/top-k-frequent-elements/" target="_blank" rel="noopener">347. 前 K 个高频元素</a></h2><p>给定一个非空的整数数组，返回其中出现频率前 k 高的元素。</p>
 <p><strong>示例 1:</strong></p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line">输入: nums = [<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">2</span>,<span class="number">3</span>], k = <span class="number">2</span></span><br><span class="line">输出: [<span class="number">1</span>,<span class="number">2</span>]</span><br></pre></td></tr></table></figure>
@@ -1065,9 +1065,9 @@
 <li><p>如果文件夹 <code>folder[i]</code> 位于另一个文件夹 <code>folder[j]</code> 下，那么 <code>folder[i]</code> 就是 <code>folder[j]</code> 的子文件夹。<br>文件夹的「路径」是由一个或多个按以下格式串联形成的字符串：</p>
 </li>
 <li><p><code>/</code> 后跟一个或者多个小写英文字母。<br>例如，<code>/leetcode</code> 和 <code>/leetcode/problems</code> 都是有效的路径，而空字符串和 <code>/</code> 不是。</p>
-<p><strong>示例 1：</strong></p>
 </li>
 </ul>
+<p> <strong>示例 1：</strong></p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line">输入：folder = [<span class="string">"/a"</span>,<span class="string">"/a/b"</span>,<span class="string">"/c/d"</span>,<span class="string">"/c/d/e"</span>,<span class="string">"/c/f"</span>]</span><br><span class="line">输出：[<span class="string">"/a"</span>,<span class="string">"/c/d"</span>,<span class="string">"/c/f"</span>]</span><br><span class="line">解释：<span class="string">"/a/b/"</span> 是 <span class="string">"/a"</span> 的子文件夹，而 <span class="string">"/c/d/e"</span> 是 <span class="string">"/c/d"</span> 的子文件夹。</span><br></pre></td></tr></table></figure>
 
 
@@ -1105,7 +1105,7 @@
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">longestPalindrome</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (s==<span class="keyword">null</span> || s.length()&lt;=<span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">""</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    String res=s.charAt(<span class="number">0</span>)+<span class="string">""</span>;<span class="comment">//只有1个字符</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;s.length();i++) &#123;</span><br><span class="line">        String even=palindrome(s,i-<span class="number">1</span>,i); <span class="comment">//偶数长度回文,从两个字符中间开始扩散</span></span><br><span class="line">        String odd=palindrome(s,i,i); <span class="comment">//奇数长度回文,从某一个字符开始扩散</span></span><br><span class="line">        String temp=odd.length()&gt;even.length()?odd:even;</span><br><span class="line">        <span class="keyword">if</span> (temp.length()&gt;res.length()) &#123;</span><br><span class="line">            res=temp;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">palindrome</span><span class="params">(String s,<span class="keyword">int</span> i,<span class="keyword">int</span> j)</span></span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(i&gt;=<span class="number">0</span> &amp;&amp; j&lt;=s.length()-<span class="number">1</span> &amp;&amp; s.charAt(i)==s.charAt(j))&#123;</span><br><span class="line">        i--;</span><br><span class="line">        j++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> s.substring(i+<span class="number">1</span>,j);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>如果采用暴力法的话就是枚举所有子串，判断是不是回文串，最后求个最长的，时间复杂度<code>O(N^3)</code> ，但是我们可以利用回文的特征，利用中心扩散法，以<code>str</code>的<strong>各个位置</strong>作为中心，向两边扩散，最后求得最大值，注意得这里说的是<strong>各个位置</strong>，这个里面其实就包含了元素之间的间隙，其实整体思路还是挺简单的，但经过我们小小的转换思路，时间复杂度就降低到了<code>O(N^2)</code>，当然，这里还不是最优解，最优应该是<a href="https://oi-wiki.org/string/manacher/" target="_blank" rel="noopener">Manacher</a> （马拉车）算法，等后面有时间我再来研究这种算法</p>
 <h2 id="336-回文对"><a href="#336-回文对" class="headerlink" title="336. 回文对"></a><a href="https://leetcode-cn.com/problems/palindrome-pairs/" target="_blank" rel="noopener">336. 回文对</a></h2><p>Difficulty: <strong>困难</strong></p>
-<p>给定一组 <strong>互不相同</strong> 的单词， 找出所有<strong>不同</strong>的索引对<code>(i, j)</code>，使得列表中的两个单词， <code>words[i] + words[j]</code> ，可拼接成回文串。</p>
+<p>给定一组 <strong>互不相同</strong> 的单词， 找出所有<strong>不同</strong>的索引对<code>(i, j)</code>，使得列表中的两个单词， <code>words[i] + words[j]</code> ，可拼接成回文串。</p>
 <p><strong>示例 1：</strong></p>
 <figure class="highlight go"><table><tr><td class="code"><pre><span class="line">输入：[<span class="string">"abcd"</span>,<span class="string">"dcba"</span>,<span class="string">"lls"</span>,<span class="string">"s"</span>,<span class="string">"sssll"</span>]</span><br><span class="line">输出：[[<span class="number">0</span>,<span class="number">1</span>],[<span class="number">1</span>,<span class="number">0</span>],[<span class="number">3</span>,<span class="number">2</span>],[<span class="number">2</span>,<span class="number">4</span>]] </span><br><span class="line">解释：可拼接成的回文串为 [<span class="string">"dcbaabcd"</span>,<span class="string">"abcddcba"</span>,<span class="string">"slls"</span>,<span class="string">"llssssll"</span>]</span><br></pre></td></tr></table></figure>
 
@@ -1543,7 +1543,8 @@ C -&gt; 3
 Z -&gt; 26
 AA -&gt; 27
 AB -&gt; 28 
-...</code></pre><p><strong>示例 1:</strong></p>
+...</code></pre>
+<p><strong>示例 1:</strong></p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line">输入: <span class="string">"A"</span></span><br><span class="line">输出: <span class="number">1</span></span><br></pre></td></tr></table></figure>
 
 <p><strong>示例 2:</strong></p>
@@ -1634,7 +1635,7 @@ AB -&gt; 28
 <h2 id="面试题45-把数组排成最小的数"><a href="#面试题45-把数组排成最小的数" class="headerlink" title="面试题45. 把数组排成最小的数"></a><a href="https://leetcode-cn.com/problems/ba-shu-zu-pai-cheng-zui-xiao-de-shu-lcof/" target="_blank" rel="noopener">面试题45. 把数组排成最小的数</a></h2><p>输入一个非负整数数组，把数组里所有数字拼接起来排成一个数，打印能拼接出的所有数字中最小的一个。</p>
 <p><strong>示例 1:</strong></p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line">输入: [<span class="number">10</span>,<span class="number">2</span>]</span><br><span class="line">输出: <span class="string">"102"</span></span><br></pre></td></tr></table></figure>
-<p><strong>示例 2:</strong></p>
+<p><strong>示例 2:</strong></p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line">输入: [<span class="number">3</span>,<span class="number">30</span>,<span class="number">34</span>,<span class="number">5</span>,<span class="number">9</span>]</span><br><span class="line">输出: <span class="string">"3033459"</span></span><br></pre></td></tr></table></figure>
 
 <p><strong>提示:</strong></p>
@@ -1650,7 +1651,7 @@ AB -&gt; 28
 <h2 id="179-最大数"><a href="#179-最大数" class="headerlink" title="179. 最大数"></a><a href="https://leetcode-cn.com/problems/largest-number/" target="_blank" rel="noopener">179. 最大数</a></h2><p>给定一组非负整数，重新排列它们的顺序使之组成一个最大的整数。</p>
 <p><strong>示例 1:</strong></p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line">输入: [<span class="number">10</span>,<span class="number">2</span>]</span><br><span class="line">输出: <span class="number">210</span></span><br></pre></td></tr></table></figure>
-<p><strong>示例 2:</strong></p>
+<p><strong>示例 2:</strong></p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line">输入: [<span class="number">3</span>,<span class="number">30</span>,<span class="number">34</span>,<span class="number">5</span>,<span class="number">9</span>]</span><br><span class="line">输出: <span class="number">9534330</span></span><br><span class="line">说明: 输出结果可能非常大，所以你需要返回一个字符串而不是整数。</span><br></pre></td></tr></table></figure>
 <p><strong>解法一</strong></p>
 <p>和上一题一摸一样，借机学习下golang的自定义排序</p>
@@ -1665,7 +1666,7 @@ AB -&gt; 28
 <p>给定一个未排序的数组，判断这个数组中是否存在长度为 3 的递增子序列。</p>
 <p>数学表达式如下:</p>
 <blockquote>
-<p>如果存在这样的 <em>i, j, k, _ 且满足 0 ≤ _i</em> &lt; <em>j</em> &lt; <em>k</em> ≤ <em>n</em>-1，<br>使得 <em>arr[i]</em> &lt; <em>arr[j]</em> &lt; <em>arr[k]</em> ，返回 true ; 否则返回 false 。</p>
+<p>如果存在这样的 <em>i, j, k, _ 且满足 0 ≤ _i</em> &lt; <em>j</em> &lt; <em>k</em> ≤ <em>n</em>-1，<br>使得 <em>arr[i]</em> &lt; <em>arr[j]</em> &lt; <em>arr[k]</em> ，返回 true ; 否则返回 false 。</p>
 </blockquote>
 <p><strong>说明:</strong> 要求算法的时间复杂度为 O(<em>n</em>)，空间复杂度为 O(<em>1</em>) 。</p>
 <p><strong>示例 1:</strong></p>
@@ -1679,14 +1680,14 @@ AB -&gt; 28
 <figure class="highlight golang"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">increasingTriplet</span><span class="params">(nums []<span class="keyword">int</span>)</span> <span class="title">bool</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> INT_MAX = <span class="keyword">int</span>(^<span class="keyword">uint</span>(<span class="number">0</span>)&gt;&gt;<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">var</span> n = <span class="built_in">len</span>(nums)</span><br><span class="line">    <span class="keyword">var</span> a = INT_MAX</span><br><span class="line">    <span class="keyword">var</span> b = INT_MAX</span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; n; i++&#123;</span><br><span class="line">        <span class="keyword">if</span> nums[i] &lt;= a&#123;</span><br><span class="line">            a = nums[i]</span><br><span class="line">            <span class="comment">//b = a 这里不用更新次小值，因为我们要保证a在b前面</span></span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span> nums[i] &lt;= b&#123;</span><br><span class="line">            b = nums[i]</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>很可惜是在看了题解区才明白，真的菜啊，一开始想劈叉了，我一直在考虑中间的元素，想怎么求左右的最小最大值。。。</p>
 <h2 id="172-阶乘后的零"><a href="#172-阶乘后的零" class="headerlink" title="172. 阶乘后的零"></a><a href="https://leetcode-cn.com/problems/factorial-trailing-zeroes/" target="_blank" rel="noopener">172. 阶乘后的零</a></h2><p>Difficulty: <strong>简单</strong></p>
-<p>给定一个整数 <em>n</em>，返回 <em>n</em>! 结果尾数中零的数量。</p>
+<p>给定一个整数 <em>n_，返回 _n</em>! 结果尾数中零的数量。</p>
 <p><strong>示例 1:</strong></p>
 <figure class="highlight go"><table><tr><td class="code"><pre><span class="line">输入: <span class="number">3</span></span><br><span class="line">输出: <span class="number">0</span></span><br><span class="line">解释: <span class="number">3</span>! = <span class="number">6</span>, 尾数中没有零。</span><br></pre></td></tr></table></figure>
 
-<p><strong>示例 2:</strong></p>
+<p><strong>示例 2:</strong></p>
 <figure class="highlight go"><table><tr><td class="code"><pre><span class="line">输入: <span class="number">5</span></span><br><span class="line">输出: <span class="number">1</span></span><br><span class="line">解释: <span class="number">5</span>! = <span class="number">120</span>, 尾数中有 <span class="number">1</span> 个零.</span><br></pre></td></tr></table></figure>
 
-<p><strong>说明:</strong> 你算法的时间复杂度应为 <em>O</em>(log <em>n</em>)。</p>
+<p><strong>说明:</strong> 你算法的时间复杂度应为 <em>O</em>(log <em>n</em>)。</p>
 <p><strong>解法一</strong></p>
 <p>首先需要明确题目要求什么，<code>n!</code>结尾0的个数，直接算阶乘的值显然是不可能的，值会很大很容易溢出，而且大数相乘的时间复杂度也很高</p>
 <p>我们考虑下末尾的0是怎么来的，我们知道一个数x10，末尾就会多一个0，这里也一样，所以我们要求的就是在阶乘的过程中乘了多少个10，那么10从哪里来呢？</p>
@@ -1698,31 +1699,31 @@ AB -&gt; 28
 <figure class="highlight golang"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">trailingZeroes</span><span class="params">(n <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> count = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> n &gt; <span class="number">0</span>&#123;</span><br><span class="line">        n /= <span class="number">5</span></span><br><span class="line">        count += n</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> count</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="793-阶乘函数后K个零"><a href="#793-阶乘函数后K个零" class="headerlink" title="793. 阶乘函数后K个零"></a><a href="https://leetcode-cn.com/problems/preimage-size-of-factorial-zeroes-function/" target="_blank" rel="noopener">793. 阶乘函数后K个零</a></h2><p>Difficulty: <strong>困难</strong></p>
-<p> <code>f(x)</code> 是 <code>x!</code> 末尾是0的数量。（回想一下 <code>x! = 1 * 2 * 3 * ... * x</code>，且<code>0! = 1</code>）</p>
-<p>例如， <code>f(3) = 0</code> ，因为3! = 6的末尾没有0；而 <code>f(11) = 2</code> ，因为11!= 39916800末端有2个0。给定 <code>K</code>，找出多少个非负整数<code>x</code> ，有 <code>f(x) = K</code> 的性质。</p>
+<p> <code>f(x)</code> 是 <code>x!</code> 末尾是0的数量。（回想一下 <code>x! = 1 * 2 * 3 * ... * x</code>，且<code>0! = 1</code>）</p>
+<p>例如， <code>f(3) = 0</code> ，因为3! = 6的末尾没有0；而 <code>f(11) = 2</code> ，因为11!= 39916800末端有2个0。给定 <code>K</code>，找出多少个非负整数<code>x</code> ，有 <code>f(x) = K</code> 的性质。</p>
 <figure class="highlight golang"><table><tr><td class="code"><pre><span class="line">示例 <span class="number">1</span>:</span><br><span class="line">输入:K = <span class="number">0</span></span><br><span class="line">输出:<span class="number">5</span></span><br><span class="line">解释: <span class="number">0</span>!, <span class="number">1</span>!, <span class="number">2</span>!, <span class="number">3</span>!, and <span class="number">4</span>! 均符合 K = <span class="number">0</span> 的条件。</span><br><span class="line"></span><br><span class="line">示例 <span class="number">2</span>:</span><br><span class="line">输入:K = <span class="number">5</span></span><br><span class="line">输出:<span class="number">0</span></span><br><span class="line">解释:没有匹配到这样的 x!，符合K = <span class="number">5</span> 的条件。</span><br></pre></td></tr></table></figure>
 
 <p><strong>注意：</strong></p>
 <ul>
-<li><code>K</code>是范围在 <code>[0, 10^9]</code> 的整数<strong>。</strong></li>
+<li>  <code>K</code>是范围在 <code>[0, 10^9]</code> 的整数<strong>。</strong></li>
 </ul>
 <p><strong>解法一</strong></p>
 <p>上一题的逆向，挺有意思的，可惜了，一开始没想出来，我知道答案肯定是0 or 5但是不知道咋验证了。。。明明上一题之前就做过了，真菜啊，看了评论区才恍然大悟</p>
 <figure class="highlight golang"><table><tr><td class="code"><pre><span class="line"><span class="comment">//ans: 0 or 5</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">preimageSizeFZF</span><span class="params">(K <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    <span class="comment">//n/5 + n/25 + ... +  = K ==&gt; n &lt; 5*K</span></span><br><span class="line">    <span class="keyword">var</span> left = <span class="number">0</span> </span><br><span class="line">    <span class="keyword">var</span> right = <span class="number">5</span>*K+<span class="number">1</span></span><br><span class="line">    <span class="keyword">for</span> left &lt;= right &#123;</span><br><span class="line">        mid := left + (right-left)/<span class="number">2</span></span><br><span class="line">        <span class="keyword">var</span> zero = trailingZeroes(mid)</span><br><span class="line">        <span class="keyword">if</span> zero == K &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">5</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> zero &gt; K &#123;</span><br><span class="line">            right = mid - <span class="number">1</span></span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            left = mid + <span class="number">1</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">&#125;</span><br><span class="line">​</span><br><span class="line"><span class="comment">//172.阶乘后的0</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">trailingZeroes</span><span class="params">(n <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> count = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> n &gt; <span class="number">0</span> &#123;</span><br><span class="line">        n/=<span class="number">5</span></span><br><span class="line">        count += n</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> count</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="73-矩阵置零"><a href="#73-矩阵置零" class="headerlink" title="73. 矩阵置零"></a><a href="https://leetcode-cn.com/problems/set-matrix-zeroes/" target="_blank" rel="noopener">73. 矩阵置零</a></h2><p>Difficulty: <strong>中等</strong></p>
-<p>给定一个 m*n 的矩阵，如果一个元素为 0，则将其所在行和列的所有元素都设为 0。请使用原地算法。</p>
-<p><strong>示例 1:</strong></p>
+<p>给定一个 m*n 的矩阵，如果一个元素为 0，则将其所在行和列的所有元素都设为 0。请使用原地算法。</p>
+<p><strong>示例 1:</strong></p>
 <figure class="highlight go"><table><tr><td class="code"><pre><span class="line">输入: </span><br><span class="line">[</span><br><span class="line">  [<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>],</span><br><span class="line">  [<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>],</span><br><span class="line">  [<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>]</span><br><span class="line">]</span><br><span class="line">输出: </span><br><span class="line">[</span><br><span class="line">  [<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>],</span><br><span class="line">  [<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>],</span><br><span class="line">  [<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>]</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
 
-<p><strong>示例 2:</strong></p>
+<p><strong>示例 2:</strong></p>
 <figure class="highlight go"><table><tr><td class="code"><pre><span class="line">输入: </span><br><span class="line">[</span><br><span class="line">  [<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">0</span>],</span><br><span class="line">  [<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">2</span>],</span><br><span class="line">  [<span class="number">1</span>,<span class="number">3</span>,<span class="number">1</span>,<span class="number">5</span>]</span><br><span class="line">]</span><br><span class="line">输出: </span><br><span class="line">[</span><br><span class="line">  [<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>],</span><br><span class="line">  [<span class="number">0</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">0</span>],</span><br><span class="line">  [<span class="number">0</span>,<span class="number">3</span>,<span class="number">1</span>,<span class="number">0</span>]</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
 
 <p><strong>进阶:</strong></p>
 <ul>
-<li>一个直接的解决方案是使用  O(mn) 的额外空间，但这并不是一个好的解决方案。</li>
-<li>一个简单的改进方案是使用 O(m+n) 的额外空间，但这仍然不是最好的解决方案。</li>
-<li>你能想出一个常数空间的解决方案吗？</li>
+<li>  一个直接的解决方案是使用  O(mn) 的额外空间，但这并不是一个好的解决方案。</li>
+<li>  一个简单的改进方案是使用 O(m+n) 的额外空间，但这仍然不是最好的解决方案。</li>
+<li>  你能想出一个常数空间的解决方案吗？</li>
 </ul>
 <p><strong>解法一</strong></p>
 <p>傻逼题</p>
@@ -1736,8 +1737,8 @@ AB -&gt; 28
 
 <p><strong>提示：</strong></p>
 <ul>
-<li>0 &lt; shorter &lt;= longer</li>
-<li>0 &lt;= k &lt;= 100000</li>
+<li>  0 &lt; shorter &lt;= longer</li>
+<li>  0 &lt;= k &lt;= 100000</li>
 </ul>
 <p><strong>解法一</strong></p>
 <p>tag里面有递归，记忆化什么的。。。加上看见群友的讨论，又先入为主了，唉，写了半天的回溯，想着怎么去重，突然意识到直接一个循环就能解决了。。。菜啊</p>
@@ -1776,7 +1777,7 @@ AB -&gt; 28
 <figure class="highlight golang"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">minMoves</span><span class="params">(nums []<span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> min = math.MaxInt32</span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="built_in">len</span>(nums); i++ &#123;</span><br><span class="line">        <span class="keyword">if</span> nums[i] &lt; min &#123;</span><br><span class="line">            min = nums[i]</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> res = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="built_in">len</span>(nums); i++ &#123;</span><br><span class="line">        res += (nums[i]-min)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="696-计数二进制子串"><a href="#696-计数二进制子串" class="headerlink" title="696. 计数二进制子串"></a><a href="https://leetcode-cn.com/problems/count-binary-substrings/" target="_blank" rel="noopener">696. 计数二进制子串</a></h2><p>Difficulty: <strong>简单</strong></p>
-<p>给定一个字符串 <code>s</code>，计算具有相同数量0和1的非空(连续)子字符串的数量，并且这些子字符串中的所有0和所有1都是组合在一起的。</p>
+<p>给定一个字符串 <code>s</code>，计算具有相同数量0和1的非空(连续)子字符串的数量，并且这些子字符串中的所有0和所有1都是组合在一起的。</p>
 <p>重复出现的子串要计算它们出现的次数。</p>
 <p><strong>示例 1 :</strong></p>
 <figure class="highlight golang"><table><tr><td class="code"><pre><span class="line">输入: <span class="string">"00110011"</span></span><br><span class="line">输出: <span class="number">6</span></span><br><span class="line">解释: 有<span class="number">6</span>个子串具有相同数量的连续<span class="number">1</span>和<span class="number">0</span>：“<span class="number">0011</span>”，“<span class="number">01</span>”，“<span class="number">1100</span>”，“<span class="number">10</span>”，“<span class="number">0011</span>” 和 “<span class="number">01</span>”。</span><br><span class="line"></span><br><span class="line">请注意，一些重复出现的子串要计算它们出现的次数。</span><br><span class="line"></span><br><span class="line">另外，“<span class="number">00110011</span>”不是有效的子串，因为所有的<span class="number">0</span>（和<span class="number">1</span>）没有组合在一起。</span><br></pre></td></tr></table></figure>
@@ -1786,8 +1787,8 @@ AB -&gt; 28
 
 <p><strong>注意：</strong></p>
 <ul>
-<li><code>s.length</code> 在1到50,000之间。</li>
-<li><code>s</code> 只包含“0”或“1”字符。</li>
+<li>  <code>s.length</code> 在1到50,000之间。</li>
+<li>  <code>s</code> 只包含“0”或“1”字符。</li>
 </ul>
 <p><strong>解法一</strong></p>
 <p>将字符转换为连续字符个数的排列，比如111100011000–&gt;4323，然后我们将相邻两个数的最小值加入结果集就行了，3+2+2=7，下面的解法合并了两步操作</p>
@@ -1813,13 +1814,13 @@ AB -&gt; 28
 
 <p><strong>提示：</strong></p>
 <ol>
-<li><code>1 &lt;= S.length &lt;= 200</code></li>
-<li><code>1 &lt;= T.length &lt;= 200</code></li>
-<li><code>S</code> 和 <code>T</code> 只含有小写字母以及字符 <code>&#39;#&#39;</code>。</li>
+<li> <code>1 &lt;= S.length &lt;= 200</code></li>
+<li> <code>1 &lt;= T.length &lt;= 200</code></li>
+<li> <code>S</code> 和 <code>T</code> 只含有小写字母以及字符 <code>&#39;#&#39;</code>。</li>
 </ol>
 <p><strong>进阶：</strong></p>
 <ul>
-<li>你可以用 <code>O(N)</code> 的时间复杂度和 <code>O(1)</code> 的空间复杂度解决该问题吗？</li>
+<li>  你可以用 <code>O(N)</code> 的时间复杂度和 <code>O(1)</code> 的空间复杂度解决该问题吗？</li>
 </ul>
 <p><strong>解法一</strong></p>
 <p>O（N）空间的就不写了，随便搞搞就行了，关键是O(1)空间的解法，这里核心就是双指针从后想前扫描，然后注意边界就ok了</p>

@@ -517,7 +517,7 @@
 <li><code>0 &lt;= num &lt; 231</code></li>
 </ul>
 <p><strong>解法一</strong></p>
-<p>代码比较丑，逻辑还是比较清晰，其实这题算是上面 <a href="#91-解码方法">91. 解码方法</a>的弱化没有了0的限制，0是合法的数字，这样就舒服多了，上面解码方法确实做的脑壳疼</p>
+<p>代码比较丑，逻辑还是比较清晰，其实这题算是上面 <a href="#91-%E8%A7%A3%E7%A0%81%E6%96%B9%E6%B3%95">91. 解码方法</a>的弱化没有了0的限制，0是合法的数字，这样就舒服多了，上面解码方法确实做的脑壳疼</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">translateNum</span><span class="params">(<span class="keyword">int</span> num)</span> </span>&#123;</span><br><span class="line">    String s=String.valueOf(num);</span><br><span class="line">    <span class="keyword">int</span> len=s.length();</span><br><span class="line">    <span class="keyword">if</span>(len==<span class="number">0</span> || len==<span class="number">1</span>) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span>[] dp=<span class="keyword">new</span> <span class="keyword">int</span>[len];</span><br><span class="line">    <span class="comment">//1 2 2 5 8</span></span><br><span class="line">    <span class="comment">//1 2 3 5 5</span></span><br><span class="line">    dp[<span class="number">0</span>]=<span class="number">1</span>;</span><br><span class="line">    dp[<span class="number">1</span>]=Integer.valueOf(s.substring(<span class="number">0</span>,<span class="number">2</span>))&gt;<span class="number">25</span>?<span class="number">1</span>:<span class="number">2</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">2</span>;i&lt;len;i++)&#123;</span><br><span class="line">        <span class="keyword">int</span> pre=Integer.valueOf(s.charAt(i-<span class="number">1</span>))-<span class="number">48</span>;</span><br><span class="line">        <span class="keyword">int</span> cur=Integer.valueOf(s.charAt(i))-<span class="number">48</span>;</span><br><span class="line">        <span class="keyword">if</span>(pre!=<span class="number">0</span> &amp;&amp; Integer.valueOf(pre*<span class="number">10</span>+cur)&lt;=<span class="number">25</span>)&#123;</span><br><span class="line">            dp[i]=dp[i-<span class="number">1</span>]+dp[i-<span class="number">2</span>];</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            dp[i]=dp[i-<span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dp[len-<span class="number">1</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="5375-恢复数组"><a href="#5375-恢复数组" class="headerlink" title="5375. 恢复数组"></a><a href="https://leetcode-cn.com/problems/restore-the-array/" target="_blank" rel="noopener">5375. 恢复数组</a></h2><p>某个程序本来应该输出一个整数数组。但是这个程序忘记输出空格了以致输出了一个数字字符串，我们所知道的信息只有：数组中所有整数都在 [1, k] 之间，且数组中的数字都没有前导 0 。</p>
@@ -714,7 +714,7 @@
 <li><code>0 &lt;= A[i] &lt;= 10^9</code></li>
 </ol>
 <p><strong>解法一</strong></p>
-<p>在滑窗tag里发现的，一直没往dp上想，看了评论区才发现😂，这题其实是上面<a href="#376-摆动序列">376. 摆动序列</a>的弱化，这里是要求连续的，但是做法还是一样的</p>
+<p>在滑窗tag里发现的，一直没往dp上想，看了评论区才发现😂，这题其实是上面<a href="#376-%E6%91%86%E5%8A%A8%E5%BA%8F%E5%88%97">376. 摆动序列</a>的弱化，这里是要求连续的，但是做法还是一样的</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//动态规划，从滑窗tag过来的...没往dp上想，看了评论区才想起来</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maxTurbulenceSize</span><span class="params">(<span class="keyword">int</span>[] A)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(A==<span class="keyword">null</span> || A.length&lt;=<span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> up=<span class="number">1</span>,down=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> res=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;A.length;i++) &#123;</span><br><span class="line">        <span class="keyword">if</span>(A[i]&gt;A[i-<span class="number">1</span>])&#123;</span><br><span class="line">            up=down+<span class="number">1</span>;</span><br><span class="line">            down=<span class="number">1</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span> (A[i]&lt;A[i-<span class="number">1</span>])&#123;</span><br><span class="line">            down=up+<span class="number">1</span>;</span><br><span class="line">            up=<span class="number">1</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            up=<span class="number">1</span>;down=<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        res=Math.max(res,Math.max(up,down));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p><strong>解法二</strong></p>
@@ -940,7 +940,7 @@
 <ul>
 <li><p><code>nums[i] &gt;= 0</code> 并且<code>max[i-1] &gt; 0</code>，<code>max[i] = max[i-1] * nums[i]</code></p>
 </li>
-<li><p><code>nums[i] &gt;= 0</code> 并且<code>max[i-1] &lt; 0</code>，此时如果和前边的数累乘的话，会变成负数，所以<code>max[i] = nums[i]</code></p>
+<li><p> <code>nums[i] &gt;= 0</code> 并且<code>max[i-1] &lt; 0</code>，此时如果和前边的数累乘的话，会变成负数，所以<code>max[i] = nums[i]</code></p>
 </li>
 <li><p><code>nums[i] &lt; 0</code>，如果是负数就不应该再和前面<code>max[i]</code>相乘，而是考虑<code>min[i]</code></p>
 <ul>
@@ -951,10 +951,10 @@
 </li>
 </ul>
 <h2 id="1567-乘积为正数的最长子数组长度"><a href="#1567-乘积为正数的最长子数组长度" class="headerlink" title="1567. 乘积为正数的最长子数组长度"></a><a href="https://leetcode-cn.com/problems/maximum-length-of-subarray-with-positive-product/" target="_blank" rel="noopener">1567. 乘积为正数的最长子数组长度</a></h2><p>Difficulty: <strong>中等</strong></p>
-<p>给你一个整数数组 <code>nums</code> ，请你求出乘积为正数的最长子数组的长度。</p>
+<p>给你一个整数数组 <code>nums</code> ，请你求出乘积为正数的最长子数组的长度。</p>
 <p>一个数组的子数组是由原数组中零个或者更多个连续数字组成的数组。</p>
 <p>请你返回乘积为正数的最长子数组长度。</p>
-<p><strong>示例  1：</strong></p>
+<p><strong>示例  1：</strong></p>
 <figure class="highlight go"><table><tr><td class="code"><pre><span class="line">输入：nums = [<span class="number">1</span>,<span class="number">-2</span>,<span class="number">-3</span>,<span class="number">4</span>]</span><br><span class="line">输出：<span class="number">4</span></span><br><span class="line">解释：数组本身乘积就是正数，值为 <span class="number">24</span> 。</span><br></pre></td></tr></table></figure>
 
 <p><strong>示例 2：</strong></p>
@@ -971,8 +971,8 @@
 
 <p><strong>提示：</strong></p>
 <ul>
-<li><code>1 &lt;= nums.length &lt;= 10^5</code></li>
-<li><code>-10^9 &lt;= nums[i] &lt;= 10^9</code></li>
+<li>  <code>1 &lt;= nums.length &lt;= 10^5</code></li>
+<li>  <code>-10^9 &lt;= nums[i] &lt;= 10^9</code></li>
 </ul>
 <p><strong>解法一</strong></p>
 <p>一开始想歪了，和上面一题最开始一样写了个贼蠢的dp，好在后面还是自己想出来了，下面的是后面想出来的简单解法</p>
@@ -984,7 +984,7 @@
 <h2 id="1594-矩阵的最大非负积"><a href="#1594-矩阵的最大非负积" class="headerlink" title="1594. 矩阵的最大非负积"></a><a href="https://leetcode-cn.com/problems/maximum-non-negative-product-in-a-matrix/" target="_blank" rel="noopener">1594. 矩阵的最大非负积</a></h2><p>Difficulty: <strong>中等</strong></p>
 <p>给你一个大小为 <code>rows x cols</code> 的矩阵 <code>grid</code> 。最初，你位于左上角 <code>(0, 0)</code> ，每一步，你可以在矩阵中 <strong>向右</strong> 或 <strong>向下</strong> 移动。</p>
 <p>在从左上角 <code>(0, 0)</code> 开始到右下角 <code>(rows - 1, cols - 1)</code> 结束的所有路径中，找出具有 <strong>最大非负积</strong> 的路径。路径的积是沿路径访问的单元格中所有整数的乘积。</p>
-<p>返回 <strong>最大非负积</strong> 对<strong><code>10&lt;sup&gt;9&lt;/sup&gt; + 7</code></strong> <strong>取余</strong> 的结果。如果最大积为负数，则返回<code>-1</code> 。</p>
+<p>返回 <strong>最大非负积</strong> 对**<code>10&lt;sup&gt;9&lt;/sup&gt; + 7</code>** <strong>取余</strong> 的结果。如果最大积为负数，则返回<code>-1</code> 。</p>
 <p><strong>注意，</strong>取余是在得到最大积之后执行的。</p>
 <p><strong>示例 1：</strong></p>
 <figure class="highlight go"><table><tr><td class="code"><pre><span class="line">输入：grid = [[<span class="number">-1</span>,<span class="number">-2</span>,<span class="number">-3</span>],</span><br><span class="line">             [<span class="number">-2</span>,<span class="number">-3</span>,<span class="number">-3</span>],</span><br><span class="line">             [<span class="number">-3</span>,<span class="number">-3</span>,<span class="number">-2</span>]]</span><br><span class="line">输出：<span class="number">-1</span></span><br><span class="line">解释：从 (<span class="number">0</span>, <span class="number">0</span>) 到 (<span class="number">2</span>, <span class="number">2</span>) 的路径中无法得到非负积，所以返回 <span class="number">-1</span></span><br></pre></td></tr></table></figure>
@@ -1000,8 +1000,8 @@
 
 <p><strong>提示：</strong></p>
 <ul>
-<li><code>1 &lt;= rows, cols &lt;= 15</code></li>
-<li><code>-4 &lt;= grid[i][j] &lt;= 4</code></li>
+<li>  <code>1 &lt;= rows, cols &lt;= 15</code></li>
+<li>  <code>-4 &lt;= grid[i][j] &lt;= 4</code></li>
 </ul>
 <p><strong>解法一</strong></p>
 <p>和上面两题一样，非常套路的DP，但是我一开始想把初始化给省掉，调了半天发现不太好搞。。。外围的dp取值会影响内部的取值，所以还是老老实实手动初始化，老是想偷懒有时候可能会适得其反（好未来笔试）</p>
@@ -1039,7 +1039,7 @@
 
 <p>一摸一样，理解一点就ok，<strong>以<code>matrix[i][j]</code> 为右下角的最大正方形的边长，就是以这个点为右下角的正方形的数量！！！</strong></p>
 <h2 id="1139-最大的以-1-为边界的正方形"><a href="#1139-最大的以-1-为边界的正方形" class="headerlink" title="1139. 最大的以 1 为边界的正方形"></a><a href="https://leetcode-cn.com/problems/largest-1-bordered-square/" target="_blank" rel="noopener">1139. 最大的以 1 为边界的正方形</a></h2><p>Difficulty: <strong>中等</strong></p>
-<p>给你一个由若干 <code>0</code> 和 <code>1</code> 组成的二维网格 <code>grid</code>，请你找出边界全部由 <code>1</code> 组成的最大 <strong>正方形</strong> 子网格，并返回该子网格中的元素数量。如果不存在，则返回 <code>0</code>。</p>
+<p>给你一个由若干 <code>0</code> 和 <code>1</code> 组成的二维网格 <code>grid</code>，请你找出边界全部由 <code>1</code> 组成的最大 <strong>正方形</strong> 子网格，并返回该子网格中的元素数量。如果不存在，则返回 <code>0</code>。</p>
 <p><strong>示例 1：</strong></p>
 <figure class="highlight golang"><table><tr><td class="code"><pre><span class="line">输入：grid = [[<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>],[<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>],[<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>]]</span><br><span class="line">输出：<span class="number">9</span></span><br></pre></td></tr></table></figure>
 
@@ -1048,9 +1048,9 @@
 
 <p><strong>提示：</strong></p>
 <ul>
-<li><code>1 &lt;= grid.length &lt;= 100</code></li>
-<li><code>1 &lt;= grid[0].length &lt;= 100</code></li>
-<li><code>grid[i][j]</code> 为 <code>0</code> 或 <code>1</code></li>
+<li>  <code>1 &lt;= grid.length &lt;= 100</code></li>
+<li>  <code>1 &lt;= grid[0].length &lt;= 100</code></li>
+<li>  <code>grid[i][j]</code> 为 <code>0</code> 或 <code>1</code></li>
 </ul>
 <p><strong>解法一</strong></p>
 <p>这个题目还是挺有意思的，第一次看了以后没啥思路，看了题解对dp数组的的定义后就明白了，今天来实现下，WA了2次，都WA的有理有据，很舒服，做这种题就很舒服</p>
@@ -1411,7 +1411,7 @@
 <p><strong>示例 2:</strong></p>
 <figure class="highlight go"><table><tr><td class="code"><pre><span class="line">输入: nums = </span><br><span class="line">[</span><br><span class="line">  [<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>],</span><br><span class="line">  [<span class="number">3</span>,<span class="number">2</span>,<span class="number">6</span>],</span><br><span class="line">  [<span class="number">2</span>,<span class="number">2</span>,<span class="number">1</span>]</span><br><span class="line">] </span><br><span class="line">输出: <span class="number">4</span> </span><br><span class="line">解释: 最长递增路径是 [<span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>]。注意不允许在对角线方向上移动。</span><br></pre></td></tr></table></figure>
 <p><strong>解法一</strong></p>
-<p>记忆化递归，这题如果递推的话需要保证子问题都已经被计算过，所以需要进行排序预处理，确保大的先求出来，然后再进行转移，参考上面 <a href="#5331-跳跃游戏-V">5331-跳跃游戏-V</a></p>
+<p>记忆化递归，这题如果递推的话需要保证子问题都已经被计算过，所以需要进行排序预处理，确保大的先求出来，然后再进行转移，参考上面 <a href="#5331-%E8%B7%B3%E8%B7%83%E6%B8%B8%E6%88%8F-V">5331-跳跃游戏-V</a></p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> [][] dir =&#123;&#123;<span class="number">1</span>, <span class="number">0</span>&#125;, &#123;<span class="number">0</span>, <span class="number">1</span>&#125;, &#123;-<span class="number">1</span>, <span class="number">0</span>&#125;, &#123;<span class="number">0</span>, -<span class="number">1</span>&#125;&#125;;</span><br><span class="line"></span><br><span class="line">Integer [][] cache = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//记忆化递归，数组递推的方式状态转移方向不明确，需要排序</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">longestIncreasingPath</span><span class="params">(<span class="keyword">int</span>[][] matrix)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (matrix == <span class="keyword">null</span> || matrix.length &lt;=<span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> m = matrix.length;</span><br><span class="line">    <span class="keyword">int</span> n = matrix[<span class="number">0</span>].length;</span><br><span class="line">    cache = <span class="keyword">new</span> Integer[m][n];</span><br><span class="line">    <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; i++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; j++)&#123;</span><br><span class="line">            res = Math.max(res, dfs(matrix, i, j));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span>[][] matrix, <span class="keyword">int</span> x, <span class="keyword">int</span> y)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (cache[x][y] != <span class="keyword">null</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> cache[x][y];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> res = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; dir.length; i++)&#123;</span><br><span class="line">        <span class="keyword">int</span> nx = x + dir[i][<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">int</span> ny = y + dir[i][<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">if</span> (valid(matrix, nx, ny) &amp;&amp; matrix[nx][ny] &gt; matrix[x][y])&#123;</span><br><span class="line">            res = Math.max(res, dfs(matrix, nx, ny)+<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> cache[x][y] = res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">valid</span><span class="params">(<span class="keyword">int</span>[][] matrix, <span class="keyword">int</span> x, <span class="keyword">int</span> y)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x &gt;= <span class="number">0</span> &amp;&amp; x &lt; matrix.length &amp;&amp; y &gt;= <span class="number">0</span> &amp;&amp; y &lt; matrix[<span class="number">0</span>].length; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="字符串类型的动态规划"><a href="#字符串类型的动态规划" class="headerlink" title="字符串类型的动态规划"></a><em>字符串类型的动态规划</em></h2><h2 id="1143-最长公共子序列"><a href="#1143-最长公共子序列" class="headerlink" title="1143. 最长公共子序列"></a><a href="https://leetcode-cn.com/problems/longest-common-subsequence/" target="_blank" rel="noopener">1143. 最长公共子序列</a></h2><p>给定两个字符串 text1 和 text2，返回这两个字符串的最长公共子序列。</p>
@@ -1557,9 +1557,9 @@
 
 <p><strong>提示：</strong></p>
 <ul>
-<li><code>0 &lt;= len(sentence) &lt;= 1000</code></li>
-<li><code>dictionary</code>中总字符数不超过 150000。</li>
-<li>你可以认为<code>dictionary</code>和<code>sentence</code>中只包含小写字母。</li>
+<li>  <code>0 &lt;= len(sentence) &lt;= 1000</code></li>
+<li>  <code>dictionary</code>中总字符数不超过 150000。</li>
+<li>  你可以认为<code>dictionary</code>和<code>sentence</code>中只包含小写字母。</li>
 </ul>
 <p><strong>解法一</strong></p>
 <p>同样的解法，用Java写就是922ms，我觉得主要就是substring拖慢了速度，Java里面substring是O(N)的操作，而golang中取切片值仅仅只是修改几个切片的熟悉罢了，时间复杂度是O(1)的，所以会很快，时间复杂度可以近似的看作O(N^2)</p>
@@ -1578,7 +1578,7 @@
 <p><strong>解法四</strong></p>
 <p>没错，这题解法很多，也都很值得学习，解法四其实就是之前学过的字符串哈希的方法，所以这个解法右转—&gt;<a href="http://imlgw.top/2020/07/01/rabinkarp-suan-fa/#%E9%9D%A2%E8%AF%95%E9%A2%98-17-13-%E6%81%A2%E5%A4%8D%E7%A9%BA%E6%A0%BC">Rabin-Karp算法</a></p>
 <h2 id="174-地下城游戏"><a href="#174-地下城游戏" class="headerlink" title="174. 地下城游戏"></a><a href="https://leetcode-cn.com/problems/dungeon-game/" target="_blank" rel="noopener">174. 地下城游戏</a></h2><p>Difficulty: <strong>困难</strong></p>
-<p>一些恶魔抓住了公主（<strong>P</strong>）并将她关在了地下城的右下角。地下城是由 M x N 个房间组成的二维网格。我们英勇的骑士（<strong>K</strong>）最初被安置在左上角的房间里，他必须穿过地下城并通过对抗恶魔来拯救公主。</p>
+<p>一些恶魔抓住了公主（<strong>P</strong>）并将她关在了地下城的右下角。地下城是由 M x N 个房间组成的二维网格。我们英勇的骑士（<strong>K</strong>）最初被安置在左上角的房间里，他必须穿过地下城并通过对抗恶魔来拯救公主。</p>
 <p>骑士的初始健康点数为一个正整数。如果他的健康点数在某一时刻降至 0 或以下，他会立即死亡。</p>
 <p>有些房间由恶魔守卫，因此骑士在进入这些房间时会失去健康点数（若房间里的值为负整数，则表示骑士将损失健康点数）；其他房间要么是空的（房间里的值为 0），要么包含增加骑士健康点数的魔法球（若房间里的值为正整数，则表示骑士将增加健康点数）。</p>
 <p>为了尽快到达公主，骑士决定每次只向右或向下移动一步。</p>
@@ -1624,9 +1624,9 @@
 
 <p><strong>说明:</strong></p>
 <ul>
-<li><p>骑士的健康点数没有上限。</p>
+<li><p>  骑士的健康点数没有上限。</p>
 </li>
-<li><p>任何房间都可能对骑士的健康点数造成威胁，也可能增加骑士的健康点数，包括骑士进入的左上角房间以及公主被监禁的右下角房间。</p>
+<li><p>  任何房间都可能对骑士的健康点数造成威胁，也可能增加骑士的健康点数，包括骑士进入的左上角房间以及公主被监禁的右下角房间。</p>
 </li>
 </ul>
 <p><strong>解法一</strong></p>
@@ -1638,11 +1638,11 @@
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">    -2  -3  3</span></span><br><span class="line"><span class="comment">    -5 -10  1</span></span><br><span class="line"><span class="comment">    10  30 -5 1</span></span><br><span class="line"><span class="comment">            </span></span><br><span class="line"><span class="comment">    7   5   2</span></span><br><span class="line"><span class="comment">    6  11   5</span></span><br><span class="line"><span class="comment">    1   1   6</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">calculateMinimumHP</span><span class="params">(<span class="keyword">int</span>[][] dungeon)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> m = dungeon.length;</span><br><span class="line">    <span class="keyword">int</span> n = dungeon[<span class="number">0</span>].length;</span><br><span class="line">    <span class="keyword">int</span> INF = Integer.MAX_VALUE;</span><br><span class="line">    <span class="comment">//从dungeon[i-1][j-1]到右下角至少要多少血量</span></span><br><span class="line">    <span class="keyword">int</span>[][] dp = <span class="keyword">new</span> <span class="keyword">int</span>[m+<span class="number">1</span>][n+<span class="number">1</span>];</span><br><span class="line">    Arrays.fill(dp[m], INF);<span class="comment">//末行</span></span><br><span class="line">    dp[m][n-<span class="number">1</span>] = <span class="number">1</span>; <span class="comment">//初始血量</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = m-<span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">        dp[i][n] = INF; <span class="comment">//首列和尾列</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = n-<span class="number">1</span>; j &gt;= <span class="number">0</span>; j--) &#123;</span><br><span class="line">            dp[i][j] = Math.max(Math.min(dp[i+<span class="number">1</span>][j], dp[i][j+<span class="number">1</span>]) - dungeon[i][j], <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dp[<span class="number">0</span>][<span class="number">0</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>这题为啥不能正向dp呢，设<code>dp[i][j]</code>为从左上角到i,j所需要的最低血量? 其实这个很明显就是有问题的，没办法转移，<code>dp[i][j]</code>和<code>dp[i-1][j]</code>没有任何关系，都不一定是同一条路径</p>
 <h2 id="97-交错字符串"><a href="#97-交错字符串" class="headerlink" title="97. 交错字符串"></a><a href="https://leetcode-cn.com/problems/interleaving-string/" target="_blank" rel="noopener">97. 交错字符串</a></h2><p>Difficulty: <strong>困难</strong></p>
-<p>给定三个字符串 s1, s2, s3, 验证 s3 是否是由 s1 和 s2 交错组成的。</p>
+<p>给定三个字符串 s1, s2, s3, 验证 s3 是否是由 s1 和 s2 交错组成的。</p>
 <p><strong>示例 1:</strong></p>
 <figure class="highlight go"><table><tr><td class="code"><pre><span class="line">输入: s1 = <span class="string">"aabcc"</span>, s2 = <span class="string">"dbbca"</span>, s3 = <span class="string">"aadbbcbcac"</span></span><br><span class="line">输出: <span class="literal">true</span></span><br></pre></td></tr></table></figure>
 
-<p><strong>示例 2:</strong></p>
+<p><strong>示例 2:</strong></p>
 <figure class="highlight go"><table><tr><td class="code"><pre><span class="line">输入: s1 = <span class="string">"aabcc"</span>, s2 = <span class="string">"dbbca"</span>, s3 = <span class="string">"aadbbbaccc"</span></span><br><span class="line">输出: <span class="literal">false</span></span><br></pre></td></tr></table></figure>
 
 <p><strong>解法一</strong><br><img src="https://s1.ax1x.com/2020/07/18/Ugzon0.png" alt="Ugzon0.png"></p>
@@ -1666,14 +1666,14 @@
 <p>双序列型DP，后面有时间会把类似的题单独抽取出来</p>
 </blockquote>
 <h2 id="1553-吃掉-N-个橘子的最少天数"><a href="#1553-吃掉-N-个橘子的最少天数" class="headerlink" title="1553. 吃掉 N 个橘子的最少天数"></a><a href="https://leetcode-cn.com/problems/minimum-number-of-days-to-eat-n-oranges/" target="_blank" rel="noopener">1553. 吃掉 N 个橘子的最少天数</a></h2><p>Difficulty: <strong>困难</strong></p>
-<p>厨房里总共有 <code>n</code> 个橘子，你决定每一天选择如下方式之一吃这些橘子：</p>
+<p>厨房里总共有 <code>n</code> 个橘子，你决定每一天选择如下方式之一吃这些橘子：</p>
 <ul>
-<li>吃掉一个橘子。</li>
-<li>如果剩余橘子数 <code>n</code> 能被 2 整除，那么你可以吃掉 <code>n/2</code> 个橘子。</li>
-<li>如果剩余橘子数 <code>n</code> 能被 3 整除，那么你可以吃掉 <code>2*(n/3)</code> 个橘子。</li>
+<li>  吃掉一个橘子。</li>
+<li>  如果剩余橘子数 <code>n</code> 能被 2 整除，那么你可以吃掉 <code>n/2</code> 个橘子。</li>
+<li>  如果剩余橘子数 <code>n</code> 能被 3 整除，那么你可以吃掉 <code>2*(n/3)</code> 个橘子。</li>
 </ul>
 <p>每天你只能从以上 3 种方案中选择一种方案。</p>
-<p>请你返回吃掉所有 <code>n</code> 个橘子的最少天数。</p>
+<p>请你返回吃掉所有 <code>n</code> 个橘子的最少天数。</p>
 <p><strong>示例 1：</strong></p>
 <figure class="highlight golang"><table><tr><td class="code"><pre><span class="line">输入：n = <span class="number">10</span></span><br><span class="line">输出：<span class="number">4</span></span><br><span class="line">解释：你总共有 <span class="number">10</span> 个橘子。</span><br><span class="line">第 <span class="number">1</span> 天：吃 <span class="number">1</span> 个橘子，剩余橘子数 <span class="number">10</span> - <span class="number">1</span> = <span class="number">9</span>。</span><br><span class="line">第 <span class="number">2</span> 天：吃 <span class="number">6</span> 个橘子，剩余橘子数 <span class="number">9</span> - <span class="number">2</span>*(<span class="number">9</span>/<span class="number">3</span>) = <span class="number">9</span> - <span class="number">6</span> = <span class="number">3</span>。（<span class="number">9</span> 可以被 <span class="number">3</span> 整除）</span><br><span class="line">第 <span class="number">3</span> 天：吃 <span class="number">2</span> 个橘子，剩余橘子数 <span class="number">3</span> - <span class="number">2</span>*(<span class="number">3</span>/<span class="number">3</span>) = <span class="number">3</span> - <span class="number">2</span> = <span class="number">1</span>。</span><br><span class="line">第 <span class="number">4</span> 天：吃掉最后 <span class="number">1</span> 个橘子，剩余橘子数 <span class="number">1</span> - <span class="number">1</span> = <span class="number">0</span>。</span><br><span class="line">你需要至少 <span class="number">4</span> 天吃掉 <span class="number">10</span> 个橘子。</span><br></pre></td></tr></table></figure>
 
@@ -1688,7 +1688,7 @@
 
 <p><strong>提示：</strong></p>
 <ul>
-<li><code>1 &lt;= n &lt;= 2*10^9</code></li>
+<li>  <code>1 &lt;= n &lt;= 2*10^9</code></li>
 </ul>
 <p><strong>解法一</strong></p>
 <p>题目很简单，暴力的方法非常容易想到，但是问题是这题的数据范围比较大<code>2*1e9</code>，直接暴搜肯定会T，所以需要优化下，这里我们可以直接将<code>minDays(n-1)</code>优化掉，将这种只吃一个的情况和其他情况和并，比如我现在n=5，那么我们就可以直接求<code>Min(minDays(2)+1, minDays(1)+2)</code>，5没法被2或者3整除，所以我们将5吃掉几个，变成可以被2和3整除的，吃掉的个数就是n%2和n%3，也就是在这之前额外需要的天数</p>
@@ -1729,7 +1729,7 @@
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">solve</span> <span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> m, <span class="keyword">int</span>[] x, <span class="keyword">int</span>[] y)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">long</span>[][] dp = <span class="keyword">new</span> <span class="keyword">long</span>[<span class="number">3</span>][n+<span class="number">1</span>];</span><br><span class="line">    <span class="keyword">int</span> MOD = (<span class="keyword">int</span>)<span class="number">1e9</span>+<span class="number">7</span>;</span><br><span class="line">    <span class="keyword">boolean</span>[][] v = <span class="keyword">new</span> <span class="keyword">boolean</span>[<span class="number">3</span>][n];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; i++)&#123;</span><br><span class="line">        v[x[i]-<span class="number">1</span>][y[i]-<span class="number">1</span>] = <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    dp[<span class="number">0</span>][<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt; n; j++) &#123;</span><br><span class="line">        dp[<span class="number">0</span>][j] = v[<span class="number">0</span>][j] ? <span class="number">0</span> : (dp[<span class="number">0</span>][j-<span class="number">1</span>] + dp[<span class="number">1</span>][j-<span class="number">1</span>])%MOD;</span><br><span class="line">        dp[<span class="number">1</span>][j] = v[<span class="number">1</span>][j] ? <span class="number">0</span> : (dp[<span class="number">1</span>][j-<span class="number">1</span>] + dp[<span class="number">0</span>][j-<span class="number">1</span>]+dp[<span class="number">2</span>][j-<span class="number">1</span>])%MOD;</span><br><span class="line">        dp[<span class="number">2</span>][j] = v[<span class="number">2</span>][j] ? <span class="number">0</span> : (dp[<span class="number">2</span>][j-<span class="number">1</span>] + dp[<span class="number">1</span>][j-<span class="number">1</span>])%MOD;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span>  (<span class="keyword">int</span>)(dp[<span class="number">2</span>][n-<span class="number">1</span>]%MOD);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="787-K-站中转内最便宜的航班"><a href="#787-K-站中转内最便宜的航班" class="headerlink" title="787. K 站中转内最便宜的航班"></a><a href="https://leetcode-cn.com/problems/cheapest-flights-within-k-stops/" target="_blank" rel="noopener">787. K 站中转内最便宜的航班</a></h2><p>Difficulty: <strong>中等</strong></p>
 <p>有 <code>n</code> 个城市通过 <code>m</code> 个航班连接。每个航班都从城市 <code>u</code> 开始，以价格 <code>w</code> 抵达 <code>v</code>。</p>
-<p>现在给定所有的城市和航班，以及出发城市 <code>src</code> 和目的地 <code>dst</code>，你的任务是找到从 <code>src</code> 到 <code>dst</code> 最多经过 <code>k</code> 站中转的最便宜的价格。 如果没有这样的路线，则输出 <code>-1</code>。</p>
+<p>现在给定所有的城市和航班，以及出发城市 <code>src</code> 和目的地 <code>dst</code>，你的任务是找到从 <code>src</code> 到 <code>dst</code> 最多经过 <code>k</code> 站中转的最便宜的价格。 如果没有这样的路线，则输出 <code>-1</code>。</p>
 <p><strong>示例 1：</strong></p>
 <figure class="highlight go"><table><tr><td class="code"><pre><span class="line">输入: </span><br><span class="line">n = <span class="number">3</span>, edges = [[<span class="number">0</span>,<span class="number">1</span>,<span class="number">100</span>],[<span class="number">1</span>,<span class="number">2</span>,<span class="number">100</span>],[<span class="number">0</span>,<span class="number">2</span>,<span class="number">500</span>]]</span><br><span class="line">src = <span class="number">0</span>, dst = <span class="number">2</span>, k = <span class="number">1</span></span><br><span class="line">输出: <span class="number">200</span></span><br><span class="line">解释: </span><br><span class="line">城市航班图如下</span><br><span class="line"></span><br><span class="line">从城市 <span class="number">0</span> 到城市 <span class="number">2</span> 在 <span class="number">1</span> 站中转以内的最便宜价格是 <span class="number">200</span>，如图中红色所示。</span><br></pre></td></tr></table></figure>
 
@@ -1738,12 +1738,12 @@
 
 <p><strong>提示：</strong></p>
 <ul>
-<li><code>n</code> 范围是 <code>[1, 100]</code>，城市标签从 <code>0</code> 到 <code>n</code> <code>- 1</code>.</li>
-<li>航班数量范围是 <code>[0, n * (n - 1) / 2]</code>.</li>
-<li>每个航班的格式 <code>(src,</code> <code>dst``, price)</code>.</li>
-<li>每个航班的价格范围是 <code>[1, 10000]</code>.</li>
-<li><code>k</code> 范围是 <code>[0, n - 1]</code>.</li>
-<li>航班没有重复，且不存在环路</li>
+<li>  <code>n</code> 范围是 <code>[1, 100]</code>，城市标签从 <code>0</code> 到 <code>n</code> <code>- 1</code>.</li>
+<li>  航班数量范围是 <code>[0, n * (n - 1) / 2]</code>.</li>
+<li>  每个航班的格式 <code>(src,</code> <code>dst``, price)</code>.</li>
+<li>  每个航班的价格范围是 <code>[1, 10000]</code>.</li>
+<li>  <code>k</code> 范围是 <code>[0, n - 1]</code>.</li>
+<li>  航班没有重复，且不存在环路</li>
 </ul>
 <p><strong>解法一</strong></p>
 <p>范围很小只有100，一开始以为是Floyd，但是有K的限制不好处理</p>
@@ -1765,8 +1765,8 @@
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//UPDATE: 2020.9.27，之前的解法过了OJ，但是其实是有问题的</span></span><br><span class="line"><span class="comment">//按上面的来降维舒服多了</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">solve3</span> <span class="params">(String s)</span> </span>&#123;</span><br><span class="line">    String p = <span class="string">"niuniu"</span>;</span><br><span class="line">    <span class="keyword">int</span> n = s.length();</span><br><span class="line">    <span class="keyword">int</span> m = p.length();</span><br><span class="line">    <span class="keyword">int</span> MOD = (<span class="keyword">int</span>)<span class="number">1e9</span>+<span class="number">7</span>;</span><br><span class="line">    <span class="comment">//dp[j]代表s[0,i]中有多少个p[0,i]</span></span><br><span class="line">    <span class="keyword">long</span>[] dp = <span class="keyword">new</span> <span class="keyword">long</span>[m+<span class="number">1</span>];</span><br><span class="line">    dp[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++)&#123;</span><br><span class="line">        <span class="comment">//for (int j = 1; j &lt;= m; j++)&#123;</span></span><br><span class="line">        <span class="comment">//内层应该反过来递推，保证dp[j]和dp[j-1]是上一次的</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = m; j &gt;= <span class="number">1</span>; j--)&#123;</span><br><span class="line">            <span class="keyword">if</span> (s.charAt(i-<span class="number">1</span>) == p.charAt(j-<span class="number">1</span>)) &#123;</span><br><span class="line">                dp[j] = (dp[j] + dp[j-<span class="number">1</span>]) % MOD;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> (<span class="keyword">int</span>)dp[m];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="926-将字符串翻转到单调递增"><a href="#926-将字符串翻转到单调递增" class="headerlink" title="926. 将字符串翻转到单调递增"></a><a href="https://leetcode-cn.com/problems/flip-string-to-monotone-increasing/" target="_blank" rel="noopener">926. 将字符串翻转到单调递增</a></h2><p>Difficulty: <strong>中等</strong></p>
-<p>如果一个由 <code>&#39;0&#39;</code> 和 <code>&#39;1&#39;</code> 组成的字符串，是以一些 <code>&#39;0&#39;</code>（可能没有 <code>&#39;0&#39;</code>）后面跟着一些 <code>&#39;1&#39;</code>（也可能没有 <code>&#39;1&#39;</code>）的形式组成的，那么该字符串是_单调递增_的。</p>
-<p>我们给出一个由字符 <code>&#39;0&#39;</code> 和 <code>&#39;1&#39;</code> 组成的字符串 <code>S</code>，我们可以将任何 <code>&#39;0&#39;</code> 翻转为 <code>&#39;1&#39;</code> 或者将 <code>&#39;1&#39;</code> 翻转为 <code>&#39;0&#39;</code>。</p>
+<p>如果一个由 <code>&#39;0&#39;</code> 和 <code>&#39;1&#39;</code> 组成的字符串，是以一些 <code>&#39;0&#39;</code>（可能没有 <code>&#39;0&#39;</code>）后面跟着一些 <code>&#39;1&#39;</code>（也可能没有 <code>&#39;1&#39;</code>）的形式组成的，那么该字符串是_单调递增_的。</p>
+<p>我们给出一个由字符 <code>&#39;0&#39;</code> 和 <code>&#39;1&#39;</code> 组成的字符串 <code>S</code>，我们可以将任何 <code>&#39;0&#39;</code> 翻转为 <code>&#39;1&#39;</code> 或者将 <code>&#39;1&#39;</code> 翻转为 <code>&#39;0&#39;</code>。</p>
 <p>返回使 <code>S</code> 单调递增的最小翻转次数。</p>
 <p><strong>示例 1：</strong></p>
 <figure class="highlight go"><table><tr><td class="code"><pre><span class="line">输入：<span class="string">"00110"</span></span><br><span class="line">输出：<span class="number">1</span></span><br><span class="line">解释：我们翻转最后一位得到 <span class="number">00111.</span></span><br></pre></td></tr></table></figure>
@@ -1779,8 +1779,8 @@
 
 <p><strong>提示：</strong></p>
 <ol>
-<li><code>1 &lt;= S.length &lt;= 20000</code></li>
-<li><code>S</code> 中只包含字符 <code>&#39;0&#39;</code> 和 <code>&#39;1&#39;</code></li>
+<li> <code>1 &lt;= S.length &lt;= 20000</code></li>
+<li> <code>S</code> 中只包含字符 <code>&#39;0&#39;</code> 和 <code>&#39;1&#39;</code></li>
 </ol>
 <p><strong>解法一</strong></p>
 <p>动态规划的解法</p>
@@ -1797,7 +1797,7 @@
 <figure class="highlight go"><table><tr><td class="code"><pre><span class="line">输入：leaves = <span class="string">"ryr"</span></span><br><span class="line">输出：<span class="number">0</span></span><br><span class="line">解释：已符合要求，不需要额外操作</span><br><span class="line">提示：</span><br><span class="line"><span class="number">3</span> &lt;= leaves.length &lt;= <span class="number">10</span>^<span class="number">5</span></span><br><span class="line">leaves 中只包含字符 <span class="string">'r'</span> 和字符 <span class="string">'y'</span></span><br></pre></td></tr></table></figure>
 
 <p><strong>解法一</strong></p>
-<p>和上一题<a href="#926-将字符串翻转到单调递增">926. 将字符串翻转到单调递增</a>一样，不过很明显这里有三个状态，一个是前面的r结尾，一个是中间的y结尾，一个是末尾的r结尾，最后求出以最后的r结尾的最短次数就ok了</p>
+<p>和上一题<a href="#926-%E5%B0%86%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%BF%BB%E8%BD%AC%E5%88%B0%E5%8D%95%E8%B0%83%E9%80%92%E5%A2%9E">926. 将字符串翻转到单调递增</a>一样，不过很明显这里有三个状态，一个是前面的r结尾，一个是中间的y结尾，一个是末尾的r结尾，最后求出以最后的r结尾的最短次数就ok了</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">minimumOperations</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n = s.length();</span><br><span class="line">    <span class="keyword">int</span>[][] dp = <span class="keyword">new</span> <span class="keyword">int</span>[n+<span class="number">1</span>][<span class="number">3</span>];</span><br><span class="line">    <span class="comment">//0，1，2分别代表 前面的r 中间的y 结尾的r</span></span><br><span class="line">    dp[<span class="number">0</span>][<span class="number">0</span>] = s.charAt(<span class="number">0</span>) == <span class="string">'r'</span> ? <span class="number">0</span> : <span class="number">1</span>;</span><br><span class="line">    dp[<span class="number">0</span>][<span class="number">1</span>] = dp[<span class="number">0</span>][<span class="number">2</span>] = dp[<span class="number">1</span>][<span class="number">2</span>] = <span class="number">0x3f3f3f3f</span>;</span><br><span class="line">    <span class="comment">//简单的递推</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (s.charAt(i) == <span class="string">'r'</span>) &#123;</span><br><span class="line">            dp[i][<span class="number">0</span>] = dp[i-<span class="number">1</span>][<span class="number">0</span>];</span><br><span class="line">            dp[i][<span class="number">1</span>] = Math.min(dp[i-<span class="number">1</span>][<span class="number">1</span>]+<span class="number">1</span>, dp[i-<span class="number">1</span>][<span class="number">0</span>]+<span class="number">1</span>);</span><br><span class="line">            dp[i][<span class="number">2</span>] = Math.min(dp[i-<span class="number">1</span>][<span class="number">2</span>], dp[i-<span class="number">1</span>][<span class="number">1</span>]);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            dp[i][<span class="number">0</span>] = dp[i-<span class="number">1</span>][<span class="number">0</span>]+<span class="number">1</span>;</span><br><span class="line">            dp[i][<span class="number">1</span>] = Math.min(dp[i-<span class="number">1</span>][<span class="number">0</span>], dp[i-<span class="number">1</span>][<span class="number">1</span>]);</span><br><span class="line">            dp[i][<span class="number">2</span>] = Math.min(dp[i-<span class="number">1</span>][<span class="number">2</span>]+<span class="number">1</span>, dp[i-<span class="number">1</span>][<span class="number">1</span>]+<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dp[n-<span class="number">1</span>][<span class="number">2</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>空间还可以优化，代码也还可以更简洁，不过我懒得改了</p>
@@ -1805,12 +1805,12 @@
 <h2 id="845-数组中的最长山脉"><a href="#845-数组中的最长山脉" class="headerlink" title="845. 数组中的最长山脉"></a><a href="https://leetcode-cn.com/problems/longest-mountain-in-array/" target="_blank" rel="noopener">845. 数组中的最长山脉</a></h2><p>Difficulty: <strong>中等</strong></p>
 <p>我们把数组 A 中符合下列属性的任意连续子数组 B 称为 “_山脉”_：</p>
 <ul>
-<li><code>B.length &gt;= 3</code></li>
-<li>存在 <code>0 &lt; i &lt; B.length - 1</code> 使得 <code>B[0] &lt; B[1] &lt; ... B[i-1] &lt; B[i] &gt; B[i+1] &gt; ... &gt; B[B.length - 1]</code></li>
+<li>  <code>B.length &gt;= 3</code></li>
+<li>  存在 <code>0 &lt; i &lt; B.length - 1</code> 使得 <code>B[0] &lt; B[1] &lt; ... B[i-1] &lt; B[i] &gt; B[i+1] &gt; ... &gt; B[B.length - 1]</code></li>
 </ul>
 <p>（注意：B 可以是 A 的任意子数组，包括整个数组 A。）</p>
-<p>给出一个整数数组 <code>A</code>，返回最长 <em>“山脉”</em> 的长度。</p>
-<p>如果不含有 “_山脉” _则返回 <code>0</code>。</p>
+<p>给出一个整数数组 <code>A</code>，返回最长 <em>“山脉”</em> 的长度。</p>
+<p>如果不含有 “_山脉” _则返回 <code>0</code>。</p>
 <p><strong>示例 1：</strong></p>
 <figure class="highlight go"><table><tr><td class="code"><pre><span class="line">输入：[<span class="number">2</span>,<span class="number">1</span>,<span class="number">4</span>,<span class="number">7</span>,<span class="number">3</span>,<span class="number">2</span>,<span class="number">5</span>]</span><br><span class="line">输出：<span class="number">5</span></span><br><span class="line">解释：最长的 “山脉” 是 [<span class="number">1</span>,<span class="number">4</span>,<span class="number">7</span>,<span class="number">3</span>,<span class="number">2</span>]，长度为 <span class="number">5</span>。</span><br></pre></td></tr></table></figure>
 
@@ -1819,8 +1819,8 @@
 
 <p><strong>提示：</strong></p>
 <ol>
-<li><code>0 &lt;= A.length &lt;= 10000</code></li>
-<li><code>0 &lt;= A[i] &lt;= 10000</code></li>
+<li> <code>0 &lt;= A.length &lt;= 10000</code></li>
+<li> <code>0 &lt;= A[i] &lt;= 10000</code></li>
 </ol>
 <p>示例 1：</p>
 <figure class="highlight go"><table><tr><td class="code"><pre><span class="line">输入：[<span class="number">2</span>,<span class="number">1</span>,<span class="number">4</span>,<span class="number">7</span>,<span class="number">3</span>,<span class="number">2</span>,<span class="number">5</span>]</span><br><span class="line">输出：<span class="number">5</span></span><br><span class="line">解释：最长的山脉是 [<span class="number">1</span>,<span class="number">4</span>,<span class="number">7</span>,<span class="number">3</span>,<span class="number">2</span>]，长度为 <span class="number">5</span>。</span><br></pre></td></tr></table></figure>
@@ -1958,7 +1958,7 @@
 <li>s 中所有字符都是小写字母。 </li>
 </ul>
 <p><strong>解法一</strong></p>
-<p>170周赛的压轴题，其实和前面的<a href="#516-最长回文子序列">516. 最长回文子序列</a>是一样的。。。没啥好说的</p>
+<p>170周赛的压轴题，其实和前面的<a href="#516-%E6%9C%80%E9%95%BF%E5%9B%9E%E6%96%87%E5%AD%90%E5%BA%8F%E5%88%97">516. 最长回文子序列</a>是一样的。。。没啥好说的</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">minInsertions</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (s==<span class="keyword">null</span> || s.length()&lt;=<span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> n=s.length();</span><br><span class="line">    <span class="keyword">int</span>[][] dp=<span class="keyword">new</span> <span class="keyword">int</span>[n][n];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i=n-<span class="number">1</span>;i&gt;=<span class="number">0</span>;i--) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j=i+<span class="number">1</span>;j&lt;n;j++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (s.charAt(i) == s.charAt(j)) &#123;</span><br><span class="line">                dp[i][j]=dp[i+<span class="number">1</span>][j-<span class="number">1</span>];   </span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="comment">//不相等就可以在头部插入s[j]或者尾部插入s[i]</span></span><br><span class="line">                <span class="comment">//头部插入s[j]则子区间就是dp[i][j-1]</span></span><br><span class="line">                <span class="comment">//尾部插入s[i]则子区间就是dp[i+1][j]</span></span><br><span class="line">                dp[i][j]=<span class="number">1</span>+Math.min(dp[i+<span class="number">1</span>][j],dp[i][j-<span class="number">1</span>]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dp[<span class="number">0</span>][n-<span class="number">1</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><strong>解法二</strong></p>
 <p>UPDATE：2020.5.18，区间dp的写法</p>
@@ -2003,10 +2003,10 @@
 
 <p><strong>提示：</strong></p>
 <ul>
-<li><code>2 &lt;= n &lt;= 10^6</code></li>
-<li><code>1 &lt;= cuts.length &lt;= min(n - 1, 100)</code></li>
-<li><code>1 &lt;= cuts[i] &lt;= n - 1</code></li>
-<li><code>cuts</code> 数组中的所有整数都 <strong>互不相同</strong></li>
+<li>  <code>2 &lt;= n &lt;= 10^6</code></li>
+<li>  <code>1 &lt;= cuts.length &lt;= min(n - 1, 100)</code></li>
+<li>  <code>1 &lt;= cuts[i] &lt;= n - 1</code></li>
+<li>  <code>cuts</code> 数组中的所有整数都 <strong>互不相同</strong></li>
 </ul>
 <p><strong>解法一</strong></p>
 <p>201th周赛的t4，感觉还是挺简单的，今天补的时候花了10分钟搞清楚思路，一遍看视频一边写，最后不出意外的的T了~😂一开始没想清楚细节，想到了以区间开始和结尾做dp，然后就直接开了个n*n的数组，虽然是对的，但是在初始化的时候就t了，这里实际上只需要开一个len(cuts)^2的空间就行了</p>
@@ -2076,8 +2076,8 @@
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">numOfArrays</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> m, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> mod=<span class="number">1000_000_007</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">long</span>[][][] dp=<span class="keyword">new</span> <span class="keyword">long</span>[n+<span class="number">1</span>][m+<span class="number">1</span>][k+<span class="number">1</span>];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=m;i++)&#123;</span><br><span class="line">        dp[<span class="number">1</span>][i][<span class="number">1</span>]=<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">2</span>;i&lt;=n;i++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;=m;j++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> cost=<span class="number">1</span>;cost&lt;=k;cost++)&#123;</span><br><span class="line">                <span class="comment">//新增加的元素小于等于j也就是原数组的最大值,对应上面递归的i&lt;=preMax</span></span><br><span class="line">                <span class="comment">//所以新增加的元素在新数组的末尾有1~j种选择</span></span><br><span class="line">                dp[i][j][cost]=(j*dp[i-<span class="number">1</span>][j][cost])%mod;</span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> nm=<span class="number">1</span>;nm&lt;j;nm++)&#123;</span><br><span class="line">                    <span class="comment">//新增加的元素大于原数组的最大值j,对应上面递归的i&gt;preMax</span></span><br><span class="line">                    dp[i][j][cost]=(dp[i][j][cost]+dp[i-<span class="number">1</span>][nm][cost-<span class="number">1</span>])%mod;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">long</span> res=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=m;i++)&#123;</span><br><span class="line">        res+=dp[n][i][k];</span><br><span class="line">        res%=mod;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> (<span class="keyword">int</span>)(res%mod);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="902-最大为-N-的数字组合"><a href="#902-最大为-N-的数字组合" class="headerlink" title="902. 最大为 N 的数字组合"></a><a href="https://leetcode-cn.com/problems/numbers-at-most-n-given-digit-set/" target="_blank" rel="noopener">902. 最大为 N 的数字组合</a></h2><p>Difficulty: <strong>困难</strong></p>
-<p>我们有一组<strong>排序的</strong>数字 <code>D</code>，它是  <code>{&#39;1&#39;,&#39;2&#39;,&#39;3&#39;,&#39;4&#39;,&#39;5&#39;,&#39;6&#39;,&#39;7&#39;,&#39;8&#39;,&#39;9&#39;}</code> 的非空子集。（请注意，<code>&#39;0&#39;</code> 不包括在内。）</p>
-<p>现在，我们用这些数字进行组合写数字，想用多少次就用多少次。例如 <code>D = {&#39;1&#39;,&#39;3&#39;,&#39;5&#39;}</code>，我们可以写出像 <code>&#39;13&#39;, &#39;551&#39;, &#39;1351315&#39;</code> 这样的数字。</p>
+<p>我们有一组<strong>排序的</strong>数字 <code>D</code>，它是  <code>{&#39;1&#39;,&#39;2&#39;,&#39;3&#39;,&#39;4&#39;,&#39;5&#39;,&#39;6&#39;,&#39;7&#39;,&#39;8&#39;,&#39;9&#39;}</code> 的非空子集。（请注意，<code>&#39;0&#39;</code> 不包括在内。）</p>
+<p>现在，我们用这些数字进行组合写数字，想用多少次就用多少次。例如 <code>D = {&#39;1&#39;,&#39;3&#39;,&#39;5&#39;}</code>，我们可以写出像 <code>&#39;13&#39;, &#39;551&#39;, &#39;1351315&#39;</code> 这样的数字。</p>
 <p>返回可以用 <code>D</code> 中的数字写出的小于或等于 <code>N</code> 的正整数的数目。</p>
 <p><strong>示例 1：</strong></p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">输入：D &#x3D; [&quot;1&quot;,&quot;3&quot;,&quot;5&quot;,&quot;7&quot;], N &#x3D; 100</span><br><span class="line">输出：20</span><br><span class="line">解释：</span><br><span class="line">可写出的 20 个数字是：</span><br><span class="line">1, 3, 5, 7, 11, 13, 15, 17, 31, 33, 35, 37, 51, 53, 55, 57, 71, 73, 75, 77.</span><br></pre></td></tr></table></figure>
@@ -2087,8 +2087,8 @@
 
 <p><strong>提示：</strong></p>
 <ol>
-<li><code>D</code> 是按排序顺序的数字 <code>&#39;1&#39;-&#39;9&#39;</code> 的子集。</li>
-<li><code>1 &lt;= N &lt;= 10^9</code></li>
+<li> <code>D</code> 是按排序顺序的数字 <code>&#39;1&#39;-&#39;9&#39;</code> 的子集。</li>
+<li> <code>1 &lt;= N &lt;= 10^9</code></li>
 </ol>
 <p><strong>解法一</strong></p>
 <p>lc上写的第3道数位DP，套模板，理解的还不够深刻，等以后做多了再单独开专题讲解</p>
@@ -2134,13 +2134,13 @@
 
 <h2 id="1025-除数博弈"><a href="#1025-除数博弈" class="headerlink" title="1025. 除数博弈"></a><a href="https://leetcode-cn.com/problems/divisor-game/" target="_blank" rel="noopener">1025. 除数博弈</a></h2><p>Difficulty: <strong>简单</strong></p>
 <p>爱丽丝和鲍勃一起玩游戏，他们轮流行动。爱丽丝先手开局。</p>
-<p>最初，黑板上有一个数字 <code>N</code> 。在每个玩家的回合，玩家需要执行以下操作：</p>
+<p>最初，黑板上有一个数字 <code>N</code> 。在每个玩家的回合，玩家需要执行以下操作：</p>
 <ul>
-<li>选出任一 <code>x</code>，满足 <code>0 &lt; x &lt; N</code> 且 <code>N % x == 0</code> 。</li>
-<li>用 <code>N - x</code> 替换黑板上的数字 <code>N</code> 。</li>
+<li>  选出任一 <code>x</code>，满足 <code>0 &lt; x &lt; N</code> 且 <code>N % x == 0</code> 。</li>
+<li>  用 <code>N - x</code> 替换黑板上的数字 <code>N</code> 。</li>
 </ul>
 <p>如果玩家无法执行这些操作，就会输掉游戏。</p>
-<p>只有在爱丽丝在游戏中取得胜利时才返回 <code>True</code>，否则返回 <code>false</code>。假设两个玩家都以最佳状态参与游戏。</p>
+<p>只有在爱丽丝在游戏中取得胜利时才返回 <code>True</code>，否则返回 <code>false</code>。假设两个玩家都以最佳状态参与游戏。</p>
 <p><strong>示例 1：</strong></p>
 <figure class="highlight go"><table><tr><td class="code"><pre><span class="line">输入：<span class="number">2</span></span><br><span class="line">输出：<span class="literal">true</span></span><br><span class="line">解释：爱丽丝选择 <span class="number">1</span>，鲍勃无法进行操作。</span><br></pre></td></tr></table></figure>
 
@@ -2149,7 +2149,7 @@
 
 <p><strong>提示：</strong></p>
 <ol>
-<li><code>1 &lt;= N &lt;= 1000</code></li>
+<li> <code>1 &lt;= N &lt;= 1000</code></li>
 </ol>
 <p><strong>解法一</strong></p>
 <p>博弈DP，和上面的类似，尝试所有情况</p>
@@ -2160,9 +2160,9 @@
 <figure class="highlight golang"><table><tr><td class="code"><pre><span class="line"><span class="comment">//规律，偶数必赢，奇数必输</span></span><br><span class="line"><span class="comment">//最后在N=2的时候结束比赛，所以谁先到2谁就赢</span></span><br><span class="line"><span class="comment">//奇数的因子只有奇数，奇数-奇数 = 偶数，当我拿到偶数时候可以直接拿走1，变为奇数，如此往来</span></span><br><span class="line"><span class="comment">//最终我必定能先到2</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">divisorGame</span><span class="params">(N <span class="keyword">int</span>)</span> <span class="title">bool</span></span> &#123;</span><br><span class="line">    <span class="keyword">return</span> N%<span class="number">2</span> == <span class="number">0</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="1140-石子游戏-II"><a href="#1140-石子游戏-II" class="headerlink" title="1140. 石子游戏 II"></a><a href="https://leetcode-cn.com/problems/stone-game-ii/" target="_blank" rel="noopener">1140. 石子游戏 II</a></h2><p>Difficulty: <strong>中等</strong></p>
-<p>亚历克斯和李继续他们的石子游戏。许多堆石子 <strong>排成一行</strong>，每堆都有正整数颗石子 <code>piles[i]</code>。游戏以谁手中的石子最多来决出胜负。</p>
+<p>亚历克斯和李继续他们的石子游戏。许多堆石子 <strong>排成一行</strong>，每堆都有正整数颗石子 <code>piles[i]</code>。游戏以谁手中的石子最多来决出胜负。</p>
 <p>亚历克斯和李轮流进行，亚历克斯先开始。最初，<code>M = 1</code>。</p>
-<p>在每个玩家的回合中，该玩家可以拿走剩下的 <strong>前</strong> <code>X</code> 堆的所有石子，其中 <code>1 &lt;= X &lt;= 2M</code>。然后，令 <code>M = max(M, X)</code>。</p>
+<p>在每个玩家的回合中，该玩家可以拿走剩下的 <strong>前</strong> <code>X</code> 堆的所有石子，其中 <code>1 &lt;= X &lt;= 2M</code>。然后，令 <code>M = max(M, X)</code>。</p>
 <p>游戏一直持续到所有石子都被拿走。</p>
 <p>假设亚历克斯和李都发挥出最佳水平，返回亚历克斯可以得到的最大数量的石头。</p>
 <p><strong>示例：</strong></p>
@@ -2170,8 +2170,8 @@
 
 <p><strong>提示：</strong></p>
 <ul>
-<li><code>1 &lt;= piles.length &lt;= 100</code></li>
-<li><code>1 &lt;= piles[i] &lt;= 10 ^ 4</code></li>
+<li>  <code>1 &lt;= piles.length &lt;= 100</code></li>
+<li>  <code>1 &lt;= piles[i] &lt;= 10 ^ 4</code></li>
 </ul>
 <p><strong>解法一</strong></p>
 <p>瞎写的记忆化，懒得改dp了</p>
@@ -2180,7 +2180,7 @@
 <p>Alice 和 Bob 用几堆石子在做游戏。几堆石子排成一行，每堆石子都对应一个得分，由数组 <code>stoneValue</code> 给出。</p>
 <p>Alice 和 Bob 轮流取石子，<strong>Alice</strong> 总是先开始。在每个玩家的回合中，该玩家可以拿走剩下石子中的的前 <strong>1、2 或 3 堆石子</strong> 。比赛一直持续到所有石头都被拿走。</p>
 <p>每个玩家的最终得分为他所拿到的每堆石子的对应得分之和。每个玩家的初始分数都是 <strong>0</strong> 。比赛的目标是决出最高分，得分最高的选手将会赢得比赛，比赛也可能会出现平局。</p>
-<p>假设 Alice 和 Bob 都采取 <strong>最优策略</strong> 。如果 Alice 赢了就返回 <em>“Alice”</em> <em>，</em>Bob 赢了就返回 <em>“Bob”，_平局（分数相同）返回 _”Tie”</em> 。</p>
+<p>假设 Alice 和 Bob 都采取 <strong>最优策略</strong> 。如果 Alice 赢了就返回 <em>“Alice”</em> <em>，_Bob 赢了就返回 _”Bob”，_平局（分数相同）返回 _”Tie”</em> 。</p>
 <p><strong>示例 1：</strong></p>
 <figure class="highlight go"><table><tr><td class="code"><pre><span class="line">输入：values = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">7</span>]</span><br><span class="line">输出：<span class="string">"Bob"</span></span><br><span class="line">解释：Alice 总是会输，她的最佳选择是拿走前三堆，得分变成 <span class="number">6</span> 。但是 Bob 的得分为 <span class="number">7</span>，Bob 获胜。</span><br></pre></td></tr></table></figure>
 
@@ -2198,8 +2198,8 @@
 
 <p><strong>提示：</strong></p>
 <ul>
-<li><code>1 &lt;= values.length &lt;= 50000</code></li>
-<li><code>-1000 &lt;= values[i] &lt;= 1000</code></li>
+<li>  <code>1 &lt;= values.length &lt;= 50000</code></li>
+<li>  <code>-1000 &lt;= values[i] &lt;= 1000</code></li>
 </ul>
 <p><strong>解法一</strong></p>
 <p>某次双周赛的T4，没参加，感觉这题还是挺简单的，比2还要简单，下面的做法直接套用2的做法，改成了后缀和数组</p>
@@ -2207,9 +2207,9 @@
 <p>这题还有更好的做法，先挖个坑，后面有时间再写</p>
 <h2 id="1510-石子游戏-IV"><a href="#1510-石子游戏-IV" class="headerlink" title="1510. 石子游戏 IV"></a><a href="https://leetcode-cn.com/problems/stone-game-iv/" target="_blank" rel="noopener">1510. 石子游戏 IV</a></h2><p>Difficulty: <strong>困难</strong></p>
 <p>Alice 和 Bob 两个人轮流玩一个游戏，Alice 先手。</p>
-<p>一开始，有 <code>n</code> 个石子堆在一起。每个人轮流操作，正在操作的玩家可以从石子堆里拿走 <strong>任意</strong> 非零 <strong>平方数</strong> 个石子。</p>
+<p>一开始，有 <code>n</code> 个石子堆在一起。每个人轮流操作，正在操作的玩家可以从石子堆里拿走 <strong>任意</strong> 非零 <strong>平方数</strong> 个石子。</p>
 <p>如果石子堆里没有石子了，则无法操作的玩家输掉游戏。</p>
-<p>给你正整数 <code>n</code> ，且已知两个人都采取最优策略。如果 Alice 会赢得比赛，那么返回 <code>True</code> ，否则返回 <code>False</code> 。</p>
+<p>给你正整数 <code>n</code> ，且已知两个人都采取最优策略。如果 Alice 会赢得比赛，那么返回 <code>True</code> ，否则返回 <code>False</code> 。</p>
 <p><strong>示例 1：</strong></p>
 <figure class="highlight go"><table><tr><td class="code"><pre><span class="line">输入：n = <span class="number">1</span></span><br><span class="line">输出：<span class="literal">true</span></span><br><span class="line">解释：Alice 拿走 <span class="number">1</span> 个石子并赢得胜利，因为 Bob 无法进行任何操作。</span><br></pre></td></tr></table></figure>
 
@@ -2227,7 +2227,7 @@
 
 <p><strong>提示：</strong></p>
 <ul>
-<li><code>1 &lt;= n &lt;= 10^5</code></li>
+<li>  <code>1 &lt;= n &lt;= 10^5</code></li>
 </ul>
 <p><strong>解法一</strong></p>
 <p>前几次双周赛的T4，太水了，大水题，顶多算mid</p>
@@ -2247,9 +2247,9 @@
 
 <p><strong>提示：</strong></p>
 <ul>
-<li>1 &lt;= 给定的数组长度 &lt;= 20.</li>
-<li>数组里所有分数都为非负数且不会大于 10000000 。</li>
-<li>如果最终两个玩家的分数相等，那么玩家 1 仍为赢家。</li>
+<li>  1 &lt;= 给定的数组长度 &lt;= 20.</li>
+<li>  数组里所有分数都为非负数且不会大于 10000000 。</li>
+<li>  如果最终两个玩家的分数相等，那么玩家 1 仍为赢家。</li>
 </ul>
 <p><strong>解法一</strong></p>
 <p>记忆化，这种博弈的题目记忆化写起来会比较自然</p>
@@ -2277,11 +2277,11 @@
 <p>临时起意学了下Floyd，然后在lc上搜了一下找到了这一题，思路也很直接</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//Floyd</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">networkDelayTime</span><span class="params">(<span class="keyword">int</span>[][] times, <span class="keyword">int</span> N, <span class="keyword">int</span> K)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span>[][] dis=<span class="keyword">new</span> <span class="keyword">int</span>[N][N];</span><br><span class="line">    <span class="keyword">int</span> INF = <span class="number">0x3f3f3f3f</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;N;i++) Arrays.fill(dis[i],INF);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;N;i++) dis[i][i]=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span>[] t:times) dis[t[<span class="number">0</span>]-<span class="number">1</span>][t[<span class="number">1</span>]-<span class="number">1</span>]=t[<span class="number">2</span>];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> k=<span class="number">0</span>;k&lt;N;k++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;N;i++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;N;j++)&#123;</span><br><span class="line">                dis[i][j]=Math.min(dis[i][j],dis[i][k]+dis[k][j]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> res=<span class="number">0</span>;</span><br><span class="line">    K-=<span class="number">1</span>; <span class="comment">//从0开始！从1开始的都是邪教</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;N;i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(dis[K][i]==INF) <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">        res=Math.max(dis[K][i],res);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>大概说一下，其实Floyd就是动态规划的思想，<code>dp[k][i][j]</code>代表从<code>i~j</code>允许经过前<code>k</code>个节点中转时的最短路径，那么其实很容易推导出，<code>dp[k][i][j]=min(dp[k-1][i][k]+dp[k-1][k][j],dp[k][i][j])</code>其实也就是尝试以每个点为中转点，看能否缩短两点之间的距离，和区间DP有点像，关于<code>k</code>为什么要放外面其实仔细想一下就知道了，我们需要保证在求<code>dp[k][i][j]</code>的时候需要保证<code>dp[k-1][i][j]</code>以及<code>dp[k-1][i][k]</code> 和<code>dp[k-1][k][j]</code>都是已经计算完毕的，想一想，如果k放在里面能保证么？很明显不行，可以类比上面的 <a href="#576-出界的路径数">576. 出界的路径数</a>，一样的道理。然后我们再观察整个递推方程，发现<code>dp[k]</code>只依赖于<code>dp[k-1]</code>所以就可以直接滚动数组优化掉k维度的空间，也就是上面的解法</p>
+<p>大概说一下，其实Floyd就是动态规划的思想，<code>dp[k][i][j]</code>代表从<code>i~j</code>允许经过前<code>k</code>个节点中转时的最短路径，那么其实很容易推导出，<code>dp[k][i][j]=min(dp[k-1][i][k]+dp[k-1][k][j],dp[k][i][j])</code>其实也就是尝试以每个点为中转点，看能否缩短两点之间的距离，和区间DP有点像，关于<code>k</code>为什么要放外面其实仔细想一下就知道了，我们需要保证在求<code>dp[k][i][j]</code>的时候需要保证<code>dp[k-1][i][j]</code>以及<code>dp[k-1][i][k]</code> 和<code>dp[k-1][k][j]</code>都是已经计算完毕的，想一想，如果k放在里面能保证么？很明显不行，可以类比上面的 <a href="#576-%E5%87%BA%E7%95%8C%E7%9A%84%E8%B7%AF%E5%BE%84%E6%95%B0">576. 出界的路径数</a>，一样的道理。然后我们再观察整个递推方程，发现<code>dp[k]</code>只依赖于<code>dp[k-1]</code>所以就可以直接滚动数组优化掉k维度的空间，也就是上面的解法</p>
 <h2 id="1584-连接所有点的最小费用"><a href="#1584-连接所有点的最小费用" class="headerlink" title="1584. 连接所有点的最小费用"></a><a href="https://leetcode-cn.com/problems/min-cost-to-connect-all-points/" target="_blank" rel="noopener">1584. 连接所有点的最小费用</a></h2><p>Difficulty: <strong>中等</strong></p>
-<p>给你一个<code>points</code> 数组，表示 2D 平面上的一些点，其中 points[i] = [x<sub style="display: inline;">i</sub>, y<sub style="display: inline;">i</sub>] 。</p>
-<p>连接点 [x<sub style="display: inline;">i</sub>, y<sub style="display: inline;">i</sub>] 和点 [x<sub style="display: inline;">j</sub>, y<sub style="display: inline;">j</sub>]` 的费用为它们之间的 <strong>曼哈顿距离</strong> ：x<sub style="display: inline;">i</sub> - x<sub style="display: inline;">j</sub>| + |y<sub style="display: inline;">i</sub> - y<sub style="display: inline;">j</sub>| ，其中 |val| 表示 val 的绝对值。</p>
-<p>请你返回将所有点连接的最小总费用。只有任意两点之间 <strong>有且仅有</strong> 一条简单路径时，才认为所有点都已连接。</p>
+<p>给你一个<code>points</code> 数组，表示 2D 平面上的一些点，其中 points[i] = [x<sub style="display: inline;">i</sub>, y<sub style="display: inline;">i</sub>] 。</p>
+<p>连接点 [x<sub style="display: inline;">i</sub>, y<sub style="display: inline;">i</sub>] 和点 [x<sub style="display: inline;">j</sub>, y<sub style="display: inline;">j</sub>]` 的费用为它们之间的 <strong>曼哈顿距离</strong> ：x<sub style="display: inline;">i</sub> - x<sub style="display: inline;">j</sub>| + |y<sub style="display: inline;">i</sub> - y<sub style="display: inline;">j</sub>| ，其中 |val| 表示 val 的绝对值。</p>
+<p>请你返回将所有点连接的最小总费用。只有任意两点之间 <strong>有且仅有</strong> 一条简单路径时，才认为所有点都已连接。</p>
 <p><strong>示例 1：</strong><br><img src="https://s1.ax1x.com/2020/09/14/wDmhAf.png" alt="wDmhAf.png"></p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">输入：points &#x3D; [[0,0],[2,2],[3,10],[5,2],[7,0]]</span><br><span class="line">输出：20</span><br><span class="line">解释：</span><br><span class="line"></span><br><span class="line">我们可以按照上图所示连接所有点得到最小总费用，总费用为 20 。</span><br><span class="line">注意到任意两个点之间只有唯一一条路径互相到达。</span><br></pre></td></tr></table></figure>
 
@@ -2299,9 +2299,9 @@
 
 <p><strong>提示：</strong></p>
 <ul>
-<li>1 &lt;= points.length &lt;= 1000</li>
-<li>-10<sup>6</sup> &lt;= x<sub style="display: inline;">i</sub>, y<sub style="display: inline;">i</sub> &lt;= 10<sup>6</sup></li>
-<li>所有点 (x<sub style="display: inline;">i</sub>, y<sub style="display: inline;">i</sub>) 两两不同。</li>
+<li>  1 &lt;= points.length &lt;= 1000</li>
+<li>  -10<sup>6</sup> &lt;= x<sub style="display: inline;">i</sub>, y<sub style="display: inline;">i</sub> &lt;= 10<sup>6</sup></li>
+<li>  所有点 (x<sub style="display: inline;">i</sub>, y<sub style="display: inline;">i</sub>) 两两不同。</li>
 </ul>
 <p><strong>解法一</strong></p>
 <p>Prim O(V^2)最小生成树，206th周赛t3，裸的mst，但是彩笔的我并不会，事后补了一波 <a href="https://oi-wiki.org/graph/mst/#prim" target="_blank" rel="noopener">OI Wiki</a>，（这个是原始的暴力Prim，应对这个题够了）  </p>

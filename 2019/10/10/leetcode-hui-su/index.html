@@ -248,7 +248,7 @@
 <li>给定 n 的范围是 [1, 9]。</li>
 <li>给定 k 的范围是[1,  n!]。</li>
 </ul>
-<p>*<em>示例 1: *</em></p>
+<p>**示例 1: **</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line">输入: n = <span class="number">3</span>, k = <span class="number">3</span></span><br><span class="line">输出: <span class="string">"213"</span></span><br></pre></td></tr></table></figure>
 
 
@@ -301,7 +301,7 @@
 <blockquote>
 <p>我首先想到的就是Hash表，这里翻了下评论区好像都是用的第二种方式去重的，难道用HashSet不好么😂，第二种必须要先排序，保证相同的元素都聚在一起，方便判断，这种题在纸上画一画递归树其实就很清楚了</p>
 </blockquote>
-<h3 id="Bug警告"><a href="#Bug警告" class="headerlink" title="Bug警告"></a>Bug警告</h3><p>这里 <code>!visit[i-1]</code>和 <code>visit[i-1]</code>对于这题来说并不影响正确性，但是你如果将生成的过程打印出来对比下就知道为啥了，具体的请看下面 <a href="#1079-活字印刷">1079. 活字印刷</a> 的解释</p>
+<h3 id="Bug警告"><a href="#Bug警告" class="headerlink" title="Bug警告"></a>Bug警告</h3><p>这里 <code>!visit[i-1]</code>和 <code>visit[i-1]</code>对于这题来说并不影响正确性，但是你如果将生成的过程打印出来对比下就知道为啥了，具体的请看下面 <a href="#1079-%E6%B4%BB%E5%AD%97%E5%8D%B0%E5%88%B7">1079. 活字印刷</a> 的解释</p>
 <h2 id="1286-字母组合迭代器"><a href="#1286-字母组合迭代器" class="headerlink" title="1286. 字母组合迭代器"></a><a href="https://leetcode-cn.com/problems/iterator-for-combination/" target="_blank" rel="noopener">1286. 字母组合迭代器</a></h2><p>请你设计一个迭代器类，包括以下内容：</p>
 <ul>
 <li>一个构造函数，输入参数包括：一个 有序且字符唯一 的字符串 characters（该字符串只包含小写英文字母）和一个数字 combinationLength 。</li>
@@ -557,7 +557,7 @@
 
 <p>回溯不难想到，这一类回溯咋说呢，属于 “一镜到底” 的那种，可以看看解数独的哪个解法，也是这样的（其实就是参考的那个）带一个boolean返回值，走到结尾走不通才会回溯，N皇后这种就不太一样，不管是否成功都会回溯，反正目前大致的感觉就是这样，后面遇到更多题型再来总结</p>
 <p>不过感觉这题的关键不是回溯，而是边界的处理，首先是溢出的问题，我看见有进阶的就没考虑溢出，结果还是溢出了，而且溢出了两次！！！最后没办法，也不想用<code>BigInteger</code>就自己写了大数相加的逻辑</p>
-<p>除了溢出的问题，这题需要注意 <code>0</code> 在这个<code>0</code> 上也WA了一发，因为回溯还是在分割字符串，但是如果有0的话就不能随便的分割了，具体看代码就懂了</p>
+<p>除了溢出的问题，这题需要注意 <code>0 </code> 在这个<code>0</code> 上也WA了一发，因为回溯还是在分割字符串，但是如果有0的话就不能随便的分割了，具体看代码就懂了</p>
 <h2 id="842-将数组拆分成斐波那契序列"><a href="#842-将数组拆分成斐波那契序列" class="headerlink" title="842. 将数组拆分成斐波那契序列"></a><a href="https://leetcode-cn.com/problems/split-array-into-fibonacci-sequence/" target="_blank" rel="noopener">842. 将数组拆分成斐波那契序列</a></h2><p>给定一个数字字符串 S，比如 S = “123456579”，我们可以将它分成斐波那契式的序列 [123, 456, 579]。</p>
 <p>形式上，斐波那契式序列是一个非负整数列表 F，且满足：</p>
 <ul>
@@ -680,10 +680,10 @@
 <li><code>0 &lt; nums[i] &lt; 10000</code></li>
 </ul>
 <p><strong>解法一</strong></p>
-<p><a href="#473-火柴拼正方形">473. 火柴拼正方形</a>其实只是这道题的一个子问题，关键搞懂这题就行了</p>
+<p><a href="#473-%E7%81%AB%E6%9F%B4%E6%8B%BC%E6%AD%A3%E6%96%B9%E5%BD%A2">473. 火柴拼正方形</a>其实只是这道题的一个子问题，关键搞懂这题就行了</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">canPartitionKSubsets</span><span class="params">(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(nums==<span class="keyword">null</span> || nums.length&lt;=<span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> sum=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;nums.length;i++)&#123;</span><br><span class="line">        sum+=nums[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(sum%k!=<span class="number">0</span>) <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    Arrays.sort(nums);</span><br><span class="line">    <span class="keyword">return</span> dfs(nums,nums.length-<span class="number">1</span>,<span class="keyword">new</span> <span class="keyword">int</span>[k],sum);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span>[] nums,<span class="keyword">int</span> index,<span class="keyword">int</span>[] bucket,<span class="keyword">int</span> sum)</span></span>&#123;</span><br><span class="line">    <span class="comment">//sum(bucket)==sum</span></span><br><span class="line">    <span class="comment">//if条件: bucket[i]&lt;=sum/bucket.len =&gt; bucket[i]&lt;=sum(bucket)/bucket.len</span></span><br><span class="line">    <span class="comment">//所以不用单独去判断是否都相等,直接retuen true</span></span><br><span class="line">    <span class="keyword">if</span>(index==-<span class="number">1</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;bucket.length;i++)&#123;</span><br><span class="line">        <span class="comment">//普通的剪枝 60ms，只判断了是否小于平均值</span></span><br><span class="line">        <span class="comment">//if(bucket[i]+nums[index]&lt;=sum/bucket.length)&#123;</span></span><br><span class="line">        <span class="comment">//更好的剪枝方式1ms，判断剩余空间不为0的时候还能不能填其他元素</span></span><br><span class="line">        <span class="keyword">int</span> rest=sum/bucket.length-bucket[i]-nums[index];</span><br><span class="line">        <span class="keyword">if</span>(rest==<span class="number">0</span> || rest&gt;=nums[<span class="number">0</span>])&#123; <span class="comment">//小于nums[0]就啥也填不了了</span></span><br><span class="line">            bucket[i]+=nums[index];</span><br><span class="line">            <span class="keyword">if</span>(dfs(nums,index-<span class="number">1</span>,bucket,sum))&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            bucket[i]-=nums[index];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>其实总体上来说还是暴力的搜索，然后加上一些剪枝优化的手段，首先能想到的是<strong>约束桶内元素和要小于等于<code>sum/k</code></strong>，这样就能减去很多无效搜索，但是仅仅这样还是无法AC这题，还有一步很关键的优化点是<strong>排序</strong>，排序后我们从大往小搜索，也就是优先将大的元素放入桶中，尽快满足if条件，经过上面的优化就可以成功的AC了，耗时60ms左右，但是看了评论区的大佬的解法后发现还有一种更好的剪枝方式，就是考虑放下当前元素后还能不能放下其他的元素，如果刚好放下就直接放，如果放下后还有剩余空间，且这个剩余空间很小，连<code>nums[0]</code>都放不下（前面排序了）那么这种情况也是可以直接剪掉的，时间优化到1ms</p>
+<p>其实总体上来说还是暴力的搜索，然后加上一些剪枝优化的手段，首先能想到的是<strong>约束桶内元素和要小于等于<code>sum/k</code>**，这样就能减去很多无效搜索，但是仅仅这样还是无法AC这题，还有一步很关键的优化点是</strong>排序**，排序后我们从大往小搜索，也就是优先将大的元素放入桶中，尽快满足if条件，经过上面的优化就可以成功的AC了，耗时60ms左右，但是看了评论区的大佬的解法后发现还有一种更好的剪枝方式，就是考虑放下当前元素后还能不能放下其他的元素，如果刚好放下就直接放，如果放下后还有剩余空间，且这个剩余空间很小，连<code>nums[0]</code>都放不下（前面排序了）那么这种情况也是可以直接剪掉的，时间优化到1ms</p>
 <blockquote>
 <p><code>index==-1</code>为什么就直接返回true了？简单推一下就行了</p>
 <p>首先<code>index==-1</code>说明所有元素都已经放入<code>bucket</code>中了，所以<code>sum(bucket)=sum(nums)</code></p>
@@ -698,16 +698,16 @@
 
 <p><strong>说明:</strong></p>
 <ol>
-<li>给定数组的长度不会超过15。</li>
-<li>数组中的整数范围是 [-100,100]。</li>
-<li>给定数组中可能包含重复数字，相等的数字应该被视为递增的一种情况。</li>
+<li> 给定数组的长度不会超过15。</li>
+<li> 数组中的整数范围是 [-100,100]。</li>
+<li> 给定数组中可能包含重复数字，相等的数字应该被视为递增的一种情况。</li>
 </ol>
 <p><strong>解法一</strong></p>
-<p>感觉今天晚上状态不太好，好久没写回溯了，写了几发思路都有问题，最后瞄了一眼评论区才反应过来，和上面<a href="#842-将数组拆分成斐波那契序列">842-将数组拆分成斐波那契序列</a>很类似，都是利用lis数组上次存值判断，当时这题还是我独立写出来的，写完发的code评论还是个热评，今天写这题居然没反应过来，太菜了😥</p>
+<p>感觉今天晚上状态不太好，好久没写回溯了，写了几发思路都有问题，最后瞄了一眼评论区才反应过来，和上面<a href="#842-%E5%B0%86%E6%95%B0%E7%BB%84%E6%8B%86%E5%88%86%E6%88%90%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E5%BA%8F%E5%88%97">842-将数组拆分成斐波那契序列</a>很类似，都是利用lis数组上次存值判断，当时这题还是我独立写出来的，写完发的code评论还是个热评，今天写这题居然没反应过来，太菜了😥</p>
 <figure class="highlight golang"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">findSubsequences</span><span class="params">(nums []<span class="keyword">int</span>)</span> [][]<span class="title">int</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> n = <span class="built_in">len</span>(nums)</span><br><span class="line">    <span class="keyword">var</span> res [][]<span class="keyword">int</span></span><br><span class="line">    <span class="keyword">var</span> dfs <span class="function"><span class="keyword">func</span><span class="params">(<span class="keyword">int</span>, []<span class="keyword">int</span>)</span></span></span><br><span class="line">    dfs = <span class="function"><span class="keyword">func</span><span class="params">(index <span class="keyword">int</span>, lis []<span class="keyword">int</span>)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(lis) &gt;= <span class="number">2</span>&#123;</span><br><span class="line">            dest := <span class="built_in">make</span>([]<span class="keyword">int</span>, <span class="built_in">len</span>(lis))</span><br><span class="line">            <span class="built_in">copy</span>(dest, lis)</span><br><span class="line">            res = <span class="built_in">append</span>(res, dest)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//保证一次for循环中没有重复的就行了，根据取值范围做下偏移</span></span><br><span class="line">        <span class="keyword">var</span> visit = <span class="built_in">make</span>([]<span class="keyword">bool</span>, <span class="number">201</span>)</span><br><span class="line">        <span class="keyword">for</span> i := index; i &lt; n; i++&#123;</span><br><span class="line">            <span class="keyword">if</span> !visit[nums[i]+<span class="number">100</span>] &amp;&amp; (<span class="built_in">len</span>(lis) == <span class="number">0</span> || nums[i] &gt;= lis[<span class="built_in">len</span>(lis)<span class="number">-1</span>]) &#123;</span><br><span class="line">                visit[nums[i]+<span class="number">100</span>] = <span class="literal">true</span></span><br><span class="line">                lis = <span class="built_in">append</span>(lis, nums[i])</span><br><span class="line">                dfs(i+<span class="number">1</span>, lis)</span><br><span class="line">                lis = lis[:<span class="built_in">len</span>(lis)<span class="number">-1</span>]</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    dfs(<span class="number">0</span>, <span class="built_in">make</span>([]<span class="keyword">int</span>, <span class="number">0</span>))</span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="679-24-点游戏"><a href="#679-24-点游戏" class="headerlink" title="679. 24 点游戏"></a><a href="https://leetcode-cn.com/problems/24-game/" target="_blank" rel="noopener">679. 24 点游戏</a></h2><p>Difficulty: <strong>困难</strong></p>
-<p>你有 4 张写有 1 到 9 数字的牌。你需要判断是否能通过 <code>*</code>，<code>/</code>，<code>+</code>，<code>-</code>，<code>(</code>，<code>)</code> 的运算得到 24。</p>
+<p>你有 4 张写有 1 到 9 数字的牌。你需要判断是否能通过 <code>*</code>，<code>/</code>，<code>+</code>，<code>-</code>，<code>(</code>，<code>)</code> 的运算得到 24。</p>
 <p><strong>示例 1:</strong></p>
 <figure class="highlight go"><table><tr><td class="code"><pre><span class="line">输入: [<span class="number">4</span>, <span class="number">1</span>, <span class="number">8</span>, <span class="number">7</span>]</span><br><span class="line">输出: True</span><br><span class="line">解释: (<span class="number">8</span><span class="number">-4</span>) * (<span class="number">7</span><span class="number">-1</span>) = <span class="number">24</span></span><br></pre></td></tr></table></figure>
 
@@ -716,18 +716,18 @@
 
 <p><strong>注意:</strong></p>
 <ol>
-<li>除法运算符 <code>/</code> 表示实数除法，而不是整数除法。例如 4 / (1 - 2/3) = 12 。</li>
-<li>每个运算符对两个数进行运算。特别是我们不能用 <code>-</code> 作为一元运算符。例如，<code>[1, 1, 1, 1]</code> 作为输入时，表达式 <code>-1 - 1 - 1 - 1</code> 是不允许的。</li>
-<li>你不能将数字连接在一起。例如，输入为 <code>[1, 2, 1, 2]</code> 时，不能写成 12 + 12 。</li>
+<li> 除法运算符 <code>/</code> 表示实数除法，而不是整数除法。例如 4 / (1 - 2/3) = 12 。</li>
+<li> 每个运算符对两个数进行运算。特别是我们不能用 <code>-</code> 作为一元运算符。例如，<code>[1, 1, 1, 1]</code> 作为输入时，表达式 <code>-1 - 1 - 1 - 1</code> 是不允许的。</li>
+<li> 你不能将数字连接在一起。例如，输入为 <code>[1, 2, 1, 2]</code> 时，不能写成 12 + 12 。</li>
 </ol>
 <p><strong>解法一</strong></p>
 <p>代码有点长，不过思路还是很清楚，一共4个数字，从里面任意选2个，然后做各种运算后和剩下的数字构成新的数组，然后重复该过程直到数组只剩下一个然后判断值是否是24（注意精度）</p>
 <figure class="highlight golang"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">judgePoint24</span><span class="params">(nums []<span class="keyword">int</span>)</span> <span class="title">bool</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> eps <span class="keyword">float32</span> = <span class="number">1e-5</span></span><br><span class="line">    <span class="keyword">var</span> Abs = <span class="function"><span class="keyword">func</span><span class="params">(a <span class="keyword">float32</span>)</span> <span class="title">float32</span></span> &#123;</span><br><span class="line">        <span class="keyword">if</span> a &lt; <span class="number">0</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> -a</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> a</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//计数+-*/</span></span><br><span class="line">    <span class="keyword">var</span> compute = <span class="function"><span class="keyword">func</span><span class="params">(a, b <span class="keyword">float32</span>)</span> []<span class="title">float32</span></span> &#123;</span><br><span class="line">        <span class="keyword">return</span> []<span class="keyword">float32</span>&#123;a + b, a * b, a - b, a / b&#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> dfs <span class="function"><span class="keyword">func</span><span class="params">([]<span class="keyword">float32</span>)</span> <span class="title">bool</span></span></span><br><span class="line">    dfs = <span class="function"><span class="keyword">func</span><span class="params">(nums []<span class="keyword">float32</span>)</span> <span class="title">bool</span></span> &#123;</span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(nums) == <span class="number">0</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(nums) == <span class="number">1</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> Abs(nums[<span class="number">0</span>]<span class="number">-24</span>) &lt; eps</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">var</span> n = <span class="built_in">len</span>(nums)</span><br><span class="line">        <span class="comment">//从nums中选取2个数</span></span><br><span class="line">        <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; n; i++ &#123;</span><br><span class="line">            <span class="keyword">for</span> j := <span class="number">0</span>; j &lt; n; j++ &#123;</span><br><span class="line">                <span class="keyword">if</span> i == j &#123;</span><br><span class="line">                    <span class="keyword">continue</span></span><br><span class="line">                &#125;</span><br><span class="line">                <span class="comment">//收集剩下的数字</span></span><br><span class="line">                <span class="keyword">var</span> rest []<span class="keyword">float32</span></span><br><span class="line">                <span class="keyword">for</span> k := <span class="number">0</span>; k &lt; n; k++ &#123;</span><br><span class="line">                    <span class="keyword">if</span> k != i &amp;&amp; k != j &#123;</span><br><span class="line">                        rest = <span class="built_in">append</span>(rest, nums[k])</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="comment">//尝试做各种运算</span></span><br><span class="line">                <span class="keyword">for</span> _, v := <span class="keyword">range</span> compute(nums[i], nums[j]) &#123;</span><br><span class="line">                    <span class="keyword">if</span> dfs(<span class="built_in">append</span>(rest, v)) &#123;</span><br><span class="line">                        <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> temp = <span class="built_in">make</span>([]<span class="keyword">float32</span>, <span class="built_in">len</span>(nums))</span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="built_in">len</span>(nums); i++ &#123;</span><br><span class="line">        temp[i] = <span class="keyword">float32</span>(nums[i])</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dfs(temp)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="5526-最多可达成的换楼请求数目"><a href="#5526-最多可达成的换楼请求数目" class="headerlink" title="5526. 最多可达成的换楼请求数目"></a><a href="https://leetcode-cn.com/problems/maximum-number-of-achievable-transfer-requests/" target="_blank" rel="noopener">5526. 最多可达成的换楼请求数目</a></h2><p>Difficulty: <strong>困难</strong></p>
-<p>我们有 <code>n</code> 栋楼，编号从 <code>0</code> 到 <code>n - 1</code> 。每栋楼有若干员工。由于现在是换楼的季节，部分员工想要换一栋楼居住。</p>
-<p>给你一个数组 <code>requests</code> ，其中 <code>requests[i] = [from&lt;sub style=&quot;display: inline;&quot;&gt;i&lt;/sub&gt;, to&lt;sub style=&quot;display: inline;&quot;&gt;i&lt;/sub&gt;]</code> ，表示一个员工请求从编号为 <code>from&lt;sub style=&quot;display: inline;&quot;&gt;i&lt;/sub&gt;</code> 的楼搬到编号为 <code>to&lt;sub style=&quot;display: inline;&quot;&gt;i&lt;/sub&gt;</code>的楼。</p>
-<p>一开始 <strong>所有楼都是满的</strong>，所以从请求列表中选出的若干个请求是可行的需要满足 <strong>每栋楼员工净变化为 0 *<em>。意思是每栋楼 *</em>离开</strong> 的员工数目 <strong>等于</strong> 该楼 <strong>搬入</strong> 的员工数数目。比方说 <code>n = 3</code> 且两个员工要离开楼 <code>0</code> ，一个员工要离开楼 <code>1</code> ，一个员工要离开楼 <code>2</code> ，如果该请求列表可行，应该要有两个员工搬入楼 <code>0</code> ，一个员工搬入楼 <code>1</code> ，一个员工搬入楼 <code>2</code> 。</p>
+<p>我们有 <code>n</code> 栋楼，编号从 <code>0</code> 到 <code>n - 1</code> 。每栋楼有若干员工。由于现在是换楼的季节，部分员工想要换一栋楼居住。</p>
+<p>给你一个数组 <code>requests</code> ，其中 <code>requests[i] = [from&lt;sub style=&quot;display: inline;&quot;&gt;i&lt;/sub&gt;, to&lt;sub style=&quot;display: inline;&quot;&gt;i&lt;/sub&gt;]</code> ，表示一个员工请求从编号为 <code>from&lt;sub style=&quot;display: inline;&quot;&gt;i&lt;/sub&gt;</code> 的楼搬到编号为 <code>to&lt;sub style=&quot;display: inline;&quot;&gt;i&lt;/sub&gt;</code>的楼。</p>
+<p>一开始 <strong>所有楼都是满的</strong>，所以从请求列表中选出的若干个请求是可行的需要满足 <strong>每栋楼员工净变化为 0 **。意思是每栋楼 **离开</strong> 的员工数目 <strong>等于</strong> 该楼 <strong>搬入</strong> 的员工数数目。比方说 <code>n = 3</code> 且两个员工要离开楼 <code>0</code> ，一个员工要离开楼 <code>1</code> ，一个员工要离开楼 <code>2</code> ，如果该请求列表可行，应该要有两个员工搬入楼 <code>0</code> ，一个员工搬入楼 <code>1</code> ，一个员工搬入楼 <code>2</code> 。</p>
 <p>请你从原请求列表中选出若干个请求，使得它们是一个可行的请求列表，并返回所有可行列表中最大请求数目。</p>
 <p><strong>示例 1：</strong></p>
 <p><img src="https://s1.ax1x.com/2020/09/27/0AZHr8.png" alt="0AZHr8.png"></p>
@@ -742,10 +742,10 @@
 
 <p><strong>提示：</strong></p>
 <ul>
-<li><code>1 &lt;= n &lt;= 20</code></li>
-<li><code>1 &lt;= requests.length &lt;= 16</code></li>
-<li><code>requests[i].length == 2</code></li>
-<li><code>0 &lt;= from&lt;sub style=&quot;display: inline;&quot;&gt;i&lt;/sub&gt;, to&lt;sub style=&quot;display: inline;&quot;&gt;i&lt;/sub&gt; &lt; n</code></li>
+<li>  <code>1 &lt;= n &lt;= 20</code></li>
+<li>  <code>1 &lt;= requests.length &lt;= 16</code></li>
+<li>  <code>requests[i].length == 2</code></li>
+<li>  <code>0 &lt;= from&lt;sub style=&quot;display: inline;&quot;&gt;i&lt;/sub&gt;, to&lt;sub style=&quot;display: inline;&quot;&gt;i&lt;/sub&gt; &lt; n</code></li>
 </ul>
 <p><strong>解法一</strong></p>
 <p>208周赛T4，有点白给，想好怎么处理就很简单（好不容易T4这么简单，被T2，T3给干懵了）</p>
@@ -877,7 +877,7 @@
 <p>对于上面这个给定的矩阵, 返回 0</p>
 <p><strong>注意:</strong> 给定的矩阵grid 的长度和宽度都不超过 50。</p>
 <p><strong>解法一</strong></p>
-<p>和上面 <a href="#200-岛屿数量">200题岛屿的数量</a>很类似，不过还是有所不同，这里要计算的是最大的面积</p>
+<p>和上面 <a href="#200-%E5%B2%9B%E5%B1%BF%E6%95%B0%E9%87%8F">200题岛屿的数量</a>很类似，不过还是有所不同，这里要计算的是最大的面积</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">int</span>[][] direction=&#123;&#123;<span class="number">0</span>,<span class="number">1</span>&#125;,&#123;<span class="number">0</span>,-<span class="number">1</span>&#125;,&#123;<span class="number">1</span>,<span class="number">0</span>&#125;,&#123;-<span class="number">1</span>,<span class="number">0</span>&#125;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maxAreaOfIsland</span><span class="params">(<span class="keyword">int</span>[][] grid)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (grid==<span class="keyword">null</span> || grid.length&lt;=<span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> max;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">boolean</span>[][] visit=<span class="keyword">new</span> <span class="keyword">boolean</span>[grid.length][grid[<span class="number">0</span>].length];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;grid.length;i++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;grid[<span class="number">0</span>].length;j++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (grid[i][j]==<span class="number">1</span> &amp;&amp;!visit[i][j]) &#123;</span><br><span class="line">                <span class="keyword">int</span> t=dfs(grid,i,j,visit);</span><br><span class="line">                max=max&gt;t?max:t;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> max;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">int</span> max=<span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span>[][] grid,<span class="keyword">int</span> x,<span class="keyword">int</span> y,<span class="keyword">boolean</span>[][] visit)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> temp=<span class="number">1</span>;</span><br><span class="line">    visit[x][y]=<span class="keyword">true</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;direction.length;i++) &#123;</span><br><span class="line">        <span class="keyword">int</span> nx=x+direction[i][<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">int</span> ny=y+direction[i][<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">if</span> (isValid(grid,nx,ny) &amp;&amp; grid[nx][ny]==<span class="number">1</span> &amp;&amp; !visit[nx][ny]) &#123;</span><br><span class="line">            <span class="comment">//将4个方向的符合条件的数量加起来</span></span><br><span class="line">            temp+=dfs(grid,nx,ny,visit);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> temp;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isValid</span><span class="params">(<span class="keyword">final</span> <span class="keyword">int</span>[][] grid,<span class="keyword">int</span> x,<span class="keyword">int</span> y)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x&gt;=<span class="number">0</span> &amp;&amp; x&lt;grid.length &amp;&amp; y&gt;=<span class="number">0</span> &amp;&amp; y&lt;grid[<span class="number">0</span>].length;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>最开始直接在dfs函数里面用count计数，居然还过了600多个case…..惊了，那种做法完全是错的，说实话有点不太习惯写有返回值的递归</p>
 <h2 id="547-朋友圈"><a href="#547-朋友圈" class="headerlink" title="547. 朋友圈"></a><a href="https://leetcode-cn.com/problems/friend-circles/" target="_blank" rel="noopener">547. 朋友圈</a></h2><p>班上有 N 名学生。其中有些人是朋友，有些则不是。他们的友谊具有是传递性。如果已知 A 是 B 的朋友，B 是 C 的朋友，那么我们可以认为 A 也是 C 的朋友。所谓的朋友圈，是指所有朋友的集合。</p>
@@ -983,7 +983,7 @@
 
 <h2 id="733-图像渲染"><a href="#733-图像渲染" class="headerlink" title="733. 图像渲染"></a><a href="https://leetcode-cn.com/problems/flood-fill/" target="_blank" rel="noopener">733. 图像渲染</a></h2><p>Difficulty: <strong>简单</strong></p>
 <p>有一幅以二维整数数组表示的图画，每一个整数表示该图画的像素值大小，数值在 0 到 65535 之间。</p>
-<p>给你一个坐标 <code>(sr, sc)</code> 表示图像渲染开始的像素值（行 ，列）和一个新的颜色值 <code>newColor</code>，让你重新上色这幅图像。</p>
+<p>给你一个坐标 <code>(sr, sc)</code> 表示图像渲染开始的像素值（行 ，列）和一个新的颜色值 <code>newColor</code>，让你重新上色这幅图像。</p>
 <p>为了完成上色工作，从初始坐标开始，记录初始坐标的上下左右四个方向上像素值与初始坐标相同的相连像素点，接着再记录这四个方向上符合条件的像素点与他们对应四个方向上像素值与初始坐标相同的相连像素点，……，重复该过程。将所有有记录的像素点的颜色值改为新的颜色值。</p>
 <p>最后返回经过上色渲染后的图像。</p>
 <p><strong>示例 1:</strong></p>
@@ -991,9 +991,9 @@
 
 <p><strong>注意:</strong></p>
 <ul>
-<li><code>image</code> 和 <code>image[0]</code> 的长度在范围 <code>[1, 50]</code> 内。</li>
-<li>给出的初始点将满足 <code>0 &lt;= sr &lt; image.length</code> 和 <code>0 &lt;= sc &lt; image[0].length</code>。</li>
-<li><code>image[i][j]</code> 和 <code>newColor</code> 表示的颜色值在范围 <code>[0, 65535]</code>内。</li>
+<li>  <code>image</code> 和 <code>image[0]</code> 的长度在范围 <code>[1, 50]</code> 内。</li>
+<li>  给出的初始点将满足 <code>0 &lt;= sr &lt; image.length</code> 和 <code>0 &lt;= sc &lt; image[0].length</code>。</li>
+<li>  <code>image[i][j]</code> 和 <code>newColor</code> 表示的颜色值在范围 <code>[0, 65535]</code>内。</li>
 </ul>
 <p><strong>解法一</strong></p>
 <p>经典搜索，没啥好说的</p>
@@ -1002,10 +1002,10 @@
 <figure class="highlight golang"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">floodFill</span><span class="params">(image [][]<span class="keyword">int</span>, sr <span class="keyword">int</span>, sc <span class="keyword">int</span>, newColor <span class="keyword">int</span>)</span> [][]<span class="title">int</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> m = <span class="built_in">len</span>(image)</span><br><span class="line">    <span class="keyword">var</span> n = <span class="built_in">len</span>(image[<span class="number">0</span>])</span><br><span class="line">    <span class="keyword">var</span> dir = []<span class="keyword">int</span>&#123;<span class="number">1</span>, <span class="number">0</span>, <span class="number">-1</span>, <span class="number">0</span>, <span class="number">1</span>&#125;</span><br><span class="line">    <span class="keyword">var</span> src = image[sr][sc]</span><br><span class="line">    <span class="keyword">var</span> valid = <span class="function"><span class="keyword">func</span><span class="params">(x <span class="keyword">int</span>, y <span class="keyword">int</span>)</span> <span class="title">bool</span></span> &#123;</span><br><span class="line">        <span class="keyword">return</span> x &gt;= <span class="number">0</span> &amp;&amp; x &lt; m &amp;&amp; y &gt;= <span class="number">0</span> &amp;&amp; y &lt; n</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> dfs <span class="function"><span class="keyword">func</span><span class="params">(x <span class="keyword">int</span>, y <span class="keyword">int</span>)</span></span></span><br><span class="line">    dfs = <span class="function"><span class="keyword">func</span><span class="params">(x <span class="keyword">int</span>, y <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">        image[x][y] = newColor</span><br><span class="line">        <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="number">4</span>; i++ &#123;</span><br><span class="line">            <span class="keyword">var</span> nx = x + dir[i]</span><br><span class="line">            <span class="keyword">var</span> ny = y + dir[i+<span class="number">1</span>]</span><br><span class="line">            <span class="keyword">if</span> valid(nx, ny) &amp;&amp; image[nx][ny]!=newColor &amp;&amp; image[nx][ny] == src &#123;</span><br><span class="line">                dfs(nx, ny)</span><br><span class="line">            &#125; </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    dfs(sr, sc)</span><br><span class="line">    <span class="keyword">return</span> image</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="1559-二维网格图中探测环"><a href="#1559-二维网格图中探测环" class="headerlink" title="1559. 二维网格图中探测环"></a><a href="https://leetcode-cn.com/problems/detect-cycles-in-2d-grid/" target="_blank" rel="noopener">1559. 二维网格图中探测环</a></h2><p>Difficulty: <strong>困难</strong></p>
-<p>给你一个二维字符网格数组 <code>grid</code> ，大小为 <code>m x n</code> ，你需要检查 <code>grid</code> 中是否存在 <strong>相同值</strong> 形成的环。</p>
-<p>一个环是一条开始和结束于同一个格子的长度 <strong>大于等于 4</strong> 的路径。对于一个给定的格子，你可以移动到它上、下、左、右四个方向相邻的格子之一，可以移动的前提是这两个格子有 *<em>相同的值 *</em>。</p>
-<p>同时，你也不能回到上一次移动时所在的格子。比方说，环  <code>(1, 1) -&gt; (1, 2) -&gt; (1, 1)</code> 是不合法的，因为从 <code>(1, 2)</code> 移动到 <code>(1, 1)</code> 回到了上一次移动时的格子。</p>
-<p>如果 <code>grid</code> 中有相同值形成的环，请你返回 <code>true</code> ，否则返回 <code>false</code> 。</p>
+<p>给你一个二维字符网格数组 <code>grid</code> ，大小为 <code>m x n</code> ，你需要检查 <code>grid</code> 中是否存在 <strong>相同值</strong> 形成的环。</p>
+<p>一个环是一条开始和结束于同一个格子的长度 <strong>大于等于 4</strong> 的路径。对于一个给定的格子，你可以移动到它上、下、左、右四个方向相邻的格子之一，可以移动的前提是这两个格子有 **相同的值 **。</p>
+<p>同时，你也不能回到上一次移动时所在的格子。比方说，环  <code>(1, 1) -&gt; (1, 2) -&gt; (1, 1)</code> 是不合法的，因为从 <code>(1, 2)</code> 移动到 <code>(1, 1)</code> 回到了上一次移动时的格子。</p>
+<p>如果 <code>grid</code> 中有相同值形成的环，请你返回 <code>true</code> ，否则返回 <code>false</code> 。</p>
 <p><strong>示例 1：</strong></p>
 <p><img src="https://upload.cc/i1/2020/08/25/uMFVjJ.png" alt="UTOOLS1598326504565.png"></p>
 <figure class="highlight golang"><table><tr><td class="code"><pre><span class="line">输入：grid = [[<span class="string">"a"</span>,<span class="string">"a"</span>,<span class="string">"a"</span>,<span class="string">"a"</span>],[<span class="string">"a"</span>,<span class="string">"b"</span>,<span class="string">"b"</span>,<span class="string">"a"</span>],[<span class="string">"a"</span>,<span class="string">"b"</span>,<span class="string">"b"</span>,<span class="string">"a"</span>],[<span class="string">"a"</span>,<span class="string">"a"</span>,<span class="string">"a"</span>,<span class="string">"a"</span>]]</span><br><span class="line">输出：<span class="literal">true</span></span><br><span class="line">解释：如下图所示，有 <span class="number">2</span> 个用不同颜色标出来的环：</span><br></pre></td></tr></table></figure>
@@ -1020,11 +1020,11 @@
 
 <p><strong>提示：</strong></p>
 <ul>
-<li><code>m == grid.length</code></li>
-<li><code>n == grid[i].length</code></li>
-<li><code>1 &lt;= m &lt;= 500</code></li>
-<li><code>1 &lt;= n &lt;= 500</code></li>
-<li><code>grid</code> 只包含小写英文字母。</li>
+<li>  <code>m == grid.length</code></li>
+<li>  <code>n == grid[i].length</code></li>
+<li>  <code>1 &lt;= m &lt;= 500</code></li>
+<li>  <code>1 &lt;= n &lt;= 500</code></li>
+<li>  <code>grid</code> 只包含小写英文字母。</li>
 </ul>
 <p><strong>解法一</strong></p>
 <p>33双周赛的T4，总体不是很难，dfs或者并查集都可以</p>
@@ -1035,10 +1035,10 @@
 <p>给定一个机票的字符串二维数组 <code>[from, to]</code>，子数组中的两个成员分别表示飞机出发和降落的机场地点，对该行程进行重新规划排序。所有这些机票都属于一个从 JFK（肯尼迪国际机场）出发的先生，所以该行程必须从 JFK 开始。</p>
 <p><strong>提示：</strong></p>
 <ol>
-<li>如果存在多种有效的行程，请你按字符自然排序返回最小的行程组合。例如，行程 [“JFK”, “LGA”] 与 [“JFK”, “LGB”] 相比就更小，排序更靠前</li>
-<li>所有的机场都用三个大写字母表示（机场代码）。</li>
-<li>假定所有机票至少存在一种合理的行程。</li>
-<li>所有的机票必须都用一次 且 只能用一次。</li>
+<li> 如果存在多种有效的行程，请你按字符自然排序返回最小的行程组合。例如，行程 [“JFK”, “LGA”] 与 [“JFK”, “LGB”] 相比就更小，排序更靠前</li>
+<li> 所有的机场都用三个大写字母表示（机场代码）。</li>
+<li> 假定所有机票至少存在一种合理的行程。</li>
+<li> 所有的机票必须都用一次 且 只能用一次。</li>
 </ol>
 <p><strong>示例 1：</strong></p>
 <figure class="highlight go"><table><tr><td class="code"><pre><span class="line">输入：[[<span class="string">"MUC"</span>, <span class="string">"LHR"</span>], [<span class="string">"JFK"</span>, <span class="string">"MUC"</span>], [<span class="string">"SFO"</span>, <span class="string">"SJC"</span>], [<span class="string">"LHR"</span>, <span class="string">"SFO"</span>]]</span><br><span class="line">输出：[<span class="string">"JFK"</span>, <span class="string">"MUC"</span>, <span class="string">"LHR"</span>, <span class="string">"SFO"</span>, <span class="string">"SJC"</span>]</span><br></pre></td></tr></table></figure>
@@ -1064,9 +1064,9 @@
 
 <p><strong>提示：</strong></p>
 <ol>
-<li><code>1 &lt;= rooms.length &lt;= 1000</code></li>
-<li><code>0 &lt;= rooms[i].length &lt;= 1000</code></li>
-<li>所有房间中的钥匙数量总计不超过 <code>3000</code>。</li>
+<li> <code>1 &lt;= rooms.length &lt;= 1000</code></li>
+<li> <code>0 &lt;= rooms[i].length &lt;= 1000</code></li>
+<li> 所有房间中的钥匙数量总计不超过 <code>3000</code>。</li>
 </ol>
 <p><strong>解法一</strong></p>
 <p>没啥好说的</p>
@@ -1086,7 +1086,7 @@
 
 <p>第一天看了这道题，没想到思路，然后瞄了一眼评论区，看到了关键点，找到运算符，然后左右分别递归，没看到细节，第二天回忆了下思路写出了解，其实这题可以参考<a href="https://leetcode-cn.com/problems/unique-binary-search-trees-ii/" target="_blank" rel="noopener">95. 不同的二叉搜索树 II</a> 我在我的 <a href="http://imlgw.top/2019/11/06/leetcode-er-cha-shu/">二叉树专题</a> 中也加了这道题，两者解法极为相似</p>
 <h2 id="395-至少有K个重复字符的最长子串"><a href="#395-至少有K个重复字符的最长子串" class="headerlink" title="395. 至少有K个重复字符的最长子串"></a><a href="https://leetcode-cn.com/problems/longest-substring-with-at-least-k-repeating-characters/" target="_blank" rel="noopener">395. 至少有K个重复字符的最长子串</a></h2><p>Difficulty: <strong>中等</strong></p>
-<p>找到给定字符串（由小写字符组成）中的最长子串<code>T</code>， 要求 <code>T</code> 中的每一字符出现次数都不少于 <code>k</code> 。输出 <code>T</code>的长度。</p>
+<p>找到给定字符串（由小写字符组成）中的最长子串<code>T</code>， 要求 <code>T</code> 中的每一字符出现次数都不少于 <code>k</code> 。输出 <code>T</code>的长度。</p>
 <p><strong>示例 1:</strong></p>
 <figure class="highlight go"><table><tr><td class="code"><pre><span class="line">输入:</span><br><span class="line">s = <span class="string">"aaabb"</span>, k = <span class="number">3</span></span><br><span class="line"></span><br><span class="line">输出:</span><br><span class="line"><span class="number">3</span></span><br><span class="line"></span><br><span class="line">最长子串为 <span class="string">"aaa"</span> ，其中 <span class="string">'a'</span> 重复了 <span class="number">3</span> 次。</span><br></pre></td></tr></table></figure>
 

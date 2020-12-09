@@ -195,17 +195,13 @@
     <div class="post-content">
       <h2 id="Nmap简介"><a href="#Nmap简介" class="headerlink" title="Nmap简介"></a>Nmap简介</h2><p>   Nmap是一个开源免费的网络发现和安全审计工具 ， 全称是NetWork  Mapper , 采用c++语言编写。纯命令行界面，Nmap官方提供了一个Zenmap的图形界面。</p>
 <ul>
-<li>关于端口<br>  ·    默认情况下，Namp会扫描1000个最有可能开放的TCP端口<br>·   open：开放<br>·   closed：关闭<br>·   filtered：被屏蔽<br>·   unfiltered：没有屏蔽还需要确认<br>·   open | filtered : 开放或者屏蔽<br>·   close | filtered : 关闭或屏蔽<h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><ul>
+<li>关于端口<br>  ·    默认情况下，Namp会扫描1000个最有可能开放的TCP端口<br>·   open：开放<br>·   closed：关闭<br>·   filtered：被屏蔽<br>·   unfiltered：没有屏蔽还需要确认<br>·   open | filtered : 开放或者屏蔽<br>·   close | filtered : 关闭或屏蔽<h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1></li>
 <li>主机扫描</li>
 </ul>
 <ol>
 <li>nmap  192.168.1.100 直接扫描，会扫描常用前1000个端口 扫描我的宿主机</li>
-</ol>
-</li>
-</ul>
-<ol start="2">
 <li>nmap -F 192.168.1.100  快速扫描，会扫描常用的前100个端口</li>
-<li>-v  显示扫描过程<br>root@kali:~# nmap -v -F  192.168.1.100<br>Starting Nmap 7.70 ( <a href="https://nmap.org" target="_blank" rel="noopener">https://nmap.org</a> ) at 2018-06-17 00:55 EDT<br>Initiating Ping Scan at 00:55<br>Scanning 192.168.1.100 [4 ports]<br>Completed Ping Scan at 00:55, 0.05s elapsed (1 total hosts)<br>Initiating Parallel DNS resolution of 1 host. at 00:55<br>Completed Parallel DNS resolution of 1 host. at 00:55, 0.01s elapsed<br>Initiating SYN Stealth Scan at 00:55<br>Scanning 192.168.1.100 [100 ports]<br>Discovered open port 135/tcp on 192.168.1.100<br>Discovered open port 139/tcp on 192.168.1.100<br>Discovered open port 445/tcp on 192.168.1.100<br>Discovered open port 3306/tcp on 192.168.1.100<br>Discovered open port 443/tcp on 192.168.1.100<br>Increasing send delay for 192.168.1.100 from 0 to 5 due to 43 out of 142 dropped probes since last increase.<br>Completed SYN Stealth Scan at 00:55, 7.68s elapsed (100 total ports)<br>Nmap scan report for 192.168.1.100<br>Host is up (1.8s latency).<br>Not shown: 94 closed ports<br>PORT     STATE    SERVICE<br>135/tcp  open     msrpc<br>139/tcp  open     netbios-ssn<br>443/tcp  open     https<br>445/tcp  open     microsoft-ds<br>514/tcp  filtered shell<br>3306/tcp open     mysql<br>Read data files from: /usr/bin/../share/nmap<br>Nmap done: 1 IP address (1 host up) scanned in 7.88 seconds<br>Raw packets sent: 166 (7.280KB) | Rcvd: 163 (6.688KB)</li>
+<li>-v  显示扫描过程<br>root@kali:~# nmap -v -F  192.168.1.100<br>Starting Nmap 7.70 ( <a href="https://nmap.org/" target="_blank" rel="noopener">https://nmap.org</a> ) at 2018-06-17 00:55 EDT<br>Initiating Ping Scan at 00:55<br>Scanning 192.168.1.100 [4 ports]<br>Completed Ping Scan at 00:55, 0.05s elapsed (1 total hosts)<br>Initiating Parallel DNS resolution of 1 host. at 00:55<br>Completed Parallel DNS resolution of 1 host. at 00:55, 0.01s elapsed<br>Initiating SYN Stealth Scan at 00:55<br>Scanning 192.168.1.100 [100 ports]<br>Discovered open port 135/tcp on 192.168.1.100<br>Discovered open port 139/tcp on 192.168.1.100<br>Discovered open port 445/tcp on 192.168.1.100<br>Discovered open port 3306/tcp on 192.168.1.100<br>Discovered open port 443/tcp on 192.168.1.100<br>Increasing send delay for 192.168.1.100 from 0 to 5 due to 43 out of 142 dropped probes since last increase.<br>Completed SYN Stealth Scan at 00:55, 7.68s elapsed (100 total ports)<br>Nmap scan report for 192.168.1.100<br>Host is up (1.8s latency).<br>Not shown: 94 closed ports<br>PORT     STATE    SERVICE<br>135/tcp  open     msrpc<br>139/tcp  open     netbios-ssn<br>443/tcp  open     https<br>445/tcp  open     microsoft-ds<br>514/tcp  filtered shell<br>3306/tcp open     mysql<br>Read data files from: /usr/bin/../share/nmap<br>Nmap done: 1 IP address (1 host up) scanned in 7.88 seconds<br>Raw packets sent: 166 (7.280KB) | Rcvd: 163 (6.688KB)</li>
 <li>-sV  返回端口对应的服务信息（好慢）</li>
 <li>-O  返回对应服务的系统信息</li>
 </ol>
@@ -218,10 +214,14 @@
 <li>查看主机个服务的版本详细信息<br>nmap -sV 192.168.239.133</li>
 </ol>
 </li>
-<li>常见的Nmap扫描类型参数<br>-sT :TCP connect扫描 ，类似Metasploit中的tcp扫描<br>-sS : TCP SYN扫描，类似于Metasploit 中的syn扫描模块<br>-sF/-sX/-sN : 这些扫描通过发送一些特殊的标志位以避开设备或软件的监测<br>-sP :通过发送ICMP echo 请求探测主机是否存货原理同Ping.<br>-sU :探测主机开放了那些UDP端口。<br>-sA : TCP ACK 扫描，类似与Metasploit里的ack扫描模块<ul>
+<li>常见的Nmap扫描类型参数</li>
+<li>sT :TCP connect扫描 ，类似Metasploit中的tcp扫描</li>
+<li>sS : TCP SYN扫描，类似于Metasploit 中的syn扫描模块</li>
+<li>sF/-sX/-sN : 这些扫描通过发送一些特殊的标志位以避开设备或软件的监测</li>
+<li>sP :通过发送ICMP echo 请求探测主机是否存货原理同Ping.</li>
+<li>sU :探测主机开放了那些UDP端口。</li>
+<li>sA : TCP ACK 扫描，类似与Metasploit里的ack扫描模块</li>
 <li>常见的Nmap扫描选项</li>
-</ul>
-</li>
 <li>Pn : 在扫描之前不发送ICMP echo请求测试目标是否活跃</li>
 <li>O ：启用对于TCP/IP 协议栈的特征扫描以获取远程主机的操作系统</li>
 <li>F ：快速扫描</li>

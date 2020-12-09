@@ -11,7 +11,7 @@
   <script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
   
   
-    <meta name="keywords" content="数据结构,算法," />
+    <meta name="keywords" content="算法,数据结构," />
   
 
   
@@ -273,7 +273,7 @@
 <p>这里还有一点需要注意，就是<code>s+rs</code>的中间应该加分隔符，这是为了避免公共前后缀过长，甚至比原字符<code>s</code>还要长，这肯定是不对的，就比如<code>aaaaaaa</code>这样的case，加了分割符之后最长的前后缀就不会超过<code>s</code>了，</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">shortestPalindrome</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">    String rs=<span class="keyword">new</span> StringBuilder(s).reverse().toString();</span><br><span class="line">    <span class="comment">//#是为了避免前后缀过长超过原字符s的长度，比如aaaaaaa这种</span></span><br><span class="line">    String t=s+<span class="string">"#"</span>+rs; </span><br><span class="line">    <span class="keyword">int</span>[] next=<span class="keyword">new</span> <span class="keyword">int</span>[t.length()+<span class="number">1</span>];</span><br><span class="line">    next[<span class="number">0</span>]=-<span class="number">1</span>;</span><br><span class="line">    next[<span class="number">1</span>]=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> left=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> i=<span class="number">2</span>;</span><br><span class="line">    <span class="keyword">while</span>(i&lt;=t.length())&#123;</span><br><span class="line">        <span class="keyword">if</span>(t.charAt(i-<span class="number">1</span>)==t.charAt(left))&#123;</span><br><span class="line">            next[i++]=++left;</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(next[left]==-<span class="number">1</span>)&#123;</span><br><span class="line">            next[i++]=<span class="number">0</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            left=next[left];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//System.out.println(next[t.length()]);</span></span><br><span class="line">    <span class="keyword">return</span> rs.substring(<span class="number">0</span>,s.length()-next[t.length()])+s;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h3 id="1392-最长快乐前缀"><a href="#1392-最长快乐前缀" class="headerlink" title="1392. 最长快乐前缀"></a><a href="https://leetcode-cn.com/problems/longest-happy-prefix/" target="_blank" rel="noopener">1392. 最长快乐前缀</a></h3><p>「快乐前缀」是在原字符串中既是 非空 前缀也是后缀（不包括原字符串自身）的字符串。</p>
+<h3 id="1392-最长快乐前缀"><a href="#1392-最长快乐前缀" class="headerlink" title="1392. 最长快乐前缀"></a><a href="https://leetcode-cn.com/problems/longest-happy-prefix/" target="_blank" rel="noopener">1392. 最长快乐前缀</a></h3><p>「快乐前缀」是在原字符串中既是 非空 前缀也是后缀（不包括原字符串自身）的字符串。</p>
 <p>给你一个字符串 s，请你返回它的<strong>最长快乐前缀</strong>。</p>
 <p>如果不存在满足题意的前缀，则返回一个空字符串。</p>
 <p><strong>示例 1：</strong></p>
@@ -297,14 +297,14 @@
 <blockquote>
 <p>检查了前面kmp的写法，稍微改进了一下，目前统一了写法</p>
 </blockquote>
-<h3 id="796-旋转字符串"><a href="#796-旋转字符串" class="headerlink" title="796.旋转字符串"></a><a href="https://leetcode-cn.com/problems/rotate-string/" target="_blank" rel="noopener">796.旋转字符串</a></h3><p>给定两个字符串, <code>A</code> 和 <code>B</code>。</p>
-<p><code>A</code> 的旋转操作就是将 <code>A</code> 最左边的字符移动到最右边。 例如, 若 <code>A = &#39;abcde&#39;</code>，在移动一次之后结果就是<code>&#39;bcdea&#39;</code> 。如果在若干次旋转操作之后，<code>A</code> 能变成<code>B</code>，那么返回<code>True</code>。</p>
+<h3 id="796-旋转字符串"><a href="#796-旋转字符串" class="headerlink" title="796.旋转字符串"></a><a href="https://leetcode-cn.com/problems/rotate-string/" target="_blank" rel="noopener">796.旋转字符串</a></h3><p>给定两个字符串, <code>A</code> 和 <code>B</code>。</p>
+<p><code>A</code> 的旋转操作就是将 <code>A</code> 最左边的字符移动到最右边。 例如, 若 <code>A = &#39;abcde&#39;</code>，在移动一次之后结果就是<code>&#39;bcdea&#39;</code> 。如果在若干次旋转操作之后，<code>A</code> 能变成<code>B</code>，那么返回<code>True</code>。</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line">示例 <span class="number">1</span>:</span><br><span class="line">输入: A = <span class="string">'abcde'</span>, B = <span class="string">'cdeab'</span></span><br><span class="line">输出: <span class="keyword">true</span></span><br></pre></td></tr></table></figure>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line">示例 <span class="number">2</span>:</span><br><span class="line">输入: A = <span class="string">'abcde'</span>, B = <span class="string">'abced'</span></span><br><span class="line">输出: <span class="keyword">false</span></span><br></pre></td></tr></table></figure>
 
 <p><strong>注意：</strong></p>
 <ul>
-<li><code>A</code> 和 <code>B</code> 长度不超过 <code>100</code>。</li>
+<li>  <code>A</code> 和 <code>B</code> 长度不超过 <code>100</code>。</li>
 </ul>
 <p><strong>解法一</strong></p>
 <p>经典easy题当hard做，这个题数据量很小，直接暴力就行了，但是我们还是要追求更好的解法</p>

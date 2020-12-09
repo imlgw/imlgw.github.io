@@ -195,17 +195,17 @@
     <div class="post-content">
       <h1 id="FastDFS学习笔记"><a href="#FastDFS学习笔记" class="headerlink" title="FastDFS学习笔记"></a>FastDFS学习笔记</h1><ul>
 <li>FastDFS简介<br>  FastDFS服务端有两个角色：跟踪器（tracker）和存储<a href="https://baike.baidu.com/item/%E8%8A%82%E7%82%B9" target="_blank" rel="noopener">节点</a>（storage）。跟踪器主要做调度工作，在访问上起负载均衡的作用。<br>存储节点存储文件，完成文件管理的所有功能：就是这样的存储、同步和提供存取接口，FastDFS同时对文件的metadata进行管理。所谓文件的meta data就是文件的相关属性，以键值对（key value）方式表示，如：width=1024，其中的key为width，value为1024。文件metadata是<a href="https://baike.baidu.com/item/%E6%96%87%E4%BB%B6%E5%B1%9E%E6%80%A7" target="_blank" rel="noopener">文件属性</a>列表，可以包含多个键值对。<br>跟踪器和存储节点都可以由一台或多台服务器构成。跟踪器和存储节点中的服务器均可以随时增加或下线而不会影响线上服务。其中跟踪器中的所有服务器都是对等的，可以根据服务器的压力情况随时增加或减少。<br>为了支持大容量，存储<a href="https://baike.baidu.com/item/%E8%8A%82%E7%82%B9" target="_blank" rel="noopener">节点</a>（服务器）采用了分卷（或分组）的组织方式。<a href="https://baike.baidu.com/item/%E5%AD%98%E5%82%A8%E7%B3%BB%E7%BB%9F" target="_blank" rel="noopener">存储系统</a>由一个或多个卷组成，卷与卷之间的文件是相互独立的，所有卷的文件容量累加就是整个存储系统中的文件容量。一个卷可以由一台或多台<a href="https://baike.baidu.com/item/%E5%AD%98%E5%82%A8%E6%9C%8D%E5%8A%A1%E5%99%A8" target="_blank" rel="noopener">存储服务器</a>组成，一个卷下的存储服务器中的文件都是相同的，卷中的多台存储服务器起到了<a href="https://baike.baidu.com/item/%E5%86%97%E4%BD%99%E5%A4%87%E4%BB%BD" target="_blank" rel="noopener">冗余备份</a>和负载均衡的作用。<br>在卷中增加服务器时，同步已有的文件由系统自动完成，同步完成后，系统自动将新增服务器切换到线上提供服务。<br>当存储空间不足或即将耗尽时，可以动态添加卷。只需要增加一台或多台服务器，并将它们配置为一个新的卷，这样就扩大了<a href="https://baike.baidu.com/item/%E5%AD%98%E5%82%A8%E7%B3%BB%E7%BB%9F" target="_blank" rel="noopener">存储系统</a>的容量。<br>FastDFS中的文件标识分为两个部分：卷名和文件名，二者缺一不可。</li>
-<li>大胆分析<br>这里在淘淘的后台上传图片的时候用到了,确实好用也是c语言开发的 搭配<em>Nginx</em>贼方便,确实佩服那些搞<strong>C</strong>的大佬，上面的说法不够直白文字总是苍白的(￣▽￣)~<em>让我来强行解释一波<img src="http://p1.so.qhmsg.com/bdr/_240_/t0183119f547ca0bbc6.png" alt="image"><br>上面说到了*</em>FastDFS**主要有两个节点<ol>
+<li>大胆分析<br>这里在淘淘的后台上传图片的时候用到了,确实好用也是c语言开发的 搭配<em>Nginx</em>贼方便,确实佩服那些搞<strong>C</strong>的大佬，上面的说法不够直白文字总是苍白的(￣▽￣)~*让我来强行解释一波<img src="http://p1.so.qhmsg.com/bdr/_240_/t0183119f547ca0bbc6.png" alt="image"><br>上面说到了<strong>FastDFS</strong>主要有两个节点</li>
+</ul>
+<ol>
 <li>储存节点Storage<br>顾名思义就是用来储存文件的服务器这个图中的是比较复杂的情况这里有一个stroage 群里又分了很多组每个组里又有很多服务器（这里的服务器里面储存的文件是一样的 会自动同步 方便加机器）</li>
 <li>监控节点Tracker<br>这个就跟<a href="http://www.so.com/link?m=a0NGOfhwBC5nSFnUTBxpX2uhRysff5w5UsQFEqgCBRrJbwZpybFckcSRdwhuJdbgSApcIIqhL0gq5D6eIbBJ5pN22O2Z0k6ENTFGSjrRpsgETp2Dl" target="_blank" rel="noopener">zookeper</a>作用有点像先上图<br><img src="http://p0.cdn.img9.top/ipfs/QmZynH9DgJJbePkn35LjhRTc6xyyWL64jNT6QU6jyBnrXE?0.png" alt="image"><br>这个是上传的过程可以看到客户端要上传图片都是通过Tracker的而储存节点也会定时向Tracker发送状态的信息监控Storage的状态<br><code>可以看出上面Client在上传图片成功后Storage返回了一个file_id然后客户端就会储存这个id那客户端是如何通过这个id访问到这个图片的呢？ ---没错就是Nginx 用Nginx来处理这些静态资源再好不过了</code></li>
 </ol>
-</li>
+<ul>
 <li>使用<br>说了这么多来实际用用看吧  <ol>
-<li>首先我们要在虚拟机上安装FastDFS并配置Nginx这个过程比较复杂也不是我们重点关心的问题是运维应该关心的问题这里有一个搭建好的最简单的<a href="https://pan.baidu.com/s/1u5FLtQu71CueAJwq63ji6A" target="_blank" rel="noopener">FastDFS服务器</a>开机就可以直接用服务都是开机自启动的  <ol start="2">
+<li>首先我们要在虚拟机上安装FastDFS并配置Nginx这个过程比较复杂也不是我们重点关心的问题是运维应该关心的问题这里有一个搭建好的最简单的<a href="https://pan.baidu.com/s/1u5FLtQu71CueAJwq63ji6A" target="_blank" rel="noopener">FastDFS服务器</a>开机就可以直接用服务都是开机自启动的  </li>
 <li>然后我们要有客户端这里FastDFS作者已经写好了JAVA的客户端我们直接拿来用就好了<a href="https://pan.baidu.com/s/1KY5BKUr6f1PlCRR7hyhRSA" target="_blank" rel="noopener">fastdfs_client的jar包</a></li>
 <li>开始使用吧  </li>
-</ol>
-</li>
 </ol>
 </li>
 </ul>

@@ -731,7 +731,7 @@
 <p>每个exception_table表项由start_pc，end_pc，handler_pc，catch_type（指向常量池中CONSTANT_Class_info类型的常量）组成</p>
 <p>当字节码在start_pc到end_pc之间出现了类型为catch_type或者其子类的异常，就转到handler_pc行继续执行，当catch_type为0时表示处理所有的异常</p>
 <p>⚡<code>0x0002</code> 代表<code>attributes_count</code> 是<code>Code</code> 属性表的<strong>附加属性</strong>的入口（一层套一层啊😂），值为2意味着附加属性表的数量为2</p>
-<h3 id="LineNumberTable属性"><a href="#LineNumberTable属性" class="headerlink" title="LineNumberTable属性"></a>LineNumberTable属性</h3><p>这个就是上面<strong><code>&lt;init&gt;</code>方法Code属性附加的第一个属性</strong>，这个属性用于描述Java源代码行号和字节码行号（偏移量）之间的对应关系，他并不是运行的必须属性，但是默认会生成到Class文件中，可以使用<code>-g:none</code>或<code>-g:lines</code>取消生成这个属性，取消之后程序抛异常的时候不会显示出错的行号，并且在调试的时候，也无法按照源码行来设置断点，其结构如下表</p>
+<h3 id="LineNumberTable属性"><a href="#LineNumberTable属性" class="headerlink" title="LineNumberTable属性"></a>LineNumberTable属性</h3><p>这个就是上面**<code>&lt;init&gt;</code>方法Code属性附加的第一个属性**，这个属性用于描述Java源代码行号和字节码行号（偏移量）之间的对应关系，他并不是运行的必须属性，但是默认会生成到Class文件中，可以使用<code>-g:none</code>或<code>-g:lines</code>取消生成这个属性，取消之后程序抛异常的时候不会显示出错的行号，并且在调试的时候，也无法按照源码行来设置断点，其结构如下表</p>
 <table>
 <thead>
 <tr>
@@ -768,7 +768,7 @@
 <p>⚡<code>0x0000000A</code> 对应attribute_length，说明该属性值长度为10</p>
 <p>⚡<code>0x0002</code>对应line_number_table_length，说明有两处对应关系</p>
 <p>⚡ 后面紧跟的字节就对应的<code>line_number_table</code> 该属性又有两个属性，分别为<code>start_pc</code>和<code>line_number</code>两个u2类型的数据项，前者是字节码行号，后者是源码行号，前面line_number_table_length为2，所以这里后面有两个line_number_table</p>
-<h3 id="LocalVariableTable属性"><a href="#LocalVariableTable属性" class="headerlink" title="LocalVariableTable属性"></a>LocalVariableTable属性</h3><p>这个就是上面<strong><code>&lt;init&gt;</code> 方法Code属性附加的第二个属性</strong>，这个属性主要用于描述<strong>栈帧中局部变量表</strong>中的变量和Java源代码中定义的变量之间的关系，没有这项属性当在其他地方使用该方法的时候关于参数的名称都会丢失，最典型的就是IDE中有时候反编译一些框架的代码就会看见一些方法参数什么的都是arg0，arg1什么的</p>
+<h3 id="LocalVariableTable属性"><a href="#LocalVariableTable属性" class="headerlink" title="LocalVariableTable属性"></a>LocalVariableTable属性</h3><p>这个就是上面**<code>&lt;init&gt;</code> 方法Code属性附加的第二个属性<strong>，这个属性主要用于描述</strong>栈帧中局部变量表**中的变量和Java源代码中定义的变量之间的关系，没有这项属性当在其他地方使用该方法的时候关于参数的名称都会丢失，最典型的就是IDE中有时候反编译一些框架的代码就会看见一些方法参数什么的都是arg0，arg1什么的</p>
 <p><strong>LocalVariableTable属性结构</strong></p>
 <table>
 <thead>

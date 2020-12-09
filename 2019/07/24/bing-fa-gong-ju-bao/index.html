@@ -625,9 +625,9 @@
 </li>
 <li><p>所有释放锁的方法，都需要一个邮戳（Stamp），这个Stamp必须是和成功获取锁时得到的Stamp一致；</p>
 </li>
-<li><p>StampedLock是不可重入的 (如果一个线程已经持有了写锁，再去获取写锁的话就会造成死锁)，所以这就要我们开发人员不要去修改返回的戳或者让它逃逸出去</p>
+<li><p> StampedLock是不可重入的 (如果一个线程已经持有了写锁，再去获取写锁的话就会造成死锁)，所以这就要我们开发人员不要去修改返回的戳或者让它逃逸出去</p>
 </li>
-<li><p>StampedLock 不支持Condition</p>
+<li><p> StampedLock 不支持Condition</p>
 </li>
 </ul>
 <h2 id="ForkJoin"><a href="#ForkJoin" class="headerlink" title="ForkJoin"></a>ForkJoin</h2><p>ForkJoin是Java7提供的原生多线程并行处理框架，其基本思想是将大任务分割成小任务，最后将小任务聚合起来得到结果。fork是分解的意思, join是收集的意思. 它非常类似于HADOOP提供的MapReduce框架，只是MapReduce的任务可以针对集群内的所有计算节点，可以充分利用集群的能力完成计算任务。ForkJoin更加类似于单机版的MapReduce。</p>

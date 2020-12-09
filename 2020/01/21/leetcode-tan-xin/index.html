@@ -311,11 +311,11 @@
 
 <p><strong>提示：</strong></p>
 <ul>
-<li><code>S</code>的长度在<code>[1, 500]</code>之间。</li>
-<li><code>S</code>只包含小写字母 <code>&#39;a&#39;</code> 到 <code>&#39;z&#39;</code> 。</li>
+<li>  <code>S</code>的长度在<code>[1, 500]</code>之间。</li>
+<li>  <code>S</code>只包含小写字母 <code>&#39;a&#39;</code> 到 <code>&#39;z&#39;</code> 。</li>
 </ul>
 <p><strong>解法一</strong></p>
-<p>我一开始的想法就是先统计出所有26个字母出现的首位置和末位置，然后题目就变成了<a href="#56-合并区间">合并区间</a>，但是其实不需要真正的合并，这里只需要求长度就行了</p>
+<p>我一开始的想法就是先统计出所有26个字母出现的首位置和末位置，然后题目就变成了<a href="#56-%E5%90%88%E5%B9%B6%E5%8C%BA%E9%97%B4">合并区间</a>，但是其实不需要真正的合并，这里只需要求长度就行了</p>
 <figure class="highlight golang"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">partitionLabels</span><span class="params">(S <span class="keyword">string</span>)</span> []<span class="title">int</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> m = <span class="built_in">make</span>(<span class="keyword">map</span>[<span class="keyword">byte</span>]<span class="keyword">int</span>)</span><br><span class="line">    <span class="keyword">var</span> Max = <span class="function"><span class="keyword">func</span><span class="params">(a, b <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;<span class="keyword">if</span> a&gt;b&#123;<span class="keyword">return</span> a&#125;;<span class="keyword">return</span> b&#125;</span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="built_in">len</span>(S); i++ &#123;</span><br><span class="line">        m[S[i]] = i</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> start, end = <span class="number">0</span>, <span class="number">0</span></span><br><span class="line">    <span class="keyword">var</span> res []<span class="keyword">int</span></span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="built_in">len</span>(S); i++ &#123;</span><br><span class="line">        <span class="comment">//更新当前区间结尾最大值</span></span><br><span class="line">        end = Max(end, m[S[i]])</span><br><span class="line">        <span class="comment">//走到当前区间结尾，当前区间结束</span></span><br><span class="line">        <span class="keyword">if</span> i==end &#123;</span><br><span class="line">            res = <span class="built_in">append</span>(res, end-start+<span class="number">1</span>)</span><br><span class="line">            start = i+<span class="number">1</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>代码意思很明确，多看看就明白了</p>
 <h2 id="435-无重叠区间"><a href="#435-无重叠区间" class="headerlink" title="435. 无重叠区间"></a><a href="https://leetcode-cn.com/problems/non-overlapping-intervals/" target="_blank" rel="noopener">435. 无重叠区间</a></h2><p>给定一个区间的集合，找到需要移除区间的最小数量，使剩余区间互不重叠。</p>
@@ -349,16 +349,16 @@
 <p>按照起点排序，在重叠的时候优先选择结尾小的哪一个，这样就可能得到更多的区间组合</p>
 <h2 id="1288-删除被覆盖区间"><a href="#1288-删除被覆盖区间" class="headerlink" title="1288. 删除被覆盖区间"></a><a href="https://leetcode-cn.com/problems/remove-covered-intervals/" target="_blank" rel="noopener">1288. 删除被覆盖区间</a></h2><p>Difficulty: <strong>中等</strong></p>
 <p>给你一个区间列表，请你删除列表中被其他区间所覆盖的区间。</p>
-<p>只有当 <code>c &lt;= a</code> 且 <code>b &lt;= d</code> 时，我们才认为区间 <code>[a,b)</code> 被区间 <code>[c,d)</code> 覆盖。</p>
+<p>只有当 <code>c &lt;= a</code> 且 <code>b &lt;= d</code> 时，我们才认为区间 <code>[a,b)</code> 被区间 <code>[c,d)</code> 覆盖。</p>
 <p>在完成所有删除操作后，请你返回列表中剩余区间的数目。</p>
 <p><strong>示例：</strong></p>
 <figure class="highlight go"><table><tr><td class="code"><pre><span class="line">输入：intervals = [[<span class="number">1</span>,<span class="number">4</span>],[<span class="number">3</span>,<span class="number">6</span>],[<span class="number">2</span>,<span class="number">8</span>]]</span><br><span class="line">输出：<span class="number">2</span></span><br><span class="line">解释：区间 [<span class="number">3</span>,<span class="number">6</span>] 被区间 [<span class="number">2</span>,<span class="number">8</span>] 覆盖，所以它被删除了。</span><br></pre></td></tr></table></figure>
 
 <p><strong>提示：</strong>​​​​​​</p>
 <ul>
-<li><code>1 &lt;= intervals.length &lt;= 1000</code></li>
-<li><code>0 &lt;= intervals[i][0] &lt; intervals[i][1] &lt;= 10^5</code></li>
-<li>对于所有的 <code>i != j</code>：<code>intervals[i] != intervals[j]</code></li>
+<li>  <code>1 &lt;= intervals.length &lt;= 1000</code></li>
+<li>  <code>0 &lt;= intervals[i][0] &lt; intervals[i][1] &lt;= 10^5</code></li>
+<li>  对于所有的 <code>i != j</code>：<code>intervals[i] != intervals[j]</code></li>
 </ul>
 <p><strong>解法一</strong></p>
 <p>思路比较直白</p>
@@ -366,7 +366,7 @@
 
 <h2 id="452-用最少数量的箭引爆气球"><a href="#452-用最少数量的箭引爆气球" class="headerlink" title="452. 用最少数量的箭引爆气球"></a><a href="https://leetcode-cn.com/problems/minimum-number-of-arrows-to-burst-balloons/" target="_blank" rel="noopener">452. 用最少数量的箭引爆气球</a></h2><p>Difficulty: <strong>中等</strong></p>
 <p>在二维空间中有许多球形的气球。对于每个气球，提供的输入是水平方向上，气球直径的开始和结束坐标。由于它是水平的，所以y坐标并不重要，因此只要知道开始和结束的x坐标就足够了。开始坐标总是小于结束坐标。平面内最多存在10<sup>4</sup>个气球。</p>
-<p>一支弓箭可以沿着x轴从不同点完全垂直地射出。在坐标x处射出一支箭，若有一个气球的直径的开始和结束坐标为 x<sub style="display: inline;">start，</sub>x<sub style="display: inline;">end，</sub> 且满足  x<sub style="display: inline;">start</sub> ≤ x ≤ x<sub style="display: inline;">end，</sub>则该气球会被引爆<sub style="display: inline;">。</sub>可以射出的弓箭的数量没有限制。 弓箭一旦被射出之后，可以无限地前进。我们想找到使得所有气球全部被引爆，所需的弓箭的最小数量。</p>
+<p>一支弓箭可以沿着x轴从不同点完全垂直地射出。在坐标x处射出一支箭，若有一个气球的直径的开始和结束坐标为 x<sub style="display: inline;">start，</sub>x<sub style="display: inline;">end，</sub> 且满足  x<sub style="display: inline;">start</sub> ≤ x ≤ x<sub style="display: inline;">end，</sub>则该气球会被引爆<sub style="display: inline;">。</sub>可以射出的弓箭的数量没有限制。 弓箭一旦被射出之后，可以无限地前进。我们想找到使得所有气球全部被引爆，所需的弓箭的最小数量。</p>
 <p><strong>Example:</strong></p>
 <figure class="highlight go"><table><tr><td class="code"><pre><span class="line">输入:</span><br><span class="line">[[<span class="number">10</span>,<span class="number">16</span>], [<span class="number">2</span>,<span class="number">8</span>], [<span class="number">1</span>,<span class="number">6</span>], [<span class="number">7</span>,<span class="number">12</span>]]</span><br><span class="line"></span><br><span class="line">输出:</span><br><span class="line"><span class="number">2</span></span><br><span class="line"></span><br><span class="line">解释:</span><br><span class="line">对于该样例，我们可以在x = <span class="number">6</span>（射爆[<span class="number">2</span>,<span class="number">8</span>],[<span class="number">1</span>,<span class="number">6</span>]两个气球）和 x = <span class="number">11</span>（射爆另外两个气球）。</span><br></pre></td></tr></table></figure>
 
@@ -600,8 +600,8 @@
 
 <p>
 
-<p>给定一个非负整数 <code>N</code>，找出小于或等于 <code>N</code> 的最大的整数，同时这个整数需要满足其各个位数上的数字是单调递增。</p>
-<p>（当且仅当每个相邻位数上的数字 <code>x</code> 和 <code>y</code> 满足 <code>x &lt;= y</code> 时，我们称这个整数是单调递增的。）</p>
+<p>给定一个非负整数 <code>N</code>，找出小于或等于 <code>N</code> 的最大的整数，同时这个整数需要满足其各个位数上的数字是单调递增。</p>
+<p>（当且仅当每个相邻位数上的数字 <code>x</code> 和 <code>y</code> 满足 <code>x &lt;= y</code> 时，我们称这个整数是单调递增的。）</p>
 <p><strong>示例 1:</strong></p>
 <figure class="highlight go"><table><tr><td class="code"><pre><span class="line">输入: N = <span class="number">10</span></span><br><span class="line">输出: <span class="number">9</span></span><br></pre></td></tr></table></figure>
 
@@ -611,7 +611,7 @@
 <p><strong>示例 3:</strong></p>
 <figure class="highlight go"><table><tr><td class="code"><pre><span class="line">输入: N = <span class="number">332</span></span><br><span class="line">输出: <span class="number">299</span></span><br></pre></td></tr></table></figure>
 
-<p><strong>说明:</strong> <code>N</code> 是在 <code>[0, 10^9]</code> 范围内的一个整数。</p>
+<p><strong>说明:</strong> <code>N</code> 是在 <code>[0, 10^9]</code> 范围内的一个整数。</p>
 <p><strong>示例 1:</strong></p></p>
 <figure class="highlight go"><table><tr><td class="code"><pre><span class="line">输入: N = <span class="number">10</span></span><br><span class="line">输出: <span class="number">9</span></span><br></pre></td></tr></table></figure>
 

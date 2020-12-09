@@ -208,7 +208,7 @@
 <p>4️⃣核1访问该字节，由于核0并未将数据写回主存，数据不同步</p>
 <h4 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h4><p>🔶LOCK# 总线锁，效率很低，同时只能有一个CPU对内存操作，其他的CPU只能干等着</p>
 <p>🔶缓存一致性<code>协议</code>，缓存一致性协议有多种，<code>MESI</code>协议是当前最主流的缓存一致性协议</p>
-<p><img src="http://static.imlgw.top///20190411/GYdTPdVBGCQB.png?imageslim" alt="MESI状态">)日常处理的大多数计算机设备都属于<code>嗅探(snooping)</code>协议，CPU缓存不仅仅在做内存传输的时候才与总线打交道，而是不停在嗅探总线上发生的数据交换，跟踪其他缓存在做什么。所以当一个缓存代表它所属的处理器去<code>读写内存</code>时，其它处理器都会得到通知，它们以此来使自己的缓存保持同步。只要某个处理器一<code>写内存</code>，其它处理器马上知道这块内存在它们的缓存段中<code>已失效(Invaid)</code>，如果这个时候有处理器想<code>读内存</code>(会被立即察觉到，因为一直在嗅探总线)，那么已修改的缓存行(Cache line)就会立即刷新到主存中，然后设置为<code>Share</code>状态，这样一来读取到的数据就不是脏数据了。</p>
+<p><img src="http://static.imlgw.top///20190411/GYdTPdVBGCQB.png?imageslim" alt="MESI状态">日常处理的大多数计算机设备都属于<code>嗅探(snooping)</code>协议，CPU缓存不仅仅在做内存传输的时候才与总线打交道，而是不停在嗅探总线上发生的数据交换，跟踪其他缓存在做什么。所以当一个缓存代表它所属的处理器去<code>读写内存</code>时，其它处理器都会得到通知，它们以此来使自己的缓存保持同步。只要某个处理器一<code>写内存</code>，其它处理器马上知道这块内存在它们的缓存段中<code>已失效(Invaid)</code>，如果这个时候有处理器想<code>读内存</code>(会被立即察觉到，因为一直在嗅探总线)，那么已修改的缓存行(Cache line)就会立即刷新到主存中，然后设置为<code>Share</code>状态，这样一来读取到的数据就不是脏数据了。</p>
 <p>再放一张 处理器&amp;缓存&amp;主内存交互的图（来自组成原理书上的图）</p>
 <p><img src="http://static.imlgw.top///20190415/lJzPTl3yQWBn.jpg?imageslim" alt="Cache基本结构"></p>
 <p>既然有了MESI协议，是不是就不需要volatile的可见性语义了？当然不是</p>
@@ -272,7 +272,7 @@
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SingletonObjectPlus</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span>  SingletonObjectPlus singletonObjectPlus =<span class="keyword">null</span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> SingletonObjectPlus <span class="title">getSingletonObject3</span><span class="params">()</span></span>&#123;</span><br><span class="line">    	<span class="keyword">if</span>(singletonObjectPlus==<span class="keyword">null</span>)&#123;</span><br><span class="line">        	<span class="keyword">synchronized</span>(SingletonObject<span class="class">.<span class="keyword">class</span>)</span>&#123;</span><br><span class="line">            	<span class="keyword">if</span>(singletonObjectPlus==<span class="keyword">null</span>)&#123;</span><br><span class="line">                	singletonObjectPlus= <span class="keyword">new</span> SingletonObjectPlus();</span><br><span class="line">            	&#125;</span><br><span class="line">        	&#125;</span><br><span class="line">    	&#125;</span><br><span class="line">     	<span class="keyword">return</span> singletonObjectPlus;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>熟悉的朋友可能看出来了，这是一个DCL单例，那它有什么问题呢？它也会被重排序么？那么会在哪里重排序呢？</p>
-<p>上述代码确实有问题，问题在<strong>new SingletonObjectPlus();</strong>里面，实际上new这个操作可以划分为如下好几步</p>
+<p>上述代码确实有问题，问题在**new SingletonObjectPlus();**里面，实际上new这个操作可以划分为如下好几步</p>
 <ol>
 <li>分配对象所需的空间 <code>objRef=allocate(SingleObjectPlus.class);</code></li>
 <li>初始化引用的对象 <code>invokeConstructor(objRef);</code></li>

@@ -338,7 +338,7 @@ body {
 }
 @media screen and (max-width: 576px) {
   .recent-posts .recent-post-item .post-excerpt {
-     /* display: none; */
+    /*display: none; 手机端摘要*/
   }
 }
 .recent-posts .recent-post-item .post-meta {

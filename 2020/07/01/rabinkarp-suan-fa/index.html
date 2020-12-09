@@ -11,7 +11,7 @@
   <script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
   
   
-    <meta name="keywords" content="数据结构,算法," />
+    <meta name="keywords" content="算法,数据结构," />
   
 
   
@@ -197,8 +197,8 @@
 <p>见到好几次了，感觉不是很难，学一手，本来想详细的写一下完整的Rabin-Karp解析的，但是目前确实时间有点紧，加上自己也没做几题，理解的可能还不到位，等后面有时间再来补吧</p>
 </blockquote>
 <h2 id="1044-最长重复子串"><a href="#1044-最长重复子串" class="headerlink" title="1044. 最长重复子串"></a><a href="https://leetcode-cn.com/problems/longest-duplicate-substring/" target="_blank" rel="noopener">1044. 最长重复子串</a></h2><p>Difficulty: <strong>困难</strong></p>
-<p>给出一个字符串 <code>S</code>，考虑其所有<strong>重复子串</strong>（<code>S</code> 的连续子串，出现两次或多次，可能会有重叠）。</p>
-<p>返回<strong>任何</strong>具有最长可能长度的重复子串。（如果 <code>S</code> 不含重复子串，那么答案为 <code>&quot;&quot;</code>。）</p>
+<p>给出一个字符串 <code>S</code>，考虑其所有<strong>重复子串</strong>（<code>S</code> 的连续子串，出现两次或多次，可能会有重叠）。</p>
+<p>返回<strong>任何</strong>具有最长可能长度的重复子串。（如果 <code>S</code> 不含重复子串，那么答案为 <code>&quot;&quot;</code>。）</p>
 <p><strong>示例 1：</strong></p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">输入：&quot;banana&quot;</span><br><span class="line">输出：&quot;ana&quot;</span><br></pre></td></tr></table></figure>
 
@@ -207,8 +207,8 @@
 
 <p><strong>提示：</strong></p>
 <ol>
-<li><code>2 &lt;= S.length &lt;= 10^5</code></li>
-<li><code>S</code> 由小写英文字母组成。</li>
+<li> <code>2 &lt;= S.length &lt;= 10^5</code></li>
+<li> <code>S</code> 由小写英文字母组成。</li>
 </ol>
 <p><strong>解法一</strong></p>
 <p>看题解区学习了一下，整体的思路倒是不难，主要就是一个<code>rolling hash</code>的过程，然后就是关于MOD的选取，到现在也不是很清楚怎么选MOD。。。</p>
@@ -251,9 +251,9 @@
 
 <p><strong>提示：</strong></p>
 <ul>
-<li><code>0 &lt;= len(sentence) &lt;= 1000</code></li>
-<li><code>dictionary</code>中总字符数不超过 150000。</li>
-<li>你可以认为<code>dictionary</code>和<code>sentence</code>中只包含小写字母。</li>
+<li>  <code>0 &lt;= len(sentence) &lt;= 1000</code></li>
+<li>  <code>dictionary</code>中总字符数不超过 150000。</li>
+<li>  你可以认为<code>dictionary</code>和<code>sentence</code>中只包含小写字母。</li>
 </ul>
 <p><strong>解法一</strong></p>
 <p>动态规划和Trie的解法左转<a href="http://imlgw.top/2019/09/01/leetcode-dong-tai-gui-hua/">动态规划</a>专题，这里记录下字符串Hash的做法，其实字符串Hash的做法相比字典树的做法会慢一点点，不过思路还是很值得学习的</p>
@@ -263,11 +263,11 @@
 <p>这个解法也用到了Hash表，但是相比用Hash表存字符，存数字的时间复杂度会低很多，其实字符串Hash也就是为了避免在Hash表中存大量的字符，一来空间占用会非常大，二来对于字符串来说计算字符的<code>hashCode()</code>的时间复杂度也是O(N)不可忽略的，而数字长度固定，<code>hashCode()</code>直接返回值就行了</p>
 </blockquote>
 <h2 id="1316-不同的循环子字符串"><a href="#1316-不同的循环子字符串" class="headerlink" title="1316. 不同的循环子字符串"></a><a href="https://leetcode-cn.com/problems/distinct-echo-substrings/" target="_blank" rel="noopener">1316. 不同的循环子字符串</a></h2><p>Difficulty: <strong>困难</strong></p>
-<p>给你一个字符串 <code>text</code> ，请你返回满足下述条件的 <strong>不同</strong> 非空子字符串的数目：</p>
+<p>给你一个字符串 <code>text</code> ，请你返回满足下述条件的 <strong>不同</strong> 非空子字符串的数目：</p>
 <ul>
-<li>可以写成某个字符串与其自身相连接的形式（即，可以写为 <code>a + a</code>，其中 <code>a</code> 是某个字符串）。</li>
+<li>  可以写成某个字符串与其自身相连接的形式（即，可以写为 <code>a + a</code>，其中 <code>a</code> 是某个字符串）。</li>
 </ul>
-<p>例如，<code>abcabc</code> 就是 <code>abc</code> 和它自身连接形成的。</p>
+<p>例如，<code>abcabc</code> 就是 <code>abc</code> 和它自身连接形成的。</p>
 <p><strong>示例 1：</strong></p>
 <figure class="highlight go"><table><tr><td class="code"><pre><span class="line">输入：text = <span class="string">"abcabcabc"</span></span><br><span class="line">输出：<span class="number">3</span></span><br><span class="line">解释：<span class="number">3</span> 个子字符串分别为 <span class="string">"abcabc"</span>，<span class="string">"bcabca"</span> 和 <span class="string">"cabcab"</span> 。</span><br></pre></td></tr></table></figure>
 
@@ -276,8 +276,8 @@
 
 <p><strong>提示：</strong></p>
 <ul>
-<li><code>1 &lt;= text.length &lt;= 2000</code></li>
-<li><code>text</code> 只包含小写英文字母。</li>
+<li>  <code>1 &lt;= text.length &lt;= 2000</code></li>
+<li>  <code>text</code> 只包含小写英文字母。</li>
 </ul>
 <p><strong>解法一</strong></p>
 <p>哭了，看着KMP的tag进来的，结果发现KMP的不太会写，学习了题解的前缀和Hash的思路，还是有点收获</p>
