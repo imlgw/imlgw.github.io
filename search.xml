@@ -1804,6 +1804,15 @@
     
     
     <entry>
+      <title>关于我</title>
+      <link href="/about/index.html"/>
+      <url>/about/index.html</url>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>friends</title>
       <link href="/friends/index.html"/>
       <url>/friends/index.html</url>
@@ -1822,9 +1831,9 @@
     
     
     <entry>
-      <title>文章标签</title>
-      <link href="/tags/index.html"/>
-      <url>/tags/index.html</url>
+      <title>项目</title>
+      <link href="/project/index.html"/>
+      <url>/project/index.html</url>
       
     </entry>
     
@@ -1840,9 +1849,9 @@
     
     
     <entry>
-      <title>项目</title>
-      <link href="/project/index.html"/>
-      <url>/project/index.html</url>
+      <title>文章标签</title>
+      <link href="/tags/index.html"/>
+      <url>/tags/index.html</url>
       
     </entry>
     
@@ -1852,15 +1861,6 @@
       <title>Music</title>
       <link href="/music/index.html"/>
       <url>/music/index.html</url>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>关于我</title>
-      <link href="/about/index.html"/>
-      <url>/about/index.html</url>
       
     </entry>
     
