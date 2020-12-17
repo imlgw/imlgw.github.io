@@ -726,8 +726,8 @@
 
 <h2 id="5526-最多可达成的换楼请求数目"><a href="#5526-最多可达成的换楼请求数目" class="headerlink" title="5526. 最多可达成的换楼请求数目"></a><a href="https://leetcode-cn.com/problems/maximum-number-of-achievable-transfer-requests/" target="_blank" rel="noopener">5526. 最多可达成的换楼请求数目</a></h2><p>Difficulty: <strong>困难</strong></p>
 <p>我们有 <code>n</code> 栋楼，编号从 <code>0</code> 到 <code>n - 1</code> 。每栋楼有若干员工。由于现在是换楼的季节，部分员工想要换一栋楼居住。</p>
-<p>给你一个数组 <code>requests</code> ，其中 <code>requests[i] = [from&lt;sub style=&quot;display: inline;&quot;&gt;i&lt;/sub&gt;, to&lt;sub style=&quot;display: inline;&quot;&gt;i&lt;/sub&gt;]</code> ，表示一个员工请求从编号为 <code>from&lt;sub style=&quot;display: inline;&quot;&gt;i&lt;/sub&gt;</code> 的楼搬到编号为 <code>to&lt;sub style=&quot;display: inline;&quot;&gt;i&lt;/sub&gt;</code>的楼。</p>
-<p>一开始 <strong>所有楼都是满的</strong>，所以从请求列表中选出的若干个请求是可行的需要满足 <strong>每栋楼员工净变化为 0 **。意思是每栋楼 **离开</strong> 的员工数目 <strong>等于</strong> 该楼 <strong>搬入</strong> 的员工数数目。比方说 <code>n = 3</code> 且两个员工要离开楼 <code>0</code> ，一个员工要离开楼 <code>1</code> ，一个员工要离开楼 <code>2</code> ，如果该请求列表可行，应该要有两个员工搬入楼 <code>0</code> ，一个员工搬入楼 <code>1</code> ，一个员工搬入楼 <code>2</code> 。</p>
+<p>给你一个数组 <code>requests</code> ，其中 requests[i] = [from<sub style="display: inline;">i</sub>, to<sub style="display: inline;">i</sub>] ，表示一个员工请求从编号为from<sub style="display: inline;">i</sub> 的楼搬到编号为 to<sub style="display: inline;">i</sub>的楼。</p>
+<p>一开始 <strong>所有楼都是满的</strong>，所以从请求列表中选出的若干个请求是可行的需要满足 每栋楼员工净变化为 0 。意思是每栋楼 <strong>离开</strong> 的员工数目 <strong>等于</strong> 该楼 <strong>搬入</strong> 的员工数数目。比方说 <code>n = 3</code> 且两个员工要离开楼 <code>0</code> ，一个员工要离开楼 <code>1</code> ，一个员工要离开楼 <code>2</code> ，如果该请求列表可行，应该要有两个员工搬入楼 <code>0</code> ，一个员工搬入楼 <code>1</code> ，一个员工搬入楼 <code>2</code> 。</p>
 <p>请你从原请求列表中选出若干个请求，使得它们是一个可行的请求列表，并返回所有可行列表中最大请求数目。</p>
 <p><strong>示例 1：</strong></p>
 <p><img src="https://s1.ax1x.com/2020/09/27/0AZHr8.png" alt="0AZHr8.png"></p>
@@ -742,10 +742,10 @@
 
 <p><strong>提示：</strong></p>
 <ul>
-<li>  <code>1 &lt;= n &lt;= 20</code></li>
-<li>  <code>1 &lt;= requests.length &lt;= 16</code></li>
-<li>  <code>requests[i].length == 2</code></li>
-<li>  <code>0 &lt;= from&lt;sub style=&quot;display: inline;&quot;&gt;i&lt;/sub&gt;, to&lt;sub style=&quot;display: inline;&quot;&gt;i&lt;/sub&gt; &lt; n</code></li>
+<li>  1 &lt;= n &lt;= 20</li>
+<li>  1 &lt;= requests.length &lt;= 16</li>
+<li>  requests[i].length == 2</li>
+<li>  0 &lt;= from<sub style="display: inline;">i</sub>, to<sub style="display: inline;">i</sub> &lt; n</li>
 </ul>
 <p><strong>解法一</strong></p>
 <p>208周赛T4，有点白给，想好怎么处理就很简单（好不容易T4这么简单，被T2，T3给干懵了）</p>
@@ -1007,15 +1007,15 @@
 <p>同时，你也不能回到上一次移动时所在的格子。比方说，环  <code>(1, 1) -&gt; (1, 2) -&gt; (1, 1)</code> 是不合法的，因为从 <code>(1, 2)</code> 移动到 <code>(1, 1)</code> 回到了上一次移动时的格子。</p>
 <p>如果 <code>grid</code> 中有相同值形成的环，请你返回 <code>true</code> ，否则返回 <code>false</code> 。</p>
 <p><strong>示例 1：</strong></p>
-<p><img src="https://upload.cc/i1/2020/08/25/uMFVjJ.png" alt="UTOOLS1598326504565.png"></p>
+<p><img src="https://i.loli.net/2020/12/16/IF9PVSHoOXtZwRr.png"></p>
 <figure class="highlight golang"><table><tr><td class="code"><pre><span class="line">输入：grid = [[<span class="string">"a"</span>,<span class="string">"a"</span>,<span class="string">"a"</span>,<span class="string">"a"</span>],[<span class="string">"a"</span>,<span class="string">"b"</span>,<span class="string">"b"</span>,<span class="string">"a"</span>],[<span class="string">"a"</span>,<span class="string">"b"</span>,<span class="string">"b"</span>,<span class="string">"a"</span>],[<span class="string">"a"</span>,<span class="string">"a"</span>,<span class="string">"a"</span>,<span class="string">"a"</span>]]</span><br><span class="line">输出：<span class="literal">true</span></span><br><span class="line">解释：如下图所示，有 <span class="number">2</span> 个用不同颜色标出来的环：</span><br></pre></td></tr></table></figure>
-<p><img src="https://upload.cc/i1/2020/08/25/gf365S.png" alt="UTOOLS1598326521462.png"></p>
+<p><img src="https://i.loli.net/2020/12/16/8EJDuUPc2xMilBm.png"></p>
 <p><strong>示例 2：</strong></p>
-<p><img src="https://upload.cc/i1/2020/08/25/5TvF1j.png" alt="UTOOLS1598326558226.png"></p>
+<p><img src="https://i.loli.net/2020/12/16/eljrFPCzf4pgd6s.png"></p>
 <figure class="highlight golang"><table><tr><td class="code"><pre><span class="line">输入：grid = [[<span class="string">"c"</span>,<span class="string">"c"</span>,<span class="string">"c"</span>,<span class="string">"a"</span>],[<span class="string">"c"</span>,<span class="string">"d"</span>,<span class="string">"c"</span>,<span class="string">"c"</span>],[<span class="string">"c"</span>,<span class="string">"c"</span>,<span class="string">"e"</span>,<span class="string">"c"</span>],[<span class="string">"f"</span>,<span class="string">"c"</span>,<span class="string">"c"</span>,<span class="string">"c"</span>]]</span><br><span class="line">输出：<span class="literal">true</span></span><br><span class="line">解释：如下图所示，只有高亮所示的一个合法环：</span><br></pre></td></tr></table></figure>
-<p><img src="https://upload.cc/i1/2020/08/25/s7Q6VO.png" alt="UTOOLS1598326570563.png"></p>
+<p><img src="https://i.loli.net/2020/12/16/9FfYxP7DSUBXEaG.png"></p>
 <p><strong>示例 3：</strong></p>
-<p><img src="https://upload.cc/i1/2020/08/25/0zQroh.png" alt="UTOOLS1598326586586.png"></p>
+<p><img src="https://i.loli.net/2020/12/16/fAr1TEQNpumaXck.png"></p>
 <figure class="highlight golang"><table><tr><td class="code"><pre><span class="line">输入：grid = [[<span class="string">"a"</span>,<span class="string">"b"</span>,<span class="string">"b"</span>],[<span class="string">"b"</span>,<span class="string">"z"</span>,<span class="string">"b"</span>],[<span class="string">"b"</span>,<span class="string">"b"</span>,<span class="string">"a"</span>]]</span><br><span class="line">输出：<span class="literal">false</span></span><br></pre></td></tr></table></figure>
 
 <p><strong>提示：</strong></p>
