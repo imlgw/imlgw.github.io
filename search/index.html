@@ -353,12 +353,29 @@
       // Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
       // 02110-1301 USA
       // 
+  
+      function wait_loading() {
+          document.getElementById('local-search-input').setAttribute("disabled","disabled");
+          var html = ' <div id="wait_loading" style="position: fixed;top:30%;right:0;left: 0;margin:0 auto;width: 7rem;z-index: 999;text-align: center">'
+              +' <img style="width: 100%" src="images/loading.gif" alt="">'
+              +'<p style="color: rgba(187,187,187,0.91);font-size:1.2rem ">加载中...</p></div>';
+          $(document.body).append(html);
+      }
+  
+      function remove_loading() {
+          $("#wait_loading").remove();
+      }
+  
       var searchFunc = function(path, search_id, content_id) {
         'use strict';
         $.ajax({
+          beforeSend:wait_loading(),
           url: path,
           dataType: "json",
           success: function(jsonResponse) {
+            var $input = document.getElementById(search_id);
+            $input.removeAttribute("disabled");
+            remove_loading();
             // get the contents from search data
             // var datas = $("entry", xmlResponse).map(function() {
             //   return {
@@ -368,7 +385,6 @@
             //   };
             // }).get();
             var datas = jsonResponse
-            var $input = document.getElementById(search_id);
             if (!$input) return;
             var $resultContent = document.getElementById(content_id);
               $input.addEventListener('input', function() {
@@ -433,7 +449,8 @@
                       if (end > content.length) {
                        end = content.length;
                       }
-                      var match_content = content.substr(start, end);
+                    //   console.log(data_title, start, end)
+                      var match_content = content.substring(start, end);
                       // highlight all keywords
                       keywords.forEach(function(keyword) {
                         var regS = new RegExp(keyword, "gi");
