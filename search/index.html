@@ -406,7 +406,8 @@
                   
                   //alert(keywords)
                   // console.log(data.content)
-                  var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                  //var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                  var data_content = data.content.trim().toLowerCase();
                   var data_url = data.url;
                   var index_title = -1;
                   var index_content = -1;
@@ -435,7 +436,8 @@
                   // show search results
                   if (isMatch) {
                     str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
-                    var content = data.content.trim().replace(/<[^>]+>/g, "");
+                    //var content = data.content.trim().replace(/<[^>]+>/g, "");
+                    var content = data.content.trim();
                     if (first_occur >= 0) {
                       // cut out 100 characters
                       var start = first_occur - 20;
