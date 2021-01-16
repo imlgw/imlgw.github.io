@@ -173,8 +173,8 @@
       </h1>
       <span>
         
-        <time class="time" datetime="2020-07-03T14:29:27.286Z">
-        2020-07-03
+        <time class="time" datetime="2021-01-16T12:24:04.588Z">
+        2021-01-16
       </time>
         
       </span>
@@ -189,7 +189,7 @@
       <span id="busuanzi_value_page_pv"></span> 点击
     </span>
       <span class="slash">/</span>
-      <span class="read">阅读耗时 21 分钟</span>
+      <span class="read">阅读耗时 24 分钟</span>
     </header>
 
     <div class="post-content">
@@ -376,7 +376,7 @@
 </blockquote>
 <h2 id="201-数字范围按位与"><a href="#201-数字范围按位与" class="headerlink" title="201. 数字范围按位与"></a><a href="https://leetcode-cn.com/problems/bitwise-and-of-numbers-range/" target="_blank" rel="noopener">201. 数字范围按位与</a></h2><p>Difficulty: <strong>中等</strong></p>
 <p>给定范围 [m, n]，其中 0 &lt;= m &lt;= n &lt;= 2147483647，返回此范围内所有数字的按位与（包含 m, n 两端点）。</p>
-<p>**示例 1: **</p>
+<p><strong>示例 1:</strong></p>
 <figure class="highlight golang"><table><tr><td class="code"><pre><span class="line">输入: [<span class="number">5</span>,<span class="number">7</span>]</span><br><span class="line">输出: <span class="number">4</span></span><br></pre></td></tr></table></figure>
 
 <p><strong>示例 2:</strong></p>
@@ -386,6 +386,30 @@
 <figure class="highlight golang"><table><tr><td class="code"><pre><span class="line"><span class="comment">//最长公共前缀</span></span><br><span class="line"><span class="comment">//1011 011 m</span></span><br><span class="line"><span class="comment">//1011 100</span></span><br><span class="line"><span class="comment">//1011 101</span></span><br><span class="line"><span class="comment">//1011 110 n</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">rangeBitwiseAnd</span><span class="params">(m <span class="keyword">int</span>, n <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> tlen = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> m != n &#123;</span><br><span class="line">        m &gt;&gt;= <span class="number">1</span></span><br><span class="line">        n &gt;&gt;= <span class="number">1</span></span><br><span class="line">        tlen++</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> m &lt;&lt; tlen</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><strong>解法二</strong></p>
 <figure class="highlight golang"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">rangeBitwiseAnd</span><span class="params">(m <span class="keyword">int</span>, n <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    <span class="keyword">for</span> n &gt; m &#123;</span><br><span class="line">        n &amp;= (n<span class="number">-1</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> n</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="1018-可被-5-整除的二进制前缀"><a href="#1018-可被-5-整除的二进制前缀" class="headerlink" title="1018. 可被 5 整除的二进制前缀"></a><a href="https://leetcode-cn.com/problems/binary-prefix-divisible-by-5/" target="_blank" rel="noopener">1018. 可被 5 整除的二进制前缀</a></h2><p>Difficulty: <strong>简单</strong></p>
+<p>给定由若干 <code>0</code> 和 <code>1</code> 组成的数组 <code>A</code>。我们定义 <code>N_i</code>：从 <code>A[0]</code> 到 <code>A[i]</code> 的第 <code>i</code> 个子数组被解释为一个二进制数（从最高有效位到最低有效位）。</p>
+<p>返回布尔值列表 <code>answer</code>，只有当 <code>N_i</code> 可以被 <code>5</code> 整除时，答案 <code>answer[i]</code> 为 <code>true</code>，否则为 <code>false</code>。</p>
+<p><strong>示例 1：</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">输入：[<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>]</span><br><span class="line">输出：[<span class="literal">true</span>,<span class="literal">false</span>,<span class="literal">false</span>]</span><br><span class="line">解释：</span><br><span class="line">输入数字为 <span class="number">0</span>, <span class="number">01</span>, <span class="number">011</span>；也就是十进制中的 <span class="number">0</span>, <span class="number">1</span>, <span class="number">3</span> 。只有第一个数可以被 <span class="number">5</span> 整除，因此 answer[<span class="number">0</span>] 为真。</span><br></pre></td></tr></table></figure>
+
+<p><strong>示例 2：</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">输入：[<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>]</span><br><span class="line">输出：[<span class="literal">false</span>,<span class="literal">false</span>,<span class="literal">false</span>]</span><br></pre></td></tr></table></figure>
+
+<p><strong>示例 3：</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">输入：[<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>]</span><br><span class="line">输出：[<span class="literal">true</span>,<span class="literal">false</span>,<span class="literal">false</span>,<span class="literal">false</span>,<span class="literal">true</span>,<span class="literal">false</span>]</span><br></pre></td></tr></table></figure>
+
+<p><strong>示例 4：</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">输入：[<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>]</span><br><span class="line">输出：[<span class="literal">false</span>,<span class="literal">false</span>,<span class="literal">false</span>,<span class="literal">false</span>,<span class="literal">false</span>]</span><br></pre></td></tr></table></figure>
+
+<p><strong>提示：</strong></p>
+<ol>
+<li> 1 &lt;= A.length &lt;= 30000</li>
+<li> <code>A[i]</code> 为 <code>0</code> 或 <code>1</code></li>
+</ol>
+<p><strong>解法一</strong></p>
+<p>一开始没考虑溢出的问题，用的是py所以也没报错，看了评论区才意识到会有溢出的问题，不过这里也很好处理，因为我们每次都只需要知道这个值模5的值就行了，所以我们只需要保留当前值模5的余数就行了<br>$$(a*b+c)%p=((\underline{a%p}*b%p)+(c%p))%p$$<br>这里的$a$就是上次计算的结果，根据取模运算的性质，我们只需要保存上次计算的结果模5后的值就行了，这样就能避免溢出的问题</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">​<span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">prefixesDivBy5</span><span class="params">(self, A: List[int])</span> -&gt; List[bool]:</span></span><br><span class="line">        res = []</span><br><span class="line">        v = <span class="number">0</span></span><br><span class="line">        <span class="comment"># 1110(14) --&gt; 11101 (29)</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>, len(A)):</span><br><span class="line">            v = (v*<span class="number">2</span> + A[i]) % <span class="number">5</span></span><br><span class="line">            res.append(v==<span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
     </div>
 
   </article>
@@ -393,7 +417,7 @@
     
   <div id="toc" class="toc-article">
     <strong class="toc-title">目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#LeetCode二进制"><span class="toc-text">LeetCode二进制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#136-只出现一次的数字"><span class="toc-text">136. 只出现一次的数字</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#260-只出现一次的数字-III"><span class="toc-text">260. 只出现一次的数字 III</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#268-缺失数字"><span class="toc-text">268. 缺失数字</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#461-汉明距离"><span class="toc-text">461. 汉明距离</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#191-位1的个数"><span class="toc-text">191. 位1的个数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#338-比特位计数"><span class="toc-text">338. 比特位计数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#231-2的幂"><span class="toc-text">231. 2的幂</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#458-可怜的小猪"><span class="toc-text">458. 可怜的小猪</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#371-两整数之和"><span class="toc-text">371. 两整数之和</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#190-颠倒二进制位"><span class="toc-text">190. 颠倒二进制位</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#201-数字范围按位与"><span class="toc-text">201. 数字范围按位与</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#LeetCode二进制"><span class="toc-text">LeetCode二进制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#136-只出现一次的数字"><span class="toc-text">136. 只出现一次的数字</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#260-只出现一次的数字-III"><span class="toc-text">260. 只出现一次的数字 III</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#268-缺失数字"><span class="toc-text">268. 缺失数字</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#461-汉明距离"><span class="toc-text">461. 汉明距离</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#191-位1的个数"><span class="toc-text">191. 位1的个数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#338-比特位计数"><span class="toc-text">338. 比特位计数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#231-2的幂"><span class="toc-text">231. 2的幂</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#458-可怜的小猪"><span class="toc-text">458. 可怜的小猪</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#371-两整数之和"><span class="toc-text">371. 两整数之和</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#190-颠倒二进制位"><span class="toc-text">190. 颠倒二进制位</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#201-数字范围按位与"><span class="toc-text">201. 数字范围按位与</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1018-可被-5-整除的二进制前缀"><span class="toc-text">1018. 可被 5 整除的二进制前缀</span></a></li></ol>
   </div>
 
 
@@ -411,7 +435,7 @@
   <script>
     var disqus_shortname = 'imlgw';
     
-    var disqus_url = 'http://imlgw.top/2020/07/03/leetcode-wei-yun-suan/';
+    var disqus_url = 'http://imlgw.top/2021/01/16/leetcode-wei-yun-suan/';
     
     (function(){
       var dsq = document.createElement('script');
@@ -439,19 +463,14 @@
       <div class="post-nav-item post-nav-next">
         
           <span>〈 </span>
-          <a href="/2020/07/01/rabinkarp-suan-fa/" rel="next" title="Rabin-Karp算法">
-          Rabin-Karp算法
+          <a href="/2021/01/06/li-kou-42th-shuang-zhou-sai/" rel="next" title="力扣42th双周赛">
+          力扣42th双周赛
           </a>
         
       </div>
   
       <div class="post-nav-item post-nav-prev">
           
-          <a href="/2020/08/25/golang-cai-keng-exec-qu-xiao-bu-tui-chu/" rel="prev" title="Golang踩坑：exec取消后不退出">
-            Golang踩坑：exec取消后不退出
-          </a>
-          <span>〉</span>
-        
       </div>
     </div>
   

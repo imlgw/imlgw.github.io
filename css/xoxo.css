@@ -117,7 +117,8 @@ footer .bottom-item:hover {
 }
 /* 设置滚动条的样式 */
 ::-webkit-scrollbar {
-  width: 8px;
+  height: 9px; /*横向厚度*/
+  width: 0px !important /*纵向厚度，这个直接去掉，不太需要*/
 }
 /* 滚动槽 */
 ::-webkit-scrollbar-track {
@@ -1038,7 +1039,11 @@ code {
 .highlight .function .title {
   color: #525252;
 }
-
+/*MathJax手机端公式过长时候，加滑动条*/
+.MathJax_Display {
+  overflow-x: auto;
+  white-space: nowrap;
+}
 /*h1:before,  h2:before,  h3:before,  h4:before, h5:before, h6:before, hr:before {
     display: inline-block;
     font-weight: 600;
