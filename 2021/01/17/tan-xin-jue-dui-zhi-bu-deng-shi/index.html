@@ -1,0 +1,507 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#202020"/>
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+  
+  
+    <meta name="keywords" content="算法," />
+  
+
+  
+    <meta name="description" content="大悲无泪，大悟无言，大笑无声。" />
+  
+  
+  
+  <link rel="icon" type="image/x-icon" href="/img/cat.ico">
+  
+  <title>贪心：绝对值不等式 [ iM1Gw0 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="//cdn.bootcss.com/pure/1.0.0/pure-min.css">
+    
+      <link rel="stylesheet" href="/css/xoxo.css">
+    
+  
+<meta name="generator" content="Hexo 4.2.1"><link rel="stylesheet" href="/css/prism.css" type="text/css"></head>
+
+
+<body>
+  <div class="nav-container">
+    <nav class="home-menu pure-menu pure-menu-horizontal">
+  <a class="pure-menu-heading" href="/">
+    
+    <span class="title" style="text-transform:none">iM1Gw0</span>
+  </a>
+
+  <ul class="pure-menu-list clearfix">
+      
+          
+            
+              <li class="pure-menu-item"><a href="/" class="pure-menu-link">首页</a></li>
+            
+          
+      
+          
+            
+              <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
+            
+              <a href="#" id="post" class="pure-menu-link">文章</a>
+              <ul class="pure-menu-children">
+              
+                  
+                    <li class="pure-menu-item"><a href="/categories" style="color:#202020;" class="pure-menu-link">分类</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="/archives" style="color:#202020;" class="pure-menu-link">归档</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="/tags" style="color:#202020;" class="pure-menu-link">标签</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="/music" style="color:#202020;" class="pure-menu-link">音乐</a></li>
+                  
+              
+              </ul>
+            </li>
+          
+      
+          
+            
+              <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
+            
+              <a href="#" id="算法" class="pure-menu-link">算法</a>
+              <ul class="pure-menu-children">
+              
+                  
+                    <li class="pure-menu-item"><a href="http://imlgw.top/2019/05/04/leetcode-shu-zu/" style="color:#202020;" class="pure-menu-link">数组</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="http://imlgw.top/2019/02/27/leetcode-lian-biao/" style="color:#202020;" class="pure-menu-link">链表</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="http://imlgw.top/2019/10/01/leetcode-zhan-dui-lie/" style="color:#202020;" class="pure-menu-link">栈&amp;队列</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="http://imlgw.top/2019/09/15/leetcode-cha-zhao/" style="color:#202020;" class="pure-menu-link">查找</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="http://imlgw.top/2019/07/20/leetcode-hua-dong-chuang-kou/" style="color:#202020;" class="pure-menu-link">滑动窗口</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="http://imlgw.top/2019/09/01/leetcode-dong-tai-gui-hua/" style="color:#202020;" class="pure-menu-link">动态规划</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="http://imlgw.top/2019/12/06/leetcode-er-fen-cha-zhao/" style="color:#202020;" class="pure-menu-link">二分查找</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="http://imlgw.top/2019/11/06/leetcode-er-cha-shu/" style="color:#202020;" class="pure-menu-link">二叉树</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="http://imlgw.top/2019/11/29/leetcode-bei-bao-wen-ti/" style="color:#202020;" class="pure-menu-link">背包问题</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="http://imlgw.top/2019/10/10/leetcode-hui-su/" style="color:#202020;" class="pure-menu-link">回溯</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="http://imlgw.top/2020/01/21/leetcode-tan-xin/" style="color:#202020;" class="pure-menu-link">贪心</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="http://imlgw.top/2020/07/03/leetcode-wei-yun-suan/" style="color:#202020;" class="pure-menu-link">位运算</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="http://imlgw.top/2020/08/28/leetcode-dan-diao-zhan/" style="color:#202020;" class="pure-menu-link">单调栈</a></li>
+                  
+              
+              </ul>
+            </li>
+          
+      
+          
+            
+              <li class="pure-menu-item"><a href="/project" class="pure-menu-link">Github</a></li>
+            
+          
+      
+          
+            
+              <li class="pure-menu-item"><a href="/search" class="pure-menu-link">搜索</a></li>
+            
+          
+      
+          
+            
+              <li class="pure-menu-item"><a href="/about" class="pure-menu-link">关于</a></li>
+            
+          
+      
+  </ul>
+   
+</nav>
+
+  </div>
+
+  <div class="container" id="content-outer">
+    <div class="inner" id="content-inner">
+      <div class="post-container">
+  <article class="post" id="post">
+    <header class="post-header text-center">
+      <h1 class="title">
+        贪心：绝对值不等式
+      </h1>
+      <span>
+        
+        <time class="time" datetime="2021-01-16T16:00:00.000Z">
+        2021-01-17
+      </time>
+        
+      </span>
+      <span class="slash">/</span>
+      <span class="post-meta">
+      <span class="post-tags">
+        <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li></ul>
+      </span>
+    </span>
+      <span class="slash">/</span>
+      <span class="read">
+      <span id="busuanzi_value_page_pv"></span> 点击
+    </span>
+      <span class="slash">/</span>
+      <span class="read">阅读耗时 20 分钟</span>
+    </header>
+
+    <div class="post-content">
+      <h2 id="104-货仓选址"><a href="#104-货仓选址" class="headerlink" title="104. 货仓选址"></a><a href="https://www.acwing.com/problem/content/description/106/" target="_blank" rel="noopener">104. 货仓选址</a></h2><p>在一条数轴上有$N$家商店，它们的坐标分别为 $A_1$ ~ $A_N$。</p>
+<p>现在需要在数轴上建立一家货仓，每天清晨，从货仓到每家商店都要运送一车商品。</p>
+<p>为了提高效率，求把货仓建在何处，可以使得货仓到每家商店的距离之和最小。</p>
+<p><strong>输入格式</strong></p>
+<p>第一行输入整数N。</p>
+<p>第二行N个整数$A_1$ ~ $A_N$。</p>
+<p><strong>输出格式</strong></p>
+<p>输出一个整数，表示距离之和的最小值。</p>
+<p><strong>数据范围</strong>： $1 ≤ N ≤ 100000$</p>
+<p><strong>输入样例：</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="number">4</span></span><br><span class="line"><span class="number">6</span> <span class="number">2</span> <span class="number">9</span> <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p><strong>输出样例：</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="number">12</span></span><br></pre></td></tr></table></figure>
+<h3 id="解法一"><a href="#解法一" class="headerlink" title="解法一"></a>解法一</h3><p><img src="http://static.imlgw.top/blog/20210117/Tt7g9UupN0RX.png?imageslim" alt="mark"><br>货仓位置为$A[i]$，修建点为$x$，那么货仓到$x$点的距离之和为：<br>$$<br>\begin{aligned}<br>f(x) &amp;= \sum_{i=0}^{n-1}|A[i]-x| \\ &amp;= |A_0-x|+|A_1-x|+…+|A_{n-2}-x|+|A_{n-1}-x| \\ &amp;= (|A_0-x|+|A_{n-1}-x|) + (|A_1-x|+|A_{n-2}-x|) + … + (|A_{mid-1}-x|+|A_{mid+1}-x|) \\ &amp;\geq(A_{n-1}-A_0) + (A_{n-2}-A_1) +…+ (A_{mid+1}-A_{mid-1})<br>\end{aligned}<br>$$</p>
+<p>当且仅当$X$修建在$A_n$和$A_1$中间，$A_{n-2}$和$A_2$中间…..以及$A_{mid+1}$和$A_{mid-1}$中间时，不等式取得最小值，即$X$为$A_i$中位数（奇数同理）</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String... args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        BufferedReader br = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(System.in));</span><br><span class="line">        <span class="comment">// BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream("./input.txt")));</span></span><br><span class="line">        <span class="keyword">int</span> N = Integer.parseInt(br.readLine());</span><br><span class="line">        <span class="keyword">int</span>[] A = read(br);</span><br><span class="line">        Arrays.sort(A);</span><br><span class="line">        <span class="keyword">int</span> mid = A[(N-<span class="number">1</span>)/<span class="number">2</span>];  <span class="comment">// 下取整</span></span><br><span class="line">        <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; i++) &#123;</span><br><span class="line">            res += Math.abs(A[i]-mid);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(res);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span>[] read(BufferedReader br) <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="keyword">return</span> Arrays.stream(br.readLine().split(<span class="string">" "</span>)).mapToInt(Integer::parseInt).toArray();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="462-最少移动次数使数组元素相等-II"><a href="#462-最少移动次数使数组元素相等-II" class="headerlink" title="462. 最少移动次数使数组元素相等 II"></a><a href="https://leetcode-cn.com/problems/minimum-moves-to-equal-array-elements-ii/" target="_blank" rel="noopener">462. 最少移动次数使数组元素相等 II</a></h2><p>Difficulty: <strong>中等</strong></p>
+<p>给定一个非空整数数组，找到使所有数组元素相等所需的最小移动数，其中每次移动可将选定的一个元素加1或减1。 您可以假设数组的长度最多为10000。</p>
+<p><strong>例如:</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">输入:</span><br><span class="line">[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]</span><br><span class="line"></span><br><span class="line">输出:</span><br><span class="line"><span class="number">2</span></span><br><span class="line"></span><br><span class="line">说明：</span><br><span class="line">只有两个动作是必要的（记得每一步仅可使其中一个元素加<span class="number">1</span>或减<span class="number">1</span>）： </span><br><span class="line"></span><br><span class="line">[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]  =&gt;  [<span class="number">2</span>,<span class="number">2</span>,<span class="number">3</span>]  =&gt;  [<span class="number">2</span>,<span class="number">2</span>,<span class="number">2</span>]</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="解法一-1"><a href="#解法一-1" class="headerlink" title="解法一"></a>解法一</h3><p>同上，不多解释</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">​<span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">minMoves2</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = nums.length;</span><br><span class="line">        Arrays.sort(nums);</span><br><span class="line">        <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            res += Math.abs(nums[i]-nums[n&gt;&gt;<span class="number">1</span>]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="912-最佳见面地点"><a href="#912-最佳见面地点" class="headerlink" title="912. 最佳见面地点"></a><a href="https://www.lintcode.com/problem/best-meeting-point/description" target="_blank" rel="noopener">912. 最佳见面地点</a></h2><p>有一群住在不同地方的朋友（两个或以上）想要在某地见面，要求他们去往目的地的路程和最短。现在给一个0、1组成的二维数组，1表示此地有一个人居住。使用曼哈顿距离作为计算总距离，公式为：$(p1, p2) = |p2.x - p1.x| + |p2.y - p1.y|$</p>
+<p><strong>样例 1:</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">输入: </span><br><span class="line">[[<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>],[<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>],[<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>]]</span><br><span class="line">输出:</span><br><span class="line"><span class="number">6</span></span><br><span class="line">解释:</span><br><span class="line">点(<span class="number">0</span>, <span class="number">2</span>)是最佳见面地点，最小的路程总和为<span class="number">2</span>+<span class="number">2</span>+<span class="number">2</span>=<span class="number">6</span>，返回<span class="number">6</span>。</span><br></pre></td></tr></table></figure>
+
+<p><strong>样例 2:</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">输入:</span><br><span class="line">[[<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>],[<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>],[<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>]]</span><br><span class="line">输出:</span><br><span class="line"><span class="number">14</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="解法一-2"><a href="#解法一-2" class="headerlink" title="解法一"></a>解法一</h3><p>和前面一样<br>$$<br>f(n) = \sum_{i=0}^{n-1}(|x_i-x| + |y_i-y|) = \sum_{i=0}^{n-1}|x_i-x| + \sum_{i=0}^{n-1}|y_i-y|)<br>$$<br>所以我们分别求$x_i$和$y_i$中点就行了</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> grid: a 2D grid</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span>: the minimize travel distance</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">minTotalDistance</span><span class="params">(<span class="keyword">int</span>[][] grid)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// Write your code here</span></span><br><span class="line">        <span class="keyword">int</span> n = grid.length;</span><br><span class="line">        <span class="keyword">int</span> m = grid[<span class="number">0</span>].length;</span><br><span class="line">        List&lt;Integer&gt; xlis = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        List&lt;Integer&gt; ylis = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; m; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (grid[i][j] == <span class="number">1</span>) &#123;</span><br><span class="line">                    xlis.add(i);</span><br><span class="line">                    ylis.add(j);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        Collections.sort(xlis);</span><br><span class="line">        Collections.sort(ylis);</span><br><span class="line">        <span class="keyword">int</span> xmid = xlis.get(xlis.size()&gt;&gt;<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">int</span> ymid = ylis.get(ylis.size()&gt;&gt;<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; m; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (grid[i][j] == <span class="number">1</span>) &#123;</span><br><span class="line">                    res += Math.abs(i-xmid) + Math.abs(j-ymid);      </span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="1703-得到连续K个1的最少相邻交换次数"><a href="#1703-得到连续K个1的最少相邻交换次数" class="headerlink" title="1703. 得到连续K个1的最少相邻交换次数"></a><a href="https://leetcode-cn.com/problems/minimum-adjacent-swaps-for-k-consecutive-ones/" target="_blank" rel="noopener">1703. 得到连续K个1的最少相邻交换次数</a></h2><p>Difficulty: <strong>困难</strong></p>
+<p>给你一个整数数组 <code>nums</code> 和一个整数 <code>k</code> 。 <code>nums</code> 仅包含 <code>0</code> 和 <code>1</code> 。每一次移动，你可以选择 <strong>相邻</strong> 两个数字并将它们交换。</p>
+<p>请你返回使 <code>nums</code> 中包含 <code>k</code> 个连续 <code>1</code> 的最少交换次数。</p>
+<p><strong>示例 1：</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">输入：nums = [<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>], k = <span class="number">2</span></span><br><span class="line">输出：<span class="number">1</span></span><br><span class="line">解释：在第一次操作时，nums 可以变成 [<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>] 得到连续两个 <span class="number">1</span> 。</span><br></pre></td></tr></table></figure>
+
+<p><strong>示例 2：</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">输入：nums = [<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>], k = <span class="number">3</span></span><br><span class="line">输出：<span class="number">5</span></span><br><span class="line">解释：通过 <span class="number">5</span> 次操作，最左边的 <span class="number">1</span> 可以移到右边直到 nums 变为 [<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>] 。</span><br></pre></td></tr></table></figure>
+
+<p><strong>示例 3：</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">输入：nums = [<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>], k = <span class="number">2</span></span><br><span class="line">输出：<span class="number">0</span></span><br><span class="line">解释：nums 已经有连续 <span class="number">2</span> 个 <span class="number">1</span> 了。</span><br></pre></td></tr></table></figure>
+
+<p><strong>提示：</strong></p>
+<ul>
+<li>  1 &lt;= nums.length &lt;= 10<sup>5</sup></li>
+<li>  <code>nums[i]</code> 要么是 <code>0</code> ，要么是 <code>1</code> 。</li>
+<li>  1 &lt;= k &lt;= sum(nums)</li>
+</ul>
+<h3 id="解法一-3"><a href="#解法一-3" class="headerlink" title="解法一"></a>解法一</h3><p>42th双周赛T4，相比上面的题就有了一些思维的转换。</p>
+<p>我们要把$k$个1聚拢在一起，我们设定原始位置为$A_0$ ~ $A_k-1$，聚集后的位置为 $X, X+1, X+2…., X+k-1$。推导过程如下：</p>
+<p>交换次数为：<br>$$f(k) = \sum_{i=0}^{k-1}|A_i-(X+i)|$$<br>要求这个式子的最小值，将式子转换一下，设$A_i=B_i+i$，那么我们的式子就变成了<br>$$f(k) = \sum_{i=0}^{k-1}|B_i-X|$$<br>根据我们<a href="#104-%E8%B4%A7%E4%BB%93%E9%80%89%E5%9D%80">上面的结论</a>，这个式子当$X$取在$B_i$中位数的时候，取得最小值。此时$X=B_{mid}$ (奇偶同理)<br>$$<br>\begin{aligned}<br>    f(k) &amp;= \sum_{i=l}^r|B_i-B_{mid}| \\<br>         &amp;= \sum_{i=l}^{mid}(B_{mid}-B_i) + \sum_{i = mid+1}^{r}(B_i-B_{mid}) \\<br>         &amp;= B_{mid}  (2mid-l-r+1) - \sum_{i = l}^{mid}B_i  +  \sum_{i = mid+1}^{r}B_i<br>\end{aligned}<br>$$<br>前半部分可以直接计算得到，后半部分可以通过预处理前缀和快速求得，如此我们就可以在$O(1)$的时间内滑窗求出窗口内1需要交换的次数，滑动过程中统计出最小值就ok了</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">1.    得到连续 K 个 1 的最少相邻交换次数</span></span><br><span class="line"><span class="comment">给你一个整数数组 nums 和一个整数 k 。 nums 仅包含 0 和 1 。每一次移动你可以选择 相邻 两个数字并将它们交换。</span></span><br><span class="line"><span class="comment">请你返回使 nums 中包含 k 个 连续 1 的 最少 交换次数。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">minMoves</span><span class="params">(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = nums.length;</span><br><span class="line">        <span class="comment">// int[] w = new int[k];</span></span><br><span class="line">        List&lt;Integer&gt; lis = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="keyword">int</span> x = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (nums[i]==<span class="number">1</span>) &#123;</span><br><span class="line">                lis.add(i-x);</span><br><span class="line">                x++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span>[] w = lis.stream().mapToInt(Integer::valueOf).toArray();</span><br><span class="line">        <span class="keyword">int</span> m = w.length;</span><br><span class="line">        <span class="keyword">int</span>[] sum = <span class="keyword">new</span> <span class="keyword">int</span>[m+<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= m; i++) &#123;</span><br><span class="line">            sum[i] = sum[i-<span class="number">1</span>] + w[i-<span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//sum[i]: [0,i-1]</span></span><br><span class="line">        <span class="keyword">int</span> res = Integer.MAX_VALUE;</span><br><span class="line">        <span class="keyword">int</span> left = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> right = k-<span class="number">1</span>; right &lt; m; right++) &#123;</span><br><span class="line">            <span class="keyword">int</span> mid = left+(right-left)/<span class="number">2</span>; <span class="comment">//左中位数</span></span><br><span class="line">            res = Math.min(res, w[mid]*(<span class="number">2</span>*mid-left-right+<span class="number">1</span>)-(sum[mid+<span class="number">1</span>]-sum[left])+(sum[right+<span class="number">1</span>]-sum[mid+<span class="number">1</span>]));</span><br><span class="line">            left++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里其实有一个<a href="https://leetcode-cn.com/problems/minimum-adjacent-swaps-for-k-consecutive-ones/solution/de-dao-lian-xu-k-ge-1-de-zui-shao-xiang-lpa9i/724362" target="_blank" rel="noopener">小的问题</a>。比如窗口第一次向右滑动时，从$[A_0，A_1-1，…，A_{k-1}-{k-1}]$，滑动到$[A_1-1，…，A_{k-1}-{k-1}，A_{k}-k]$但是实际上按照我们前面的推导，这里我们需要的应该是$[A_1，A_2-1，A_3-2，…，A_n-n]$，那么我们需要重新计算吗？</p>
+<p>显然并不需要，这里两个窗口之间差距仅仅只是在坐标轴上<strong>整体的</strong>移动了一步，而我们求的是窗口内元素和中位数差值的和，对结果的计算并没有影响。</p>
+<h2 id="LCP-24-数字游戏"><a href="#LCP-24-数字游戏" class="headerlink" title="LCP 24. 数字游戏"></a><a href="https://leetcode-cn.com/problems/5TxKeK/" target="_blank" rel="noopener">LCP 24. 数字游戏</a></h2><p>小扣在秋日市集入口处发现了一个数字游戏。主办方共有 N 个计数器，计数器编号为 0 ~ N-1。每个计数器上分别显示了一个数字，小扣按计数器编号升序将所显示的数字记于数组 nums。每个计数器上有两个按钮，分别可以实现将显示数字加一或减一。小扣每一次操作可以选择一个计数器，按下加一或减一按钮。</p>
+<p>主办方请小扣回答出一个长度为 N 的数组，第 i 个元素(0 &lt;= i &lt; N)表示将 0~i 号计数器 初始 所示数字操作成满足所有条件 nums[a]+1 == nums[a+1],(0 &lt;= a &lt; i) 的最小操作数。回答正确方可进入秋日市集。</p>
+<p>由于答案可能很大，请将每个最小操作数对 1,000,000,007 取余。</p>
+<p><strong>示例 1：</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">输入：nums = [<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">1</span>,<span class="number">6</span>,<span class="number">7</span>]</span><br><span class="line"></span><br><span class="line">输出：[<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>]</span><br><span class="line"></span><br><span class="line">解释：</span><br><span class="line">i = <span class="number">0</span>，[<span class="number">3</span>] 无需操作</span><br><span class="line">i = <span class="number">1</span>，[<span class="number">3</span>,<span class="number">4</span>] 无需操作；</span><br><span class="line">i = <span class="number">2</span>，[<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>] 无需操作；</span><br><span class="line">i = <span class="number">3</span>，将 [<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">1</span>] 操作成 [<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>], 最少 <span class="number">5</span> 次操作；</span><br><span class="line">i = <span class="number">4</span>，将 [<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">1</span>,<span class="number">6</span>] 操作成 [<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>], 最少 <span class="number">6</span> 次操作；</span><br><span class="line">i = <span class="number">5</span>，将 [<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">1</span>,<span class="number">6</span>,<span class="number">7</span>] 操作成 [<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>]，最少 <span class="number">7</span> 次操作；</span><br><span class="line">返回 [<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>]。</span><br></pre></td></tr></table></figure>
+
+<p><strong>示例 2：</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">输入：nums = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>]</span><br><span class="line"></span><br><span class="line">输出：[<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">解释：对于任意计数器编号 i 都无需操作。</span><br></pre></td></tr></table></figure>
+<p><strong>示例 3：</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">输入：nums = [<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>]</span><br><span class="line"></span><br><span class="line">输出：[<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">3</span>,<span class="number">3</span>]</span><br><span class="line"></span><br><span class="line">解释：</span><br><span class="line">i = <span class="number">0</span>，无需操作；</span><br><span class="line">i = <span class="number">1</span>，将 [<span class="number">1</span>,<span class="number">1</span>] 操作成 [<span class="number">1</span>,<span class="number">2</span>] 或 [<span class="number">0</span>,<span class="number">1</span>] 最少 <span class="number">1</span> 次操作；</span><br><span class="line">i = <span class="number">2</span>，将 [<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>] 操作成 [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>] 或 [<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>]，最少 <span class="number">2</span> 次操作；</span><br><span class="line">i = <span class="number">3</span>，将 [<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">2</span>] 操作成 [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>] 或 [<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]，最少 <span class="number">3</span> 次操作；</span><br><span class="line">i = <span class="number">4</span>，将 [<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>] 操作成 [<span class="number">-1</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]，最少 <span class="number">3</span> 次操作；</span><br><span class="line">i = <span class="number">5</span>，将 [<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>] 操作成 [<span class="number">-1</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>]，最少 <span class="number">3</span> 次操作；</span><br><span class="line">返回 [<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">3</span>,<span class="number">3</span>]。</span><br></pre></td></tr></table></figure>
+
+<p><strong>提示：</strong></p>
+<ul>
+<li>1 &lt;= nums.length &lt;= 10^5</li>
+<li>1 &lt;= nums[i] &lt;= 10^3</li>
+</ul>
+<h3 id="解法一-4"><a href="#解法一-4" class="headerlink" title="解法一"></a>解法一</h3><p>在补上面的题的时候看见有人提到和这题一样，所以顺便一起写一下这题，因为已经知道了和上面哪题差不多，所以这里很快就转换成和上面类似的问题了，设原来的数组为$A_i$数组，转换后新数组以$X$开头，则从0~n的转换次数为：<br>$$f(n) = \sum_{i=0}^{n-1}|A_i-(X+i)|$$<br>我们要求的就是这个式子的最小值，这里我们将式子转换一下，设$A_i=B_i+i$，那么我们的式子就变成了<br>$$f(n) = \sum_{i=0}^{n-1}|B_i-X|$$<br>很显然我们取$B$的中位数时该式得到最小值（后面会把类似的题整理到一起，补一下证明）。那么问题就转换成了如何动态的求区间的中位数，<a href="#1703-%E5%BE%97%E5%88%B0%E8%BF%9E%E7%BB%ADK%E4%B8%AA1%E7%9A%84%E6%9C%80%E5%B0%91%E7%9B%B8%E9%82%BB%E4%BA%A4%E6%8D%A2%E6%AC%A1%E6%95%B0">上一题</a>因为变化的值是下标，窗口内的下标肯定是有序的，所以直接通过左右端点就可以计算得到中位数，但是这题我们变化的是数组的值，并且是无序的，所以我们需要借助一些其他的结构，这里我采用<strong>双堆</strong>的做法动态的维护中位数，详见<a href="http://imlgw.top/2019/05/04/leetcode-shu-zu/#295-%E6%95%B0%E6%8D%AE%E6%B5%81%E7%9A%84%E4%B8%AD%E4%BD%8D%E6%95%B0">数据流的中位数</a></p>
+<p>有了中位数后，我们还需要滑动的过程中快速的求出上面的式子的值，这里我们再把上面的式子拆分一下就变成</p>
+<p>$$f(n) = \sum_{B_i \leq B_{mid}}(B_{mid}-B_{i}) + \sum_{B_i &gt; B_{mid}}(B_i-B_{mid})<br>$$<br>左右两部分其实就对应了小于等于$B_{mid}$的元素以及大于$B_{mid}$的元素，我们只需要在维护双堆的同时，维护一下各个堆的元素和以及元素个数就可以快速的求出上面式子的值，时间复杂度大概$O(NlogN)$的样子</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span>[] w;</span><br><span class="line">    <span class="comment">//小根堆和大根堆的和</span></span><br><span class="line">    <span class="keyword">long</span> minSum = <span class="number">0l</span>, maxSum = <span class="number">0l</span>;</span><br><span class="line">    <span class="comment">//存后1/2小的元素</span></span><br><span class="line">    PriorityQueue&lt;Integer&gt; max = <span class="keyword">new</span> PriorityQueue&lt;&gt;((a, b)-&gt;w[b]-w[a]);</span><br><span class="line">    <span class="comment">//存前1/2大的元素</span></span><br><span class="line">    PriorityQueue&lt;Integer&gt; min = <span class="keyword">new</span> PriorityQueue&lt;&gt;((a, b)-&gt;w[a]-w[b]);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//n = 10^5</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] numsGame(<span class="keyword">int</span>[] nums) &#123;</span><br><span class="line">        <span class="keyword">int</span> MOD = (<span class="keyword">int</span>)<span class="number">1e9</span>+<span class="number">7</span>;</span><br><span class="line">        <span class="keyword">int</span> n = nums.length;</span><br><span class="line">        w = <span class="keyword">new</span> <span class="keyword">int</span>[n];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            w[i] = nums[i]-i;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span>[] res = <span class="keyword">new</span> <span class="keyword">int</span>[n];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            add(i);</span><br><span class="line">            <span class="keyword">int</span> mid = find();</span><br><span class="line">            <span class="comment">//这里取模WA了两发...int后面没打括号，给强转了</span></span><br><span class="line">            <span class="comment">//小根堆的个数以及sum代表的实际是大于mid的元素部分，大根堆同理</span></span><br><span class="line">            res[i] = (<span class="keyword">int</span>)(((<span class="keyword">long</span>)w[mid]*(max.size()-min.size()) - maxSum + minSum) % MOD);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//维护大根堆以及小根堆</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">        min.add(x);</span><br><span class="line">        minSum += w[x];</span><br><span class="line">        minSum -= w[min.peek()]; maxSum += w[min.peek()];</span><br><span class="line">        max.add(min.poll());</span><br><span class="line">        <span class="keyword">if</span> (min.size() &lt; max.size()) &#123;</span><br><span class="line">            minSum += w[max.peek()]; maxSum -= w[max.peek()];</span><br><span class="line">            min.add(max.poll());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">find</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> min.peek();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LeetCode_LCP24</span>数字游戏 </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Arrays.stream(<span class="keyword">new</span> Solution().numsGame(<span class="keyword">new</span> <span class="keyword">int</span>[]&#123;<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">1</span>,<span class="number">6</span>,<span class="number">7</span>&#125;)).forEach(System.out::println);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    </div>
+
+  </article>
+  <div class="toc-container">
+    
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#104-货仓选址"><span class="toc-text">104. 货仓选址</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#解法一"><span class="toc-text">解法一</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#462-最少移动次数使数组元素相等-II"><span class="toc-text">462. 最少移动次数使数组元素相等 II</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#解法一-1"><span class="toc-text">解法一</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#912-最佳见面地点"><span class="toc-text">912. 最佳见面地点</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#解法一-2"><span class="toc-text">解法一</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1703-得到连续K个1的最少相邻交换次数"><span class="toc-text">1703. 得到连续K个1的最少相邻交换次数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#解法一-3"><span class="toc-text">解法一</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LCP-24-数字游戏"><span class="toc-text">LCP 24. 数字游戏</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#解法一-4"><span class="toc-text">解法一</span></a></li></ol></li></ol>
+  </div>
+
+
+  </div>
+</div>
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'imlgw';
+    
+    var disqus_url = 'http://imlgw.top/2021/01/17/tan-xin-jue-dui-zhi-bu-deng-shi/';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <script id="dsq-count-scr" src="//imlgw.disqus.com/count.js" async></script>
+
+
+
+    </section>
+<div class="copyright">
+    <span>本作品采用</span>
+    <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">知识共享署名 4.0 国际许可协议</a>
+    <span>进行许可。 转载时请注明原文链接。</span>
+</div>
+
+
+  
+    <div class="post-nav">
+      <div class="post-nav-item post-nav-next">
+        
+          <span>〈 </span>
+          <a href="/2021/01/06/li-kou-42th-shuang-zhou-sai/" rel="next" title="力扣42th双周赛">
+          力扣42th双周赛
+          </a>
+        
+      </div>
+  
+      <div class="post-nav-item post-nav-prev">
+          
+      </div>
+    </div>
+  
+
+    </div>
+
+    
+
+  </div>
+  <footer class="footer text-center">
+    <div id="bottom-inner">
+        <a class="bottom-item" href="https://github.com/imlgw" target="_blank">GitHub</a> |
+        <a class="bottom-item" href="/links">友情链接</a> |
+        <a class="bottom-item" href="https://hexo.io" target="_blank">Powered by hexo</a> |
+        <a class="bottom-item" href="https://imlgw.avosapps.us/" target="_blank" rel="noopener">博客评论管理</a>
+    </div>
+    <div id="bottom-inner">
+        <a class="bottom-item" href="http://beian.miit.gov.cn/publish/query/indexFirst.action" target="_blank">鄂ICP备18011208号</a>
+    </div>
+</footer>
+
+  
+  
+  <script>
+  (function(window, document, undefined) {
+
+    var timer = null;
+
+    function returnTop() {
+      cancelAnimationFrame(timer);
+      timer = requestAnimationFrame(function fn() {
+        var oTop = document.body.scrollTop || document.documentElement.scrollTop;
+        if (oTop > 0) {
+          document.body.scrollTop = document.documentElement.scrollTop = oTop - 50;
+          timer = requestAnimationFrame(fn);
+        } else {
+          cancelAnimationFrame(timer);
+        }
+      });
+    }
+
+    var hearts = [];
+    window.requestAnimationFrame = (function() {
+      return window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.oRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        function(callback) {
+          setTimeout(callback, 1000 / 60);
+        }
+    })();
+    init();
+
+    function init() {
+      css(".heart{z-index:9999;width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);}.heart:after,.heart:before{content: '';width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: absolute;}.heart:after{top: -5px;}.heart:before{left: -5px;}");
+      attachEvent();
+      gameloop();
+      addMenuEvent();
+    }
+
+    function gameloop() {
+      for (var i = 0; i < hearts.length; i++) {
+        if (hearts[i].alpha <= 0) {
+          document.body.removeChild(hearts[i].el);
+          hearts.splice(i, 1);
+          continue;
+        }
+        hearts[i].y--;
+        hearts[i].scale += 0.004;
+        hearts[i].alpha -= 0.013;
+        hearts[i].el.style.cssText = "left:" + hearts[i].x + "px;top:" + hearts[i].y + "px;opacity:" + hearts[i].alpha + ";transform:scale(" + hearts[i].scale + "," + hearts[i].scale + ") rotate(45deg);background:" + hearts[i].color;
+      }
+      requestAnimationFrame(gameloop);
+    }
+
+    /**
+     * 给logo设置点击事件
+     * 
+     * - 回到顶部
+     * - 出现爱心
+     */
+    function attachEvent() {
+      var old = typeof window.onclick === "function" && window.onclick;
+      var logo = document.getElementById("logo");
+      if (logo) {
+        logo.onclick = function(event) {
+          returnTop();
+          old && old();
+          createHeart(event);
+        }
+      }
+      
+    }
+
+    function createHeart(event) {
+      var d = document.createElement("div");
+      d.className = "heart";
+      hearts.push({
+        el: d,
+        x: event.clientX - 5,
+        y: event.clientY - 5,
+        scale: 1,
+        alpha: 1,
+        color: randomColor()
+      });
+      document.body.appendChild(d);
+    }
+
+    function css(css) {
+      var style = document.createElement("style");
+      style.type = "text/css";
+      try {
+        style.appendChild(document.createTextNode(css));
+      } catch (ex) {
+        style.styleSheet.cssText = css;
+      }
+      document.getElementsByTagName('head')[0].appendChild(style);
+    }
+
+    function randomColor() {
+      // return "rgb(" + (~~(Math.random() * 255)) + "," + (~~(Math.random() * 255)) + "," + (~~(Math.random() * 255)) + ")";
+      return "#F44336";
+    }
+
+    function addMenuEvent() {
+      var menu = document.getElementById('menu-main-post');
+      if (menu) {
+        var toc = document.getElementById('toc');
+        if (toc) {
+          menu.onclick = function() {
+            if (toc) {
+              if (toc.style.display == 'block') {
+                toc.style.display = 'none';
+              } else {
+                toc.style.display = 'block';
+              }
+            }
+          };
+        } else {
+          menu.style.display = 'none';
+        }
+      }
+    }
+
+  })(window, document);
+</script>
+  
+  
+
+
+
+  
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script src="https://cdn.jsdelivr.net/npm/live2d-widget@3.x/lib/L2Dwidget.min.js"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"https://cdn.jsdelivr.net/npm/live2d-widget-model-hijiki@1.0.5/assets/hijiki.model.json"},"display":{"superSample":2,"width":160,"height":320,"position":"right","hOffset":0,"vOffset":-70},"mobile":{"show":false,"scale":0.2},"log":false});</script></body>
+</html>
