@@ -173,8 +173,8 @@
       </h1>
       <span>
         
-        <time class="time" datetime="2021-01-16T16:00:00.000Z">
-        2021-01-17
+        <time class="time" datetime="2021-01-09T16:00:00.000Z">
+        2021-01-10
       </time>
         
       </span>
@@ -207,7 +207,7 @@
 <p><strong>输出样例：</strong></p>
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="number">12</span></span><br></pre></td></tr></table></figure>
 <h3 id="解法一"><a href="#解法一" class="headerlink" title="解法一"></a>解法一</h3><p><img src="http://static.imlgw.top/blog/20210117/Tt7g9UupN0RX.png?imageslim" alt="mark"><br>货仓位置为$A_i$，修建点为$x$，那么货仓到$x$点的距离之和为：<br>$$<br>\begin{aligned}<br>f(x) &amp;= \sum_{i=0}^{n-1}|A_i-x| \\ &amp;= |A_0-x|+|A_1-x|+…+|A_{n-2}-x|+|A_{n-1}-x| \\ &amp;= (|A_0-x|+|A_{n-1}-x|) + (|A_1-x|+|A_{n-2}-x|) + … + (|A_{mid-1}-x|+|A_{mid+1}-x|) \\ &amp;\geq(A_{n-1}-A_0) + (A_{n-2}-A_1) +…+ (A_{mid+1}-A_{mid-1})<br>\end{aligned}<br>$$</p>
-<p>当且仅当$X$取在$A_n$和$A_1$中间，$A_{n-2}$和$A_2$中间…以及$A_{mid+1}$和$A_{mid-1}$中间时，不等式取得最小值，即$X$为$A_i$中位数时（奇偶同理）</p>
+<p>当且仅当$x$取在$A_n$和$A_1$中间，$A_{n-2}$和$A_2$中间…以及$A_{mid+1}$和$A_{mid-1}$中间时，不等式取得最小值，即$X$为$A_i$中位数时（奇偶同理）</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String... args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        BufferedReader br = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(System.in));</span><br><span class="line">        <span class="comment">// BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream("./input.txt")));</span></span><br><span class="line">        <span class="keyword">int</span> N = Integer.parseInt(br.readLine());</span><br><span class="line">        <span class="keyword">int</span>[] A = read(br);</span><br><span class="line">        Arrays.sort(A);</span><br><span class="line">        <span class="keyword">int</span> mid = A[(N-<span class="number">1</span>)/<span class="number">2</span>];  <span class="comment">// 下取整</span></span><br><span class="line">        <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; i++) &#123;</span><br><span class="line">            res += Math.abs(A[i]-mid);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(res);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span>[] read(BufferedReader br) <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="keyword">return</span> Arrays.stream(br.readLine().split(<span class="string">" "</span>)).mapToInt(Integer::parseInt).toArray();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="462-最少移动次数使数组元素相等-II"><a href="#462-最少移动次数使数组元素相等-II" class="headerlink" title="462. 最少移动次数使数组元素相等 II"></a><a href="https://leetcode-cn.com/problems/minimum-moves-to-equal-array-elements-ii/" target="_blank" rel="noopener">462. 最少移动次数使数组元素相等 II</a></h2><p>Difficulty: <strong>中等</strong></p>
@@ -298,7 +298,7 @@
   <script>
     var disqus_shortname = 'imlgw';
     
-    var disqus_url = 'http://imlgw.top/2021/01/17/tan-xin-jue-dui-zhi-bu-deng-shi/';
+    var disqus_url = 'http://imlgw.top/2021/01/10/tan-xin-jue-dui-zhi-bu-deng-shi/';
     
     (function(){
       var dsq = document.createElement('script');

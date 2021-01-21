@@ -1,0 +1,544 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#202020"/>
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+  
+  
+    <meta name="keywords" content="算法," />
+  
+
+  
+    <meta name="description" content="大悲无泪，大悟无言，大笑无声。" />
+  
+  
+  
+  <link rel="icon" type="image/x-icon" href="/img/cat.ico">
+  
+  <title>AtCoder Beginner Contest 188 [ iM1Gw0 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="//cdn.bootcss.com/pure/1.0.0/pure-min.css">
+    
+      <link rel="stylesheet" href="/css/xoxo.css">
+    
+  
+<meta name="generator" content="Hexo 4.2.1"><link rel="stylesheet" href="/css/prism.css" type="text/css"></head>
+
+
+<body>
+  <div class="nav-container">
+    <nav class="home-menu pure-menu pure-menu-horizontal">
+  <a class="pure-menu-heading" href="/">
+    
+    <span class="title" style="text-transform:none">iM1Gw0</span>
+  </a>
+
+  <ul class="pure-menu-list clearfix">
+      
+          
+            
+              <li class="pure-menu-item"><a href="/" class="pure-menu-link">首页</a></li>
+            
+          
+      
+          
+            
+              <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
+            
+              <a href="#" id="post" class="pure-menu-link">文章</a>
+              <ul class="pure-menu-children">
+              
+                  
+                    <li class="pure-menu-item"><a href="/categories" style="color:#202020;" class="pure-menu-link">分类</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="/archives" style="color:#202020;" class="pure-menu-link">归档</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="/tags" style="color:#202020;" class="pure-menu-link">标签</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="/music" style="color:#202020;" class="pure-menu-link">音乐</a></li>
+                  
+              
+              </ul>
+            </li>
+          
+      
+          
+            
+              <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
+            
+              <a href="#" id="算法" class="pure-menu-link">算法</a>
+              <ul class="pure-menu-children">
+              
+                  
+                    <li class="pure-menu-item"><a href="http://imlgw.top/2019/05/04/leetcode-shu-zu/" style="color:#202020;" class="pure-menu-link">数组</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="http://imlgw.top/2019/02/27/leetcode-lian-biao/" style="color:#202020;" class="pure-menu-link">链表</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="http://imlgw.top/2019/10/01/leetcode-zhan-dui-lie/" style="color:#202020;" class="pure-menu-link">栈&amp;队列</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="http://imlgw.top/2019/09/15/leetcode-cha-zhao/" style="color:#202020;" class="pure-menu-link">查找</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="http://imlgw.top/2019/07/20/leetcode-hua-dong-chuang-kou/" style="color:#202020;" class="pure-menu-link">滑动窗口</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="http://imlgw.top/2019/09/01/leetcode-dong-tai-gui-hua/" style="color:#202020;" class="pure-menu-link">动态规划</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="http://imlgw.top/2019/12/06/leetcode-er-fen-cha-zhao/" style="color:#202020;" class="pure-menu-link">二分查找</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="http://imlgw.top/2019/11/06/leetcode-er-cha-shu/" style="color:#202020;" class="pure-menu-link">二叉树</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="http://imlgw.top/2019/11/29/leetcode-bei-bao-wen-ti/" style="color:#202020;" class="pure-menu-link">背包问题</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="http://imlgw.top/2019/10/10/leetcode-hui-su/" style="color:#202020;" class="pure-menu-link">回溯</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="http://imlgw.top/2020/01/21/leetcode-tan-xin/" style="color:#202020;" class="pure-menu-link">贪心</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="http://imlgw.top/2020/07/03/leetcode-wei-yun-suan/" style="color:#202020;" class="pure-menu-link">位运算</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="http://imlgw.top/2020/08/28/leetcode-dan-diao-zhan/" style="color:#202020;" class="pure-menu-link">单调栈</a></li>
+                  
+              
+              </ul>
+            </li>
+          
+      
+          
+            
+              <li class="pure-menu-item"><a href="/project" class="pure-menu-link">Github</a></li>
+            
+          
+      
+          
+            
+              <li class="pure-menu-item"><a href="/search" class="pure-menu-link">搜索</a></li>
+            
+          
+      
+          
+            
+              <li class="pure-menu-item"><a href="/about" class="pure-menu-link">关于</a></li>
+            
+          
+      
+  </ul>
+   
+</nav>
+
+  </div>
+
+  <div class="container" id="content-outer">
+    <div class="inner" id="content-inner">
+      <div class="post-container">
+  <article class="post" id="post">
+    <header class="post-header text-center">
+      <h1 class="title">
+        AtCoder Beginner Contest 188
+      </h1>
+      <span>
+        
+        <time class="time" datetime="2021-01-21T13:55:51.958Z">
+        2021-01-21
+      </time>
+        
+      </span>
+      <span class="slash">/</span>
+      <span class="post-meta">
+      <span class="post-tags">
+        <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li></ul>
+      </span>
+    </span>
+      <span class="slash">/</span>
+      <span class="read">
+      <span id="busuanzi_value_page_pv"></span> 点击
+    </span>
+      <span class="slash">/</span>
+      <span class="read">阅读耗时 23 分钟</span>
+    </header>
+
+    <div class="post-content">
+      <blockquote>
+<p>比赛地址：<a href="https://atcoder.jp/contests/abc188" target="_blank" rel="noopener">https://atcoder.jp/contests/abc188</a> 第一次打，太菜了只写出了3/6</p>
+</blockquote>
+<h2 id="A-Three-Point-Shot"><a href="#A-Three-Point-Shot" class="headerlink" title="A - Three-Point Shot"></a><a href="https://atcoder.jp/contests/abc188/tasks/abc188_a" target="_blank" rel="noopener">A - Three-Point Shot</a></h2><p>判断两个数差值是否大于3，直接判断</p>
+<h2 id="B-Orthogonality"><a href="#B-Orthogonality" class="headerlink" title="B - Orthogonality"></a><a href="https://atcoder.jp/contests/abc188/tasks/abc188_b" target="_blank" rel="noopener">B - Orthogonality</a></h2><p>求两个数组内积，直接求，注意溢出</p>
+<h2 id="C-ABC-Tournament"><a href="#C-ABC-Tournament" class="headerlink" title="C - ABC Tournament"></a><a href="https://atcoder.jp/contests/abc188/tasks/abc188_c" target="_blank" rel="noopener">C - ABC Tournament</a></h2><p>$2^N$players, labeled $1$ through $2^N$ , will compete against each other in a single-elimination programming tournament. The rating of Player ${i}$ is $A_i$. Any two players have different ratings, and a match between two players always results in the victory of the player with the higher rating.</p>
+<p>The tournament looks like a perfect binary tree.Formally, the tournament will proceed as follows:</p>
+<ul>
+<li>For each integer ${i= 1, 2 , 3 , …,N}$ in this order, the following happens.<ul>
+<li>For each integer ${j(1 \leq j  \leq 2^{N-i}}$, among the players who have never lost, the player with the$(2j-1)$-th smallest label and the player with the $2j$-th smallest label play a match against each other.</li>
+</ul>
+</li>
+</ul>
+<p>Find the label of the player who will take <strong>second place</strong>, that is, lose in the final match.</p>
+<p><strong>Constraints</strong></p>
+<ul>
+<li>$1 \leq N \leq 16$</li>
+<li>$1 \leq A_i \leq 10^9$</li>
+<li>$A_i$ are pairwise different</li>
+<li>All values in input are integers.</li>
+</ul>
+<p><strong>Sample Input 1</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="number">2</span></span><br><span class="line"><span class="number">1</span> <span class="number">4</span> <span class="number">2</span> <span class="number">5</span></span><br></pre></td></tr></table></figure>
+<p><strong>Sample Output 1</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="number">2</span></span><br></pre></td></tr></table></figure>
+<h3 id="解法一"><a href="#解法一" class="headerlink" title="解法一"></a>解法一</h3><p>题目的意思就是把输入数组当作一颗完全二叉树的最底层元素，相邻的两个Player进行淘汰（rating低的会被淘汰），求最终battle中败者的索引（第二）</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="comment">//2^16 = 65536</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String... args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        BufferedReader br = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(System.in));</span><br><span class="line">        <span class="comment">// BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream("./input.txt")));</span></span><br><span class="line">        <span class="keyword">int</span> N = Integer.valueOf(br.readLine());</span><br><span class="line">        <span class="keyword">int</span>[] w = read(br);</span><br><span class="line">        LinkedList&lt;Player&gt; queue = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; (<span class="number">1</span>&lt;&lt;N); i++) &#123;</span><br><span class="line">            queue.addLast(<span class="keyword">new</span> Player(i+<span class="number">1</span>, w[i]));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span> (queue.size() &gt; <span class="number">2</span>) &#123;</span><br><span class="line">            Player p1 = queue.removeFirst();</span><br><span class="line">            Player p2 = queue.removeFirst();</span><br><span class="line">            queue.addLast(p1.rank &gt; p2.rank ? p1 : p2);</span><br><span class="line">        &#125;</span><br><span class="line">        Player p1 = queue.get(<span class="number">0</span>);</span><br><span class="line">        Player p2 = queue.get(<span class="number">1</span>);</span><br><span class="line">        System.out.println(p1.rank &gt; p2.rank ? p2.i : p1.i);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Player</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> i;</span><br><span class="line">        <span class="keyword">int</span> rank;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">Player</span> <span class="params">(<span class="keyword">int</span> i, <span class="keyword">int</span> rank)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.rank = rank;</span><br><span class="line">            <span class="keyword">this</span>.i = i;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span>[] read(BufferedReader br) <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="keyword">return</span> Arrays.stream(br.readLine().split(<span class="string">" "</span>)).mapToInt(Integer::parseInt).toArray();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="D-Snuke-Prime"><a href="#D-Snuke-Prime" class="headerlink" title="D - Snuke Prime"></a><a href="https://atcoder.jp/contests/abc188/tasks/abc188_d" target="_blank" rel="noopener">D - Snuke Prime</a></h2><p>Snuke Inc. offers various kinds of services.</p>
+<p>A payment plan called Snuke Prime is available.In this plan, by paying $C$ yen (the currency of Japan) per day, you can use all services offered by the company without additional fees.</p>
+<p>You can start your subscription to this plan at the beginning of any day and cancel your subscription at the end of any day.</p>
+<p>Takahashi is going to use $N$ of the services offered by the company.</p>
+<p>He will use the $i$-th of those services from the beginning of the $a_i$-th day until the end of the $b_i$-th day, where today is the first day. Without a subscription to Snuke Prime, he has to pay $c_i$ yen per day to use the $i$-th service.</p>
+<p>Find the minimum total amount of money Takahashi has to pay to use the services.</p>
+<p><strong>Constraints</strong></p>
+<ul>
+<li>$1 \leq N \leq 2 \times 10^5$</li>
+<li>$1 \leq C \leq 10^9$</li>
+<li>$1 \leq a_i \leq b_i \leq 10^9$</li>
+<li>$1 \leq c_i \leq 10^9$</li>
+<li>All values in input are integers.</li>
+</ul>
+<p><strong>Sample Input 1</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="number">2</span> <span class="number">6</span></span><br><span class="line"><span class="number">1</span> <span class="number">2</span> <span class="number">4</span></span><br><span class="line"><span class="number">2</span> <span class="number">2</span> <span class="number">4</span></span><br></pre></td></tr></table></figure>
+<p><strong>Sample Output 1</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="number">10</span></span><br></pre></td></tr></table></figure>
+<h3 id="解法一-1"><a href="#解法一-1" class="headerlink" title="解法一"></a>解法一</h3><p>这题卡了好久，一开始题目的意思就理解了很久，直到结束也没整明白（英语捉急），最后看别人题解的时候才明白啥意思. Otz</p>
+<p>这里大概的意思就是说：高桥要使用给出的所有服务，这些服务从$a_i$天开始到$b_i$天结束，每天需要支付$c_i$，同时该公司有另一项政策，就是订阅<code>Snuke Prime</code>，当天支付$C$后就可以使用当天出现的所有服务，不用额外的付钱。比如样例一，第一项服务第一天支付4，第二天支付6同时使用第一项服务和第二项服务，总共10，这样消费是最小的。</p>
+<p><img src="https://i.loli.net/2021/01/11/luhbOUCWjTmzVZ7.png"></p>
+<p>要求总体最小的消耗，我们就得知道每天的最小花费是多大，这里题目给的是一个区间$a_i \sim b_i$内所有时间的花费$c[i]$，而这题数据很大，暴力必然是不可行的。解决办法就是构建出差分数组，然后按时间戳排序，计算使用每天出现的各项服务的总花费，和$C$取一个最小值，然后乘以对应的区间的天数，累加起来就是结果</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//1652ms</span></span><br><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String... args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        BufferedReader br = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(System.in));</span><br><span class="line">        <span class="comment">// BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream("./input.txt")));</span></span><br><span class="line">        <span class="keyword">int</span>[] in = read(br);</span><br><span class="line">        <span class="keyword">int</span> N = in[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">int</span> C = in[<span class="number">1</span>];</span><br><span class="line">        HashMap&lt;Integer, Long&gt; diff = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; i++) &#123;</span><br><span class="line">            <span class="keyword">int</span>[] abc = read(br);</span><br><span class="line">            <span class="keyword">int</span> a = abc[<span class="number">0</span>], b = abc[<span class="number">1</span>], c = abc[<span class="number">2</span>];</span><br><span class="line">            <span class="comment">// Java的map确实蛋疼...</span></span><br><span class="line">            diff.put(a, diff.getOrDefault(a, <span class="number">0l</span>)+c); diff.put(b+<span class="number">1</span>, diff.getOrDefault(b+<span class="number">1</span>, <span class="number">0l</span>)-c);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">long</span> res = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> last = <span class="number">0</span>; <span class="comment">// 上一个时间点</span></span><br><span class="line">        <span class="keyword">long</span> sum = <span class="number">0</span>; <span class="comment">// 差分前缀和</span></span><br><span class="line">        Integer[] keys = diff.keySet().toArray(<span class="keyword">new</span> Integer[<span class="number">0</span>]);</span><br><span class="line">        <span class="comment">// 按照时间排序</span></span><br><span class="line">        Arrays.sort(keys);</span><br><span class="line">        <span class="keyword">for</span> (Integer key : keys) &#123;</span><br><span class="line">            <span class="keyword">long</span> min = Math.min(sum, C);</span><br><span class="line">            res += min * (key-last);</span><br><span class="line">            last = key;</span><br><span class="line">            sum += diff.get(key);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(res);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span>[] read(BufferedReader br) <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="keyword">return</span> Arrays.stream(br.readLine().split(<span class="string">" "</span>)).mapToInt(Integer::parseInt).toArray();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">D</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="keyword">new</span> Main().main();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="解法二"><a href="#解法二" class="headerlink" title="解法二"></a>解法二</h3><p>扫描线的做法，其实和差分思路一样，但是不需要hash，相比于上面的解法，会稍微快一点</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//913ms</span></span><br><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Event</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> t, c;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Event</span><span class="params">(<span class="keyword">int</span> t, <span class="keyword">int</span> c)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.t = t;</span><br><span class="line">        <span class="keyword">this</span>.c = c;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String... args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        BufferedReader br = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(System.in));</span><br><span class="line">        <span class="comment">// BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream("./input.txt")));</span></span><br><span class="line">        <span class="keyword">int</span>[] in = read(br);</span><br><span class="line">        <span class="keyword">int</span> N = in[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">int</span> C = in[<span class="number">1</span>];</span><br><span class="line">        List&lt;Event&gt; events = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; i++) &#123;</span><br><span class="line">            <span class="keyword">int</span>[] abc = read(br);</span><br><span class="line">            <span class="keyword">int</span> a = abc[<span class="number">0</span>], b = abc[<span class="number">1</span>], c = abc[<span class="number">2</span>];</span><br><span class="line">            events.add(<span class="keyword">new</span> Event(a, c));</span><br><span class="line">            events.add(<span class="keyword">new</span> Event(b+<span class="number">1</span>, -c));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">long</span> res = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> last = <span class="number">0</span>; <span class="comment">// 上一个时间点</span></span><br><span class="line">        <span class="keyword">long</span> sum = <span class="number">0</span>;</span><br><span class="line">        <span class="comment">// 按照时间排序</span></span><br><span class="line">        Collections.sort(events, (e1, e2)-&gt;e1.t-e2.t);</span><br><span class="line">        <span class="keyword">for</span> (Event event : events) &#123;</span><br><span class="line">            <span class="keyword">long</span> min = Math.min(sum, C);</span><br><span class="line">            res += min * (event.t-last);</span><br><span class="line">            last = event.t;</span><br><span class="line">            sum += event.c;</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(res);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span>[] read(BufferedReader br) <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="keyword">return</span> Arrays.stream(br.readLine().split(<span class="string">" "</span>)).mapToInt(Integer::parseInt).toArray();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="E-Peddler"><a href="#E-Peddler" class="headerlink" title="E - Peddler"></a><a href="https://atcoder.jp/contests/abc188/tasks/abc188_e" target="_blank" rel="noopener">E - Peddler</a></h2><p>In Takahashi Kingdom, there are $N$ towns, called Town $1$ through Town $N$.<br>There are also $M$ roads in the kingdom, called Road $1$ through Road $M$. By traversing Road $i$, you can travel from Town $X_i$ to Town $Y_i$, but not vice versa. Here, it is guaranteed that $X_i &lt; Y_i$.</p>
+<p>Gold is actively traded in this kingdom. At Town $i$, you can buy or sell $1$ kilogram of gold for $A_i$ yen (the currency of Japan).</p>
+<p>Takahashi, a traveling salesman, plans to buy $1$ kilogram of gold at some town, traverse one or more roads, and sell $1$ kilogram of gold at <strong>another town</strong>.</p>
+<p>Find the maximum possible profit (that is, the selling price minus the buying price) in this plan.</p>
+<p><strong>Constraints</strong></p>
+<ul>
+<li>$2 \leq N \leq 2 \times 10^5$</li>
+<li>$1 \leq M \leq 2 \times 10^5$</li>
+<li>$1 \leq A_i \leq 10^9$</li>
+<li>$1 \leq X_i &lt; Y_i \leq N$</li>
+<li>$(X_i, Y_i) \neq (X_j, Y_j)(i \neq j)$</li>
+<li>All values in input are integers.</li>
+</ul>
+<p><strong>Sample Input 1</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="number">4</span> <span class="number">3</span></span><br><span class="line"><span class="number">2</span> <span class="number">3</span> <span class="number">1</span> <span class="number">5</span></span><br><span class="line"><span class="number">2</span> <span class="number">4</span></span><br><span class="line"><span class="number">1</span> <span class="number">2</span></span><br><span class="line"><span class="number">1</span> <span class="number">3</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>Sample Output 1</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="number">3</span></span><br></pre></td></tr></table></figure>
+<p>We can achieve the profit of $3$ yen, as follows:</p>
+<ul>
+<li>At Town $1$, buy one kilogram of gold for $2$ yen.</li>
+<li>Traverse Road $2$ to get to Town $2$.</li>
+<li>Traverse Road $1$ to get to Town $4$.</li>
+<li>At Town $4$, sell one kilogram of gold for $5$ yen.</li>
+</ul>
+<h3 id="解法一-2"><a href="#解法一-2" class="headerlink" title="解法一"></a>解法一</h3><p>这题其实和买卖股票题是一样的，但是我一开始以为题目是有环的。实际上题目条件中说了$X_i &lt; Y_i$所以这就是一个DAG，直接DP就行了，$dp[i]$代表从起点（初始入度为0的点）到当前节点$i$最低的买入价格。过程中统计一个最大的$w[j]-dp[i]$就行了，$w[j]$为当前节点卖出价格，$dp[i]$为源点到当前$j$节点之前的最低买入价格（不包括$j$，题目说了不能就地买卖，收益可以为负）</p>
+<p>这里的做法是用BFS遍历图，从入度为0的节点开始，当某个子节点入度为0的时候再把他加入队列，保证递推的正确性，过程中维护各个节点的$dp$值，同时计算最大受益，整个过程需要遍历所有的节点和边，所以时间复杂度$O(N+M)$</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//一开始用hashmap建图未优化，1000ms+</span></span><br><span class="line"><span class="comment">//改成ArrayList建图845ms，要不是Java的List太难用我也不会用map建图...</span></span><br><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String... args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        BufferedReader br = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(System.in));</span><br><span class="line">        <span class="comment">// BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream("./input.txt")));</span></span><br><span class="line">        <span class="keyword">int</span> INF = <span class="number">0x3f3f3f3f</span>;</span><br><span class="line">        <span class="keyword">int</span>[] nm = read(br);</span><br><span class="line">        <span class="keyword">int</span> N = nm[<span class="number">0</span>], M = nm[<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">int</span>[] w = read(br);</span><br><span class="line">        <span class="comment">//节点入度数</span></span><br><span class="line">        <span class="keyword">int</span>[] in = <span class="keyword">new</span> <span class="keyword">int</span>[N];</span><br><span class="line">        List&lt;Integer&gt;[] adj = <span class="keyword">new</span> ArrayList[N];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; M; i++) &#123;</span><br><span class="line">            <span class="keyword">int</span>[] xy = read(br);</span><br><span class="line">            <span class="keyword">int</span> x = xy[<span class="number">0</span>]-<span class="number">1</span>, y = xy[<span class="number">1</span>]-<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span> (adj[x] == <span class="keyword">null</span>) &#123;</span><br><span class="line">                adj[x] = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">            &#125;</span><br><span class="line">            adj[x].add(y);</span><br><span class="line">            in[y]++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span>[] dp = <span class="keyword">new</span> <span class="keyword">int</span>[N];</span><br><span class="line">        Arrays.fill(dp, INF);</span><br><span class="line">        Queue&lt;Integer&gt; queue = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (in[i] == <span class="number">0</span>) &#123;</span><br><span class="line">                queue.add(i);</span><br><span class="line">                dp[i] = w[i];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> res = -INF;</span><br><span class="line">        <span class="keyword">while</span> (!queue.isEmpty()) &#123;</span><br><span class="line">            <span class="keyword">int</span> i = queue.poll();</span><br><span class="line">            <span class="keyword">if</span> (adj[i]==<span class="keyword">null</span>) <span class="keyword">continue</span>;</span><br><span class="line">            <span class="keyword">for</span> (Integer j : adj[i]) &#123;</span><br><span class="line">                res = Math.max(res, w[j] - dp[i]);</span><br><span class="line">                <span class="comment">//这里WA了好几发...这里dp[j]不只在这里计算一次，前面可能计算过了，所以需要对过往的dp[j]取min</span></span><br><span class="line">                dp[j] = Math.min(dp[j], Math.min(w[j], dp[i]));</span><br><span class="line">                in[j]--;</span><br><span class="line">                <span class="keyword">if</span> (in[j] == <span class="number">0</span>) &#123;</span><br><span class="line">                    queue.add(j);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(res);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span>[] read(BufferedReader br) <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="keyword">return</span> Arrays.stream(br.readLine().split(<span class="string">" "</span>)).mapToInt(Integer::parseInt).toArray();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>优化后的直接递推的写法，因为题目说了$x &lt; y$所以实际上只能从前向后，所以我们直接循序遍历就一定能保证之前的节点是计算过的，不需要借助队列</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//时间上和上面差不多</span></span><br><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String... args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        BufferedReader br = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(System.in));</span><br><span class="line">        <span class="comment">// BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream("./input.txt")));</span></span><br><span class="line">        <span class="keyword">int</span> INF = <span class="number">0x3f3f3f3f</span>;</span><br><span class="line">        <span class="keyword">int</span>[] nm = read(br);</span><br><span class="line">        <span class="keyword">int</span> N = nm[<span class="number">0</span>], M = nm[<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">int</span>[] w = read(br);</span><br><span class="line">        List&lt;Integer&gt;[] adj = <span class="keyword">new</span> ArrayList[N];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; M; i++) &#123;</span><br><span class="line">            <span class="keyword">int</span>[] xy = read(br);</span><br><span class="line">            <span class="keyword">int</span> x = xy[<span class="number">0</span>]-<span class="number">1</span>, y = xy[<span class="number">1</span>]-<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span> (adj[x] == <span class="keyword">null</span>) &#123;</span><br><span class="line">                adj[x] = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">            &#125;</span><br><span class="line">            adj[x].add(y);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span>[] dp = <span class="keyword">new</span> <span class="keyword">int</span>[N];</span><br><span class="line">        Arrays.fill(dp, INF);</span><br><span class="line">        <span class="keyword">int</span> res = -INF;</span><br><span class="line">        <span class="comment">//题目说了x&lt;y，其实也就说明了只能从前向后走，所以直接顺序遍历是没问题的</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; i++) &#123;</span><br><span class="line">            <span class="comment">//更新当前节点的dp[i]</span></span><br><span class="line">            dp[i] = Math.min(dp[i], w[i]);</span><br><span class="line">            <span class="keyword">if</span> (adj[i]==<span class="keyword">null</span>) <span class="keyword">continue</span>;</span><br><span class="line">            <span class="keyword">for</span> (Integer j : adj[i]) &#123;</span><br><span class="line">                res = Math.max(res, w[j] - dp[i]);</span><br><span class="line">                <span class="comment">//这里WA了好几发...这里dp[j]不只在这里计算一次，前面可能计算过了，所以需要对过往的dp[j]取min</span></span><br><span class="line">                dp[j] = Math.min(dp[j], Math.min(w[j], dp[i]));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(res);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span>[] read(BufferedReader br) <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="keyword">return</span> Arrays.stream(br.readLine().split(<span class="string">" "</span>)).mapToInt(Integer::parseInt).toArray();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="解法二-1"><a href="#解法二-1" class="headerlink" title="解法二"></a>解法二</h3><p>这个是参考了<a href="https://atcoder.jp/contests/abc188/editorial/555" target="_blank" rel="noopener">官方题解</a>，这种解法当图不是DAG的时候也适用，也就是不考虑$xy$大小关系，给的图只是一个普通的有向图。</p>
+<p>首先对各个城镇的金子价格进行排序，从低到高，然后从价格最低的城镇$x_1$开始BFS，搜索$x_1$能到达的城镇$y_i$，记录最大的收益，并标记到过的城镇，然后从价格第二低的城镇$x_2$开始同样的操作，但是这一次我们之前已经被标记过的$x_1$能到达的城镇$y_i$便不用再入队了，因为收益一定小于从$x_1$开始的收益。因为需要对点进行排序，所以整体的复杂度$O(NlogN+M)$</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String... args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        BufferedReader br = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(System.in));</span><br><span class="line">        <span class="comment">// BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream("./input.txt")));</span></span><br><span class="line">        <span class="keyword">int</span> INF = <span class="number">0x3f3f3f3f</span>;</span><br><span class="line">        <span class="keyword">int</span>[] nm = read(br);</span><br><span class="line">        <span class="keyword">int</span> N = nm[<span class="number">0</span>], M = nm[<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">int</span>[] w = read(br);</span><br><span class="line">        Integer[] tid = <span class="keyword">new</span> Integer[N];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; i++) tid[i] = i;</span><br><span class="line">        <span class="comment">//将id按照cost从小到大排序</span></span><br><span class="line">        Arrays.sort(tid, (t1,t2)-&gt;w[t1]-w[t2]);</span><br><span class="line">        List&lt;Integer&gt;[] adj = <span class="keyword">new</span> ArrayList[N];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; M; i++) &#123;</span><br><span class="line">            <span class="keyword">int</span>[] xy = read(br);</span><br><span class="line">            <span class="keyword">int</span> x = xy[<span class="number">0</span>]-<span class="number">1</span>, y = xy[<span class="number">1</span>]-<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span> (adj[x] == <span class="keyword">null</span>) &#123;</span><br><span class="line">                adj[x] = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">            &#125;</span><br><span class="line">            adj[x].add(y);</span><br><span class="line">        &#125;</span><br><span class="line">        Queue&lt;Integer&gt; queue = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">        <span class="keyword">boolean</span>[] visit = <span class="keyword">new</span> <span class="keyword">boolean</span>[N];</span><br><span class="line">        <span class="keyword">int</span> res = -INF;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (visit[tid[i]]) <span class="keyword">continue</span>;</span><br><span class="line">            queue.add(tid[i]);</span><br><span class="line">            <span class="keyword">while</span> (!queue.isEmpty()) &#123;</span><br><span class="line">                <span class="keyword">int</span> cur = queue.poll();</span><br><span class="line">                <span class="keyword">if</span> (adj[cur]==<span class="keyword">null</span>) <span class="keyword">continue</span>;</span><br><span class="line">                <span class="keyword">for</span> (Integer j : adj[cur]) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (visit[j]) <span class="keyword">continue</span>;</span><br><span class="line">                    visit[j] = <span class="keyword">true</span>;</span><br><span class="line">                    res = Math.max(res, w[j]-w[tid[i]]);</span><br><span class="line">                    queue.add(j);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;   </span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(res);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span>[] read(BufferedReader br) <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="keyword">return</span> Arrays.stream(br.readLine().split(<span class="string">" "</span>)).mapToInt(Integer::parseInt).toArray();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="F-1-1x2"><a href="#F-1-1x2" class="headerlink" title="F - +1-1x2"></a>F - +1-1x2</h2><p>Takahashi has written an integer $X$ on a blackboard. He can do the following three kinds of operations any number of times in any order:</p>
+<ul>
+<li>increase the value written on the blackboard by $1$;</li>
+<li>decrease the value written on the blackboard by $1$;</li>
+<li>multiply the value written on the blackboard by $2$.</li>
+</ul>
+<p>Find the minimum number of operations required to have $Y$ written on the blackboard.</p>
+<p><strong>Constraints</strong></p>
+<ul>
+<li>$1 \le X \le 10^{18}$</li>
+<li>$1 \le Y \le 10^{18}$</li>
+<li>$X$ and $Y$ are integers.</li>
+</ul>
+<p><strong>Sample Input 1</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="number">3</span> <span class="number">9</span></span><br></pre></td></tr></table></figure>
+<p><strong>Sample Output 1</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="number">3</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="解法一-3"><a href="#解法一-3" class="headerlink" title="解法一"></a>解法一</h3><p>这个F其实很简单…甚至我之前也做过类似的题（<a href="http://imlgw.top/2019/09/01/leetcode-dong-tai-gui-hua/#1553-%E5%90%83%E6%8E%89-N-%E4%B8%AA%E6%A9%98%E5%AD%90%E7%9A%84%E6%9C%80%E5%B0%91%E5%A4%A9%E6%95%B0">吃掉-N-个橘子的最少天数</a>），但是比赛的时候题都没看😂</p>
+<p>这题如果直接考虑从$X \rightarrow Y$的话，每层递归都有3个分支，很明显会爆栈。我们可以将问题转化从$Y \rightarrow X$的等价问题，反过来$Y$转化成$X$就有三种选择: $y-1$, $y+1$, $y/2$。首先$y/2$时$y$必须要是偶数，奇数情况只考虑$y+1$和$y-1$，那么$y$为偶数时能考虑加一和减一分支吗？</p>
+<ol>
+<li>$y$为偶数（只考虑 $y &gt; x$，小于$x$差值就是答案），这时候$y+1$会增大$y$和$x$的差距，那么有没有可能是$y+2$然后再除二使得次数更少呢？也是不可能的，$(y+2)/2 = y/2+1$， 转换到同一个值，前者需要3次变化，而后者只需要2次变化，所以直接除2是最优选择</li>
+<li>$y-1$同理，但是我们也需要考虑$y$和$x$差距很小的时候，$y$直接一步步的减到$x$的情况</li>
+</ol>
+<p>如此一来，我们再加上记忆化，复杂度直线下降，每个分支都有除2，时间复杂度降低为对数级别</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> HashMap&lt;Long, Long&gt; dp = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String... args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        BufferedReader br = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(System.in));</span><br><span class="line">        <span class="comment">// BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream("./input.txt")));</span></span><br><span class="line">        <span class="keyword">long</span>[] xy = read(br);</span><br><span class="line">        <span class="keyword">long</span> x = xy[<span class="number">0</span>], y = xy[<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">if</span> (x &gt;= y) &#123;</span><br><span class="line">            System.out.println(x-y);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(dfs(x, y));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">long</span> <span class="title">dfs</span> <span class="params">(<span class="keyword">long</span> x, <span class="keyword">long</span> y)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (x &gt; y) <span class="keyword">return</span> x-y;</span><br><span class="line">        <span class="keyword">if</span> (x == y)  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span> (dp.containsKey(y)) &#123;</span><br><span class="line">            <span class="keyword">return</span> dp.get(y);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">long</span> res = y-x;</span><br><span class="line">        <span class="keyword">if</span> (y%<span class="number">2</span>==<span class="number">0</span>) &#123;</span><br><span class="line">            res = Math.min(dfs(x, y/<span class="number">2</span>)+<span class="number">1</span>, res);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            res = Math.min(dfs(x, (y-<span class="number">1</span>)/<span class="number">2</span>)+<span class="number">2</span>, res);</span><br><span class="line">            res = Math.min(dfs(x, (y+<span class="number">1</span>)/<span class="number">2</span>)+<span class="number">2</span>, res);</span><br><span class="line">        &#125;</span><br><span class="line">        dp.put(y, res);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">long</span>[] read(BufferedReader br) <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="keyword">return</span> Arrays.stream(br.readLine().split(<span class="string">" "</span>)).mapToLong(Long::parseLong).toArray();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    </div>
+
+  </article>
+  <div class="toc-container">
+    
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#A-Three-Point-Shot"><span class="toc-text">A - Three-Point Shot</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#B-Orthogonality"><span class="toc-text">B - Orthogonality</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#C-ABC-Tournament"><span class="toc-text">C - ABC Tournament</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#解法一"><span class="toc-text">解法一</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#D-Snuke-Prime"><span class="toc-text">D - Snuke Prime</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#解法一-1"><span class="toc-text">解法一</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#解法二"><span class="toc-text">解法二</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#E-Peddler"><span class="toc-text">E - Peddler</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#解法一-2"><span class="toc-text">解法一</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#解法二-1"><span class="toc-text">解法二</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#F-1-1x2"><span class="toc-text">F - +1-1x2</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#解法一-3"><span class="toc-text">解法一</span></a></li></ol></li></ol>
+  </div>
+
+
+  </div>
+</div>
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'imlgw';
+    
+    var disqus_url = 'http://imlgw.top/2021/01/21/abc188-ti-jie-bao-gao/';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <script id="dsq-count-scr" src="//imlgw.disqus.com/count.js" async></script>
+
+
+
+    </section>
+<div class="copyright">
+    <span>本作品采用</span>
+    <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">知识共享署名 4.0 国际许可协议</a>
+    <span>进行许可。 转载时请注明原文链接。</span>
+</div>
+
+
+  
+    <div class="post-nav">
+      <div class="post-nav-item post-nav-next">
+        
+          <span>〈 </span>
+          <a href="/2021/01/18/ji-liang-dao-bing-cha-ji-de-ti/" rel="next" title="记两道并查集的题">
+          记两道并查集的题
+          </a>
+        
+      </div>
+  
+      <div class="post-nav-item post-nav-prev">
+          
+      </div>
+    </div>
+  
+
+    </div>
+
+    
+
+  </div>
+  <footer class="footer text-center">
+    <div id="bottom-inner">
+        <a class="bottom-item" href="https://github.com/imlgw" target="_blank">GitHub</a> |
+        <a class="bottom-item" href="/links">友情链接</a> |
+        <a class="bottom-item" href="https://hexo.io" target="_blank">Powered by hexo</a> |
+        <a class="bottom-item" href="https://imlgw.avosapps.us/" target="_blank" rel="noopener">博客评论管理</a>
+    </div>
+    <div id="bottom-inner">
+        <a class="bottom-item" href="http://beian.miit.gov.cn/publish/query/indexFirst.action" target="_blank">鄂ICP备18011208号</a>
+    </div>
+</footer>
+
+  
+  
+  <script>
+  (function(window, document, undefined) {
+
+    var timer = null;
+
+    function returnTop() {
+      cancelAnimationFrame(timer);
+      timer = requestAnimationFrame(function fn() {
+        var oTop = document.body.scrollTop || document.documentElement.scrollTop;
+        if (oTop > 0) {
+          document.body.scrollTop = document.documentElement.scrollTop = oTop - 50;
+          timer = requestAnimationFrame(fn);
+        } else {
+          cancelAnimationFrame(timer);
+        }
+      });
+    }
+
+    var hearts = [];
+    window.requestAnimationFrame = (function() {
+      return window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.oRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        function(callback) {
+          setTimeout(callback, 1000 / 60);
+        }
+    })();
+    init();
+
+    function init() {
+      css(".heart{z-index:9999;width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);}.heart:after,.heart:before{content: '';width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: absolute;}.heart:after{top: -5px;}.heart:before{left: -5px;}");
+      attachEvent();
+      gameloop();
+      addMenuEvent();
+    }
+
+    function gameloop() {
+      for (var i = 0; i < hearts.length; i++) {
+        if (hearts[i].alpha <= 0) {
+          document.body.removeChild(hearts[i].el);
+          hearts.splice(i, 1);
+          continue;
+        }
+        hearts[i].y--;
+        hearts[i].scale += 0.004;
+        hearts[i].alpha -= 0.013;
+        hearts[i].el.style.cssText = "left:" + hearts[i].x + "px;top:" + hearts[i].y + "px;opacity:" + hearts[i].alpha + ";transform:scale(" + hearts[i].scale + "," + hearts[i].scale + ") rotate(45deg);background:" + hearts[i].color;
+      }
+      requestAnimationFrame(gameloop);
+    }
+
+    /**
+     * 给logo设置点击事件
+     * 
+     * - 回到顶部
+     * - 出现爱心
+     */
+    function attachEvent() {
+      var old = typeof window.onclick === "function" && window.onclick;
+      var logo = document.getElementById("logo");
+      if (logo) {
+        logo.onclick = function(event) {
+          returnTop();
+          old && old();
+          createHeart(event);
+        }
+      }
+      
+    }
+
+    function createHeart(event) {
+      var d = document.createElement("div");
+      d.className = "heart";
+      hearts.push({
+        el: d,
+        x: event.clientX - 5,
+        y: event.clientY - 5,
+        scale: 1,
+        alpha: 1,
+        color: randomColor()
+      });
+      document.body.appendChild(d);
+    }
+
+    function css(css) {
+      var style = document.createElement("style");
+      style.type = "text/css";
+      try {
+        style.appendChild(document.createTextNode(css));
+      } catch (ex) {
+        style.styleSheet.cssText = css;
+      }
+      document.getElementsByTagName('head')[0].appendChild(style);
+    }
+
+    function randomColor() {
+      // return "rgb(" + (~~(Math.random() * 255)) + "," + (~~(Math.random() * 255)) + "," + (~~(Math.random() * 255)) + ")";
+      return "#F44336";
+    }
+
+    function addMenuEvent() {
+      var menu = document.getElementById('menu-main-post');
+      if (menu) {
+        var toc = document.getElementById('toc');
+        if (toc) {
+          menu.onclick = function() {
+            if (toc) {
+              if (toc.style.display == 'block') {
+                toc.style.display = 'none';
+              } else {
+                toc.style.display = 'block';
+              }
+            }
+          };
+        } else {
+          menu.style.display = 'none';
+        }
+      }
+    }
+
+  })(window, document);
+</script>
+  
+  
+
+
+
+  
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script src="https://cdn.jsdelivr.net/npm/live2d-widget@3.x/lib/L2Dwidget.min.js"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"https://cdn.jsdelivr.net/npm/live2d-widget-model-hijiki@1.0.5/assets/hijiki.model.json"},"display":{"superSample":2,"width":160,"height":320,"position":"right","hOffset":0,"vOffset":-70},"mobile":{"show":false,"scale":0.2},"log":false});</script></body>
+</html>
