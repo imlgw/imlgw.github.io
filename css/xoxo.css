@@ -327,7 +327,7 @@ body {
 }
 @media (max-width: 576px) {
   .recent-posts {
-    padding: 10px 50px;
+    padding: 10px 20px;
   }
 }
 .recent-posts .recent-post-item {
