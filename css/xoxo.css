@@ -53,6 +53,12 @@ h6 {
   font-weight: bold;
   /*border-bottom: 1px solid;*/
 }
+/*h1,h2下划线，模仿github*/
+div>h1,
+div>h2{
+  padding-bottom: .3em;
+  border-bottom: 1px solid #eaecef;
+}
 b,
 optgroup,
 strong {
