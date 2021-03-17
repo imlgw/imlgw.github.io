@@ -1,0 +1,538 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#202020"/>
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+  
+  
+    <meta name="keywords" content="算法,图论," />
+  
+
+  
+    <meta name="description" content="大悲无泪，大悟无言，大笑无声。" />
+  
+  
+  
+  <link rel="icon" type="image/x-icon" href="/img/cat.ico">
+  
+  <title>图论：常见的最短路算法模板 [ iM1Gw0 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="//cdn.bootcss.com/pure/1.0.0/pure-min.css">
+    
+      <link rel="stylesheet" href="/css/xoxo.css">
+    
+  
+<meta name="generator" content="Hexo 4.2.1"><link rel="stylesheet" href="/css/prism.css" type="text/css"></head>
+
+
+<body>
+  <div class="nav-container">
+    <nav class="home-menu pure-menu pure-menu-horizontal">
+  <a class="pure-menu-heading" href="/">
+    
+    <span class="title" style="text-transform:none">iM1Gw0</span>
+  </a>
+
+  <ul class="pure-menu-list clearfix">
+      
+          
+            
+              <li class="pure-menu-item"><a href="/" class="pure-menu-link">首页</a></li>
+            
+          
+      
+          
+            
+              <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
+            
+              <a href="#" id="post" class="pure-menu-link">文章</a>
+              <ul class="pure-menu-children">
+              
+                  
+                    <li class="pure-menu-item"><a href="/categories" style="color:#202020;" class="pure-menu-link">分类</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="/archives" style="color:#202020;" class="pure-menu-link">归档</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="/tags" style="color:#202020;" class="pure-menu-link">标签</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="/music" style="color:#202020;" class="pure-menu-link">音乐</a></li>
+                  
+              
+              </ul>
+            </li>
+          
+      
+          
+            
+              <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
+            
+              <a href="#" id="算法" class="pure-menu-link">算法</a>
+              <ul class="pure-menu-children">
+              
+                  
+                    <li class="pure-menu-item"><a href="http://imlgw.top/2019/05/04/leetcode-shu-zu/" style="color:#202020;" class="pure-menu-link">数组</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="http://imlgw.top/2019/02/27/leetcode-lian-biao/" style="color:#202020;" class="pure-menu-link">链表</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="http://imlgw.top/2019/10/01/leetcode-zhan-dui-lie/" style="color:#202020;" class="pure-menu-link">栈&amp;队列</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="http://imlgw.top/2019/09/15/leetcode-cha-zhao/" style="color:#202020;" class="pure-menu-link">查找</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="http://imlgw.top/2019/07/20/leetcode-hua-dong-chuang-kou/" style="color:#202020;" class="pure-menu-link">滑动窗口</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="http://imlgw.top/2019/09/01/leetcode-dong-tai-gui-hua/" style="color:#202020;" class="pure-menu-link">动态规划</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="http://imlgw.top/2019/12/06/leetcode-er-fen-cha-zhao/" style="color:#202020;" class="pure-menu-link">二分查找</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="http://imlgw.top/2019/11/06/leetcode-er-cha-shu/" style="color:#202020;" class="pure-menu-link">二叉树</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="http://imlgw.top/2019/11/29/leetcode-bei-bao-wen-ti/" style="color:#202020;" class="pure-menu-link">背包问题</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="http://imlgw.top/2019/10/10/leetcode-hui-su/" style="color:#202020;" class="pure-menu-link">回溯</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="http://imlgw.top/2020/01/21/leetcode-tan-xin/" style="color:#202020;" class="pure-menu-link">贪心</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="http://imlgw.top/2020/07/03/leetcode-wei-yun-suan/" style="color:#202020;" class="pure-menu-link">位运算</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="http://imlgw.top/2020/08/28/leetcode-dan-diao-zhan/" style="color:#202020;" class="pure-menu-link">单调栈</a></li>
+                  
+              
+              </ul>
+            </li>
+          
+      
+          
+            
+              <li class="pure-menu-item"><a href="/project" class="pure-menu-link">Github</a></li>
+            
+          
+      
+          
+            
+              <li class="pure-menu-item"><a href="/search" class="pure-menu-link">搜索</a></li>
+            
+          
+      
+          
+            
+              <li class="pure-menu-item"><a href="/about" class="pure-menu-link">关于</a></li>
+            
+          
+      
+  </ul>
+   
+</nav>
+
+  </div>
+  <div class="container" id="content-outer">
+    <div class="inner" id="content-inner">
+      <div class="post-container">
+  <article class="post" id="post">
+    <header class="post-header text-center">
+      <h1 class="title">
+        图论：常见的最短路算法模板
+      </h1>
+      <span>
+        
+        <time class="time" datetime="2021-03-16T16:00:00.000Z">
+        2021-03-17
+      </time>
+        
+      </span>
+      <span class="slash">/</span>
+      <span class="post-meta">
+      <span class="post-tags">
+        <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9B%BE%E8%AE%BA/" rel="tag">图论</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li></ul>
+      </span>
+    </span>
+      <span class="slash">/</span>
+      <span class="read">
+      <span id="busuanzi_value_page_pv"></span> 点击
+    </span>
+      <span class="slash">/</span>
+      <span class="read">阅读耗时 31 分钟</span>
+    </header>
+
+    <div class="post-content">
+      <h2 id="849-Dijkstra求最短路-I"><a href="#849-Dijkstra求最短路-I" class="headerlink" title="849. Dijkstra求最短路 I"></a><a href="https://www.acwing.com/problem/content/851/" target="_blank" rel="noopener">849. Dijkstra求最短路 I</a></h2><p>给定一个n个点m条边的有向图，图中可能存在重边和自环，所有边权均为正值。</p>
+<p>请你求出1号点到n号点的最短距离，如果无法从1号点走到n号点，则输出-1。</p>
+<p><strong>输入格式</strong></p>
+<p>第一行包含整数n和m。</p>
+<p>接下来m行每行包含三个整数x，y，z，表示存在一条从点x到点y的有向边，边长为z。</p>
+<p><strong>输出格式</strong></p>
+<p>输出一个整数，表示1号点到n号点的最短距离。</p>
+<p>如果路径不存在，则输出-1。</p>
+<p><strong>数据范围</strong>：$1≤n≤500, 1≤m≤10^5$, 图中涉及边长均不超过10000。</p>
+<p><strong>进阶</strong>：$1≤n,m≤1.5×10^5$, 图中涉及边长均不超过10000。</p>
+<p><strong>输入样例：</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="number">3</span> <span class="number">3</span></span><br><span class="line"><span class="number">1</span> <span class="number">2</span> <span class="number">2</span></span><br><span class="line"><span class="number">2</span> <span class="number">3</span> <span class="number">1</span></span><br><span class="line"><span class="number">1</span> <span class="number">3</span> <span class="number">4</span></span><br></pre></td></tr></table></figure>
+<p><strong>输出样例：</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="number">3</span></span><br></pre></td></tr></table></figure>
+<h3 id="解法一"><a href="#解法一" class="headerlink" title="解法一"></a>解法一</h3><p>Dijkstra适用于非负权图，其核心思路就是将所有的点划分为两部分，一部分是已经确定最短路的点集合$p$，这个集合最开始只有源点。另一部分是未确定最短路的点集合$q$。</p>
+<ol>
+<li>首先将刚加入$p$的点的所有出边进行松弛（最开始就是源点$s$）</li>
+<li>然后在$q$中找一个离源点$s$最近的，那么这个点的最短路就确定了，因为这个点的最短路是经过一个$p$集合中的点进行松弛过后的，且图<strong>没有负权</strong>，所以这个点不可能再通过其他的未确定的点来缩短距离，然后重复步骤一，直到所有点都加入$p$集合</li>
+</ol>
+<p>Dijkstra暴力写法，这题题目数据范围比较小$n&lt;500$，所以直接建邻接矩阵然后跑Dijkstra，时间复杂度$O(N^2)$</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String... args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        PrintWriter out = <span class="keyword">new</span> PrintWriter(<span class="keyword">new</span> BufferedOutputStream(System.out));</span><br><span class="line">        BufferedReader br = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(System.in));</span><br><span class="line">        <span class="comment">// BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream("./input.txt")));</span></span><br><span class="line">        <span class="keyword">int</span> INF = <span class="number">0x3f3f3f3f</span>;</span><br><span class="line">        <span class="keyword">int</span>[] in = read(br);</span><br><span class="line">        <span class="keyword">int</span> N = in[<span class="number">0</span>], M = in[<span class="number">1</span>];</span><br><span class="line">        <span class="comment">//邻接矩阵</span></span><br><span class="line">        <span class="keyword">int</span>[][] w = <span class="keyword">new</span> <span class="keyword">int</span>[N][N];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; i++) &#123;</span><br><span class="line">            Arrays.fill(w[i], INF);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; M; i++) &#123;</span><br><span class="line">            <span class="keyword">int</span>[] t = read(br); <span class="comment">//t[0]-&gt;t[1]</span></span><br><span class="line">            <span class="keyword">int</span> x = t[<span class="number">0</span>]-<span class="number">1</span>, y = t[<span class="number">1</span>]-<span class="number">1</span>;</span><br><span class="line">            w[x][y] = Math.min(t[<span class="number">2</span>], w[x][y]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//dis[i]: 源点s到i的最短距离</span></span><br><span class="line">        <span class="keyword">int</span>[] dis = <span class="keyword">new</span> <span class="keyword">int</span>[N];</span><br><span class="line">        <span class="keyword">boolean</span>[] vis = <span class="keyword">new</span> <span class="keyword">boolean</span>[N];</span><br><span class="line">        Arrays.fill(dis, INF);</span><br><span class="line">        dis[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; i++) &#123;</span><br><span class="line">            <span class="keyword">int</span> min = -<span class="number">1</span>;</span><br><span class="line">            <span class="comment">//未确定最短路的点中距离s最近的点</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; N; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (!vis[j] &amp;&amp; (min==-<span class="number">1</span> || dis[j] &lt; dis[min])) &#123;</span><br><span class="line">                    min = j;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//松弛</span></span><br><span class="line">            vis[min] = <span class="keyword">true</span>;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; N; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (!vis[j]) &#123;</span><br><span class="line">                    dis[j] = Math.min(dis[j], dis[min] + w[min][j]);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        out.println(dis[N-<span class="number">1</span>] == INF ? -<span class="number">1</span> : dis[N-<span class="number">1</span>]);</span><br><span class="line">        out.flush();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span>[] read(BufferedReader br) <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="keyword">return</span> Arrays.stream(br.readLine().split(<span class="string">" "</span>)).mapToInt(Integer::parseInt).toArray();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="解法二"><a href="#解法二" class="headerlink" title="解法二"></a>解法二</h3><p>堆优化的Dijkstra，上面的解法在数据量大的时候显然是不适用的，首先我们不能再使用邻接矩阵了，需要改用邻接表，同时采用<strong>小根堆</strong>来快速的获取<strong>未确定点集</strong>中距离源点最近的点，堆中需要存储节点编号以及最短路，时间复杂度大概$O(m\log m)$，感觉这个复杂度大多数情况都够用了，当然还有一些其它的优化方法，详见<a href="https://oi-wiki.org/graph/shortest-path/#dijkstra" target="_blank" rel="noopener">OI-Wiki</a></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Node</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> idx, val;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">Node</span><span class="params">(<span class="keyword">int</span> idx, <span class="keyword">int</span> val)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.idx = idx;</span><br><span class="line">            <span class="keyword">this</span>.val = val;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">int</span> idx;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">int</span> N, M;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">int</span>[] h, e, ne, w;</span><br><span class="line">    <span class="comment">//a-&gt;b</span></span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b, <span class="keyword">int</span> c)</span> </span>&#123;</span><br><span class="line">        w[idx] = c; e[idx] = b; </span><br><span class="line">        ne[idx] = h[a]; h[a] = idx++;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String... args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        PrintWriter out = <span class="keyword">new</span> PrintWriter(<span class="keyword">new</span> BufferedOutputStream(System.out));</span><br><span class="line">        BufferedReader br = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(System.in));</span><br><span class="line">        <span class="comment">// BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream("./input.txt")));</span></span><br><span class="line">        <span class="keyword">int</span> INF = <span class="number">0x3f3f3f3f</span>;</span><br><span class="line">        <span class="keyword">int</span>[] in = read(br);</span><br><span class="line">        N = in[<span class="number">0</span>]; M = in[<span class="number">1</span>];</span><br><span class="line">        h = <span class="keyword">new</span> <span class="keyword">int</span>[N+<span class="number">1</span>]; e = <span class="keyword">new</span> <span class="keyword">int</span>[M+<span class="number">1</span>]; ne = <span class="keyword">new</span> <span class="keyword">int</span>[M+<span class="number">1</span>]; w = <span class="keyword">new</span> <span class="keyword">int</span>[M+<span class="number">1</span>];</span><br><span class="line">        Arrays.fill(h, -<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; M; i++) &#123;</span><br><span class="line">            <span class="keyword">int</span>[] t = read(br);</span><br><span class="line">            add(t[<span class="number">0</span>], t[<span class="number">1</span>], t[<span class="number">2</span>]);</span><br><span class="line">        &#125;</span><br><span class="line">        PriorityQueue&lt;Node&gt; pq = <span class="keyword">new</span> PriorityQueue&lt;&gt;((n1, n2)-&gt;n1.val-n2.val);</span><br><span class="line">        <span class="keyword">int</span>[] dis = <span class="keyword">new</span> <span class="keyword">int</span>[N+<span class="number">1</span>];</span><br><span class="line">        <span class="comment">//记录已经确定最短路的点集s</span></span><br><span class="line">        <span class="keyword">boolean</span>[] vis = <span class="keyword">new</span> <span class="keyword">boolean</span>[N+<span class="number">1</span>];</span><br><span class="line">        Arrays.fill(dis, INF);</span><br><span class="line">        dis[<span class="number">1</span>] = <span class="number">0</span>;</span><br><span class="line">        pq.add(<span class="keyword">new</span> Node(<span class="number">1</span>, <span class="number">0</span>));</span><br><span class="line">        <span class="keyword">while</span> (!pq.isEmpty()) &#123;</span><br><span class="line">            Node node = pq.poll();</span><br><span class="line">            <span class="comment">//从未确定最短路的点中找dis最小的（如果弹出来的是已经确定过的就会跳过）</span></span><br><span class="line">            <span class="keyword">int</span> i = node.idx, v = node.val;</span><br><span class="line">            <span class="keyword">if</span> (vis[i]) <span class="keyword">continue</span>;</span><br><span class="line">            <span class="comment">//标记该点已经确定最短路</span></span><br><span class="line">            vis[i] = <span class="keyword">true</span>;</span><br><span class="line">            <span class="comment">//松弛该点出边</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = h[i]; j != -<span class="number">1</span>; j = ne[j]) &#123;</span><br><span class="line">                <span class="keyword">if</span> (v+w[j] &lt; dis[e[j]]) &#123;</span><br><span class="line">                    dis[e[j]] = v+w[j];</span><br><span class="line">                    pq.add(<span class="keyword">new</span> Node(e[j], v+w[j]));</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        out.println(dis[N] == INF ? -<span class="number">1</span> : dis[N]);</span><br><span class="line">        out.flush();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span>[] read(BufferedReader br) <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="keyword">return</span> Arrays.stream(br.readLine().split(<span class="string">" "</span>)).mapToInt(Integer::parseInt).toArray();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="853-有边数限制的最短路"><a href="#853-有边数限制的最短路" class="headerlink" title="853. 有边数限制的最短路"></a><a href="https://www.acwing.com/problem/content/description/855/" target="_blank" rel="noopener">853. 有边数限制的最短路</a></h2><p>给定一个n个点m条边的有向图，图中可能存在重边和自环， 边权可能为负数。</p>
+<p>请你求出从1号点到n号点的最多经过k条边的最短距离，如果无法从1号点走到n号点，输出impossible。</p>
+<p>注意：图中可能<strong>存在负权回路</strong> 。</p>
+<p><strong>输入格式</strong></p>
+<p>第一行包含三个整数n，m，k。</p>
+<p>接下来m行，每行包含三个整数x，y，z，表示存在一条从点x到点y的有向边，边长为z。</p>
+<p><strong>输出格式</strong></p>
+<p>输出一个整数，表示从1号点到n号点的最多经过k条边的最短距离。</p>
+<p>如果不存在满足条件的路径，则输出“impossible”。</p>
+<p><strong>数据范围</strong>：$1≤n,k≤500, 1≤m≤10000$，且任意边长的绝对值不超过$10000$</p>
+<p><strong>输入样例：</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="number">3</span> <span class="number">3</span> <span class="number">1</span></span><br><span class="line"><span class="number">1</span> <span class="number">2</span> <span class="number">1</span></span><br><span class="line"><span class="number">2</span> <span class="number">3</span> <span class="number">1</span></span><br><span class="line"><span class="number">1</span> <span class="number">3</span> <span class="number">3</span></span><br></pre></td></tr></table></figure>
+<p><strong>输出样例：</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="number">3</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="解法一-1"><a href="#解法一-1" class="headerlink" title="解法一"></a>解法一</h3><p>Bellman−Ford，负权最短路算法，可以处理负权边，同时可以检测<strong>负权回路</strong>（回路的总权值为负数）。算法基于动态规划设计，$dis[i][j]$为源点$s$经过最多$i$条边到达$j$节点的最短路。一共有$N$个点，所以任意点的最短路最多经过的边数为$N-1$（负环没有最短路）</p>
+<ul>
+<li>入口: $dis[i][s] = 0, 0 \leq i \leq N-1$</li>
+<li>转移：遍历所有的边，$k \stackrel{w}{\longrightarrow} j$，$dis[i][j] = \min(dis[i-1][j]，dis[i][j]， dis[i-1][k] + w)$</li>
+<li>出口：$dis[N-1][N]$</li>
+<li>时间复杂度：$O(MN)$</li>
+</ul>
+<p>本题中限制了边数，所以我们外层循环只到$K$就行了，具体代码实现如下：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Edge</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> s, e;</span><br><span class="line">        <span class="keyword">int</span> v;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">Edge</span><span class="params">(<span class="keyword">int</span> s, <span class="keyword">int</span> e, <span class="keyword">int</span> v)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.s = s;</span><br><span class="line">            <span class="keyword">this</span>.e = e;</span><br><span class="line">            <span class="keyword">this</span>.v = v;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String... args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        PrintWriter out = <span class="keyword">new</span> PrintWriter(<span class="keyword">new</span> BufferedOutputStream(System.out));</span><br><span class="line">        BufferedReader br = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(System.in));</span><br><span class="line">        <span class="comment">// BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream("./input.txt")));</span></span><br><span class="line">        <span class="keyword">int</span>[] in = read(br);</span><br><span class="line">        <span class="keyword">int</span> INF = <span class="number">0x3f3f3f3f</span>;</span><br><span class="line">        <span class="keyword">int</span> N = in[<span class="number">0</span>], M = in[<span class="number">1</span>], K = in[<span class="number">2</span>];</span><br><span class="line">        Edge[] eds = <span class="keyword">new</span> Edge[M];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; M; i++) &#123;</span><br><span class="line">            <span class="keyword">int</span>[] t = read(br);</span><br><span class="line">            eds[i] = <span class="keyword">new</span> Edge(t[<span class="number">0</span>], t[<span class="number">1</span>], t[<span class="number">2</span>]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span>[][] dis = <span class="keyword">new</span> <span class="keyword">int</span>[K+<span class="number">1</span>][N+<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= K; i++) &#123;</span><br><span class="line">            Arrays.fill(dis[i], INF);</span><br><span class="line">            dis[i][<span class="number">1</span>] = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= K; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; M; j++) &#123;</span><br><span class="line">                <span class="keyword">int</span> s = eds[j].s, e = eds[j].e;</span><br><span class="line">                <span class="keyword">if</span> (dis[i-<span class="number">1</span>][s] == INF) <span class="keyword">continue</span>;</span><br><span class="line">                <span class="comment">// 不加dis[i-1][e]也能过OJ，但是最好还是加上</span></span><br><span class="line">                <span class="comment">// dis[i][e] = Math.min(dis[i][e], dis[i-1][s] + eds[j].v); </span></span><br><span class="line">                dis[i][e] = Math.min(dis[i-<span class="number">1</span>][e], Math.min(dis[i][e], dis[i-<span class="number">1</span>][s] + eds[j].v));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        out.println(dis[K][N] == INF ? <span class="string">"impossible"</span> : dis[K][N]);</span><br><span class="line">        out.flush();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span>[] read(BufferedReader br) <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="keyword">return</span> Arrays.stream(br.readLine().split(<span class="string">" "</span>)).mapToInt(Integer::parseInt).toArray();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里存个疑问，为什么这里转移方程不加$dis[i-1][e]$也能AC？这里加上一定不会错，但是不加会有点迷惑。 </p>
+<p>这里我的想法是，如果不加$dis[i-1][e]$，状态的定义其实就变成了：<strong>恰好</strong>经过$i$条边的时候的最短路，这样出口就是$\min(dp[1\sim M][N])$，但是由于我们在入口定义了$dp[1\sim M][s]=0$，误打误撞的导致出口变成了$dp[M][N]$，具体原因不想深究，明白错哪里就行了，总之这是一种不伦不类的写法，不要这样写，正确写法如下：<a href="https://gist.github.com/imlgw/876092a6abaf56c2d244adb5184636aa" target="_blank" rel="noopener">AcWing853_有边数限制的最短路，状态定义为恰好经过i条边的写法</a></p>
+<h3 id="解法二-1"><a href="#解法二-1" class="headerlink" title="解法二"></a>解法二</h3><p>实际中通常写的都是一维的Bellman−Ford，降维后在$dis[e] = \min(dis[e],dis[s] + w)$中，$dis[s]$不仅包含了前一轮最多经过$i-1$条边到达$s$的最短路，同时也包含了当前轮最多经过$i$条边到达$s$的最短路，所以最终经过$k$次松弛得到的结果$dis[N]$可能不只经过了$k$条边，所以在这题中我们需要保存一下上一轮的状态，用上一轮的$dis[s]$来更新当前轮的$dis[e]$，保证最后结果经过的边不超过$K$</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Edge</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> s, e;</span><br><span class="line">        <span class="keyword">int</span> v;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">Edge</span><span class="params">(<span class="keyword">int</span> s, <span class="keyword">int</span> e, <span class="keyword">int</span> v)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.s = s;</span><br><span class="line">            <span class="keyword">this</span>.e = e;</span><br><span class="line">            <span class="keyword">this</span>.v = v;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String... args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        PrintWriter out = <span class="keyword">new</span> PrintWriter(<span class="keyword">new</span> BufferedOutputStream(System.out));</span><br><span class="line">        BufferedReader br = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(System.in));</span><br><span class="line">        <span class="comment">// BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream("./input.txt")));</span></span><br><span class="line">        <span class="keyword">int</span>[] in = read(br);</span><br><span class="line">        <span class="keyword">int</span> INF = <span class="number">0x3f3f3f3f</span>;</span><br><span class="line">        <span class="keyword">int</span> N = in[<span class="number">0</span>], M = in[<span class="number">1</span>], K = in[<span class="number">2</span>];</span><br><span class="line">        Edge[] eds = <span class="keyword">new</span> Edge[M];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; M; i++) &#123;</span><br><span class="line">            <span class="keyword">int</span>[] t = read(br);</span><br><span class="line">            eds[i] = <span class="keyword">new</span> Edge(t[<span class="number">0</span>]-<span class="number">1</span>, t[<span class="number">1</span>]-<span class="number">1</span>, t[<span class="number">2</span>]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//dis[i][j]: 源点最多经过i条边，到达j点的最短路</span></span><br><span class="line">        <span class="keyword">int</span>[] dis = <span class="keyword">new</span> <span class="keyword">int</span>[N];</span><br><span class="line">        <span class="comment">//上一轮经过(i-1)次松弛后的结果，避免串联更新（当前轮更新当前轮），因为这题需要保证最多只能经过K条边</span></span><br><span class="line">        <span class="keyword">int</span>[] last = <span class="keyword">new</span> <span class="keyword">int</span>[N];</span><br><span class="line">        Arrays.fill(dis, INF);</span><br><span class="line">        dis[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; K; i++) &#123;</span><br><span class="line">            System.arraycopy(dis, <span class="number">0</span>, last, <span class="number">0</span>, N);</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; M; j++) &#123;</span><br><span class="line">                <span class="keyword">int</span> s = eds[j].s, e = eds[j].e;</span><br><span class="line">                <span class="keyword">if</span> (last[s] == INF) <span class="keyword">continue</span>;</span><br><span class="line">                dis[e] = Math.min(dis[e], last[s] + eds[j].v);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        out.println(dis[N-<span class="number">1</span>] == INF ? <span class="string">"impossible"</span> : dis[N-<span class="number">1</span>]);</span><br><span class="line">        out.flush();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span>[] read(BufferedReader br) <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="keyword">return</span> Arrays.stream(br.readLine().split(<span class="string">" "</span>)).mapToInt(Integer::parseInt).toArray();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="851-spfa求最短路"><a href="#851-spfa求最短路" class="headerlink" title="851. spfa求最短路"></a><a href="https://www.acwing.com/problem/content/853/" target="_blank" rel="noopener">851. spfa求最短路</a></h2><p>给定一个n个点m条边的有向图，图中可能<strong>存在重边和自环</strong>， 边权可能为<strong>负数</strong>。</p>
+<p>请你求出1号点到n号点的最短距离，如果无法从1号点走到n号点，则输出impossible。数据保证<strong>不存在负权回路</strong>。</p>
+<p><strong>输入格式</strong></p>
+<p>第一行包含整数n和m。</p>
+<p>接下来m行每行包含三个整数x，y，z，表示存在一条从点x到点y的有向边，边长为z。</p>
+<p><strong>输出格式</strong></p>
+<p>输出一个整数，表示1号点到n号点的最短距离。</p>
+<p>如果路径不存在，则输出”impossible”。</p>
+<p><strong>数据范围</strong>：$1≤n,m≤105$，图中涉及边长绝对值均不超过10000。</p>
+<p><strong>输入样例：</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="number">3</span> <span class="number">3</span></span><br><span class="line"><span class="number">1</span> <span class="number">2</span> <span class="number">5</span></span><br><span class="line"><span class="number">2</span> <span class="number">3</span> <span class="number">-3</span></span><br><span class="line"><span class="number">1</span> <span class="number">3</span> <span class="number">4</span></span><br></pre></td></tr></table></figure>
+<p><strong>输出样例：</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="number">2</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="解法一-2"><a href="#解法一-2" class="headerlink" title="解法一"></a>解法一</h3><p>SPFA基于Bellman−Ford进行优化，最坏时间复杂度依然是$O(MN)$，但是常规情况下速度还是很快的，时间复杂度不稳定。</p>
+<p>优化的点在于BF在松弛过程中有一些顶点可能早已经得到了最短路，后续不会再被松弛，但是依然会进行判断，浪费了时间，所以我们可以考虑只对<strong>最短路估计值</strong>减小了的顶点的出边进行松弛</p>
+<p>具体实现中，我们可以采用一个FIFO队列存储松弛成功的顶点，最开始就只有源点$s$，入队的顶点需要进行标记，对队列中顶点的出边进行松弛，将松弛成功并且没有标记的顶点继续加入队列。乍一看和BFS类似，但是这里其实有一个很大的区别：SPFA在队首元素出队后需要将其标记取消，因为队首顶点后续可能还会被其他顶点松弛，这也是SPFA时间复杂度不稳定的原因（容易被卡，但是最差也是退化到$O(NM)$）。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">int</span> idx;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">int</span>[] e, h, ne, w;</span><br><span class="line">    <span class="comment">//a-&gt;b</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b, <span class="keyword">int</span> c)</span></span>&#123;</span><br><span class="line">        e[idx] = b; w[idx] = c;</span><br><span class="line">        ne[idx] = h[a]; h[a] = idx++;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String... args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        PrintWriter out = <span class="keyword">new</span> PrintWriter(<span class="keyword">new</span> BufferedOutputStream(System.out));</span><br><span class="line">        BufferedReader br = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(System.in));</span><br><span class="line">        <span class="comment">// BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream("./input.txt")));</span></span><br><span class="line">        <span class="keyword">int</span> INF = <span class="number">0x3f3f3f3f</span>;</span><br><span class="line">        <span class="keyword">int</span>[] in = read(br);</span><br><span class="line">        <span class="keyword">int</span> N = in[<span class="number">0</span>], M = in[<span class="number">1</span>];</span><br><span class="line">        e = <span class="keyword">new</span> <span class="keyword">int</span>[M+<span class="number">1</span>]; ne = <span class="keyword">new</span> <span class="keyword">int</span>[M+<span class="number">1</span>]; w = <span class="keyword">new</span> <span class="keyword">int</span>[M+<span class="number">1</span>];</span><br><span class="line">        h = <span class="keyword">new</span> <span class="keyword">int</span>[N+<span class="number">1</span>]; Arrays.fill(h, -<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; M; i++) &#123;</span><br><span class="line">            <span class="keyword">int</span>[] t = read(br);</span><br><span class="line">            add(t[<span class="number">0</span>], t[<span class="number">1</span>], t[<span class="number">2</span>]);</span><br><span class="line">        &#125;</span><br><span class="line">        Queue&lt;Integer&gt; queue = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">        <span class="keyword">boolean</span>[] vis = <span class="keyword">new</span> <span class="keyword">boolean</span>[N+<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">int</span>[] dis = <span class="keyword">new</span> <span class="keyword">int</span>[N+<span class="number">1</span>];</span><br><span class="line">        Arrays.fill(dis, INF);</span><br><span class="line">        dis[<span class="number">1</span>] = <span class="number">0</span>; vis[<span class="number">1</span>] = <span class="keyword">true</span>;</span><br><span class="line">        queue.add(<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">while</span> (!queue.isEmpty()) &#123;</span><br><span class="line">            <span class="keyword">int</span> top = queue.poll();</span><br><span class="line">            vis[top] = <span class="keyword">false</span>;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = h[top]; i != -<span class="number">1</span>; i = ne[i]) &#123;</span><br><span class="line">                <span class="keyword">int</span> j = e[i];</span><br><span class="line">                <span class="keyword">if</span> (dis[j] &gt; dis[top] + w[i]) &#123;</span><br><span class="line">                    dis[j] = dis[top] + w[i];</span><br><span class="line">                    <span class="keyword">if</span> (!vis[j]) &#123;</span><br><span class="line">                        queue.add(j);</span><br><span class="line">                        vis[j] = <span class="keyword">true</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        out.println(dis[N] == INF ? <span class="string">"impossible"</span> : dis[N]);</span><br><span class="line">        out.flush();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span>[] read(BufferedReader br) <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="keyword">return</span> Arrays.stream(br.readLine().split(<span class="string">" "</span>)).mapToInt(Integer::parseInt).toArray();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="852-spfa判断负环"><a href="#852-spfa判断负环" class="headerlink" title="852. spfa判断负环"></a><a href="https://www.acwing.com/problem/content/description/854/" target="_blank" rel="noopener">852. spfa判断负环</a></h2><p>给定一个n个点m条边的有向图，图中可能存在重边和自环， <strong>边权可能为负数</strong>。请你判断图中是否存在负权回路。</p>
+<p><strong>输入格式</strong></p>
+<p>第一行包含整数n和m。</p>
+<p>接下来m行每行包含三个整数x，y，z，表示存在一条从点x到点y的有向边，边长为z。</p>
+<p><strong>输出格式</strong></p>
+<p>如果图中存在负权回路，则输出“Yes”，否则输出“No”。</p>
+<p><strong>数据范围</strong>：$1≤n≤2000,1≤m≤10000$，图中涉及边长绝对值均不超过10000。</p>
+<p><strong>输入样例：</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="number">3</span> <span class="number">3</span></span><br><span class="line"><span class="number">1</span> <span class="number">2</span> <span class="number">-1</span></span><br><span class="line"><span class="number">2</span> <span class="number">3</span> <span class="number">4</span></span><br><span class="line"><span class="number">3</span> <span class="number">1</span> <span class="number">-4</span></span><br></pre></td></tr></table></figure>
+<p><strong>输出样例：</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">Yes</span><br></pre></td></tr></table></figure>
+<h3 id="解法一-3"><a href="#解法一-3" class="headerlink" title="解法一"></a>解法一</h3><p>题目是判断图有没有负环，但是图不一定是联通的，单纯从某个点出发并不一定能走到负环上，暴力的方法就是对每个点作为源点做一次spfa，但是这样显然复杂度过高</p>
+<p>考虑增加一个虚拟节点，和所有的点增加一条权值为0的单向边，新增加的虚拟节点一定能走到负环上，所以我们对虚拟节点做一次spfa就能判断出原图是否有负环<br><img src="https://static.imlgw.top/blog/20210317/eYBzmdAcyRL7.png" alt="mark"><br>模拟第一次入队出队，虚拟节点出队后就会将所有的节点入队，$dis[i]$为虚拟源点到当前节点的最短路，所以一开始所有的$dis[v_i]=0$，不用初始化为$\inf$。</p>
+<p>然后就是关键的判环步骤，我们只需要记录下每个点到虚拟源点的边的数量就行了（初始$cnt[v_i]=1$），如果有负环就会无限制的松弛负环上的边，在负环路上打转，所以如果松弛后某个点到虚拟源点的边的数量大于等于$N+1$就说明存在负环</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">int</span> INF = <span class="number">0x3f3f3f3f</span>;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">int</span> N, M;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">int</span> idx;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">int</span>[] e, h, ne, w;</span><br><span class="line">    <span class="comment">//a-&gt;b</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b, <span class="keyword">int</span> c)</span></span>&#123;</span><br><span class="line">        e[idx] = b; w[idx] = c;</span><br><span class="line">        ne[idx] = h[a]; h[a] = idx++;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String... args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        PrintWriter out = <span class="keyword">new</span> PrintWriter(<span class="keyword">new</span> BufferedOutputStream(System.out));</span><br><span class="line">        BufferedReader br = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(System.in));</span><br><span class="line">        <span class="comment">// BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream("./input.txt")));</span></span><br><span class="line">        <span class="keyword">int</span>[] in = read(br);</span><br><span class="line">        N = in[<span class="number">0</span>]; M = in[<span class="number">1</span>];</span><br><span class="line">        e = <span class="keyword">new</span> <span class="keyword">int</span>[M+<span class="number">1</span>]; ne = <span class="keyword">new</span> <span class="keyword">int</span>[M+<span class="number">1</span>]; w = <span class="keyword">new</span> <span class="keyword">int</span>[M+<span class="number">1</span>];</span><br><span class="line">        h = <span class="keyword">new</span> <span class="keyword">int</span>[N+<span class="number">1</span>]; Arrays.fill(h, -<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; M; i++) &#123;</span><br><span class="line">            <span class="keyword">int</span>[] t = read(br);</span><br><span class="line">            add(t[<span class="number">0</span>], t[<span class="number">1</span>], t[<span class="number">2</span>]);</span><br><span class="line">        &#125;</span><br><span class="line">        out.println(spfa() ? <span class="string">"Yes"</span> : <span class="string">"No"</span>);</span><br><span class="line">        out.flush();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">spfa</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        Queue&lt;Integer&gt; queue = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">        <span class="keyword">int</span>[] dis = <span class="keyword">new</span> <span class="keyword">int</span>[N+<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">boolean</span>[] vis = <span class="keyword">new</span> <span class="keyword">boolean</span>[N+<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">int</span>[] cnt = <span class="keyword">new</span> <span class="keyword">int</span>[N+<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= N; i++) &#123;</span><br><span class="line">            queue.add(i);</span><br><span class="line">            vis[i] = <span class="keyword">true</span>;</span><br><span class="line">            cnt[i] = <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span> (!queue.isEmpty()) &#123;</span><br><span class="line">            <span class="keyword">int</span> top = queue.poll();</span><br><span class="line">            vis[top] = <span class="keyword">false</span>;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = h[top]; i != -<span class="number">1</span>; i = ne[i]) &#123;</span><br><span class="line">                <span class="keyword">int</span> j = e[i];</span><br><span class="line">                <span class="keyword">if</span> (dis[j] &gt; dis[top] + w[i]) &#123;</span><br><span class="line">                    dis[j] = dis[top] + w[i];</span><br><span class="line">                    cnt[j] = cnt[top] + <span class="number">1</span>;</span><br><span class="line">                    <span class="keyword">if</span> (cnt[j] &gt;= N+<span class="number">1</span>) <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">                    <span class="keyword">if</span> (!vis[j]) &#123;</span><br><span class="line">                        queue.add(j);</span><br><span class="line">                        vis[j] = <span class="keyword">true</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span>[] read(BufferedReader br) <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="keyword">return</span> Arrays.stream(br.readLine().split(<span class="string">" "</span>)).mapToInt(Integer::parseInt).toArray();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="854-Floyd求最短路"><a href="#854-Floyd求最短路" class="headerlink" title="854. Floyd求最短路"></a><a href="https://www.acwing.com/problem/content/description/856/" target="_blank" rel="noopener">854. Floyd求最短路</a></h2><p>给定一个n个点m条边的有向图，图中可能存在重边和自环，边权可能为负数。</p>
+<p>再给定k个询问，每个询问包含两个整数x和y，表示查询从点x到点y的最短距离，如果路径不存在，则输出“impossible”。</p>
+<p>数据保证图中不存在负权回路。</p>
+<p><strong>输入格式</strong>：</p>
+<p>第一行包含三个整数n，m，k</p>
+<p>接下来m行，每行包含三个整数x，y，z，表示存在一条从点x到点y的有向边，边长为z。</p>
+<p>接下来k行，每行包含两个整数x，y，表示询问点x到点y的最短距离。</p>
+<p><strong>输出格式</strong></p>
+<p>共k行，每行输出一个整数，表示询问的结果，若询问两点间不存在路径，则输出“impossible”。</p>
+<p><strong>数据范围</strong>：$1≤n≤200,1≤k≤n^2，1≤m≤20000$,图中涉及边长绝对值均不超过10000。</p>
+<p><strong>输入样例：</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="number">3</span> <span class="number">3</span> <span class="number">2</span></span><br><span class="line"><span class="number">1</span> <span class="number">2</span> <span class="number">1</span></span><br><span class="line"><span class="number">2</span> <span class="number">3</span> <span class="number">2</span></span><br><span class="line"><span class="number">1</span> <span class="number">3</span> <span class="number">1</span></span><br><span class="line"><span class="number">2</span> <span class="number">1</span></span><br><span class="line"><span class="number">1</span> <span class="number">3</span></span><br></pre></td></tr></table></figure>
+<p><strong>输出样例：</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">impossible</span><br><span class="line"><span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="解法一-4"><a href="#解法一-4" class="headerlink" title="解法一"></a>解法一</h3><p>Floyd是一个多源的最短路算法，也就是可以同时求出图中任意两点之间的最短路，本质是一个DP，时间复杂度较高</p>
+<ul>
+<li>状态定义：$dis[k][i][j]$，从$i$到$j$经过前$k$个点中转后的最短路</li>
+<li>入口：$dis[0][i][i]=0,dis[0][i][j] = w_{ij}$</li>
+<li>转移：$dis[k][i][j]=\min(dis[k-1][i][j],dis[k-1][i][k]+dis[k-1][k][j])$</li>
+<li>出口：$dis[N][i][j]$，时间复杂度$O(N^3)$</li>
+</ul>
+<p>由于$dis[k]$仅仅依赖$dis[k-1]$，所以通常我们这里都会降维写二维的</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String... args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        PrintWriter out = <span class="keyword">new</span> PrintWriter(<span class="keyword">new</span> BufferedOutputStream(System.out));</span><br><span class="line">        BufferedReader br = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(System.in));</span><br><span class="line">        <span class="comment">// BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream("./input.txt")));</span></span><br><span class="line">        <span class="keyword">int</span>[] in = read(br);</span><br><span class="line">        <span class="keyword">int</span> N = in[<span class="number">0</span>], M = in[<span class="number">1</span>], K = in[<span class="number">2</span>];</span><br><span class="line">        <span class="keyword">int</span> INF = <span class="number">0x3f3f3f3f</span>;</span><br><span class="line">        <span class="keyword">int</span>[][] dis = <span class="keyword">new</span> <span class="keyword">int</span>[N+<span class="number">1</span>][N+<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= N; i++) &#123;</span><br><span class="line">            Arrays.fill(dis[i], INF);</span><br><span class="line">            dis[i][i] = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; M; i++) &#123;</span><br><span class="line">            <span class="keyword">int</span>[] t = read(br);</span><br><span class="line">            <span class="keyword">int</span> x = t[<span class="number">0</span>], y = t[<span class="number">1</span>];</span><br><span class="line">            dis[x][y] = Math.min(dis[x][y], t[<span class="number">2</span>]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> k = <span class="number">1</span>; k &lt;= N; k++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= N; i++) &#123;</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= N; j++) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (dis[i][k] == INF || dis[k][j] == INF) <span class="keyword">continue</span>;</span><br><span class="line">                    dis[i][j] = Math.min(dis[i][j], dis[i][k] + dis[k][j]);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; K; i++) &#123;</span><br><span class="line">            <span class="keyword">int</span>[] q = read(br);</span><br><span class="line">            <span class="keyword">int</span> res = dis[q[<span class="number">0</span>]][q[<span class="number">1</span>]];</span><br><span class="line">            out.println(res == INF ? <span class="string">"impossible"</span> : res);</span><br><span class="line">        &#125;</span><br><span class="line">        out.flush();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span>[] read(BufferedReader br) <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="keyword">return</span> Arrays.stream(br.readLine().split(<span class="string">" "</span>)).mapToInt(Integer::parseInt).toArray();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>三维的写法：<a href="https://gist.github.com/imlgw/438e7852947958f59c86133721210d01" target="_blank" rel="noopener">854. Floyd求最短路 三维DP写法，不降维</a></p>
+
+    </div>
+
+  </article>
+  <div class="toc-container">
+    
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#849-Dijkstra求最短路-I"><span class="toc-text">849. Dijkstra求最短路 I</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#解法一"><span class="toc-text">解法一</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#解法二"><span class="toc-text">解法二</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#853-有边数限制的最短路"><span class="toc-text">853. 有边数限制的最短路</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#解法一-1"><span class="toc-text">解法一</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#解法二-1"><span class="toc-text">解法二</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#851-spfa求最短路"><span class="toc-text">851. spfa求最短路</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#解法一-2"><span class="toc-text">解法一</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#852-spfa判断负环"><span class="toc-text">852. spfa判断负环</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#解法一-3"><span class="toc-text">解法一</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#854-Floyd求最短路"><span class="toc-text">854. Floyd求最短路</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#解法一-4"><span class="toc-text">解法一</span></a></li></ol></li></ol>
+  </div>
+
+
+  </div>
+</div>
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'imlgw';
+    
+    var disqus_url = 'http://imlgw.top/2021/03/17/tu-lun-chang-jian-zui-duan-lu-suan-fa-mo-ban/';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <script id="dsq-count-scr" src="//imlgw.disqus.com/count.js" async></script>
+
+
+
+    </section>
+<div class="copyright">
+    <span>本作品采用</span>
+    <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">知识共享署名 4.0 国际许可协议</a>
+    <span>进行许可。 转载时请注明原文链接。</span>
+</div>
+
+
+  
+    <div class="post-nav">
+      <div class="post-nav-item post-nav-next">
+        
+          <span>〈 </span>
+          <a href="/2021/03/02/dp-bei-bao-mo-xing/" rel="next" title="DP：背包模型">
+          DP：背包模型
+          </a>
+        
+      </div>
+  
+      <div class="post-nav-item post-nav-prev">
+          
+      </div>
+    </div>
+  
+
+    </div>
+
+    
+  </div>
+  <footer class="footer text-center">
+    <div id="bottom-inner">
+        <a class="bottom-item" href="https://github.com/imlgw" target="_blank">GitHub</a> |
+        <a class="bottom-item" href="/links">友情链接</a> |
+        <a class="bottom-item" href="https://hexo.io" target="_blank">Powered by hexo</a> |
+        <a class="bottom-item" href="https://imlgw.avosapps.us/" target="_blank" rel="noopener">博客评论管理</a>
+    </div>
+    <div id="bottom-inner">
+        <a class="bottom-item" href="http://beian.miit.gov.cn/publish/query/indexFirst.action" target="_blank">鄂ICP备18011208号</a>
+    </div>
+</footer>
+
+  
+  
+  <script>
+  (function(window, document, undefined) {
+
+    var timer = null;
+
+    function returnTop() {
+      cancelAnimationFrame(timer);
+      timer = requestAnimationFrame(function fn() {
+        var oTop = document.body.scrollTop || document.documentElement.scrollTop;
+        if (oTop > 0) {
+          document.body.scrollTop = document.documentElement.scrollTop = oTop - 50;
+          timer = requestAnimationFrame(fn);
+        } else {
+          cancelAnimationFrame(timer);
+        }
+      });
+    }
+
+    var hearts = [];
+    window.requestAnimationFrame = (function() {
+      return window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.oRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        function(callback) {
+          setTimeout(callback, 1000 / 60);
+        }
+    })();
+    init();
+
+    function init() {
+      css(".heart{z-index:9999;width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);}.heart:after,.heart:before{content: '';width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: absolute;}.heart:after{top: -5px;}.heart:before{left: -5px;}");
+      attachEvent();
+      gameloop();
+      addMenuEvent();
+    }
+
+    function gameloop() {
+      for (var i = 0; i < hearts.length; i++) {
+        if (hearts[i].alpha <= 0) {
+          document.body.removeChild(hearts[i].el);
+          hearts.splice(i, 1);
+          continue;
+        }
+        hearts[i].y--;
+        hearts[i].scale += 0.004;
+        hearts[i].alpha -= 0.013;
+        hearts[i].el.style.cssText = "left:" + hearts[i].x + "px;top:" + hearts[i].y + "px;opacity:" + hearts[i].alpha + ";transform:scale(" + hearts[i].scale + "," + hearts[i].scale + ") rotate(45deg);background:" + hearts[i].color;
+      }
+      requestAnimationFrame(gameloop);
+    }
+
+    /**
+     * 给logo设置点击事件
+     * 
+     * - 回到顶部
+     * - 出现爱心
+     */
+    function attachEvent() {
+      var old = typeof window.onclick === "function" && window.onclick;
+      var logo = document.getElementById("logo");
+      if (logo) {
+        logo.onclick = function(event) {
+          returnTop();
+          old && old();
+          createHeart(event);
+        }
+      }
+      
+    }
+
+    function createHeart(event) {
+      var d = document.createElement("div");
+      d.className = "heart";
+      hearts.push({
+        el: d,
+        x: event.clientX - 5,
+        y: event.clientY - 5,
+        scale: 1,
+        alpha: 1,
+        color: randomColor()
+      });
+      document.body.appendChild(d);
+    }
+
+    function css(css) {
+      var style = document.createElement("style");
+      style.type = "text/css";
+      try {
+        style.appendChild(document.createTextNode(css));
+      } catch (ex) {
+        style.styleSheet.cssText = css;
+      }
+      document.getElementsByTagName('head')[0].appendChild(style);
+    }
+
+    function randomColor() {
+      // return "rgb(" + (~~(Math.random() * 255)) + "," + (~~(Math.random() * 255)) + "," + (~~(Math.random() * 255)) + ")";
+      return "#F44336";
+    }
+
+    function addMenuEvent() {
+      var menu = document.getElementById('menu-main-post');
+      if (menu) {
+        var toc = document.getElementById('toc');
+        if (toc) {
+          menu.onclick = function() {
+            if (toc) {
+              if (toc.style.display == 'block') {
+                toc.style.display = 'none';
+              } else {
+                toc.style.display = 'block';
+              }
+            }
+          };
+        } else {
+          menu.style.display = 'none';
+        }
+      }
+    }
+
+  })(window, document);
+</script>
+  
+  
+
+
+
+  
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script src="https://cdn.jsdelivr.net/npm/live2d-widget@3.x/lib/L2Dwidget.min.js"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"https://cdn.jsdelivr.net/npm/live2d-widget-model-hijiki@1.0.5/assets/hijiki.model.json"},"display":{"superSample":2,"width":160,"height":320,"position":"right","hOffset":0,"vOffset":-70},"mobile":{"show":false,"scale":0.2},"log":false});</script></body>
+</html>
