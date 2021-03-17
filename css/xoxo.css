@@ -62,9 +62,9 @@ div>h2{
 b,
 optgroup,
 strong {
-  font-weight: 600;
+  /*font-weight: 600;
   font-size: 15px;
-  color: #4c4948;
+  color: #4c4948;*/
 }
 a {
   color: inherit;
@@ -188,8 +188,10 @@ footer .bottom-item:hover {
 }
 html,
 body {
-  font-size: 16px;
-  font-weight: 300;
+  font: 16px/1.7em "Helvetica Neue", Helvetica, Arial, sans-serif;
+  letter-spacing: 0.04rem;
+  line-height: 1.7em;
+  /*font-weight: 500;*/
 }
 body {
   color: #202020;
@@ -343,6 +345,10 @@ body {
   border-top: none;
 }
 .recent-posts .recent-post-item .post-excerpt {
+  font-family: sans-serif;
+  -webkit-text-size-adjust: 100%;
+  font-weight: 300;
+  line-height: 1.8rem;
   color: #999;
   font-size: 14px;
 }
@@ -513,6 +519,7 @@ body {
   margin: 10px 0 30px;
 }
 .post .post-header .title {
+  font-weight: 500;
   margin-bottom: 1rem;
   line-height: 2rem;
 }
@@ -891,6 +898,7 @@ pre,
 code {
   background-color: #f6f6f6;
   font-family: "Source Code Pro", "courier new", "Input Mono", "PT Mono", Consolas, Monaco, Menlo, monospace;
+  letter-spacing: 0.01rem;
   font-size: 0.9rem;
   line-height: 0.8rem;
 }
@@ -902,9 +910,10 @@ pre code {
 }
 code {
   padding: 2px 5px;
-  font-size: 0.9rem;
-  color: #f47466;
-  font-weight: 600;
+  font-size: 85%;
+  background-color: #F5F7F9;
+  /*color: #f47466;*/
+  /*font-weight: 600;*/
   border-radius: 6px;
 }
 .highlight {
