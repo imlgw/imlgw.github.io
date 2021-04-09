@@ -1,0 +1,501 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#202020"/>
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+  
+  
+    <meta name="keywords" content="算法,动态规划," />
+  
+
+  
+    <meta name="description" content="大悲无泪，大悟无言，大笑无声。" />
+  
+  
+  
+  <link rel="icon" type="image/x-icon" href="/img/cat.ico">
+  
+  <title>DP：计数DP [ Tadow ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="//cdn.bootcss.com/pure/1.0.0/pure-min.css">
+    
+      <link rel="stylesheet" href="/css/xoxo.css">
+    
+  
+<meta name="generator" content="Hexo 4.2.1"><link rel="stylesheet" href="/css/prism.css" type="text/css"></head>
+
+
+<body>
+  <div class="nav-container">
+    <nav class="home-menu pure-menu pure-menu-horizontal">
+  <a class="pure-menu-heading" href="/">
+    
+    <span class="title" style="text-transform:none">Tadow</span>
+  </a>
+
+  <ul class="pure-menu-list clearfix">
+      
+          
+            
+              <li class="pure-menu-item"><a href="/" class="pure-menu-link">首页</a></li>
+            
+          
+      
+          
+            
+              <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
+            
+              <a href="#" id="post" class="pure-menu-link">文章</a>
+              <ul class="pure-menu-children">
+              
+                  
+                    <li class="pure-menu-item"><a href="/categories" style="color:#202020;" class="pure-menu-link">分类</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="/archives" style="color:#202020;" class="pure-menu-link">归档</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="/tags" style="color:#202020;" class="pure-menu-link">标签</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="/music" style="color:#202020;" class="pure-menu-link">音乐</a></li>
+                  
+              
+              </ul>
+            </li>
+          
+      
+          
+            
+              <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
+            
+              <a href="#" id="算法" class="pure-menu-link">算法</a>
+              <ul class="pure-menu-children">
+              
+                  
+                    <li class="pure-menu-item"><a href="/2019/05/04/leetcode-shu-zu/" style="color:#202020;" class="pure-menu-link">数组</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="/2019/02/27/leetcode-lian-biao/" style="color:#202020;" class="pure-menu-link">链表</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="/2019/10/01/leetcode-zhan-dui-lie/" style="color:#202020;" class="pure-menu-link">栈&amp;队列</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="/2019/09/15/leetcode-cha-zhao/" style="color:#202020;" class="pure-menu-link">查找</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="/2019/07/20/leetcode-hua-dong-chuang-kou/" style="color:#202020;" class="pure-menu-link">滑动窗口</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="/2019/09/01/leetcode-dong-tai-gui-hua/" style="color:#202020;" class="pure-menu-link">动态规划</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="/2019/12/06/leetcode-er-fen-cha-zhao/" style="color:#202020;" class="pure-menu-link">二分查找</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="/2019/11/06/leetcode-er-cha-shu/" style="color:#202020;" class="pure-menu-link">二叉树</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="/2019/11/29/leetcode-bei-bao-wen-ti/" style="color:#202020;" class="pure-menu-link">背包问题</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="/2019/10/10/leetcode-hui-su/" style="color:#202020;" class="pure-menu-link">回溯</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="/2020/01/21/leetcode-tan-xin/" style="color:#202020;" class="pure-menu-link">贪心</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="/2020/07/03/leetcode-wei-yun-suan/" style="color:#202020;" class="pure-menu-link">位运算</a></li>
+                  
+              
+                  
+                    <li class="pure-menu-item"><a href="/2020/08/28/leetcode-dan-diao-zhan/" style="color:#202020;" class="pure-menu-link">单调栈</a></li>
+                  
+              
+              </ul>
+            </li>
+          
+      
+          
+            
+              <li class="pure-menu-item"><a href="/project" class="pure-menu-link">Github</a></li>
+            
+          
+      
+          
+            
+              <li class="pure-menu-item"><a href="/search" class="pure-menu-link">搜索</a></li>
+            
+          
+      
+          
+            
+              <li class="pure-menu-item"><a href="/about" class="pure-menu-link">关于</a></li>
+            
+          
+      
+  </ul>
+   
+</nav>
+
+  </div>
+  <div class="container" id="content-outer">
+    <div class="inner" id="content-inner">
+      <div class="post-container">
+  <article class="post" id="post">
+    <header class="post-header text-center">
+      <h1 class="title">
+        DP：计数DP
+      </h1>
+      <span>
+        
+        <time class="time" datetime="2021-04-08T16:00:00.000Z">
+        2021-04-09
+      </time>
+        
+      </span>
+      <span class="slash">/</span>
+      <span class="post-meta">
+      <span class="post-tags">
+        <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="tag">动态规划</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li></ul>
+      </span>
+    </span>
+      <span class="slash">/</span>
+      <span class="read">
+      <span id="busuanzi_value_page_pv"></span> 点击
+    </span>
+      <span class="slash">/</span>
+      <span class="read">阅读耗时 15 分钟</span>
+    </header>
+
+    <div class="post-content">
+      <h2 id="900-整数划分"><a href="#900-整数划分" class="headerlink" title="900. 整数划分"></a><a href="https://www.acwing.com/problem/content/description/902/" target="_blank" rel="noopener">900. 整数划分</a></h2><p>一个正整数$n$可以表示成若干个正整数之和，形如$n=n_1+n_2+…+n_k$，其中$n_1≥n_2≥…≥n_k,k≥1$。我们将这样的一种表示称为正整数$n$的一种划分。</p>
+<p>现在给定一个正整数$n$，请你求出$n$共有多少种不同的划分方法。</p>
+<p><strong>输入格式</strong></p>
+<p>共一行，包含一个整数$n$。</p>
+<p><strong>输出格式</strong></p>
+<p>共一行，包含一个整数，表示总划分数量。由于答案可能很大，输出结果请对$10^9+7$取模。</p>
+<p><strong>数据范围</strong>：$1≤n≤1000$</p>
+<p><strong>输入样例:</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="number">5</span></span><br></pre></td></tr></table></figure>
+<p><strong>输出样例：</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="number">7</span></span><br></pre></td></tr></table></figure>
+<h3 id="解法一"><a href="#解法一" class="headerlink" title="解法一"></a>解法一</h3><p>这个题我拿到的第一想法就是直接转换成完全背包：$n+1$个物品，体积就是物品下标$[1,n]$，物品数量不限，求凑成体积为$n$的方案数</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String... args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        PrintWriter out = <span class="keyword">new</span> PrintWriter(<span class="keyword">new</span> BufferedOutputStream(System.out));</span><br><span class="line">        BufferedReader br = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(System.in));</span><br><span class="line">        <span class="comment">// BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream("./input.txt")));</span></span><br><span class="line">        <span class="keyword">int</span> MOD = (<span class="keyword">int</span>)<span class="number">1e9</span>+<span class="number">7</span>;</span><br><span class="line">        <span class="keyword">int</span> N = Integer.valueOf(br.readLine());</span><br><span class="line">        <span class="comment">//dp[i][j]   = dp[i-1][j] + dp[i-1][j-v] + ... + dp[i-1][j mod v]</span></span><br><span class="line">        <span class="comment">//dp[i][j-v] =              dp[i-1][j-v] + ... + dp[i-1][(j-v) mod v]</span></span><br><span class="line">        <span class="comment">//dp[i][j] = dp[i-1][j] + dp[i][j-v]</span></span><br><span class="line">        <span class="keyword">long</span>[] dp = <span class="keyword">new</span> <span class="keyword">long</span>[N+<span class="number">1</span>];</span><br><span class="line">        dp[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= N; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = i; j &lt;= N; j++) &#123;</span><br><span class="line">                dp[j] = (dp[j] + dp[j-i]) % MOD;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        out.println(dp[N]);</span><br><span class="line">        out.flush();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span>[] read(BufferedReader br) <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="keyword">return</span> Arrays.stream(br.readLine().split(<span class="string">" "</span>)).mapToInt(Integer::parseInt).toArray();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="解法二"><a href="#解法二" class="headerlink" title="解法二"></a>解法二</h3><p>不使用背包的思路，设置状态$dp[i][j]$为：将数字$i$划分为<strong>恰好</strong>$j$份的方案数，同时我们也可以将问题建模成：将$N$个苹果放到$N$个盘子，有多少种放法，不考虑顺序，每个盘子至少放一个</p>
+<p>这里将$i$个苹果放到$j$个盘子，我们可以分两种情况来看</p>
+<ol>
+<li>至少有一个盘子只放了一个苹果，这种情况下，我们可以直接将这个只有一个苹果的盘子和苹果去掉再放，并不会影响结果，所以这样就等价于将$i-1$个苹果放到$j-1$个盘子中</li>
+<li>所有的盘子至少都有两个苹果，这种情况下，我们可以将所有盘子中的苹果数量减一再放，同样也不会影响结果，所以这种情况下等价于将$i-j$个苹果放到$j$个盘子中</li>
+</ol>
+<p>然后将上面两种情况加起来就行了</p>
+<ul>
+<li>初始状态：$dp[0][0] = 1$，0划分为0份，只有一种分法</li>
+<li>转移方程：$dp[i][j] =dp[i-1][j-1] + dp[i-j][j],(i \geq j)$</li>
+<li>出口：$\sum_{i=1}^{N}{dp[N][i]}$</li>
+</ul>
+<p>代码实现如下：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String... args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        PrintWriter out = <span class="keyword">new</span> PrintWriter(<span class="keyword">new</span> BufferedOutputStream(System.out));</span><br><span class="line">        BufferedReader br = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(System.in));</span><br><span class="line">        <span class="comment">// BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream("./input.txt")));</span></span><br><span class="line">        <span class="keyword">int</span> MOD = (<span class="keyword">int</span>)<span class="number">1e9</span>+<span class="number">7</span>;</span><br><span class="line">        <span class="keyword">int</span> N = Integer.valueOf(br.readLine());</span><br><span class="line">        <span class="comment">// 将i划分为恰好j份的的方案数量</span></span><br><span class="line">        <span class="keyword">long</span>[][] dp = <span class="keyword">new</span> <span class="keyword">long</span>[N+<span class="number">1</span>][N+<span class="number">1</span>];</span><br><span class="line">        <span class="comment">// 1. 最小值是1，等价于dp[i-1][j-1]</span></span><br><span class="line">        <span class="comment">// 2. 最小值不是1，等价于dp[i-j][j]</span></span><br><span class="line">        <span class="comment">// Arrays.fill(dp[0], 1);</span></span><br><span class="line">        dp[<span class="number">0</span>][<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= N; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= i; j++) &#123;</span><br><span class="line">                dp[i][j] = (dp[i-<span class="number">1</span>][j-<span class="number">1</span>] + dp[i-j][j]) % MOD;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">long</span> res = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= N; i++) &#123;</span><br><span class="line">            res = (res + dp[N][i]) % MOD;</span><br><span class="line">        &#125;</span><br><span class="line">        out.println(res);</span><br><span class="line">        out.flush();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span>[] read(BufferedReader br) <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="keyword">return</span> Arrays.stream(br.readLine().split(<span class="string">" "</span>)).mapToInt(Integer::parseInt).toArray();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其实也可以将状态方程改成将$i$划分为<strong>不超过</strong>$j$份的方案数量，但是不是特别好理解，还是定义为恰好比较好理解</p>
+<details>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String... args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">    PrintWriter out = <span class="keyword">new</span> PrintWriter(<span class="keyword">new</span> BufferedOutputStream(System.out));</span><br><span class="line">    BufferedReader br = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(System.in));</span><br><span class="line">    <span class="comment">// BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream("./input.txt")));</span></span><br><span class="line">    <span class="keyword">int</span> MOD = (<span class="keyword">int</span>)<span class="number">1e9</span>+<span class="number">7</span>;</span><br><span class="line">    <span class="keyword">int</span> N = Integer.valueOf(br.readLine());</span><br><span class="line">    <span class="comment">// 将i划分为不超过j份的的方案数量</span></span><br><span class="line">    <span class="keyword">long</span>[][] dp = <span class="keyword">new</span> <span class="keyword">long</span>[N+<span class="number">1</span>][N+<span class="number">1</span>];</span><br><span class="line">    <span class="comment">// 0划分为任意份都是1种分法</span></span><br><span class="line">    <span class="comment">// dp[i][j] += dp[i][j-1]</span></span><br><span class="line">    Arrays.fill(dp[<span class="number">0</span>], <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= N; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= N; j++) &#123;</span><br><span class="line">            <span class="comment">//dp[i-1][j-1]被包含在dp[i][j-1]中</span></span><br><span class="line">            <span class="comment">//所以这里我们只需要加上dp[i][j-1]就行了</span></span><br><span class="line">            dp[i][j] = dp[i][j-<span class="number">1</span>];</span><br><span class="line">            <span class="keyword">if</span> (i &gt;= j) &#123;</span><br><span class="line">                <span class="comment">//dp[i-j][j]没有被包含，需要加上</span></span><br><span class="line">                dp[i][j] = (dp[i][j] + dp[i-j][j]) % MOD;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    out.println(dp[N][N]);</span><br><span class="line">    out.flush();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+
+<h2 id="1050-鸣人的影分身"><a href="#1050-鸣人的影分身" class="headerlink" title="1050. 鸣人的影分身"></a><a href="https://www.acwing.com/problem/content/description/1052/" target="_blank" rel="noopener">1050. 鸣人的影分身</a></h2><p>在火影忍者的世界里，令敌人捉摸不透是非常关键的。</p>
+<p>我们的主角漩涡鸣人所拥有的一个招数——多重影分身之术——就是一个很好的例子。影分身是由鸣人身体的查克拉能量制造的，使用的查克拉越多，制造出的影分身越强。针对不同的作战情况，鸣人可以选择制造出各种强度的影分身，有的用来佯攻，有的用来发起致命一击。</p>
+<p>那么问题来了，假设鸣人的查克拉能量为$M$，他影分身的个数最多为$N$，那么制造影分身时有多少种不同的分配方法？</p>
+<p><strong>注意：</strong></p>
+<ol>
+<li>影分身可以分配$0$点能量。</li>
+<li>分配方案不考虑顺序，例如：$M=7,N=3$，那么$(2,2,3)$和$(2,3,2)$被视为同一种方案。</li>
+</ol>
+<p><strong>输入格式</strong></p>
+<p>第一行是测试数据的数目$t$。</p>
+<p>以下每行均包含二个整数$M$和$N$，以空格分开。</p>
+<p><strong>输出格式</strong></p>
+<p>对输入的每组数据$M$和$N$，用一行输出分配的方法数。</p>
+<p><strong>数据范围</strong></p>
+<ul>
+<li>$0≤t≤20$</li>
+<li>$1≤M,N≤10$</li>
+</ul>
+<p><strong>输入样例：</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span></span><br><span class="line"><span class="number">7</span> <span class="number">3</span></span><br></pre></td></tr></table></figure>
+<p><strong>输出样例：</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="number">8</span></span><br></pre></td></tr></table></figure>
+<h3 id="解法一-1"><a href="#解法一-1" class="headerlink" title="解法一"></a>解法一</h3><p>这题和上面一题很类似，不过多了一些限制，我们将其按前面的方式建模为：将$M$个苹果放到$N$个盘子，不考虑顺序，有多少种放法，允许有空盘。定义状态$dp[i][j]$为：将$i$个苹果放到<strong>不超过</strong>$j$个盘子中方案数</p>
+<ul>
+<li>初始状态：$dp[0][0\sim N]=1$</li>
+<li>转移方程：$dp[i][j]=dp[i][j-1] + dp[i-j][j]$，和上一题类似的转移方式，不多赘述，需要注意这里$j$可能会大于$i$</li>
+<li>出口：$dp[M][N]$</li>
+</ul>
+<p>代码实现如下：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String... args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        PrintWriter out = <span class="keyword">new</span> PrintWriter(<span class="keyword">new</span> BufferedOutputStream(System.out));</span><br><span class="line">        BufferedReader br = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(System.in));</span><br><span class="line">        <span class="comment">// BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream("./input.txt")));</span></span><br><span class="line">        <span class="keyword">int</span> T = Integer.valueOf(br.readLine());</span><br><span class="line">        <span class="keyword">while</span> (T-- &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">int</span>[] t = read(br);</span><br><span class="line">            out.println(solve(t[<span class="number">0</span>], t[<span class="number">1</span>]));</span><br><span class="line">        &#125;</span><br><span class="line">        out.flush();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">solve</span><span class="params">(<span class="keyword">int</span> m, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 前i个苹果，放到j个盘子，有多少种放法</span></span><br><span class="line">        <span class="keyword">int</span>[][] dp = <span class="keyword">new</span> <span class="keyword">int</span>[m+<span class="number">1</span>][n+<span class="number">1</span>];</span><br><span class="line">        Arrays.fill(dp[<span class="number">0</span>], <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= m; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= n; j++) &#123;</span><br><span class="line">                dp[i][j] = dp[i][j-<span class="number">1</span>];</span><br><span class="line">                <span class="keyword">if</span> (i &gt;= j) &#123;</span><br><span class="line">                    dp[i][j] += dp[i-j][j];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[m][n];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span>[] read(BufferedReader br) <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="keyword">return</span> Arrays.stream(br.readLine().split(<span class="string">" "</span>)).mapToInt(Integer::parseInt).toArray();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>那么这题能不能将状态设置为将$i$个苹果放到<strong>恰好</strong>$j$个盘子中的方案数呢？答案是不行的，原因是这题是允许空盘子的！如果有空盘子，定义状态为<strong>恰好</strong>，那么$dp[i][j]$其实就已经包含了$dp[i][j-1]，dp[i][j-2]…$（相当于直接将空盘子去掉然后再将苹果放到剩余的盘子中），所以定义出来的状态只能是不超过$j$个盘子，最后返回$dp[M][N]$</p>
+<h3 id="解法二-1"><a href="#解法二-1" class="headerlink" title="解法二"></a>解法二</h3><p>这题同样也可以用背包来做，设置状态$dp[i][j][k]$为：前$i$个物品，凑成体积<strong>恰好</strong>为$j$，物品数量不限制，物品体积为物品下标$[0,n]$，使用物品总数<strong>不超过</strong>$k$的方案数</p>
+<ul>
+<li>初始状态：$dp[0][0][k] = 0$</li>
+<li>状态转移：枚举所有物品，枚举体积，然后枚举使用的物品总个数$k$，再枚举当前物品$i$使用的个数<br>$$<br>dp[i][j][k] = dp[i-1][j-i][k-1] + dp[i-1][j-2i][k-2] + … + dp[i-1][j \mod i][k-j \div i]<br>$$</li>
+<li>出口：$dp[m][m][n]$，和上面一样，这里只能设置成不超过$k$，因为物品体积可以为$0$，所以使用$k$个物品会将使用$k-1$个物品的状态包含进去</li>
+<li>时间复杂度：$O(m^2n^2)$</li>
+</ul>
+<p>代码实现如下：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//完全背包解法，m+1种物品，体积为[0, m]凑齐体积m，且总使用的物品数量不操作n，求方案数量</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">solve</span><span class="params">(<span class="keyword">int</span> m, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//前i个数，体积恰好为j，总物品数量不超过k的方案数</span></span><br><span class="line">    <span class="keyword">int</span>[][][] dp = <span class="keyword">new</span> <span class="keyword">int</span>[m+<span class="number">1</span>][m+<span class="number">1</span>][n+<span class="number">1</span>];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        dp[<span class="number">0</span>][<span class="number">0</span>][i] = <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= m; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt;= m; j++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> k = <span class="number">0</span>; k &lt;= n; k++) &#123;</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> p = <span class="number">0</span>; p &lt;= k &amp;&amp; j-p*i &gt;= <span class="number">0</span>; p++) &#123;</span><br><span class="line">                    dp[i][j][k] += dp[i-<span class="number">1</span>][j-p*i][k-p];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dp[m][m][n];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+  </article>
+  <div class="toc-container">
+    
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#900-整数划分"><span class="toc-text">900. 整数划分</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#解法一"><span class="toc-text">解法一</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#解法二"><span class="toc-text">解法二</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1050-鸣人的影分身"><span class="toc-text">1050. 鸣人的影分身</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#解法一-1"><span class="toc-text">解法一</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#解法二-1"><span class="toc-text">解法二</span></a></li></ol></li></ol>
+  </div>
+
+
+  </div>
+</div>
+
+    <section id="comments" style="margin:10px;padding:10px;background:#fff;">
+      
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'imlgw';
+    
+    var disqus_url = 'http://imlgw.top/2021/04/09/dp-ji-shu-dp/';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <script id="dsq-count-scr" src="//imlgw.disqus.com/count.js" async></script>
+
+
+
+    </section>
+<div class="copyright">
+    <span>本作品采用</span>
+    <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">知识共享署名 4.0 国际许可协议</a>
+    <span>进行许可。 转载时请注明原文链接。</span>
+</div>
+
+
+  
+    <div class="post-nav">
+      <div class="post-nav-item post-nav-next">
+        
+          <span>〈 </span>
+          <a href="/2021/04/02/win10-mei-hua/" rel="next" title="Win10美化">
+          Win10美化
+          </a>
+        
+      </div>
+  
+      <div class="post-nav-item post-nav-prev">
+          
+      </div>
+    </div>
+  
+
+    </div>
+
+    
+  </div>
+  <footer class="footer text-center">
+    <div id="bottom-inner">
+        <a class="bottom-item" href="https://github.com/imlgw" target="_blank">GitHub</a> |
+        <a class="bottom-item" href="/links">友情链接</a> |
+        <a class="bottom-item" href="https://hexo.io" target="_blank">Powered by hexo</a> |
+        <a class="bottom-item" href="https://imlgw.avosapps.us/" target="_blank" rel="noopener">博客评论管理</a>
+    </div>
+    <div id="bottom-inner">
+        <a class="bottom-item" href="http://beian.miit.gov.cn/publish/query/indexFirst.action" target="_blank">鄂ICP备18011208号</a>
+    </div>
+</footer>
+
+  
+  
+  <script>
+  (function(window, document, undefined) {
+
+    var timer = null;
+
+    function returnTop() {
+      cancelAnimationFrame(timer);
+      timer = requestAnimationFrame(function fn() {
+        var oTop = document.body.scrollTop || document.documentElement.scrollTop;
+        if (oTop > 0) {
+          document.body.scrollTop = document.documentElement.scrollTop = oTop - 50;
+          timer = requestAnimationFrame(fn);
+        } else {
+          cancelAnimationFrame(timer);
+        }
+      });
+    }
+
+    var hearts = [];
+    window.requestAnimationFrame = (function() {
+      return window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.oRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        function(callback) {
+          setTimeout(callback, 1000 / 60);
+        }
+    })();
+    init();
+
+    function init() {
+      css(".heart{z-index:9999;width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);}.heart:after,.heart:before{content: '';width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: absolute;}.heart:after{top: -5px;}.heart:before{left: -5px;}");
+      attachEvent();
+      gameloop();
+      addMenuEvent();
+    }
+
+    function gameloop() {
+      for (var i = 0; i < hearts.length; i++) {
+        if (hearts[i].alpha <= 0) {
+          document.body.removeChild(hearts[i].el);
+          hearts.splice(i, 1);
+          continue;
+        }
+        hearts[i].y--;
+        hearts[i].scale += 0.004;
+        hearts[i].alpha -= 0.013;
+        hearts[i].el.style.cssText = "left:" + hearts[i].x + "px;top:" + hearts[i].y + "px;opacity:" + hearts[i].alpha + ";transform:scale(" + hearts[i].scale + "," + hearts[i].scale + ") rotate(45deg);background:" + hearts[i].color;
+      }
+      requestAnimationFrame(gameloop);
+    }
+
+    /**
+     * 给logo设置点击事件
+     * 
+     * - 回到顶部
+     * - 出现爱心
+     */
+    function attachEvent() {
+      var old = typeof window.onclick === "function" && window.onclick;
+      var logo = document.getElementById("logo");
+      if (logo) {
+        logo.onclick = function(event) {
+          returnTop();
+          old && old();
+          createHeart(event);
+        }
+      }
+      
+    }
+
+    function createHeart(event) {
+      var d = document.createElement("div");
+      d.className = "heart";
+      hearts.push({
+        el: d,
+        x: event.clientX - 5,
+        y: event.clientY - 5,
+        scale: 1,
+        alpha: 1,
+        color: randomColor()
+      });
+      document.body.appendChild(d);
+    }
+
+    function css(css) {
+      var style = document.createElement("style");
+      style.type = "text/css";
+      try {
+        style.appendChild(document.createTextNode(css));
+      } catch (ex) {
+        style.styleSheet.cssText = css;
+      }
+      document.getElementsByTagName('head')[0].appendChild(style);
+    }
+
+    function randomColor() {
+      // return "rgb(" + (~~(Math.random() * 255)) + "," + (~~(Math.random() * 255)) + "," + (~~(Math.random() * 255)) + ")";
+      return "#F44336";
+    }
+
+    function addMenuEvent() {
+      var menu = document.getElementById('menu-main-post');
+      if (menu) {
+        var toc = document.getElementById('toc');
+        if (toc) {
+          menu.onclick = function() {
+            if (toc) {
+              if (toc.style.display == 'block') {
+                toc.style.display = 'none';
+              } else {
+                toc.style.display = 'block';
+              }
+            }
+          };
+        } else {
+          menu.style.display = 'none';
+        }
+      }
+    }
+
+  })(window, document);
+</script>
+  
+  
+
+
+
+  
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script src="https://cdn.jsdelivr.net/npm/live2d-widget@3.x/lib/L2Dwidget.min.js"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"https://cdn.jsdelivr.net/npm/live2d-widget-model-hijiki@1.0.5/assets/hijiki.model.json"},"display":{"superSample":2,"width":160,"height":320,"position":"right","hOffset":0,"vOffset":-70},"mobile":{"show":false,"scale":0.2},"log":false});</script></body>
+</html>
