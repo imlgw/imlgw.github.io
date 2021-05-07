@@ -11,7 +11,7 @@
   <script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
   
   
-    <meta name="keywords" content="Redis," />
+    <meta name="keywords" content="LeetCode,二叉搜索树," />
   
 
   
@@ -21,7 +21,7 @@
   
   <link rel="icon" type="image/x-icon" href="/img/cat.ico">
   
-  <title>Redis思维导图 [ Tadow ]</title>
+  <title>LeetCode363.矩形区域不超过K的最大数值和 [ Tadow ]</title>
   
     <!-- stylesheets list from config.yml -->
     
@@ -168,19 +168,19 @@
   <article class="post" id="post">
     <header class="post-header text-center">
       <h1 class="title">
-        Redis思维导图
+        LeetCode363.矩形区域不超过K的最大数值和
       </h1>
       <span>
         
-        <time class="time" datetime="2019-11-15T16:00:00.000Z">
-        2019-11-16
+        <time class="time" datetime="2021-04-30T11:36:58.130Z">
+        2021-04-30
       </time>
         
       </span>
       <span class="slash">/</span>
       <span class="post-meta">
       <span class="post-tags">
-        <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Redis/" rel="tag">Redis</a></li></ul>
+        <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/" rel="tag">二叉搜索树</a></li></ul>
       </span>
     </span>
       <span class="slash">/</span>
@@ -188,15 +188,36 @@
       <span id="busuanzi_value_page_pv"></span> 点击
     </span>
       <span class="slash">/</span>
-      <span class="read">阅读耗时 1 分钟</span>
+      <span class="read">阅读耗时 6 分钟</span>
     </header>
 
     <div class="post-content">
-      <iframe id="embed_dom" name="embed_dom" frameborder="0" style="display:block;width:2000px; height:5000px;" src="https://www.processon.com/embed/mind/5dda2b45e4b0bbcb8a6ae8bc"></iframe>
+      <h2 id="363-矩形区域不超过-K-的最大数值和"><a href="#363-矩形区域不超过-K-的最大数值和" class="headerlink" title="363. 矩形区域不超过 K 的最大数值和"></a><a href="https://leetcode-cn.com/problems/max-sum-of-rectangle-no-larger-than-k/" target="_blank" rel="noopener">363. 矩形区域不超过 K 的最大数值和</a></h2><p>Difficulty: <strong>困难</strong></p>
+<p>给你一个 <code>m x n</code> 的矩阵 <code>matrix</code> 和一个整数 <code>k</code> ，找出并返回矩阵内部矩形区域的不超过 <code>k</code> 的最大数值和。</p>
+<p>题目数据保证总会存在一个数值和不超过 <code>k</code> 的矩形区域。</p>
+<p><strong>示例 1：</strong></p>
+<p><img src="https://i.loli.net/2021/04/30/Id4qFm7B1ongP8T.png"></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">输入：matrix = [[<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>],[<span class="number">0</span>,<span class="number">-2</span>,<span class="number">3</span>]], k = <span class="number">2</span></span><br><span class="line">输出：<span class="number">2</span></span><br><span class="line">解释：蓝色边框圈出来的矩形区域 [[<span class="number">0</span>, <span class="number">1</span>], [<span class="number">-2</span>, <span class="number">3</span>]] 的数值和是 <span class="number">2</span>，且 <span class="number">2</span> 是不超过 k 的最大数字（k = <span class="number">2</span>）。</span><br></pre></td></tr></table></figure>
 
-<h2 id="原始Xmind文件"><a href="#原始Xmind文件" class="headerlink" title="原始Xmind文件"></a>原始Xmind文件</h2><p><a href="http://static.imlgw.top/Redis.xmind" target="_blank" rel="noopener">Redis思维导图</a></p>
-<p><img src="https://imlgwpicture.oss-cn-qingdao.aliyuncs.com/blogImage/Redis.png" alt="Redis"></p>
+<p><strong>示例 2：</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">输入：matrix = [[<span class="number">2</span>,<span class="number">2</span>,<span class="number">-1</span>]], k = <span class="number">3</span></span><br><span class="line">输出：<span class="number">3</span></span><br></pre></td></tr></table></figure>
 
+<p><strong>提示：</strong></p>
+<ul>
+<li>  $m = \text{matrix.length}$</li>
+<li>  $n = \text{matrix[i].length}$</li>
+<li>  $1 \leq m, n \leq 100$</li>
+<li>  $-100 \leq \text{matrix[i][j]} \leq 100$</li>
+<li>  $-10^5 \leq k \leq 10^5$</li>
+</ul>
+<p><strong>进阶</strong>：如果行数远大于列数，该如何设计解决方案？</p>
+<h3 id="解法一"><a href="#解法一" class="headerlink" title="解法一"></a>解法一</h3><p>这个题给了我很大的启发，对枚举方法又多了点认识，这题常规暴力的做法是直接枚举所有的矩形，然后判断，结合二维前缀和，时间复杂度$O(m^2n^2)$，已经在T的边缘了，所以我们要优化一下算法。</p>
+<p>这里其实就涉及到一个<strong>优化枚举</strong>的一般思路，前面做过的<a href="https://imlgw.top/2019/09/01/leetcode-dong-tai-gui-hua/#53-%E6%9C%80%E5%A4%A7%E5%AD%90%E5%BA%8F%E5%92%8C">最大子序和</a>就可以用类似的枚举优化的思路（这题有更简单的dp做法），常规的暴力枚举可以借助前缀和枚举所有的子区间的和，求一个最大值，但是这样时间复杂度将会是$O(n^2)$，那么我们就可以考虑优化枚举方法，我们最终的目标是求最大的$s_j-s_i$，所以我们可以考虑将$j$固定，然后借助一些数据结构，比如小根堆，搜索树（其实一个变量就行了…）直接求出$j$固定时，前面最小的$s_i$，如此只需要遍历一遍就能得到最大的子序和。</p>
+<p>回到这个题，上面最大子序和是一维的，这里是二维的，我们可以将其抽象为一维的，我们枚举所有矩形其实就是在枚举矩形的四条边$l,r,u,d$，但是时间复杂度过高，那么我们可以采用前面的优化思路，将三条边$r,u,d$固定</p>
+<p><img src="https://static.imlgw.top/blog/20210505/7nujFBoFs95s.png" alt="mark"></p>
+<p>我们要求的矩形面积是$s[r]-s[l]$，结合这题的要求就是$s[r]-s[l] \leq k$，所以我们要求的就是$r$前面满足$s[l] \geq s[r]-k$的最小$s[l]$，显然只要我们将前面的所有元素$s[i]$有序的存储下来，就可以使用二分来查找，这里我们就不必再造轮子了，直接借助<code>TreeSet</code>，底层结构是红黑树，查询复杂度$O(\log{n})$，整体复杂度$O(m^2n\log{n})$。进阶的做法多判断一下就行了，对复杂度没有本质的影响，不多写了。</p>
+<p>代码实现如下：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maxSumSubmatrix</span><span class="params">(<span class="keyword">int</span>[][] matrix, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> m = matrix.length, n = matrix[<span class="number">0</span>].length;</span><br><span class="line">        <span class="keyword">int</span>[][] s = <span class="keyword">new</span> <span class="keyword">int</span>[m+<span class="number">1</span>][n+<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= m; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= n; j++) &#123;</span><br><span class="line">                s[i][j] = matrix[i-<span class="number">1</span>][j-<span class="number">1</span>] + s[i-<span class="number">1</span>][j] + s[i][j-<span class="number">1</span>] -s[i-<span class="number">1</span>][j-<span class="number">1</span>];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        TreeSet&lt;Integer&gt; set = <span class="keyword">new</span> TreeSet&lt;&gt;();</span><br><span class="line">        <span class="keyword">int</span> res = -<span class="number">0x3f3f3f3f</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> u = <span class="number">1</span>; u &lt;= m; u++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> d = u; d &lt;= m; d++) &#123;</span><br><span class="line">                set.clear();</span><br><span class="line">                set.add(<span class="number">0</span>);</span><br><span class="line">                <span class="comment">//0 lv rv, rv-lv &lt;= k  lv &gt;= rv-k</span></span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> r = <span class="number">1</span>; r &lt;= n; r++) &#123;</span><br><span class="line">                    <span class="keyword">int</span> rv = s[d][r] - s[u-<span class="number">1</span>][r];</span><br><span class="line">                    Integer lv = set.ceiling(rv-k);</span><br><span class="line">                    set.add(rv);</span><br><span class="line">                    <span class="keyword">if</span> (lv == <span class="keyword">null</span>) <span class="keyword">continue</span>;</span><br><span class="line">                    res = Math.max(res, rv-lv);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
     </div>
 
   </article>
@@ -204,7 +225,7 @@
     
   <div id="toc" class="toc-article">
     <strong class="toc-title">目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#原始Xmind文件"><span class="toc-text">原始Xmind文件</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#363-矩形区域不超过-K-的最大数值和"><span class="toc-text">363. 矩形区域不超过 K 的最大数值和</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#解法一"><span class="toc-text">解法一</span></a></li></ol></li></ol>
   </div>
 
 
@@ -222,7 +243,7 @@
   <script>
     var disqus_shortname = 'imlgw';
     
-    var disqus_url = 'http://imlgw.top/2019/11/16/redis-si-wei-dao-tu/';
+    var disqus_url = 'http://imlgw.top/2021/04/30/lc363-ju-xing-qu-yu-bu-chao-guo-k-de-zui-da-shu-zhi-he/';
     
     (function(){
       var dsq = document.createElement('script');
@@ -250,19 +271,14 @@
       <div class="post-nav-item post-nav-next">
         
           <span>〈 </span>
-          <a href="/2019/11/16/lrucache/" rel="next" title="LRU队列实现">
-          LRU队列实现
+          <a href="/2021/04/16/lc87.rao-luan-zi-fu-chuan/" rel="next" title="LeetCode87.扰乱字符串">
+          LeetCode87.扰乱字符串
           </a>
         
       </div>
   
       <div class="post-nav-item post-nav-prev">
           
-          <a href="/2019/11/25/map-ying-she/" rel="prev" title="Map映射结构">
-            Map映射结构
-          </a>
-          <span>〉</span>
-        
       </div>
     </div>
   
