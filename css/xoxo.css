@@ -1077,8 +1077,8 @@ details {
     font-size: 16px;
     overflow: auto;
 }
-details>summary:before {
+/*details>summary:before {
     left: .5rem;
     font-size: 1rem;
     content: "▶";
-}
+}*/
